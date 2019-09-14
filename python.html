@@ -1,0 +1,630 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title> Memento </title>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+<header>
+  <div class="heroImage">
+    <div class="heroTexte">
+      <h2> Python </h2>
+    </div>
+  </div>
+</header>
+
+<div id="bandeau">
+  <div id="titre"> <h1> Memento </h1> </div>
+  <nav>
+    <div class="element"> <a href="index.html">GENERALITES</a> </div>
+    <div class="element"> <a href="html.html">HTML</a> </div>
+    <div class="element"> <a href="css.html">CSS</a> </div>
+    <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
+    <div class="element"> <a href="python.html">PYTHON</a> </div>
+    <div class="element"> <a href="java.html">JAVA</a> </div>
+  </nav>
+</div>
+
+<section id="principal">
+
+<div class="bloc">
+
+  <div class="gauche">
+    <p>Python est un langage de programmation interprété dont la philosophie repose sur la simplicité du code et l'implémentation de bonnes pratiques. Rien n'est fait pour empêcher le programmeur de mener une action, même si elle semble inappropriée.</p>
+  </div>
+
+  <div class="droite">
+    <img src="python.jpg" width="80" height="80">
+  </div>
+
+</div>
+
+<hr>
+
+<p style="font-weight:bold"> Table des matières :
+  <ul>
+    <li> <a href="#">Hello world</a> </li>
+    <li> <a href="#">Généralités</a> </li>
+    <li> <a href="#">Importer un package</a> </li>
+    <li> <a href="#">Les variables</a> </li>
+    <li> <a href="#">Manipuler des chaînes de caractères</a> </li>
+    <li> <a href="#">Saisie d'une valeur par l'utilisateur</a> </li>
+    <li> <a href="#">Branchement conditionnel</a> </li>
+    <li> <a href="#">Les boucles</a> </li>
+    <li> <a href="#">Les tableaux</a> </li>
+    <li> <a href="#">Les listes</a> </li>
+    <li> <a href="#">Les dictionnaires</a> </li>
+    <li> <a href="#">Les fonctions</a> </li>
+    <li> <a href="#">Le package random</a> </li>
+    <li> <a href="#">Le package JSON</a> </li>
+  </ul>
+</p>
+
+<hr>
+
+<!-- ===== HELLO WORLD ===== -->
+
+<h3>Hello world</h3>
+
+<p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, Python n'utilise pas de <strong>;</strong> à la fin de chaque instruction. Il le remplace par un retour à la ligne. Notons que les accolades symbolisant un bloc sont remplacées par une indentation.</p>
+<pre>print("Hello World");</pre>
+
+<hr>
+
+<!-- ===== GENERALITES ===== -->
+
+<h3> Généralités </h3>
+
+  <p>Les commentaires sont indiqués à l'aide de <strong>#</strong> ou <strong>/*  */</strong>.</p>
+
+  <p>En Python, les blocs ne sont pas encadrés par des <strong>{}</strong> comme dans la plupart des langages, ce sont les indentations qui indiquent à l'interpréteur le début et la fin d'un bloc. En conséquence, il est important de respecter toujours la même procédure d'indentation. On utilisera 4 espaces plutôt qu'une tabulation pour exprimer une indentation, ceci afin d'assurer une bonne portabilité du code.</p>
+
+  <p>En Python, les mots clés à ne pas utiliser comme nom de variable ou de fonction sont les suivants:<br>
+    <strong>and, or, del, from, none, as, global, nonlocal, try, assert, else, if, elif, not, while, for, except, import, with, class, true, false, in, pass, yield, continue, break, finally, is, raise, def, lambda, return</strong>.</p>
+
+<hr>
+
+<!-- ===== IMPORTER UN PACKAGE ===== -->
+
+<h3>Importer un package</h3>
+
+<pre>import nomPackage as np</pre>
+
+<p>Chaque fonction du package sera ensuite appelée avec le préfixe <em>np</em>.</p>
+<pre>np.maFonction(5)</pre>
+
+<p>On peut également importer un package sans le renommer à l'aide d'un préfixe, lorsqu'il n'y a aucun risque de confusion entre les fonctions.</p>
+<pre>import nomPackage</pre>
+
+<p>Dans ce cas, il faudra appeler chaque fonction en utilisant <em>nomPackage</em> comme préfixe.</p>
+<pre>nomPackage.maFonction(5)</pre>
+
+<p>Pour le package math, on préfère utiliser l'instruction suivante pour éviter d'ajouter un préfixe à chaque calcul :</p>
+<pre>from math import *</pre>
+
+<hr>
+
+<!-- ===== LES VARIABLES ===== -->
+
+<h3>Les variables</h3>
+
+  <h4> Types </h4>
+
+  <p>Python est un langage à typage dynamique, i.e. qu'il identifie lui-même les types de variables et autorise les changements de type. La déclaration des variables n'est donc pas nécessaire. L'instruction <strong>int(chaine)</strong> permet de transformer un <em>String</em> en nombre <em>si cela est possible</em> alors que l'instruction <strong>str(nombre)</strong> permet de transformer un nombre en <em>String</em>.</p>
+  <p>Par ailleurs, Python est un langage fortement typé, i.e. qu'il ne convertit pas automatiquement les types de variables, mais requiert une instruction spécifique. Ainsi, la concaténation d'un <em>String</em> avec un entier lève une exception et ne transforme pas l'entier en <em>String</em>.</p>
+  <p>Pour tester le type d'une variable, on utilise l'instruction <strong>type(maVariable)</strong>. Cette instruction lève une exception si maVariable n'existe pas. En revanche, elle renvoie le type si maVariable a été déclarée mais reste vide.</p>
+
+  <table>
+    <tr><th>Types</th><th>Mots-clés</th></tr>
+    <tr><td>entier</td><td>int</td></tr>
+    <tr><td>nombre décimal</td><td>float</td></tr>
+    <tr><td>nombre complexe</td><td>complex</td></tr>
+    <tr><td>chaîne de caractères</td><td>str</td></tr>
+    <tr><td>booléen</td><td>bool</td></tr>
+  </table>
+
+  <p>Les booléens prennent les valeurs <strong>True</strong> et <strong>False</strong>.</p>
+  <p>Il n'existe pas de type StringBuffer comme en Java pour représenter les chaînes de caractères modifiables.</p>
+
+  <h4>Particularité de Python</h4>
+
+  <p>Python permet de permuter simplement les valeurs de deux variables sans passer par une troisième.</p>
+  <pre>a = 2
+b = 5
+a, b = b, a</pre>
+
+  <h4> Les principales opérations </h4>
+
+  <table>
+    <tr><th>Opérations</th><th>Symboles</th></tr>
+    <tr><td>addition</td><td>+</td></tr>
+    <tr><td>soustraction</td><td>-</td></tr>
+    <tr><td>multiplication</td><td>*</td></tr>
+    <tr><td>division</td><td>/</td></tr>
+    <tr><td>modulo</td><td>%</td></tr>
+    <tr><td>partie entière d'une division</td><td>//</td></tr>
+    <tr><td>concaténation</td><td>+</td></tr>
+    <tr><td>affectation</td><td>=</td></tr>
+    <tr><td>égalité</td><td>==</td></tr>
+    <tr><td>incrémentation</td><td>++</td></tr>
+    <tr><td>décrémentation</td><td>--</td></tr>
+    <tr><td>ET logique</td><td>and</td></tr>
+    <tr><td>OU logique</td><td>or</td></tr>
+    <tr><td>NON logique</td><td>! ou  not</td></tr>
+  </table>
+
+  <h4>Les opérateurs de comparaison</h4>
+
+  <table>
+    <tr><th>Signification</th><th>Opérateurs</th></tr>
+    <tr><td>égalité</td><td>==</td></tr>
+    <tr><td>égalité (valeur et type)</td><td>===</td></tr>
+    <tr><td>différent</td><td>!=</td></tr>
+    <tr><td>inférieur</td><td><</td></tr>
+    <tr><td>inférieur ou égal</td><td><=</td></tr>
+    <tr><td>supérieur</td><td>></td></tr>
+    <tr><td>supérieur ou égal</td><td>>=</td></tr>
+  </table>
+
+  <h4>Les constantes</h4>
+
+  <p>Les constantes n'existent pas en Python. On utilise généralement des variables globales qu'on ne modifie pas.</p>
+
+<hr>
+
+<!-- ===== MANIPULER DES CHAINES DE CARACTERES ===== -->
+
+<h3>Manipuler des chaînes de caractères</h3>
+
+  <p> Pour échapper une apostrophe ou un guillemet, on utilise le signe <strong>\</strong>.<p>
+
+  <table>
+    <tr><th>Propriétés</th><th>Codes</th></tr>
+    <tr><td>taille</td><td><pre>len(chaine)</pre></td></tr>
+    <tr><td>élément d'indice i</td><td><pre>chaine[i]</pre></td></tr>
+    <tr><td>dernier élément</td><td><pre>chaine[-1]</pre></td></tr>
+    <tr><td>convertir en minuscules</td><td><pre>chaine.lower()</pre></td></tr>
+    <tr><td>convertir en majuscules</td><td><pre>chaine.upper()</pre></td></tr>
+    <tr><td>mettre en majuscule le 1er caractère d'une chaîne</td><td><pre>chaine.capitalize()</pre></td></tr>
+    <tr><td>enlever les espaces au début et à la fin d'une chaine</td><td><pre>chaine.strip()</pre></td></tr>
+    <tr><td>extraire une sous-chaîne, de longueur 5 caractères après le caractère d'indice 3</td><td><pre>chaine[3:5]</pre></td></tr>
+    <tr><td>comparaison</td><td>===</td></tr>
+    <tr><td>concaténation</td><td>+</td></tr>
+    <tr><td>retour à la ligne</td><td>\n</td></tr>
+    <tr><td>tabulation</td><td>\t</td></tr>
+    <tr><td>transformer une chaîne en liste élément par élément</td><td><pre>liste = chaine.split()</pre></td></tr>
+    <tr><td>transformer une chaîne avec le séparateur - en liste</td><td><pre>liste = chaine.split("-");</pre></td></tr>
+    <tr><td>transformer une liste en chaîne contenant le séparateur - </td><td><pre>chaine = "-".join(maListe)</pre></td></tr>
+    <tr><td>recherche de "non" dans une chaine</td><td><pre>chaine.indexOf("non");</pre></td></tr>
+    <tr><td>retour à la ligne</td><td>\n</td></tr>
+  </table>
+
+  <p>L'indice du 1er caractère d'une chaîne est 0. Notons que l'instruction <strong>indexOf</strong> renvoie -1  si le caractère recherché ne se trouve pas dans la chaîne.</p>
+  <p>L'utilisation d'un indice qui n'existe pas dans la chaîne lève une exception de type <em>IndexError</em>.</p>
+  <p>Il n'est pas possible de modifier un caractère d'une chaîne de la façon suivante <em>chaine[4] = "Antoine"</em>. Il s'agit en fait d'une protection des chaînes qui pourront être modifiées par instruction explicite du développeur.</p>
+
+  <h4>Parcourir une chaîne de caractères élément par élément</h4>
+
+  <pre>for(let i=0; i&ltchaine.length; i++){
+  chaine[i];
+}</pre>
+
+  <h4>Template literal</h4>
+
+  <p>Python permet d'inclure des expressions dans une chaîne de caractères appelées <em>template literal</em>. Pour cela, il faut définir les emplacement avec <strong>{}</strong> et utiliser la méthode <strong>format()</strong>.</p>
+  <pre>{} est le fils de {}.format("Antoine", "Albert")</pre>
+
+<hr>
+
+<!-- ===== SAISIE D'UNE VALEUR PAR L'UTILISATEUR ===== -->
+
+<h3>Saisie d'une valeur par l'utilisateur</h3>
+
+  <pre>nom = input("Quel est votre nom ?");
+print("Bonjour ",nom);</pre>
+
+<p></p>
+
+  <fieldset><legend><img src="target.png" width="40" height="40"> </legend>
+    <p><em>Attention</em>, la valeur saisie est systématiquement de type <em>String</em>. Il convient donc de la transformer en nombre le cas échéant.</p>
+  </fieldset>
+
+  <hr>
+
+  <!-- ===== BRANCHEMENT CONDITIONNEL ===== -->
+
+  <h3>Branchement conditionnel</h3>
+
+    <h4>La condition if</h4>
+
+    <pre>if condition :
+  instructions
+else :
+  instructions</pre>
+
+    <h4>Particularité de Python</h4>
+
+    <p>L'instruction <strong>elif</strong> est la contraction de l'instruction <strong>else if</strong>.</p>
+
+    <pre>if condition :
+  instructions
+elif condition :
+  instructions
+else :
+  instructions</pre>
+
+    <h4>L'instruction switch</h4>
+
+    <pre>switch(maVariable){
+  case valeur1:
+    instruction;
+    break;
+  case valeur2:
+    instruction;
+    break;
+  case valeur3:
+    instruction;
+    break;
+  default:
+    instruction;
+}</pre>
+
+  <hr>
+
+  <!-- ===== LES BOUCLES ===== -->
+
+  <h3> Les boucles </h3>
+
+    <h4>La boucle while</h4>
+
+    <pre>while condition :
+  instructions;</pre>
+
+    <h4>La boucle for</h4>
+
+    <pre>for(let i=0; i&lt5; i++){
+  instructions;
+}</pre>
+
+    <pre>for valeur in chaine :
+  instructions</pre>
+
+    <h4>Particularité de Python</h4>
+
+    <pre>for lettre in chaine :
+  if lettre in "aeiouy" :
+    instructions</pre>
+
+      <p>Le mot clé <strong>break</strong> permet d'interrompre une boucle et d'exécuter le code qui suit la boucle. Le mot clé <strong>continue</strong> permet de continuer une boucle en repartant du début du bloc sans exécuter ce qui suit <strong>continue</strong> dans le bloc.</p>
+
+<hr>
+
+<!-- ===== LES TABLEAUX ===== -->
+
+<h3>Les tableaux</h3>
+
+  <p>Les tableaux contiennent des éléments dont le nombre de bouge pas. On peut toutefois changer ces éléments.</p>
+
+  <p>On peut créer un tableau de la manière suivante :</p>
+  <pre>tab = (element1, element2)</pre>
+
+  <p>L'indice du 1er élément d'un tableau est 0.</p>
+
+  <h4>Propriétés d'un tableau</h4>
+
+  <table>
+    <tr><th>Propriétés</th><th>Codes</th></tr>
+    <tr><td>taille</td><td><pre>len(tab)</pre></td></tr>
+    <tr><td>élément d'indice i</td><td><pre>tab[i]</pre></td></tr>
+    <tr><td>dernier élément d'une liste</td><td><pre>tab[-1]</pre></td></tr>
+    <tr><td>modifier l'élément d'indice i</td><td><pre>tab[i] = nouvelleValeur</pre></td></tr>
+    <tr><td>indice d'un élément</td><td><pre>tab.index(element)</pre></td></tr>
+  </table>
+
+<hr>
+
+<!-- ===== LES LISTES ===== -->
+
+<h3>Les listes</h3>
+
+  <p>Les listes contiennent des éléments dont le nombre peut varier.</p>
+  <p>On peut créer une liste de la manière suivante :</p>
+  <pre>liste = [element1, element2, element3];</pre>
+
+  <p>L'indice du 1er élément d'une liste est 0.</p>
+
+  <p>Pour créer une liste vide</p>
+  <pre>maListe = list()</pre>
+
+  <h4>Propriétés d'une liste</h4>
+
+  <table>
+    <tr><th>Propriétés</th><th>Codes</th></tr>
+    <tr><td>taille</td><td><pre>len(maListe)</pre></td></tr>
+    <tr><td>élément d'indice i</td><td><pre>maListe[i]</pre></td></tr>
+    <tr><td>dernier élément d'une liste</td><td><pre>maListe[-1]</pre></td></tr>
+    <tr><td>modifier l'élément d'indice i</td><td><pre>maListe[i] = nouvelleValeur</pre></td></tr>
+    <tr><td>indice d'un élément</td><td><pre>maListe.index(element)</pre></td></tr>
+    <tr><td>ajout d'un élément à la fin d'une liste</td><td><pre>maListe.append(element)</pre></td></tr>
+    <tr><td>ajout d'un élément au début d'une liste'</td><td><pre>maListe.unshift(element)</pre></td></tr>
+    <tr><td>ajout d'un élément à l'indice i</td><td><pre>maListe.insert(i, element)</pre></td></tr>
+    <tr><td>concaténation de maListe1 et maListe2 enregistrée dans maListe1</td><td><pre>maListe1.extend(maListe2)</pre></td></tr>
+    <tr><td>suppression du dernier élément et renvoi de sa valeur</td><td><pre>maListe.pop()</pre></td></tr>
+    <tr><td>suppression de l'élément d'indice i</td><td><pre>del maListe[i]</pre></td></tr>
+    <tr><td>suppression d'un élément défini par sa valeur, seul le 1er element de cette valeur est supprimé</td><td><pre>maListe.remove(element)</pre></td></tr>
+    <tr><td>tri d'une liste d'entiers de façon ascendante (cette fonctionnalité modifie la liste d'origine)</td><td><pre>maListe.sort()</pre></td></tr>
+    <tr><td>tri d'une liste d'entiers de façon descendante (cette fonctionnalité modifie la liste d'origine)</td><td><pre>maListe.sort(reverse=True)</pre></td></tr>
+  </table>
+
+  <p>Une liste vide a pour taille 0. </p>
+
+  <h4>Parcourir une liste</h4>
+
+  <p>Si on souhaite afficher une liste sans mise en forme particulière, l'utilisation de <strong>print</strong> est suffisante.</p>
+  <pre>print(maListe)</pre>
+
+  <p>On peut également afficher les éléments de maListe les uns à la suite des autres. A noter que <strong>print</strong> entraîne systématiquement un retour à la ligne, contrairement à certains autres langages où il faut rajouter quelques lettres pour aller à la ligne.</p>
+
+  <pre>for i in range(0, len(maListe)):
+    print(maListe[i])</pre>
+
+  <p>mais il est inutile de demander à l'interpréteur d'évaluer systématiquement <strong>liste.length</strong>. On préfèrera donc utiliser l'instruction suivante :</p>
+  <pre>for(let i=0, c=liste.length; i&ltc; i++){
+  alert(liste[i]);
+}</pre>
+
+  <p>On peut également utiliser l'instruction <strong>forEach</strong> comme dans d'autres langages. Dans ce cas, on utilise une fonction anonyme.</p>
+
+  <pre>liste.forEach(function(value){
+  alert(value);
+);</pre>
+
+  <pre>liste.forEach(value => {alert(value);});</pre>
+
+  <h4>Particularités de Python</h4>
+
+  <p>Python offre deux autres possibilités pour afficher les éléments d'une liste :</p>
+  <pre>for value in maListe:
+  print(value)</pre>
+  <pre>for value in enumerate(maListe):
+  print(value)</pre>
+  <pre>for i, value in enumerate(maListe):
+  print("indice {}, valeur {}".format(i,value))</pre>
+
+  <p>En Python on peut stocker des éléments de différents types dans une liste.</p>
+  <pre>maListe = ["Antoine", 12, false];</pre>
+
+  <p>En Python, l'appel à un indice ne figurant pas dans la liste conduit à une exception de la forme <em>IndexError: list index out of range</em>.</p>
+
+  <p>Les compréhensions de liste permettent de modifier les éléments d'une liste selon une structure très particulière. Par exemple pour mettre les éléments au carré, on procède ainsi :</p>
+  <pre>nouvelleListe = [elt**2 for elt in maListe]</pre>
+
+  <p>Les compréhensions de liste permettent également de filtrer les éléments d'une liste suivant une condition particulière. Par exemple pour rechercher les éléments pairs, on procède ainsi :</p>
+  <pre>nouvelleListe = [elt for elt in maListe if elt%2==0]</pre>
+
+<hr>
+
+<!-- ===== LES DICTIONNAIRES ===== -->
+
+<h3>Les dictionnaires</h3>
+
+  <p>Les dictionnaires sont constitués d'un ensemble de clés-valeurs, dans lequel il n'y a aucun ordre. Ils se construisent avec des accolades à la place des crochets et des virgules entre les éléments.</p>
+  <pre>dico ={
+  "nom" : "Antoine",
+  "prenom" : "Hervé";
+}</pre>
+
+  <p>Pour créer un dictionnaire vide :</p>
+  <pre>dico = dict()</pre>
+
+  <p>Pour accéder à un élément du tableau, il ne faut plus appeler son indice qui n'existe pas mais appeler la clé de la façon suivante :</p>
+
+  <pre>dico.nom</pre>
+  <p>On remarque donc qu'un tableau associatif n'est autre qu'un objet dans lequel les clés sont des propriétés qui possèdent des valeurs.</p>
+
+  <p>Dans certains cas, on préfèrera appeler l'élément du tableau de la manière suivante :</p>
+  <pre>dico["nom"]</pre>
+
+  <p>Pour ajouter un élément à la fin d'un tableau associatif, il suffit de créer cet élément :</p>
+  <pre>tabAsso["lieuNaissance"] = "Lausanne";</pre>
+
+  <p>ou encore</p>
+  <pre>tabAsso.lieuNaissance = "Lausanne";</pre>
+
+  <h4>Parcourir un dictionnaire</h4>
+
+  <pre>for cle in dico.keys():
+  print(cle)
+
+for valeur in dico.values():
+  print(valeur)
+
+for cle, valeur in dico.items():
+  print("Clé {} -> Valeur {}".format(cle, valeur))</pre>
+
+  <h4>Propriétés d'un dictionnaire</h4>
+
+  <table>
+    <tr><th>Propriétés</th><th>Codes</th></tr>
+    <tr><td>taille</td><td><pre>len(liste)</pre></td></tr>
+    <tr><td>élément d'indice i</td><td><pre>liste[i]</pre></td></tr>
+    <tr><td>dernier élément d'une liste</td><td><pre>liste[-1]</pre></td></tr>
+    <tr><td>modifier l'élément de clé key</td><td><pre>dico["key"] = "value"</pre></td></tr>
+    <tr><td>indice d'un élément</td><td><pre>liste.index(element)</pre></td></tr>
+    <tr><td>ajout d'un élément</td><td><pre>dico["key"] = "value"</pre></td></tr>
+    <tr><td>suppression d'un élément défini par sa clé sans renvoi de sa valeur</td><td><pre>del dico["key"]</pre></td></tr>
+    <tr><td>suppression d'un élément défini par sa clé et renvoi de sa valeur</td><td><pre>dico.pop("key")</pre></td></tr>
+  </table>
+
+  <hr>
+
+  <!-- ===== LES FONCTIONS ===== -->
+
+  <h3> Les fonctions </h3>
+
+  <p>La déclaration d'une fonction se réalise de la manière suivante :</p>
+  <pre>def nomFonction(parametre) :
+  instructions
+  return valeur</pre>
+
+  <fieldset><legend><img src="target.png" width="40" height="40"> </legend>
+    <p><em>Attention</em>, en Python le type de retour de la fonction et le type des arguments ne sont pas spécifiés lors de la déclaration. Il est donc impossible de surcharger une fonction en Python.</p>
+  </fieldset>
+
+  <p>L'appel de la fonction se fait de la façon suivante :</p>
+  <pre>int valeur = nomFonction(12)</pre>
+
+  <p>Lorsqu'il n'y a pas de valeur de retour, on parle de procédure :</p>
+  <pre>def nomProcedure(parametre) :
+  instructions</pre>
+
+  <p>L'appel de la procédure se fait de la façon suivante :</p>
+  <pre>nomProcedure(12);</pre>
+
+  <p>Pour une fonction comme pour une procédure, on peut définir une valeur de paramètre par défaut si celle-ci n'est pas spécifiée, de la manière suivante :</p>
+  <pre>def nomFonction(parametre1, parametre2=43) :
+  instructions
+  return valeur</pre>
+
+  <p>Bien que la valeur 43 soit attribuée par défaut au parametre2, celui-ci peut prendre n'importe quelle valeur qui lui soit attribuée.</p>
+
+  <p>En Python, pour créer des fonctions attendant un nombre inconnu de paramètres, on utilise la syntaxe</p> <pre>def maFonction(*monTableau)</pre> <p>où <em>monTableau</em> est un tableau de parametres.</p>
+    <h4>Documenter une fonction</h4>
+
+    <p>En Python, l'ajout d'une <em>docstring</em> se fait sous le nom de la fonction, avec une indentation et 3 guillements. Elle peut s'étendre sur plusieurs lignes.</p>
+    <pre>def maFonction(parametre) :
+  """documentation
+  de maFonction"""
+  instructions
+  return</pre>
+
+    <p>On appelle la documentation en utilisant l'instruction <strong>help(maFonction)</strong></p>
+
+    <h4>Fonction anonyme</h4>
+
+    <p>En Python, la fonction anonyme est appelée fonction <em>lambda</em>, mais le principe reste identique. On remplace dans ce cas le mot-clé <strong>def</strong> par <strong>lambda</strong> et on ne spécifie aucun nom pour la fonction créée.</p>
+    <pre>int maVariable = lambda x :
+  2*x
+
+print(maVariable(3))</pre>
+
+    <pre>str maVariable = lambda parametre :
+  "Bonjour ",parametre
+
+print(maVariable("Hervé"))</pre>
+
+  <p>On remarque qu'une fonction lambda utilise une construction particuliére et transforme la variable <em>maVariable</em> en fonction.</p>
+
+    <h4>Fonctions prédéfinies </h4>
+
+    <table>
+      <tr><th>Fonctions</th><th>Actions</th></tr>
+      <tr><td>Math.min(2, 4)</td><td>donne le minimum des paramètres passés en arguments</td></tr>
+      <tr><td>Math.random</td><td>génère un nombre aléatoire entre 0 et 1</td></tr>
+
+    </table>
+
+  <!-- ===== LES OBJETS EN JAVASCRIPT ===== -->
+
+  <h3> Les objets en JavaScript </h3>
+
+    <p>La création d'une classe requiert les mot-clés <strong>class</strong> et <strong>constructor()</strong>.</p>
+    <pre>class MaClasse{
+  let nom;
+  let prenom;
+
+  constructor(nom, prenom){
+    this.nom = nom;
+    this.prenom = prenom;
+  }
+
+  uneMethode(parametre){
+    instructions;
+  }
+}</pre>
+
+  <p>L'instanciation d'un objet se fait de façon classique :</p>
+  <pre>let monObjet = new MaClasse("Charles", "Hervé");</pre>
+
+  <h4>Particularité de JavaScript</h4>
+
+  <p>JavaScript utilise des prototypes qui sont des liens vers d'autres objets pris en référence.</p>
+  <pre>let monObjet = new MaClasse(nom, prenom);
+
+let unAutreObjet = Object.create(monObjet);</pre>
+
+  <p>Dans l'exemple ci-dessus, l'objet <em>unAutreObjet</em> utilise le modèle de <em>monObjet</em> pour se construire qui lui-même est une instanciation de <em>maClasse</em>.</p>
+
+<hr>
+
+<!-- ===== RANDOM ===== -->
+
+<h3>Le package random</h3>
+
+  <pre>import random</pre>
+  <p>La méthode <strong>randint(4, 7)</strong> renvoie un entier compris entre 4 et 7 compris.</p>
+
+  <hr>
+
+<!-- ===== JSON ===== -->
+
+<h3>Le package JSON</h3>
+
+  <pre>import json</pre>
+  <p>JSON est un format de stockage de données dans un fichier. JSON signifie JavaScript Object Notation.</p>
+  <p>Les données seront stockées suivant le format clé-valeur suivant :</p>
+  <pre>{"key" : "value"}</pre>
+  <p>L'ensemble des données est entouré de <strong>[]</strong>.</p>
+  <pre>[{"prenom" : "Hervé"},
+{"prenom" : "Sébastien"}]</pre>
+
+  <p>Pour afficher ce fichier JSON, il faut le parcourir et le placer dans une liste qu'on affiche,</p>
+  <pre>def lectureJson() :
+  liste = list()  # on crée une liste vide qu'on va remplir au fur et à mesure
+  with open("monFichier.json") as file :  # on ouvre le fichier json
+    data = json.load(file) # on transforme le fichier json en objet Python
+    for value in data : # on parcourt l'objet
+      liste.append(value["prenom"]) # on rajoute dans la liste chacune des valeurs lues
+    return liste</pre>
+
+<hr>
+
+<!-- ===== LES EXCEPTIONS ===== -->
+
+<h3>Les exceptions</h3>
+
+  <p>Elles se construisent suivant les cas de différentes manières :</p>
+  <pre>try: # cas général
+  instruction à tester
+except:
+  instruction en cas d'erreur
+
+  try: # variable non définie
+  instruction à tester
+except NameError:
+  instruction en cas d'erreur
+
+  try: # le type de la variable est incompatible avec l'instruction
+  instruction à tester
+except TypeError:
+  instruction en cas d'erreur
+
+  try: # division par 0
+  instruction à tester
+  except ZeroDivisionError:
+  instruction en cas d'erreur</pre>
+
+<hr>
+
+  <p>Pour aller plus loin, la documentation Python officielle <a href="https://docs.python.org/3.5/library/index.html"><em>The Python Standard Library</em></a>.</p>
+
+</section>
+
+<footer>
+</footer>
+
+</body>
+</html>

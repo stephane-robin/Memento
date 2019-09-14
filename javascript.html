@@ -1,0 +1,443 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title> Memento </title>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+<header>
+  <div class="heroImage">
+    <div class="heroTexte">
+      <h2> JavaScript </h2>
+    </div>
+  </div>
+</header>
+
+<div id="bandeau">
+  <div id="titre"> <h1> Memento </h1> </div>
+  <nav>
+    <div class="element"> <a href="index.html">GENERALITES</a> </div>
+    <div class="element"> <a href="html.html">HTML</a> </div>
+    <div class="element"> <a href="css.html">CSS</a> </div>
+    <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
+    <div class="element"> <a href="python.html">PYTHON</a> </div>
+    <div class="element"> <a href="java.html">JAVA</a> </div>
+  </nav>
+</div>
+
+<section id="principal">
+
+<p>JavaScript est un langage interprété qui se veut simple et dont le but initial était de rendre dynamiques et interactives les pages Web.</p>
+
+<hr>
+
+<p style="font-weight:bold"> Table des matières :
+  <ul>
+    <li> <a href="#">Hello world</a> </li>
+    <li> <a href="#">Généralités</a> </li>
+    <li> <a href="#">Les variables</a> </li>
+    <li> <a href="#">Manipuler des chaînes de caractères</a> </li>
+    <li> <a href="#">Saisie d'une valeur par l'utilisateur</a> </li>
+    <li> <a href="#">Branchement conditionnel</a> </li>
+    <li> <a href="#">Les boucles</a> </li>
+    <li> <a href="#">Les tableaux</a> </li>
+    <li> <a href="#">Les fonctions</a> </li>
+  </ul>
+</p>
+
+<hr>
+
+<!-- ===== HELLO WORLD ===== -->
+
+<h3>Hello world</h3>
+
+<p>Commençons par le traditionnel "Hello world". Comme beaucoup de langages, JavaScript utilise un <strong>;</strong> à la fin de chaque instruction.</p>
+<pre>alert("Hello world");</pre>
+
+<p>Ici, le message apparaît à l'intérieur d'une fenêtre pop-up.</p>
+
+<hr>
+
+<!-- ===== GENERALITES ===== -->
+
+<h3> Généralités </h3>
+
+  <p>Les commentaires sont indiqués à l'aide de <strong>//</strong> ou <strong>/*  */</strong>.</p>
+
+  <p>Dans une page HTML, il est préférable d'appeler un fichier JavaScript à la fin d'un document (avant la balise <strong>&lt/body&gt</strong>) plutôt que dans le <strong>&lthead&gt</strong> car cela ne ralentit pas le chargement de la page.</p>
+  <pre>&lt!DOCTYPE html&gt
+&lthtml&gt
+&lthead&gt
+  &ltmeta charset="utf-8"&gt
+  &lttitle>Ma page web&lt/title&gt
+&lt/head&gt
+
+&ltbody&gt
+
+  &lt!-- corps du document --&gt
+
+  &ltscript src="fichierJavaScript.js"&gt&lt/script&gt
+
+&lt/body&gt
+&lt/html&gt</pre>
+
+<hr>
+
+<!-- ===== LES VARIABLES ===== -->
+
+<h3>Les variables</h3>
+
+  <h4> Types </h4>
+
+  <p>JavaScrpt est un langage à typage dynamique, i.e. qu'il identifie lui-même les types de variables et autorise les changements de type. La déclaration des variables n'est donc pas nécessaire. L'instruction <strong>parseInt(chaine)</strong> permet de transformer un <em>String</em> en nombre <em>si cela est possible</em> alors que l'instruction <strong>toString(nombre)</strong> permet de transformer un nombre en <em>String</em>.</p>
+  <pre>let maVarible = 12;</pre>
+
+  <p>Par ailleurs, JavaSript est un langage faiblement typé, car il convertit automatiquement les types de variables. Ainsi, la concaténation d'un <em>String</em> avec un nombre transforme implicitement la variable obtenue en <em>String</em>. Pour éviter tout changement intempestif pouvant conduire à une erreur, il faut donc systématiquement tester le type des variables avant de les utiliser.</p>
+
+  <p>Pour tester le type d'une variable, on utilise l'instruction <strong>typeof maVariable</strong> sans parenthèse. Si cette instruction renvoie <em>undefined</em>, c'est que la variable n'existe pas (elle n'a pas été déclarée) ou qu'elle ne contient rien.</p>
+
+  <table>
+    <tr><th>Types</th><th>Mots-clés</th></tr>
+    <tr><td>nombre</td><td>Number</td></tr>
+    <tr><td>chaîne de caractères</td><td>String</td></tr>
+    <tr><td>booléen</td><td>Boolean</td></tr>
+  </table>
+
+  <p>Les booléens prennent les valeurs <strong>true</strong> et <strong>false</strong>.</p>
+
+  <h4> Les principales opérations </h4>
+
+  <table>
+    <tr><th>Opérations</th><th>Symboles</th></tr>
+    <tr><td>addition</td><td>+</td></tr>
+    <tr><td>soustraction</td><td>-</td></tr>
+    <tr><td>multiplication</td><td>*</td></tr>
+    <tr><td>division</td><td>/</td></tr>
+    <tr><td>modulo</td><td>%</td></tr>
+    <tr><td>concaténation</td><td>+</td></tr>
+    <tr><td>affectation</td><td>=</td></tr>
+    <tr><td>égalité</td><td>==</td></tr>
+    <tr><td>incrémentation</td><td>++</td></tr>
+    <tr><td>décrémentation</td><td>--</td></tr>
+    <tr><td>ET logique</td><td>&&</td></tr>
+    <tr><td>OU logique</td><td>||</td></tr>
+    <tr><td>NON logique</td><td>!</td></tr>
+  </table>
+
+  <h4>Les opérateurs de comparaison</h4>
+
+  <table>
+    <tr><th>Signification</th><th>Opérateurs</th></tr>
+    <tr><td>égalité</td><td>==</td></tr>
+    <tr><td>égalité (valeur et type)</td><td>===</td></tr>
+    <tr><td>différent</td><td>!=</td></tr>
+    <tr><td>inférieur</td><td><</td></tr>
+    <tr><td>inférieur ou égal</td><td><=</td></tr>
+    <tr><td>supérieur</td><td>></td></tr>
+    <tr><td>supérieur ou égal</td><td>>=</td></tr>
+  </table>
+
+  <h4>Les constantes</h4>
+
+  <p>On définit une constante avec le mot-clé <strong>const</strong> au lieu de <strong>let</strong>.</p>
+
+<hr>
+
+<!-- ===== MANIPULER DES CHAINES DE CARACTERES ===== -->
+
+<h3>Manipuler des chaînes de caractères</h3>
+
+  <p> Pour échapper une apostrophe ou un guillemet, on utilise le signe <strong>\</strong>.<p>
+
+  <table>
+    <tr><th>Propriétés</th><th>Codes</th></tr>
+    <tr><td>taille</td><td><pre>chaine.length</pre></td></tr>
+    <tr><td>élément d'indice i</td><td><pre>chaine[i]</pre></td></tr>
+    <tr><td>convertir en minuscules</td><td><pre>chaine.toLowerCase()</pre></td></tr>
+    <tr><td>convertir en majuscules</td><td><pre>chaine.toUpperCase()</pre></td></tr>
+    <tr><td>comparaison</td><td>===</td></tr>
+    <tr><td>concaténation</td><td>+</td></tr>
+    <tr><td>retour à la ligne</td><td>\n</td></tr>
+    <tr><td>tabulation</td><td>\t</td></tr>
+    <tr><td>transformer une chaîne en tableau élément par élément</td><td><pre>let tab = Array.from(chaine);</pre></td></tr>
+    <tr><td>transformer une chaîne avec le séparateur - en tableau</td><td><pre>let tab = chaine.split("-");</pre></td></tr>
+    <tr><td>transformer un tableau en chaîne contenant le séparateur - </td><td><pre>let chaine = tab.join("-")</pre></td></tr>
+    <tr><td>recherche de "non" dans une chaine</td><td><pre>chaine.indexOf("non");</pre></td></tr>
+    <tr><td>retour à la ligne</td><td>\n</td></tr>
+  </table>
+
+  <p>L'indice du 1er caractère d'une chaîne est 0. Notons que l'instruction <strong>indexOf</strong> renvoie -1  si le caractère recherché ne se trouve pas dans la chaîne.</p>
+
+  <h4>Parcourir une chaîne de caractères élément par élément</h4>
+
+  <pre>for(let i=0; i&ltchaine.length; i++){
+  chaine[i];
+}</pre>
+
+  <h4>Template literal</h4>
+
+  <p>JavaScript permet d'inclure des expressions dans une chaîne de caractères appelées <em>template literal</em>. Pour cela, il faut délimiter la chaîne avec <strong>`</strong> à la place de <strong>"</strong> et utiliser <strong>${expression}</strong>.</p>
+  <pre>let nom = "Fabien";
+alert(`Je m'appelle ${nom}`);</pre>
+
+<hr>
+
+<!-- ===== SAISIE D'UNE VALEUR PAR L'UTILISATEUR ===== -->
+
+<h3>Saisie d'une valeur par l'utilisateur</h3>
+
+  <p>On peut utiliser indifféremment :</p>
+
+  <pre>let nom = prompt("Quel est votre nom ?");
+alert("Hello world "+nom);</pre>
+
+  <pre>let nom = prompt("Quel est votre nom ?");
+alert(`Hello world ${nom}`);</pre>
+
+<p></p>
+
+  <fieldset><legend><img src="target.png" width="40" height="40"> </legend>
+    <p><em>Attention</em>, la valeur saisie est systématiquement de type <em>String</em>. Il convient donc de la transformer en nombre le cas échéant.</p>
+  </fieldset>
+
+  <hr>
+
+  <!-- ===== BRANCHEMENT CONDITIONNEL ===== -->
+
+  <h3>Branchement conditionnel</h3>
+
+    <h4>La condition if</h4>
+
+    <pre>if(condition){
+  instructions;
+}else{
+  instructions;
+}</pre>
+
+    <h4>Particularité de JavaScript</h4>
+
+    <p>La fonction <strong>confirm()</strong> renvoie <em>true</em> lorsqu'on clique sur <em>Ok</em> dans une fenêtre pop-up et <em>false</em> lorsqu'on clique sur <em>Annuler</em>.</p>
+    <pre>if(confirm("Voulez-vous continuer ?")){
+  alert("Vous avez choisi de continuer")
+}</pre>
+
+    <h4>L'instruction switch</h4>
+
+    <pre>switch(maVariable){
+  case valeur1:
+    instruction;
+    break;
+  case valeur2:
+    instruction;
+    break;
+  case valeur3:
+    instruction;
+    break;
+  default:
+    instruction;
+}</pre>
+
+  <hr>
+
+  <!-- ===== LES BOUCLES ===== -->
+
+  <h3> Les boucles </h3>
+
+    <h4>La boucle while</h4>
+
+    <pre>while(condition){
+  instructions;
+}</pre>
+
+    <h4>La boucle for</h4>
+
+    <pre>for(let i=0; i&lt5; i++){
+  instructions;
+}</pre>
+
+<hr>
+
+<!-- ===== LES TABLEAUX ===== -->
+
+<h3>Les tableaux</h3>
+
+  <p>On peut créer un tableau de la manière suivante :</p>
+
+  <pre>let tab = [element1, element2, element3];</pre>
+
+  <p>L'indice du 1er élément d'un tableau est 0.</p>
+
+  <h4>Propriétés d'un tableau</h4>
+
+  <table>
+    <tr><th>Propriétés</th><th>Codes</th></tr>
+    <tr><td>taille</td><td><pre>tab.length</pre></td></tr>
+    <tr><td>élément d'indice i</td><td><pre>tab[i]</pre></td></tr>
+    <tr><td>ajout d'un élément à la dernière ligne</td><td><pre>tab.push(element)</pre></td></tr>
+    <tr><td>ajout d'un élément au début du tableau</td><td><pre>tab.unshift(element)</pre></td></tr>
+    <tr><td>suppression du dernier élément</td><td><pre>tab.pop()</pre></td></tr>
+    <tr><td>suppression du 1er élément</td><td><pre>tab.shift()</pre></td></tr>
+    <tr><td>suppression de 3 éléments à partir du 5ème inclus</td><td><pre>tab.splice(5,3)</pre></td></tr>
+  </table>
+
+  <p>Un tableau vide a pour taille 0. </p>
+
+  <h4>Parcourir un tableau</h4>
+
+  <p>On peut toujours utiliser la technique classique suivante :</p>
+
+  <pre>for(let i=0; i&lttab.length; i++){
+  alert(tab[i]);
+}</pre>
+
+  <p>mais il est inutile de demander à l'interpréteur d'évaluer systématiquement <strong>tab.length</strong>. On préfèrera donc utiliser l'instruction suivante :</p>
+  <pre>for(let i=0, c=tab.length; i&ltc; i++){
+  alert(tab[i]);
+}</pre>
+
+  <p>On peut également utiliser l'instruction <strong>forEach</strong> comme dans d'autres langages. Dans ce cas, on utilise une fonction anonyme.</p>
+
+  <pre>tab.forEach(function(value){
+  alert(value);
+);</pre>
+
+  <pre>tab.forEach(value => {alert(value);});</pre>
+
+  <h4>Particularités de JavaScript</h4>
+
+  <p>En JavaScript on peut stocker des éléments de différents types dans un tableau.</p>
+  <pre>let tab = ["Antoine", 12, false];</pre>
+
+  <p>En JavaScript, l'appel à un indice ne figurant pas dans le tableau ne conduit pas à une exception mais renvoie la valeur <en>undefined</em>.</p>
+
+  <h4>Les tableaux associatifs</h4>
+
+  <p>Ils se construisent avec des accolades à la place des crochets et des virgules entre les éléments.</p>
+  <pre>let tabAsso ={
+  nom: "Antoine",
+  prenom: "Hervé";
+}</pre>
+
+  <p>Pour accéder à un élément du tableau, il ne faut plus appeler son indice qui n'existe pas mais appeler la clé de la façon suivante :</p>
+
+  <pre>tabAsso.nom</pre>
+  <p>On remarque donc qu'un tableau associatif n'est autre qu'un objet dans lequel les clés sont des propriétés qui possèdent des valeurs.</p>
+
+  <p>Dans certains cas, on préfèrera appeler l'élément du tableau de la manière suivante :</p>
+  <pre>tabAsso["nom"]</pre>
+
+  <p>Pour ajouter un élément à la fin d'un tableau associatif, il suffit de créer cet élément :</p>
+  <pre>tabAsso["lieuNaissance"] = "Lausanne";</pre>
+
+  <p>ou encore</p>
+  <pre>tabAsso.lieuNaissance = "Lausanne";</pre>
+
+  <h4>Parcourir un tableau associatif</h4>
+
+  <pre>for(let cle in tabAsso){
+  alert(tabAsso[cle]);
+}</pre>
+
+  <hr>
+
+  <!-- ===== LES FONCTIONS ===== -->
+
+  <h3> Les fonctions </h3>
+
+  <p>La déclaration d'une fonction se réalise de la manière suivante :</p>
+  <pre>function nomFonction(parametre){
+  instructions;
+  return valeur;
+}</pre>
+
+<fieldset><legend><img src="target.png" width="40" height="40"> </legend>
+  <p><em>Attention</em>, en JavaScript le type de retour de la fonction et le type des arguments ne sont pas spécifiés lors de la déclaration. Il est donc impossible de surcharger une fonction en JavaScript.</p>
+</fieldset>
+
+  <p>L'appel de la fonction se fait de la façon suivante :</p>
+  <pre>let valeur = nomFonction(12);</pre>
+
+  <p>Lorsqu'il n'y a pas de valeur de retour, on parle de procédure :</p>
+  <pre>function nomProcedure(parametre){
+  instructions;
+}</pre>
+
+  <p>L'appel de la procédure se fait de la façon suivante :</p>
+  <pre>nomProcedure(12);</pre>
+
+    <h4>Documenter une fonction</h4>
+
+    <h4>Fonction anonyme</h4>
+
+    <p>Le principe de fonction anonyme utilise toujours le mot-clé <strong>function</strong> mais ne spécifie aucun nom pour la fonction créée.</p>
+    <pre>let maVariable = function(parametre){
+  let message = "Bonjour "+parametre;
+  return message;
+}
+
+alert(maVariable("Hervé"));</pre>
+
+  <p>qu'on peut également écrire :</p>
+
+  <pre>let maVariable = (parametre) =>{
+  let message = "Bonjour "+parametre;
+  return message;
+}
+
+alert(maVariable("Hervé"));</pre>
+
+  <p>On remarque qu'une fonction anonyme utilise une construction particuliére et transforme la variable <em>maVariable</em> en fonction.</p>
+
+    <h4>Fonctions prédéfinies </h4>
+
+    <table>
+      <tr><th>Fonctions</th><th>Actions</th></tr>
+      <tr><td>Math.min(2, 4)</td><td>donne le minimum des paramètres passés en arguments</td></tr>
+      <tr><td>Math.random</td><td>génère un nombre aléatoire entre 0 et 1</td></tr>
+
+    </table>
+
+  <!-- ===== LES OBJETS EN JAVASCRIPT ===== -->
+
+  <h3> Les objets en JavaScript </h3>
+
+    <p>La création d'une classe requiert les mot-clés <strong>class</strong> et <strong>constructor()</strong>.</p>
+    <pre>class MaClasse{
+  let nom;
+  let prenom;
+
+  constructor(nom, prenom){
+    this.nom = nom;
+    this.prenom = prenom;
+  }
+
+  uneMethode(parametre){
+    instructions;
+  }
+}</pre>
+
+  <p>L'instanciation d'un objet se fait de façon classique :</p>
+  <pre>let monObjet = new MaClasse("Charles", "Hervé");</pre>
+
+  <h4>Particularité de JavaScript</h4>
+
+  <p>JavaScript utilise des prototypes qui sont des liens vers d'autres objets pris en référence.</p>
+  <pre>let monObjet = new MaClasse(nom, prenom);
+
+let unAutreObjet = Object.create(monObjet);</pre>
+
+  <p>Dans l'exemple ci-dessus, l'objet <em>unAutreObjet</em> utilise le modèle de <em>monObjet</em> pour se construire qui lui-même est une instanciation de <em>maClasse</em>.</p>
+
+  <p>Pour aller plus loin, l'excellent ouvrage <a href="https://eloquentjavascript.net/index.html"><em>Eloquent JavaScript</em></a>, from Marijn Haverbeke.</p>
+  <p>Pour tester les codes sans recourir à un éditeur, le site bien pensé <a href="https://jsfiddle.net/">jsFiddle</a>.</p>
+
+</section>
+
+<footer>
+</footer>
+
+</body>
+</html>
