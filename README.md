@@ -1,2 +1,2 @@
 # Memento
-fiches memo pour HTML, CSS, JavaScript, Python, Java, ..., C++
+fiches memo pour HTML, CSS, JavaScript, Python, Java, ...
