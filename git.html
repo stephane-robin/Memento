@@ -31,7 +31,76 @@
 
 <section id="principal">
 
-<p> A venir</p>
+<p> <em>Git</em> est un logiciel de versionnement de code qui fonctionne avec un système d'arborescence à partir d'une branche master. <em>Git</em> fait constamment le lien entre un repository local et un repository hébergé par <em>GitHub</em>. Un repository est un dossier qui est configuré pour travailler avec <em>git</em>.</p>
+
+<hr>
+
+<p style="font-weight:bold"> Table des matières :
+  <ul>
+    <li> <a href="">Configuration</a> </li>
+    <li> <a href="#structure">Principales instructions</a> </li>
+    <li> <a href="#balise">Ligne de commande</a> </li>
+  </ul>
+</p>
+
+<hr>
+
+<!-- LIGNE DE COMMANDE -->
+
+<h3>Ligne de commande</h3>
+
+<table>
+  <tr> <th> Objectif <em>monFichier</em> </th> <th> Instruction</th> </tr>
+  <tr> <td> se déplacer dans le dossier <em>Documents</em> </td> <td> <pre>cd Documents</pre> </td> </tr>
+  <tr> <td> revenir au dossier parent </td> <td> <pre>cd ..</pre></td> </tr>
+  <tr> <td> revenir à la racine </td> <td> <pre>cd r</pre></td> </tr>
+  <tr> <td> afficher la liste des éléments du dossier local </td> <td> <pre>ls</pre></td> </tr>
+  <tr> <td> afficher la liste des éléments actifs du dossier local </td> <td> <pre>ps</pre></td> </tr>
+  <tr> <td> créer le fichier <em>monFichier</em> </td> <td> <pre>touch monFichier</pre></td> </tr>
+  <tr> <td> créer le dossier <em>monDossier</em> </td> <td> <pre>mkdir monDossier</pre></td> </tr>
+  <tr> <td> vider le terminal <em>monFichier</em> </td> <td> <pre>clear</pre></td> </tr>
+</table>
+
+<hr>
+
+<!-- CONFIGURATION -->
+
+<h3> Configuration </h3>
+
+<p>Pour connaître la version du logiciel <em>git</em> : </p>
+<pre>git --version</pre>
+
+<p>Pour configurer les données utilisateur de <em>git</em> :</p>
+<pre>git config --global user.name "monNom"
+git config --global user-email "monEmail"</pre>
+
+<p>Il faut créer un dossier local qui va héberger les différents repositories, par exemple <em>Git_Directory</em>. Puis se placer dans <em>Git_Directory</em> et initialiser le dossier :</p>
+<pre>git init</pre>
+
+<p>Il faut ensuite importer un repository du <em>master</em> online :</p>
+<pre>git clone https://github/monAdresse</pre>
+
+<hr>
+
+<!-- PRINCIPALES INSTRUCTIONS -->
+
+<h3>Principales instructions</h3>
+
+<p>Pour synchroniser le repository online <em>master</em> avec le repository local <em>origin</em> :</p>
+<pre>git commit -m "monCommentaire"
+git push origin master</pre>
+
+<p>Pour ajouter un fichier local au repository online : </p>
+<pre>git add monFichier</pre>
+
+<p>Pour ajouter rapidement au repository online sans distinction de fichier : </p>
+<pre>git add .</pre>
+
+<p>Pour connaître l'état des modifications :</p>
+<pre>git status</pre>
+
+<p>Pour récupérer un fichier de travail :</p>
+<pre>git pull monFichier master</pre>
 
 </section>
 
