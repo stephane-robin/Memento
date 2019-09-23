@@ -86,15 +86,16 @@ git config --global user-email "monEmail"</pre>
 
 <h3>Principales instructions</h3>
 
-<p>Pour synchroniser le repository online <em>master</em> avec le repository local <em>origin</em> :</p>
-<pre>git commit -m "monCommentaire"
-git push origin master</pre>
-
 <p>Pour ajouter un fichier local au repository online : </p>
 <pre>git add monFichier</pre>
 
 <p>Pour ajouter rapidement au repository online sans distinction de fichier : </p>
 <pre>git add .</pre>
+
+<p>Pour synchroniser le repository online <em>master</em> avec le repository local <em>origin</em> :</p>
+<pre>git add .
+git commit -m "monCommentaire"
+git push origin master</pre>
 
 <p>Pour connaître l'état des modifications :</p>
 <pre>git status</pre>
