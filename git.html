@@ -96,10 +96,11 @@ git config --global user-email "monEmail"</pre>
 <pre>git add .
 git commit -m "monCommentaire"
 git push origin master</pre>
-<p>Il n'est pas nécessaire de définir le nom des fichiers concernés car tous les fichiers non validés vont être pris en compte par le commit. <em>Attention</em>, chaque étape est nécessaire. Pour chaque modification d'un fichier, celui-ci doit être rajouté à l'index en utilisant l'instruction <strong>git add monFichier</strong> afin que le <em>commit</em> le prenne en compte comme modification validée.</p>
-<p>On peut toutefois regrouper les étapes du rajout à l'index et du commit :</p>
+<p>Il n'est pas nécessaire de définir le nom des fichiers concernés car tous les fichiers indexés et non validés vont être pris en compte par le commit. <em>Attention</em>, chaque étape est nécessaire. On peut toutefois regrouper les étapes du rajout à l'index et du commit :</p>
 <pre>git commit -a -m "monCommentaire"
 git push origin master</pre>
+
+<p><em>Attention</em>, les fichiers modifiés mais non entrés dans l'index ne seront pas synchronisés.</p>
 
 <p>Pour connaître l'état des modifications :</p>
 <pre>git status</pre>
