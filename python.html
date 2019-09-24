@@ -79,7 +79,7 @@
 
 <h3> Généralités </h3>
 
-  <p>Les commentaires sont indiqués à l'aide de <strong>#</strong> ou <strong>/*  */</strong>.</p>
+  <p>Les commentaires sont indiqués à l'aide de <strong>#</strong> pour une seule ligne ou <strong>"""   """</strong> pour plusieurs lignes.</p>
 
   <p>En Python, les blocs ne sont pas encadrés par des <strong>{}</strong> comme dans la plupart des langages, ce sont les indentations qui indiquent à l'interpréteur le début et la fin d'un bloc. En conséquence, il est important de respecter toujours la même procédure d'indentation. On utilisera 4 espaces plutôt qu'une tabulation pour exprimer une indentation, ceci afin d'assurer une bonne portabilité du code.</p>
 
@@ -574,22 +574,53 @@ let unAutreObjet = Object.create(monObjet);</pre>
 
 <h3>Le package JSON</h3>
 
-  <pre>import json</pre>
   <p>JSON est un format de stockage de données dans un fichier. JSON signifie JavaScript Object Notation.</p>
-  <p>Les données seront stockées suivant le format clé-valeur suivant :</p>
-  <pre>{"key" : "value"}</pre>
-  <p>L'ensemble des données est entouré de <strong>[]</strong>.</p>
-  <pre>[{"prenom" : "Hervé"},
-{"prenom" : "Sébastien"}]</pre>
+  <p>JSON ne se trouve pas nativement dans l'environnement de travail. Il est donc nécessaire de l'importer.</p>
+  <pre>import json</pre>
 
-  <p>Pour afficher ce fichier JSON, il faut le parcourir et le placer dans une liste qu'on affiche,</p>
-  <pre>def lectureJson() :
-  liste = list()  # on crée une liste vide qu'on va remplir au fur et à mesure
-  with open("monFichier.json") as file :  # on ouvre le fichier json
-    data = json.load(file) # on transforme le fichier json en objet Python
-    for value in data : # on parcourt l'objet
-      liste.append(value["prenom"]) # on rajoute dans la liste chacune des valeurs lues
-    return liste</pre>
+  <p>Les données seront stockées suivant le format clé-valeur d'un dictionnaire. On peut par exemple avoir la structure suivante :</p>
+  <pre>{
+cle:
+    [
+      {
+        cle: valeur,
+        cle: valeur,
+        cle: valeur
+      },
+      {
+        cle: valeur,
+        cle: valeur,
+        cle: valeur
+      }
+    ],
+cle:
+    [
+      {
+        cle: valeur,
+        cle: valeur,
+        cle: valeur
+      },
+      {
+        cle: valeur,
+        cle: valeur,
+        cle: valeur
+      }
+    ]
+}</pre>
+
+  <p>Pour afficher ce fichier JSON, il faut d'abord le parcourir et le placer dans un dictionnaire qu'on pourra ensuite afficher :</p>
+  <pre># on crée un dictionnaire local vide
+data = dict()
+
+# on ouvre le fichier json en lecture seule
+with open("monFichier.json", "r") as file:
+  # on transforme le fichier json en objet Python
+  data = json.load(file)</pre>
+
+  <p>Pour écrire sur un fichier JSON, il faut remplacer le fichier de destination par un dictionnaire <em>data</em>. <em>Attention</em>, il faut prendre soin de recopier dans le dictionnaire les valeurs inchangées du fichier JSON, car l'écriture dans le fichier JSON écrase les données présentes dans ce fichier.</p>
+  <pre>data = dict()
+with open("monFichier.json", "w", encoding="utf-8") as file:
+  json.dump(data, file, indent=4)</pre>
 
 <hr>
 
