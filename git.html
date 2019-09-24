@@ -92,9 +92,13 @@ git config --global user-email "monEmail"</pre>
 <p>Pour ajouter rapidement au repository online sans distinction de fichier : </p>
 <pre>git add .</pre>
 
-<p>Pour synchroniser le repository online <em>master</em> avec le repository local <em>origin</em> :</p>
+<p>On travaille normalement dans le repository local. Pour synchroniser le repository online <em>master</em> avec le repository local <em>origin</em>, on commence par rajouter dans l'index chaque fichier modifié, on demande la validation de cette modification et finalement on insère le fichier validé vers le repository online :</p>
 <pre>git add .
 git commit -m "monCommentaire"
+git push origin master</pre>
+<p>Il n'est pas nécessaire de définir le nom des fichiers concernés car tous les fichiers non validés vont être pris en compte par le commit. <em>Attention</em>, chaque étape est nécessaire. Pour chaque modification d'un fichier, celui-ci doit être rajouté à l'index en utilisant l'instruction <strong>git add monFichier</strong> afin que le <em>commit</em> le prenne en compte comme modification validée.</p>
+<p>On peut toutefois regrouper les étapes du rajout à l'index et du commit :</p>
+<pre>git commit -a -m "monCommentaire"
 git push origin master</pre>
 
 <p>Pour connaître l'état des modifications :</p>
@@ -102,6 +106,9 @@ git push origin master</pre>
 
 <p>Pour récupérer un fichier de travail :</p>
 <pre>git pull monFichier master</pre>
+
+<p>Pour consulter l'historique :</p>
+<pre>git log</pre>
 
 </section>
 
