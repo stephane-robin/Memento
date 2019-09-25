@@ -60,7 +60,9 @@
     <li> <a href="#">Les dictionnaires</a> </li>
     <li> <a href="#">Les fonctions</a> </li>
     <li> <a href="#">Le package random</a> </li>
+    <li> <a href="#">Le package math</a> </li>
     <li> <a href="#">Le package JSON</a> </li>
+    <li> <a href="#">Les exceptions</a> </li>
   </ul>
 </p>
 
@@ -86,7 +88,22 @@
   <p>En Python, les mots clés à ne pas utiliser comme nom de variable ou de fonction sont les suivants:<br>
     <strong>and, or, del, from, none, as, global, nonlocal, try, assert, else, if, elif, not, while, for, except, import, with, class, true, false, in, pass, yield, continue, break, finally, is, raise, def, lambda, return</strong>.</p>
 
-  <p>La programmation en Python nécessite l'utilisation d'un environnement de développement IDE. Dans le cas de l'utilisation d'Atom, il convient d'installer dnas la rubrique <em>Settings</em> d'Atom les packages <em>autocomplete-python</em> pour l'autocomplétion, <em>linter-flake8</em> pour la correction syntaxique, <em>python-autopep8</em> pour le respect des normes et <em>script</em> pour exécuter le code.</p>
+  <p>La programmation en Python nécessite l'utilisation d'un environnement de développement IDLE. Dans le cas de l'utilisation d'Atom, il convient d'installer dnas la rubrique <em>Settings</em> d'Atom les packages <em>autocomplete-python</em> pour l'autocomplétion, <em>linter-flake8</em> pour la correction syntaxique, <em>python-autopep8</em> pour le respect des normes et <em>script</em> pour exécuter le code.</p>
+
+  <h4>Particularité des systèmes Linux et Mac</h4>
+
+    <p>Il est souvent nécessaire de placer en début de code le chemin absolu de l'interpréteur, puis de préciser l'encodage (ici 3.7 représente la version de Python):</p>
+    <pre>#!/usr/bin/python3.7
+    # -*-coding:Utf-8 -*</pre>
+    <p>Remarquons que l'encodate utf8 est natif sous Atom.</p>
+
+  <h4>Particularité du système Windows</p>
+
+    <p>Il est nécessaire de mettre en pause le programme en fin d'exécution afin de pouvoir lire le résultat. Préciser l'encodage peut s'avérer nécessaire sous Windows.</p>
+    <pre># -*-coding:Latin-1 -*
+import os
+# programme
+os.system("pause")</pre>
 
 <hr>
 
@@ -379,6 +396,10 @@ else :
   alert(liste[i]);
 }</pre>
 
+  <p>Python offre la possibilité de parcourir une liste sans référence aux indices, mais en utilisant un itérateur des éléments qui composent la liste.</p>
+  <pre>for elmt in maListe:
+  print(elmt)</pre>
+
   <p>On peut également utiliser l'instruction <strong>forEach</strong> comme dans d'autres langages. Dans ce cas, on utilise une fonction anonyme.</p>
 
   <pre>liste.forEach(function(value){
@@ -571,6 +592,21 @@ let unAutreObjet = Object.create(monObjet);</pre>
   <p>La méthode <strong>randint(4, 7)</strong> renvoie un entier compris entre 4 et 7 compris.</p>
 
   <hr>
+
+<!-- ===== MATH ===== -->
+
+<h3>Le package math</h3>
+
+  <pre>from math import *</pre>
+  <p></p>
+
+  <table>
+    <tr><th>Instruction</th><th>Effet obtenu</th></tr>
+    <tr><td>floor(nb)</td><td>le plus grand entier inférieur ou égal à nb</td></tr>
+    <tr><td>ceil(nb)</td><td>le plus petit entier supérieur ou égal à nb</td></tr>
+  </table>
+
+<hr>
 
 <!-- ===== JSON ===== -->
 
