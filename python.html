@@ -305,11 +305,10 @@ else :
 
     <h4>La boucle for</h4>
 
-    <pre>for(let i=0; i&lt5; i++){
-  instructions;
-}</pre>
+    <pre>for i in range(0, 5):
+  instructions</pre>
 
-    <pre>for valeur in chaine :
+    <pre>for elmt in chaine :
   instructions</pre>
 
     <h4>Particularité de Python</h4>
@@ -391,22 +390,14 @@ else :
   <pre>for i in range(0, len(maListe)):
     print(maListe[i])</pre>
 
-  <p>mais il est inutile de demander à l'interpréteur d'évaluer systématiquement <strong>liste.length</strong>. On préfèrera donc utiliser l'instruction suivante :</p>
-  <pre>for(let i=0, c=liste.length; i&ltc; i++){
-  alert(liste[i]);
-}</pre>
+  <p>ou encore</p>
 
-  <p>Python offre la possibilité de parcourir une liste sans référence aux indices, mais en utilisant un itérateur des éléments qui composent la liste.</p>
+  <pre>for i in range(len(maListe)):
+    print(maListe[i])</pre>
+
+  <p>Python offre la possibilité de parcourir une liste sans référence aux indices, mais en utilisant un itérateur des éléments qui composent la liste. Ceci correspond à l'instruction <strong>forEach</strong> d'autres langages.</p>
   <pre>for elmt in maListe:
   print(elmt)</pre>
-
-  <p>On peut également utiliser l'instruction <strong>forEach</strong> comme dans d'autres langages. Dans ce cas, on utilise une fonction anonyme.</p>
-
-  <pre>liste.forEach(function(value){
-  alert(value);
-);</pre>
-
-  <pre>liste.forEach(value => {alert(value);});</pre>
 
   <h4>Particularités de Python</h4>
 
