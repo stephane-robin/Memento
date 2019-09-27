@@ -33,7 +33,7 @@
 <section id="principal">
 
 <p> <em>Git</em> est un logiciel de versionnement de code qui fonctionne avec un système d'arborescence à partir d'une branche master. <em>Git</em> fait constamment le lien entre un repository local et un repository hébergé par <em>GitHub</em>. Un repository est un dossier qui est configuré pour travailler avec <em>git</em>.</p>
-<p><em>GitHub</em> est un serveur qui permet de créer et stocker des repositories en utilisant les fonctionnalités de <em>git</em>.</p>
+<p>Une des particularités de <em>Git</em>, c'est l'existence de sites web collaboratifs basés sur <em>Git</em> comme <em>GitHub</em>. Il s'agit d'une sorte de réseau social pour développeurs qui permet de suivre l'évolution de projets et de décider de participer à ces projets. <em>GitHub</em> fournit le serveur qui permet de créer et stocker des repositories en utilisant les fonctionnalités de <em>git</em>.</p>
 
 <hr>
 
@@ -76,6 +76,11 @@
 <pre>git config --global user.name "monNom"
 git config --global user-email "monEmail"</pre>
 
+<p>Pour activer la couleur dans la console :</p>
+<pre>git config --global color.diff auto
+git config --global color.status auto
+git config --global color.branch auto</pre>
+
 <p>Il faut créer un dossier local qui va héberger les différents repositories, par exemple <em>Git_Directory</em>. Puis se placer dans <em>Git_Directory</em> et initialiser le dossier :</p>
 <pre>git init</pre>
 
@@ -94,13 +99,14 @@ git config --global user-email "monEmail"</pre>
 <p>Pour ajouter rapidement au repository online sans distinction de fichier : </p>
 <pre>git add .</pre>
 
-<p>On travaille normalement dans le repository local. Pour synchroniser le repository online <em>master</em> avec le repository local <em>origin</em>, on commence par rajouter dans l'index chaque fichier modifié, on demande la validation de cette modification et finalement on insère le fichier validé vers le repository online :</p>
+<p>On travaille normalement dans le repository local. Pour synchroniser le repository online <em>master</em> avec le repository local <em>origin</em>, on commence par rajouter dans l'index chaque fichier modifié, on ajoute les dernières modifications dans l'historique des modifications (commit) et finalement on insère le fichier validé vers le repository online :</p>
 <pre>git add .
 git commit -m "monCommentaire"
 git push origin master</pre>
 <p>Il n'est pas nécessaire de définir le nom des fichiers concernés car tous les fichiers indexés et non validés vont être pris en compte par le commit. <em>Attention</em>, chaque étape est nécessaire. On peut toutefois regrouper les étapes du rajout à l'index et du commit :</p>
 <pre>git commit -a -m "monCommentaire"
 git push origin master</pre>
+<p>On remarque qu'un commit avec <em>Git</em> est local jusqu'à ce qu'on push ce commit sur le serveur.</p>
 
 <p><em>Attention</em>, les fichiers modifiés mais non entrés dans l'index ne seront pas synchronisés.</p>
 
@@ -110,10 +116,17 @@ git push origin master</pre>
 <p>Pour récupérer un fichier de travail :</p>
 <pre>git pull monFichier master</pre>
 
-<p>Pour consulter l'historique :</p>
+<p>Pour consulter l'historique (les <em>logs</em>) :</p>
 <pre>git log</pre>
 
 <p>On peut se positionner à un moment de l'historique en ne tenant compte que des commit enregistrés jusqu'à un commit défini. On utilise alors <strong>git checkout codeCommit</strong> oû <em>codeCommit</em> est le code sha présent dans le log et représentatif d'un unique commit. A partir de cette requête, <strong>git log</strong> n'affiche que les commit enregistrés jusqu'au commit <em>codeCommit</em>. Pour revenir à l'état du dernier commit, on utilise l'instruction <strong>git checkout master</strong>.
+
+<p>Pour consulter les modifications :</p>
+<pre>git diff</pre>
+<p>Les ligness ajoutées sont précédées d'un + et affichées en vert, tandis que les lignes supprimées sont précédées d'un - et affichées en rouge.</p>
+
+<p>Pour consulter les modifications d'un seul fichier :</p>
+<pre>git diff monFichier</pre>
 
 </section>
 
