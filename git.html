@@ -110,6 +110,9 @@ git push origin master</pre>
 
 <p><em>Attention</em>, les fichiers modifiés mais non entrés dans l'index ne seront pas synchronisés.</p>
 
+<p>Pour modifier le dernier message du commit (dans le cas par exemple où une erreur s'est glissée) :</p>
+<pre>git commit --amend</pre>
+
 <p>Pour connaître l'état des modifications :</p>
 <pre>git status</pre>
 
@@ -118,6 +121,11 @@ git push origin master</pre>
 
 <p>Pour consulter l'historique (les <em>logs</em>) :</p>
 <pre>git log</pre>
+
+<p>Pour obtenir l'historique et le détail des lignes retirées et rajoutées :</p>
+<pre>git log -p</pre>
+
+<p>Pour quitter la liste des <em>logs</em>, il faut taper Q.</p>
 
 <p>On peut se positionner à un moment de l'historique en ne tenant compte que des commit enregistrés jusqu'à un commit défini. On utilise alors <strong>git checkout codeCommit</strong> oû <em>codeCommit</em> est le code sha présent dans le log et représentatif d'un unique commit. A partir de cette requête, <strong>git log</strong> n'affiche que les commit enregistrés jusqu'au commit <em>codeCommit</em>. Pour revenir à l'état du dernier commit, on utilise l'instruction <strong>git checkout master</strong>.
 
