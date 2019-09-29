@@ -42,6 +42,8 @@
     <li> <a href="#balise">Lignes de commande</a> </li>
     <li> <a href="">Configuration</a> </li>
     <li> <a href="#structure">Principales instructions</a> </li>
+    <li> <a href="">L'historique</a> </li>
+    <li> <a href="">La gestion des branches</a> </li>
   </ul>
 </p>
 
@@ -84,7 +86,7 @@ git config --global color.branch auto</pre>
 <p>Il faut créer un dossier local qui va héberger les différents repositories, par exemple <em>Git_Directory</em>. Puis se placer dans <em>Git_Directory</em> et initialiser le dossier :</p>
 <pre>git init</pre>
 
-<p>Il faut ensuite importer un repository du <em>master</em> online :</p>
+<p>Il faut ensuite importer un remote repository du <em>master</em> :</p>
 <pre>git clone https://github/monAdresse</pre>
 
 <hr>
@@ -93,19 +95,24 @@ git config --global color.branch auto</pre>
 
 <h3>Principales instructions</h3>
 
-<p>Pour ajouter un fichier local au repository online : </p>
+<p>Pour ajouter un fichier local à l'index : </p>
 <pre>git add monFichier</pre>
 
-<p>Pour ajouter rapidement au repository online sans distinction de fichier : </p>
+<p>Pour supprimer un fichier local de l'index après l'avoir rajouté sans l'avoir commité :</p>
+<pre>git reset HEAD --nomFichier</pre>
+
+<p>Pour ajouter rapidement à l'index sans distinction de fichier : </p>
 <pre>git add .</pre>
 
-<p>On travaille normalement dans le repository local. Pour synchroniser le repository online <em>master</em> avec le repository local <em>origin</em>, on commence par rajouter dans l'index chaque fichier modifié, on ajoute les dernières modifications dans l'historique des modifications (commit) et finalement on insère le fichier validé vers le repository online :</p>
+<p>On travaille normalement dans le repository local. Pour synchroniser le remote repository <em>master</em> avec le repository local <em>origin</em>, on commence par rajouter dans l'index chaque fichier modifié (add), on ajoute les dernières modifications dans l'historique des modifications (commit) et finalement on insère le fichier validé vers le remote repository (push) :</p>
 <pre>git add .
 git commit -m "monCommentaire"
 git push origin master</pre>
+
 <p>Il n'est pas nécessaire de définir le nom des fichiers concernés car tous les fichiers indexés et non validés vont être pris en compte par le commit. <em>Attention</em>, chaque étape est nécessaire. On peut toutefois regrouper les étapes du rajout à l'index et du commit :</p>
 <pre>git commit -a -m "monCommentaire"
 git push origin master</pre>
+<p>Attention, ici le <strong>-a</strong> ne correspond pas à l'instruction <strong>add</strong>, mais à la prise en compte de tous les fichiers <em>all</em>.</p>
 <p>On remarque qu'un commit avec <em>Git</em> est local jusqu'à ce qu'on push ce commit sur le serveur.</p>
 
 <p><em>Attention</em>, les fichiers modifiés mais non entrés dans l'index ne seront pas synchronisés.</p>
@@ -118,6 +125,16 @@ git push origin master</pre>
 
 <p>Pour récupérer un fichier de travail :</p>
 <pre>git pull monFichier master</pre>
+
+<p>Ou de façon plus générale :</p>
+<pre>git pull origin master</pre>
+<p>Dans ce cas, origin correspond au remote repository.</p>
+
+<hr>
+
+<!-- L'HISTORIQUE -->
+
+<h3>L'historique</h3>
 
 <p>Pour consulter l'historique (les <em>logs</em>) :</p>
 <pre>git log</pre>
@@ -136,8 +153,75 @@ git push origin master</pre>
 <p>Pour consulter les modifications d'un seul fichier :</p>
 <pre>git diff monFichier</pre>
 
-</section>
+<p>A noter que <em>GitHub</em> propose un affichage des modifications d'un commit plus convivial que le Terminal. Il s'agit dans ce cas des commits envoyés au remote.</p>
 
+<p>Pour annuler les modifications d'un fichier avant un commit, et restaurer le fichier tel qu'il était au dernier commit :</p>
+<pre>git checkout nomFichier</pre>
+
+<p>Pour annuler le dernier commit et revenir à l'avant dernier : </p>
+<pre>git reset HEAD^</pre>
+
+<p>Pour annuler un numéro de commit précis : </p>
+<pre>git reset nrmCommit </pre>
+<p>Dans ce cas seul le commit est retiré de <em>Git</em>, les fichiers restent modifiés.</p>
+
+<p>Pour annuler le dernier commit et les changements effectués dans les fichiers :</p>
+<pre>git reset --hard HEAD^</pre>
+<p>Attention, dans ce cas tous les changements sont perdus sans préavis.</p>
+
+<p>Dans le cas où des commits ont été faits simultanément par plusieurs postes dans un même projet, les modifications sont incorporées automatiquement. Dans le cas où deux changement concernent la même zode de code, un conflit apparaît qui doit être résolu manuellement en travaillant sur la zone de code marquée <<<<<<<<<<<<< . Sur <em>GitHub</em>, la résolution de conflit ne pourra être faite que par la personne déclarée responsable de projet.</p>
+
+<p>Attention, un push est en revanche irréversible. Il est donc recommandé de faire régulièrement des commit, mais de faire un push qu'une fois par jour, sinon on perd la facilité avec laquelle il est possible d'annuler ou de modifier les commit.</p>
+
+<p>Il reste toutefois possible d'annuler un commit déjà pushé en créant un nouveau commit qui effectue l'inverse des modifications. On ne peut en effet pas réellement supprimer un commit.</p>
+<pre>git revert nrmCommit</pre>
+
+<p>Pour donner un tag à un commit afin de le retrouver sous une référence particulière, comme une version par exemple :</p>
+<pre>git tag nomTag nmrCommit
+git push --tags</pre>
+
+<p>Attention, cette instruction spécifique <strong>--tags</strong> est importante car autrement un tag n'est pas envoyé lors d'un push.</p>
+
+<p>Pour supprimer un tag :</p>
+<pre>git tag -d nomTag</pre>
+
+<hr>
+
+<!-- LA GESTION DES BRANCHES -->
+
+<h3>La gestion des branches</h3>
+
+<p>Pour voir toutes les branches d'un projet : </p>
+<pre>git branch</pre>
+
+<p>L'étoile qui apparaît dans la réponse marque la branche sur laquelle on travaille actuellement.</p>
+
+<p>Pour créer une branche : </p>
+<pre>git branch nomBranche</pre>
+
+<p>Attention, une branche créée est locale.</p>
+
+<p>Pour se rendre sur une branche pour travailler :</p>
+<pre>git checkout nomBranche</pre>
+
+<p>Attention, <strong>checkout</strong> a un double usage avec <em>Git</em>.</p>
+
+<p>Pour fusionner les changements d'une branche avec le master, il faut d'abord se rendre sur le master :</p>
+<pre>git checkout master
+git merge nomBranche</pre>
+
+<p>Pour supprimer une branche : </p>
+<pre>git branch -d nomBranche</pre>
+
+<p>Cette suppression n'est possible que si le travail réalisé sur la branche fille a été incorporé dans le master, sinon <em>Git</em> interdit la suppression.</p>
+
+<p>Pour supprimer une branche dont les modifications n'ont pas été incorporées au master, parce que par exemple le travail réalisé n'est pas concluant :</p>
+<pre>git branch -D nomBranche</pre>
+
+
+
+
+</section>
 <footer>
 </footer>
 
