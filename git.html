@@ -185,6 +185,11 @@ git push --tags</pre>
 <p>Pour supprimer un tag :</p>
 <pre>git tag -d nomTag</pre>
 
+<p>Pour retrouver qui a modifié une ligne précise de code dans un projet :</p>
+<pre>git blame nomFichier</pre>
+<p>On obtient ainsi toutes les modifications faites sur un fichier ligne par ligne avec le début du <em>sha</em> du commit correspondant. Il faut alors utiliser l'instruction suivante pour consulter les détail du commit recherché :</p>
+<pre>git show nrmCommit</pre>
+
 <hr>
 
 <!-- LA GESTION DES BRANCHES -->
@@ -206,6 +211,9 @@ git push --tags</pre>
 
 <p>Attention, <strong>checkout</strong> a un double usage avec <em>Git</em>.</p>
 
+<p>On peut également créer une branche et s'y rendre directement avec l'instruction :</p>
+<pre>git checkout -b nomBranche</pre>
+
 <p>Pour fusionner les changements d'une branche avec le master, il faut d'abord se rendre sur le master :</p>
 <pre>git checkout master
 git merge nomBranche</pre>
@@ -218,8 +226,24 @@ git merge nomBranche</pre>
 <p>Pour supprimer une branche dont les modifications n'ont pas été incorporées au master, parce que par exemple le travail réalisé n'est pas concluant :</p>
 <pre>git branch -D nomBranche</pre>
 
+<hr>
 
+<!-- IGNORER DES FICHIERS -->
 
+<h3>Ignorer des fichiers</h3>
+
+<p>Il ne faut jamais versionner une variable de configuration, comme par exemple un mot de passe ou une clé secrète. Si le code a déjà été envoyé sur <em>GitHub</em>, il convient de changer de mot de passe ou générer une nouvelle clé secrète.</p>
+
+<p>Il est important d'ignorer certains fichiers dans <em>Git</em>, tels que :
+  <ul>
+    <li>les fichiers de configuration (config.xml, database.yml)</li>
+    <li>les fichiers temporaires (tml, temp)</li>
+    <li>les fichiers créés par l'IDLE ou l'OS (.DS_Store)</li>
+  </ul>
+Ainsi, les variables de configuration devront être déplacées dans un fichier de configuration et ignorées dans <em>Git</em>.</p>
+
+<p>Il faut créer un fichier <em>.gitignore</em> et placer dans ce fichier le nom de tous les fichiers qui devront être ignorés par le versionnement.</p>
+<pre>touch .gitignore</pre>
 
 </section>
 <footer>
