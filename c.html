@@ -32,6 +32,16 @@
 
 <section id="principal">
 
+<hr>
+    
+  <p style="font-weight:bold"> Table des matières :</p>
+  <ul>
+    <li> <a href="#">Hello world</a> </li>
+    <li> <a href="#">Généralités</a> </li>
+    <li> <a href="#">Importer un package</a> </li>
+    <li> <a href="#">Les variables</a> </li>
+  </ul>
+  
   <hr>
 
   <!-- ===== HELLO WORLD ===== -->
@@ -54,13 +64,84 @@ int main(int argc, char*argv[]){
   <h3> Généralités </h3>
 
     <p>Les fichiers C ont pour extension <em>.c</em></p>
-
-    <p>L'installation de librairies se fait à l'aide de l'instruction <strong>#include <nomLibrairie></strong>.</p>
-
-      \n saut de ligne
+    
+    <p>Toutes les instructions se terminent par <strong>;</strong></p>
 
     <p>En C, chaque fonction renvoie une fois terminé une valeur. En pratique 0 signifie que tout s'est bien passé.</p>
-    <p>Pour exécuter C avec Atom, on peut utiliser le package <strong>gpp-</strong>. La touche F5 lance l'exécution.</p>
+
+    <p> <strong>\n</strong> s'emploie pour un retour à la ligne.</p>
+    <p> <strong>\t</strong> s'emploie pour une tabulation.</p>
+
+    <p>Les commentaires sur une ligne s'expriment grâce aux symboles <strong>//</strong>. En revanche les commentaires sur plusieurs lignes figurent entre les symboles <strong>/*</strong> et <strong>*/</strong>.</p>
+
+<hr>
+    
+<!--- ===== IMPORTER UN PACKAGE ===== -->
+    
+<h3>Importer un package</h3>
+    
+    <p>L'installation de librairies se fait à l'aide de l'instruction <strong>#include &ltnomLibrairie&gt</strong>.</p>
+
+<hr>
+    
+<!--- ===== LES VARIABLES ===== -->
+    
+<h3>Les variables</h3>
+  
+<p>C n'est pas un langage dynamique. Il est nécessaire que définir le type de variables avant leur utilisation. Les différents types de variables en C sont les suivants :</p> 
+    
+  <table>
+    <tr><th>Types</th><th>Mots-clés</th></tr>
+    <tr><td>entier court</td><td>signed char</td></tr>
+    <tr><td>entier</td><td>int</td></tr>
+    <tr><td>entier long</td><td>long</td></tr>
+    <tr><td>nombre décimal</td><td>float</td></tr>
+    <tr><td>nombre décimal long</td><td>double</td></tr>
+    <tr><td>entier court positif</td><td>unsigned char</td></tr>
+    <tr><td>entier positif</td><td>unsigned int</td></tr>
+    <tr><td>entier long positif</td><td>unsigned long</td></tr>
+  </table>
+
+<p>Attention, les <strong>signed char</strong> et <strong>unsigned char</strong>, ... sont en fait des nombres malgré leur dénomination trompeuse. Tous ces différents types de nombres ont été créés pour économiser de la mémoire lors de leur déclaration.</p>
+
+<p>Au moment de la déclaration d'une variable, C réserve un emplacement en mémoire, mais la valeur attribuée initialement à la variable correspond à la dernière valeur prise par cet emplacement de mémoire. Il est donc important de déclarer et d'initialiser en même temps pour éviter des erreurs.</p>
+
+<h4>Affichage d'une variable</h4>
+    
+<pre>printf("Antoine a %d ans et %d voitures", age, nbreVoitures);</pre>
+
+<h4>Les constantes</h4>
+
+<p>On déclare une constante en C avec l'instruction :</p>
+<pre>const int MON_NOMBRE = 5;</pre>
+
+<table>
+    <tr><th>Types</th><th>Mots-clés</th></tr>
+    <tr><td>int</td><td>%d</td></tr>
+    <tr><td>long</td><td>%ld</td></tr>
+    <tr><td>float</td><td>%f</td></tr>
+</table>
+
+<hr>
+
+<!-- ===== MANIPULER DES CHAINES DE CARACTERES ===== -->
+
+<h3>Manipuler des chaînes de caractères</h3>
+
+<hr>
+
+<!-- ===== SAISIE PAR L'UTILISATEUR ===== -->
+
+<h3>Saisie par l'utilisateur</h3>
+
+<pre>int age = 0;
+printf("Quel âge avez-vous ?");
+scanf("%d", &age);
+printf("Vous avez %d ans, age);</pre>
+
+<h4>Particularité de C</h4>
+
+<p>Si le nombre saisi par l'utilisateur ne correspond pas au type, C ne lève pas une exception mais conserve la valeur initialisée de la variable. Si le type attendu est <strong>int</strong> mais que le type saisi est en fait <strong>float</strong>, C ne va toujours pas lever une exception mais tronquer le nombre saisi pour le transformer en entier.</p>
 </section>
 
 <footer>
