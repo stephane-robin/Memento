@@ -32,8 +32,16 @@
 
 <section id="principal">
 
-<p> <em>Git</em> est un logiciel de versionnement de code qui fonctionne avec un système d'arborescence à partir d'une branche master. <em>Git</em> fait constamment le lien entre un repository local et un repository hébergé par <em>GitHub</em>. Un repository est un dossier qui est configuré pour travailler avec <em>git</em>.</p>
-<p>Une des particularités de <em>Git</em>, c'est l'existence de sites web collaboratifs basés sur <em>Git</em> comme <em>GitHub</em>. Il s'agit d'une sorte de réseau social pour développeurs qui permet de suivre l'évolution de projets et de décider de participer à ces projets. <em>GitHub</em> fournit le serveur qui permet de créer et stocker des repositories en utilisant les fonctionnalités de <em>git</em>.</p>
+<div class="bloc">
+  <div class="gauche">
+    <p> <em>Git</em> est un logiciel de versionnement de code qui fonctionne avec un système d'arborescence à partir d'une branche master. <em>Git</em> fait constamment le lien entre un repository local et un repository hébergé par <em>GitHub</em>. Un repository est un dossier qui est configuré pour travailler avec <em>git</em>.</p>
+    <p>Une des particularités de <em>Git</em>, c'est l'existence de sites web collaboratifs basés sur <em>Git</em> comme <em>GitHub</em>. Il s'agit d'une sorte de réseau social pour développeurs qui permet de suivre l'évolution de projets et de décider de participer à ces projets. <em>GitHub</em> fournit le serveur qui permet de créer et stocker des repositories en utilisant les fonctionnalités de <em>git</em>.</p>
+  </div>
+
+  <div class="droite">
+    <img src="git.png" width="80" height="80">
+  </div>
+</div>
 
 <hr>
 
@@ -83,11 +91,11 @@ git config --global user-email "monEmail"</pre>
 git config --global color.status auto
 git config --global color.branch auto</pre>
 
-<p>Il faut créer un dossier local qui va héberger les différents repositories, par exemple <em>Git_Directory</em>. Puis se placer dans <em>Git_Directory</em> et initialiser le dossier :</p>
-<pre>git init</pre>
-
-<p>Il faut ensuite importer un remote repository du <em>master</em> :</p>
+<p>Il faut créer un dossier local qui va héberger les différents repositories, par exemple <em>Git_Local_Repo</em>. Puis se placer dans <em>Git_Local_Repo</em> et importer un remote repository du <em>master</em> :</p>
 <pre>git clone https://github/monAdresse</pre>
+
+<p>ou initialiser le dossier et démarrer de projet en local avec l'instruction :</p>
+<pre>git init</pre>
 
 <hr>
 
