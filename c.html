@@ -11,7 +11,7 @@
 <header>
   <div class="heroImage">
     <div class="heroTexte">
-      <h2> Python </h2>
+      <h2> C </h2>
     </div>
   </div>
 </header>
@@ -106,14 +106,14 @@ int main(int argc, char*argv[]){
 
 <p>Au moment de la déclaration d'une variable, C réserve un emplacement en mémoire, mais la valeur attribuée initialement à la variable correspond à la dernière valeur prise par cet emplacement de mémoire. Il est donc important de déclarer et d'initialiser en même temps pour éviter des erreurs.</p>
 
+<h4>Particularités de C</h4>
+
+<p>En C il n'existe pas de type booleen. On fait donc prendre les valeurs 0 et 1 à une variable qui va jouer le rôle d'un booléen.</p>
+
 <h4>Affichage d'une variable</h4>
     
 <pre>printf("Antoine a %d ans et %d voitures", age, nbreVoitures);</pre>
-
-<h4>Les constantes</h4>
-
-<p>On déclare une constante en C avec l'instruction :</p>
-<pre>const int MON_NOMBRE = 5;</pre>
+<p></p>
 
 <table>
     <tr><th>Types</th><th>Mots-clés</th></tr>
@@ -121,6 +121,57 @@ int main(int argc, char*argv[]){
     <tr><td>long</td><td>%ld</td></tr>
     <tr><td>float</td><td>%f</td></tr>
 </table>
+
+<h4> Les principales opérations </h4>
+
+  <table>
+    <tr><th>Opérations</th><th>Symboles</th></tr>
+    <tr><td>addition</td><td>+</td></tr>
+    <tr><td>soustraction</td><td>-</td></tr>
+    <tr><td>multiplication</td><td>*</td></tr>
+    <tr><td>division pour des nombres décimaux</td><td>/</td></tr>
+    <tr><td>partie entière d'une division</td><td>/</td></tr>
+    <tr><td>modulo</td><td>%</td></tr>
+    <tr><td>concaténation</td><td>+</td></tr>
+    <tr><td>affectation</td><td>=</td></tr>
+    <tr><td>égalité</td><td>==</td></tr>
+    <tr><td>incrémentation</td><td>++</td></tr>
+    <tr><td>décrémentation</td><td>--</td></tr>
+    <tr><td>ET logique</td><td>&&</td></tr>
+    <tr><td>OU logique</td><td||</td></tr>
+    <tr><td>NON logique</td><td>!</td></tr>
+  </table>
+
+<h4>Les opérateurs de comparaison</h4>
+
+  <table>
+    <tr><th>Signification</th><th>Opérateurs</th></tr>
+    <tr><td>égalité</td><td>==</td></tr>
+    <tr><td>égalité (valeur et type)</td><td>===</td></tr>
+    <tr><td>différent</td><td>!=</td></tr>
+    <tr><td>inférieur</td><td><</td></tr>
+    <tr><td>inférieur ou égal</td><td><=</td></tr>
+    <tr><td>supérieur</td><td>></td></tr>
+    <tr><td>supérieur ou égal</td><td>>=</td></tr>
+  </table>
+
+<h4>Particularité de C</h4>
+
+<p>En C, le signe division <strong>/</strong> n'a pas le même sens selon que les termes de calcul sont des entiers ou des décimaux.</p> 
+<table>
+    <tr><th>Type</th><th>Calcul</th><th>Résultat</th></tr>
+    <tr><td><pre>int a = 5;
+int b = 2;</pre></td><td><pre>int resultat = a/b</pre></td><td>2</td></tr>
+    <tr><td><pre>int a = 5;
+int b = 2;</pre></td><td><pre>float resultat = a/b</pre></td><td>2.0</td></tr>
+    <tr><td><pre>float a = 5.0;
+float b = 2.0;</pre></td><td><pre>float resultat = a/b</pre></td><td>2.5</td></tr>
+</table>
+
+<h4>Les constantes</h4>
+
+<p>On déclare une constante en C avec l'instruction :</p>
+<pre>const int MON_NOMBRE = 5;</pre>
 
 <hr>
 
@@ -142,6 +193,132 @@ printf("Vous avez %d ans, age);</pre>
 <h4>Particularité de C</h4>
 
 <p>Si le nombre saisi par l'utilisateur ne correspond pas au type, C ne lève pas une exception mais conserve la valeur initialisée de la variable. Si le type attendu est <strong>int</strong> mais que le type saisi est en fait <strong>float</strong>, C ne va toujours pas lever une exception mais tronquer le nombre saisi pour le transformer en entier.</p>
+
+<hr>
+
+<!-- ===== BRANCHEMENT CONDITIONNEL ===== -->
+
+<h3>Branchement conditionnel</h3>
+
+    <h4>La condition if</h4>
+
+    <pre>if (condition){
+  instructions;
+}
+else{
+  instructions;
+}</pre>
+
+    <p>Il est possible d'enchaîner les <strong>else</strong>.</p>
+
+    <pre>if (condition){
+  instructions;
+}
+else if{
+  instructions;
+}
+else{
+  instructions;
+}</pre>
+
+    <h4>L'instruction switch</h4>
+
+    <pre>switch(maVariable){
+  case valeur1:
+    instruction;
+    break;
+  case valeur2:
+    instruction;
+    break;
+  case valeur3:
+    instruction;
+    break;
+  default:
+    instruction;
+}</pre>
+
+<hr>
+
+<!-- ===== LES BOUCLES ===== -->
+
+<h3> Les boucles </h3>
+
+   <h4>La boucle while</h4>
+
+    <pre>while (condition){
+  instructions;
+ }</pre>
+
+    <h4>La boucle for</h4>
+
+    <pre>for (int i=0; i<5; i++){
+  instructions;
+}</pre>
+
+    <pre>for elmt in chaine :
+  instructions</pre>
+
+    <h4>Particularité de Python</h4>
+
+    <pre>for lettre in chaine :
+  if lettre in "aeiouy" :
+    instructions</pre>
+
+      <p>Le mot clé <strong>break</strong> permet d'interrompre une boucle et d'exécuter le code qui suit la boucle. Le mot clé <strong>continue</strong> permet de continuer une boucle en repartant du début du bloc sans exécuter ce qui suit <strong>continue</strong> dans le bloc.</p>
+
+<hr>
+
+<!-- ===== LES FONCTIONS ===== -->
+
+<h3>Les fonctions</h3>
+
+<pre>type maFonction(type parametre){
+    instructions;
+    return resultat
+}</pre>
+
+<p>Pour les fonctions qui ne renvoient pas de valeur (appelées procédures), on remplace le type par <strong>void</strong> et on renvoie <strong>return 0</strong>.</p>
+
+<h4>Particularité de C</h4>
+
+<p>Afin de pouvoir lire des fonctions se trouvant après la méthode main(), il faut rajouter en début de code derrière les préconditions le prototype des fonctions utilisées :</p>
+<pre>#include &ltstdio.h&gt
+#include &ltstlib.h&gt
+type maFonction(type parametre);</pre>
+<p>En fait, il existe deux types de fichiers, les <em>.c</em> qui sont les codes sources et les <em>.h</em> appelés headers qui contiennent les prototypes des fonctions. Il faut importer ces fichiers <em>.h</em> en tant que préconditions dans les fichiers <em>.c</em> pour éviter d'avoir à rajouter tous les prototypes en début de code.</p>
+<pre>#include &ltstdio.h&gt
+#include &ltstlib.h&gt
+#include "monFichier.h"  # en reference a monFichier.c</pre>
+<p>Notons que les fichiers sont importés sans chevron mais avec des guillemets alors que les packages sont importés avec chevrons.</p>
+
+<p>Attention, cette règle d'emploi des prototypes est importante. Lorsqu'on appelle une fonction située dans monFichier.c depuis le fichier main.c il est nécessaire d'inclure le prototype de cette fonction dans les préconditions pour que le compilateur puisse vérifier que l'appel de la fonction est conforme à sa declaration. Il est donc nécessaire d'importer monFichier.h pour utiliser une fonction de monFichier.c</p>
+<hr>
+
+<!-- ===== LE PACKAGE MATH ===== -->
+
+<h3>Le package math.h</h3>
+
+<pre>#include &ltmath.h&gt</pre>
+<p></p>
+
+<table>
+    <tr><th>Instruction</th><th>Effet obtenu</th></tr>
+    <tr><td>floor(x)</td><td>plus grand entier inférieur ou égal à x, renvoie un double</td></tr>
+    <tr><td>ceil(x)</td><td>plus petit entier supérieur ou égal à x, renvoie un double</td></tr>
+    <tr><td>fabs(x)</td><td>valeur absolue de x, renvoie un double</td></tr>
+    <tr><td>exp(x)</td><td>exponentielle de x, renvoie un double</td></tr>
+    <tr><td>log(x)</td><td>logarithme en base e de x, renvoie un double</td></tr>
+    <tr><td>pow(x, y)</td><td>x puissance y</td></tr>
+    <tr><td>sqrt(x)</td><td>racine carrée de x, renvoie un double</td></tr>
+    <tr><td>pi</td><td>pi = 3,14</td></tr>
+    <tr><td>cos(x)</td><td>cosinus de x pour x en radians, renvoie un double</td></tr>
+    <tr><td>sin(x)</td><td>sinus de x pour x en radians, renvoie un double</td></tr>
+    <tr><td>tan(x)</td><td>tangente de x pour x en radians, renvoie un double</td></tr>
+    <tr><td>acos(x)</td><td>arc cosinus de x en radians, renvoie un double</td></tr>
+    <tr><td>asin(x)</td><td>arc sinus de x en radians, renvoie un double</td></tr>
+    <tr><td>atan(x)</td><td>arc tangente de x en radians, renvoie un double</td></tr>
+  </table>
+
 </section>
 
 <footer>
