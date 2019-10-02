@@ -40,6 +40,13 @@
     <li> <a href="#">Généralités</a> </li>
     <li> <a href="#">Importer un package</a> </li>
     <li> <a href="#">Les variables</a> </li>
+    <li> <a href="#">Manipuler des chaînes de caractères</a> </li>
+    <li> <a href="#">Saisie par l'utilisateur</a> </li>
+    <li> <a href="#">Branchements conditionnels</a> </li>
+    <li> <a href="#">Les boucles</a> </li>
+    <li> <a href="#">Les fonctions</a> </li>
+    <li> <a href="#">Les pointeurs</a> </li>
+    <li> <a href="#">Le package math.h</a> </li>
   </ul>
   
   <hr>
@@ -104,11 +111,11 @@ int main(int argc, char*argv[]){
 
 <p>Attention, les <strong>signed char</strong> et <strong>unsigned char</strong>, ... sont en fait des nombres malgré leur dénomination trompeuse. Tous ces différents types de nombres ont été créés pour économiser de la mémoire lors de leur déclaration.</p>
 
-<p>Au moment de la déclaration d'une variable, C réserve un emplacement en mémoire, mais la valeur attribuée initialement à la variable correspond à la dernière valeur prise par cet emplacement de mémoire. Il est donc important de déclarer et d'initialiser en même temps pour éviter des erreurs.</p>
+<p>Au moment de la déclaration d'une variable, C réserve un emplacement en mémoire, mais la valeur attribuée initialement à la variable correspond à la dernière valeur prise par cet emplacement de mémoire. Il est donc important de déclarer et d'initialiser en même temps pour éviter des erreurs, en attribuant par exemple la valeur 0 à la variable.</p>
 
 <h4>Particularités de C</h4>
 
-<p>En C il n'existe pas de type booleen. On fait donc prendre les valeurs 0 et 1 à une variable qui va jouer le rôle d'un booléen.</p>
+<p>En C il n'existe pas de type booleen. On fait donc prendre les valeurs 0 et 1 à une variable qui va jouer le rôle d'un booléen. Il n'existe pas non plus de type chaîne de caractères.</p>
 
 <h4>Affichage d'une variable</h4>
     
@@ -292,6 +299,21 @@ type maFonction(type parametre);</pre>
 <p>Notons que les fichiers sont importés sans chevron mais avec des guillemets alors que les packages sont importés avec chevrons.</p>
 
 <p>Attention, cette règle d'emploi des prototypes est importante. Lorsqu'on appelle une fonction située dans monFichier.c depuis le fichier main.c il est nécessaire d'inclure le prototype de cette fonction dans les préconditions pour que le compilateur puisse vérifier que l'appel de la fonction est conforme à sa declaration. Il est donc nécessaire d'importer monFichier.h pour utiliser une fonction de monFichier.c</p>
+
+<hr>
+
+<!-- ===== LES POINTEURS ===== -->
+
+<h3>Les pointeurs</h3>
+
+<p>Pour afficher l'adresse d'une variable :</p>
+<pre>printf("l'adresse de ma variable est : %p", &maVariable);</pre>
+<p>Dans le code ci-dessus, <strong>&maVariable</strong> désigne l'adresse de maVariable.</p>
+
+<p>Un pointeur est une variable particulière contenant l'adresse d'une autre variable. Pour créer un pointeur, on rajoute le symbole * devant le nom de la variable :</p>
+<pre>int *maVariable;</pre>
+<p>Ici, maVariable est une variable et *maVariable est le pointeur associé. Il est également important d'initialiser un pointeur avec la valeur NULL.</p>
+<p>Ainsi, <strong>maVariable)</strong> représente la valeur de maVariable, <strong>*maVariable</strong></p>
 <hr>
 
 <!-- ===== LE PACKAGE MATH ===== -->
