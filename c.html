@@ -59,7 +59,7 @@
   <pre>#include &ltstdio.h&gt
 #include &ltstdlib.h&gt
 
-int main(int argc, char*argv[]){
+int main(int argc, char* argv[]){
   printf("Hello world");
   return 0;
 }</pre>
@@ -306,14 +306,60 @@ type maFonction(type parametre);</pre>
 
 <h3>Les pointeurs</h3>
 
-<p>Pour afficher l'adresse d'une variable :</p>
-<pre>printf("l'adresse de ma variable est : %p", &maVariable);</pre>
-<p>Dans le code ci-dessus, <strong>&maVariable</strong> désigne l'adresse de maVariable.</p>
+<p>Un pointeur est une variable particulière contenant l'adresse d'une autre variable. Pour créer un pointeur, on rajoute le symbole * au type de variable :</p>
+<pre>int* maVariable;</pre>
 
-<p>Un pointeur est une variable particulière contenant l'adresse d'une autre variable. Pour créer un pointeur, on rajoute le symbole * devant le nom de la variable :</p>
-<pre>int *maVariable;</pre>
-<p>Ici, maVariable est une variable et *maVariable est le pointeur associé. Il est également important d'initialiser un pointeur avec la valeur NULL.</p>
-<p>Ainsi, <strong>maVariable)</strong> représente la valeur de maVariable, <strong>*maVariable</strong></p>
+<p>Considérons la variable <em>nbre</em> à laquelle on affecte la valeur 12. L'adresse de la variable <em>nbre</em> est notée <em>&nbre</em> et donnée par le pointeur <em>pointeurSur_nbre</em>. L'instruction <em>*pointeurSur_nbre</em> permet d'accéder à la valeur de <em>nbre</em> à partir de son pointeur.</p>
+
+<img src="pointeur.png">
+
+<p>Le code suivant :</p>
+<pre>int nbre = 12;
+int* pointeur = &nbre;
+printf("%d \n", nbre);
+printf("%p \n", &nbre);
+printf("%p \n", pointeur);
+printf("%d", *pointeur);</pre>
+
+<p>affiche le résultat :</p>
+<p>12 <br> 0x7ffedfc1da8c <br> 0x7ffedfc1da8c <br> 12</p>
+
+<p>L'adresse d'une variable est écrite en hexadécimal. Il est par ailleurs important d'initialiser un pointeur avec la valeur NULL.</p>
+
+<h4>Intérêt des pointeurs</h4>
+
+<p>Le code suivant renvoie la valeur 0 car la valeur modifiée de maVariable reste dans la fonction modification(). En effet maVariable n'a pas une portée globale, ce qui serait à proscrire. On pourrait contourner ce problème en définissant une variable prenant la valeur de maVariable dans le main.</p>
+<pre>void modification(int parametre);
+
+int main(int argc, char* argv[]) {
+    
+    int maVariable = 0;
+    modification(maVariable);
+    printf("%d", maVariable);
+    
+    return (EXIT_SUCCESS);
+}
+
+void modification(int parametre){
+    parametre = parametre+2;
+}</pre>
+
+<p>Si on modifie ce code en utilisant un pointeur, on peut changer la valeur de maVariable bien qu'elle ne soit pas globale. On obtient dans ce cas 2 :</p>
+<pre>void modification(int* pointeurParametre);
+
+int main(int argc, char* argv[]) {
+    
+    int maVariable = 0;
+    modification(&maVariable);
+    printf("%d", maVariable);
+    
+    return (EXIT_SUCCESS);
+}
+
+void modification(int* pointeurParametre){
+    *pointeurParametre = *pointeurParametre+2;
+}</pre>
+
 <hr>
 
 <!-- ===== LE PACKAGE MATH ===== -->
