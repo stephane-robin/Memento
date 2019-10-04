@@ -115,7 +115,8 @@ int main(int argc, char* argv[]){
 
 <h4>Particularités de C</h4>
 
-<p>En C il n'existe pas de type booleen. On fait donc prendre les valeurs 0 et 1 à une variable qui va jouer le rôle d'un booléen. Il n'existe pas non plus de type chaîne de caractères.</p>
+<p>En C il n'existe pas de type booleen. On fait donc prendre les valeurs 0 et 1 à une variable qui va jouer le rôle d'un booléen. Il n'existe pas non plus de type chaîne de caractères. En revanche, le type char qui est un type particulier de nombres compris entre -128 et 127, permet en fait de représenter des caractères. La correspondance entre les nombres et les caractères est assurée par la table ASCII.</p>
+
 
 <h4>Affichage d'une variable</h4>
     
@@ -127,6 +128,9 @@ int main(int argc, char* argv[]){
     <tr><td>int</td><td>%d</td></tr>
     <tr><td>long</td><td>%ld</td></tr>
     <tr><td>float</td><td>%f</td></tr>
+    <tr><td>pointeur</td><td>%p</td></tr>
+    <tr><td>char</td><td>%d pour afficher le nombre, %c pour afficher le caractère</td></tr>
+    <tr><td>chaîne de caractères</td><td>%s</td></tr>
 </table>
 
 <h4> Les principales opérations </h4>
@@ -186,16 +190,62 @@ float b = 2.0;</pre></td><td><pre>float resultat = a/b</pre></td><td>2.5</td></t
 
 <h3>Manipuler des chaînes de caractères</h3>
 
+<p>La bibliothèque <em>string.h</em> offre une multitude de fonctions dédiées aux chaînes.</p>
+<pre>#include &ltstring.h&gt</pre>
+
+<p>En C un caractère est en fait un nombre stocké tel quel dans la mémoire et affiché sous forme de caractère si on le spécifie avec l'attribut <em>%c</em>, en utilisant la table ASCII.</p>
+
+<pre>char lettre = 'a';
+printf("%d", lettre);</pre>
+
+<p>affiche 97. En revanche, le code :</p>
+
+<pre>char lettre = 'a';
+printf("%c", lettre);</pre>
+
+<p>affiche bien la lettre <em>a</em>. Notons que les caractères sont entourés de <strong>'</strong> et non de <strong>"</strong>.</p>
+<p>En C une chaîne de caractères est un tableau de caractères et le dernier élément de cette chaîne est obligatoirement <em>\0</em></p>
+<p>Par conséquent pour stocker une chaîne de 7 caractères, il faut en fait un tableau de 8 éléments.</p>
+
+<p>Dans la pratique, pour initialiser et afficher une chaîne de caractères, on utilisera :</p>
+<pre>char chaine[] = "bonjour";
+printf("%s", chaine);</pre>
+
+<p>On constate donc qu'il n'est pas nécessaire de définir la taille du tableau représentant la chaine, et qu'il n'est pas nécessaire de passer par une boucle pour afficher la chaine. Par ailleurs, il s'affiche bien des lettres et non des chiffres comme on aurait pu le craindre. En fait en utilisant des guillemets, le compilateur calcule automatiquement la taille nécessaire, il compte les lettres et ajoute 1 case mémoire pour placer \0</p>
+
+<p>Attention, cette méthode de déclaration-initialisation automatique d'une chaîne de caractères ne fonctionne qu'au moment de l'initialisation. Après il est impossible d'écrire :</p>
+<pre>chaine = "bonjour"</pre>
+<p>Il faudra ensuite utiliser une boucle pour définir la chaine.</p>
+
+<p>Notons qu'une chaîne de caractères n'est par définition pas modifiable. Toutefois, il est quand même possible d'en modifier les termes uns à uns.</p>
+
+<table>
+    <tr><th>Propriétés</th><th>Codes</th></tr>
+    <tr><td>taille sans compter le \0</td><td><pre>strlen(chaine)</pre></td></tr>
+    <tr><td>copie d'une chaîne à l'intérieur d'une autre</td><td><pre>strcpy(chaineAcopier, chaineDestinataire)</pre></td></tr>
+    <tr><td>concaténer chaine1 dans chaine2</td><td><pre>strcat(chaine1, chaine2)</pre></td></tr>
+    <tr><td>comparer deux chaînes</td><td><pre>strcmp(chaine1, chaine2)</pre></td></tr>
+    <tr><td>rechercher le caractère a dans chaine</td><td><pre>strchr(chaine, 'a')</pre></td></tr>
+</table>
+
+<p>Attention, de façon contre-intuitive, la comparaison de deux chaines renvoie 0 si les chaînes sont identiques et un nombre positif ou négatif sinon.</p>
+
 <hr>
 
 <!-- ===== SAISIE PAR L'UTILISATEUR ===== -->
 
 <h3>Saisie par l'utilisateur</h3>
 
+<p>Dans le cas d'une valeur numérique :</p>
 <pre>int age = 0;
 printf("Quel âge avez-vous ?");
 scanf("%d", &age);
 printf("Vous avez %d ans, age);</pre>
+
+<p>Dans le cas d'une chaine de caractères :</p>
+<pre>char nom[100];
+printf("quel est votre nom?");
+scanf("%s", nom);</pre>
 
 <h4>Particularité de C</h4>
 
@@ -302,6 +352,45 @@ type maFonction(type parametre);</pre>
 
 <hr>
 
+<!-- ===== LES TABLEAUX ===== -->
+
+<h3>Les tableaux</h3>
+
+<p>Les tableaux en C sont des objets contenant des variables de même type, et disposant d'une taille fixée.</p>
+<p>Notons que les adresses des variables d'un tableau sont contigues.</p>
+<p>Pour définir un tableau de 5 <em>int</em> :</p>
+<pre>int tableau[5];</pre>
+
+<p>Pour initialiser un tableau lorsqu'on connaît les valeurs à l'avance :</p>
+<pre>int tableau[5] = {0, 4, 3, 5, 2};</pre>
+
+<p>Comme dans tous les langages, le premier indice d'un tableau est 0.</p>
+<p>Par ailleurs, le code suivant renvoie l'adresse de la première case du tableau :</p>
+<pre>int tab[5];
+print("%d", tab);</pre>
+
+<p>Pour parcourir un tableau :</p>
+<pre>for(int i=0; i<5; i++){
+    printf("%d \n", tableau[i];
+}</pre>
+
+<h4>Propriétés d'un tableau</h4>
+
+  <table>
+    <tr><th>Propriétés</th><th>Codes</th></tr>
+    <tr><td>taille</td><td><pre>len(tab)</pre></td></tr>
+    <tr><td>élément d'indice i</td><td><pre>tab[i]</pre></td></tr>
+    <tr><td>dernier élément d'une liste</td><td><pre>tab[-1]</pre></td></tr>
+    <tr><td>modifier l'élément d'indice i</td><td><pre>tab[i] = nouvelleValeur</pre></td></tr>
+    <tr><td>indice d'un élément</td><td><pre>tab.index(element)</pre></td></tr>
+  </table>
+
+<h4>Une initialisation particulière à C</h4>
+
+<pre>int tableau[5] = {1};</pre>
+<p>Cette instruction va en fait affecter la valeur 1 au 1er élément du tableau, puis la valeur 0 aux quatre autres.</p>
+
+<hr>
 <!-- ===== LES POINTEURS ===== -->
 
 <h3>Les pointeurs</h3>
