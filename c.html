@@ -32,14 +32,26 @@
 
 <section id="principal">
 
-<hr>
+<div class="bloc">
+
+  <div class="gauche">
+    <p>Initialement conçu pour créer le système d'exploitation Unix, le langage C est rapidement devenu un standard grâce à sa puissance, sa rapidité d'exécution et sa portabilité. Il est actuellement principalement utilisé dans l'écriture de systèmes d'exploitation, de machines virtuelles, de logiciels de calcul scientifique, d'applications en réseau.</p>
+  </div>
+    
+  <div class="droite">
+    <img src="c.png" width="80" height="80">
+  </div>
+</div>
+    
+    <hr>
     
   <p style="font-weight:bold"> Table des matières :</p>
   <ul>
-    <li> <a href="#">Hello world</a> </li>
     <li> <a href="#">Généralités</a> </li>
-    <li> <a href="#">Importer un package</a> </li>
+    <li> <a href="#">Hello world</a> </li>
     <li> <a href="#">Les variables</a> </li>
+    <li> <a href="#">Les principales opérations</a> </li>
+    <li> <a href="#">Les tableaux</a> </li>
     <li> <a href="#">Manipuler des chaînes de caractères</a> </li>
     <li> <a href="#">Saisie par l'utilisateur</a> </li>
     <li> <a href="#">Branchements conditionnels</a> </li>
@@ -49,21 +61,6 @@
     <li> <a href="#">Le package math.h</a> </li>
   </ul>
   
-  <hr>
-
-  <!-- ===== HELLO WORLD ===== -->
-
-  <h3>Hello world</h3>
-
-  <p>Commençons par le traditionnel "Hello world".</p>
-  <pre>#include &ltstdio.h&gt
-#include &ltstdlib.h&gt
-
-int main(int argc, char* argv[]){
-  printf("Hello world");
-  return 0;
-}</pre>
-
   <hr>
 
   <!-- ===== GENERALITES ===== -->
@@ -80,26 +77,38 @@ int main(int argc, char* argv[]){
     <p> <strong>\t</strong> s'emploie pour une tabulation.</p>
 
     <p>Les commentaires sur une ligne s'expriment grâce aux symboles <strong>//</strong>. En revanche les commentaires sur plusieurs lignes figurent entre les symboles <strong>/*</strong> et <strong>*/</strong>.</p>
+    
+    <p>Avant d'être compilés, les fichiers soures S sont traités par un préprocesseur qui résoud certaines directives comme l'inclusion de fichier. Les directives de préprocesseur commencent toujours par un # et sont écrites en début de code.</p>
 
-<hr>
-    
-<!--- ===== IMPORTER UN PACKAGE ===== -->
-    
-<h3>Importer un package</h3>
-    
     <p>L'installation de librairies se fait à l'aide de l'instruction <strong>#include &ltnomLibrairie&gt</strong>.</p>
 
+<hr>
+
+  <!-- ===== HELLO WORLD ===== -->
+
+  <h3>Hello world</h3>
+
+  <p>Commençons par le traditionnel "Hello world".</p>
+  <pre>#include &ltstdio.h&gt
+#include &ltstdlib.h&gt
+
+int main(int argc, char* argv[]){
+  printf("Hello world");
+  return 0;
+}</pre>
+    
 <hr>
     
 <!--- ===== LES VARIABLES ===== -->
     
 <h3>Les variables</h3>
-  
-<p>C n'est pas un langage dynamique. Il est nécessaire que définir le type de variables avant leur utilisation. Les différents types de variables en C sont les suivants :</p> 
     
+<p>C n'est pas un langage dynamique. Il est nécessaire que définir le type de variables avant leur utilisation. Les différents types de variables en C sont les suivants :</p> 
+<p>C est un langage faiblement typé, et ne dispose que de 4 types de variables.</p>
+
   <table>
     <tr><th>Types</th><th>Mots-clés</th></tr>
-    <tr><td>entier court</td><td>signed char</td></tr>
+    <tr><td>entier court</td><td>char</td></tr>
     <tr><td>entier</td><td>int</td></tr>
     <tr><td>entier long</td><td>long</td></tr>
     <tr><td>nombre décimal</td><td>float</td></tr>
@@ -109,7 +118,8 @@ int main(int argc, char* argv[]){
     <tr><td>entier long positif</td><td>unsigned long</td></tr>
   </table>
 
-<p>Attention, les <strong>signed char</strong> et <strong>unsigned char</strong>, ... sont en fait des nombres malgré leur dénomination trompeuse. Tous ces différents types de nombres ont été créés pour économiser de la mémoire lors de leur déclaration.</p>
+<p>Attention, bien que le type <strong>char</strong> soit utilisé pour représenter des caractères, il représente quand même initialement en C des nombres compris entre -128 et 127.</p>
+<p>Attention, les <strong>unsigned char</strong>, <strong>unsigned int</strong>, ... sont en fait des nombres positifs. La plage mémoire qu'ils occupent a donc été déplacée vers la droite. Ainsi, les nombres de type <strong>unsigned char</strong> sont compris entre 0 et 255. Tous ces différents types de nombres ont été créés pour économiser de la mémoire lors de leur déclaration.</p>
 
 <p>Au moment de la déclaration d'une variable, C réserve un emplacement en mémoire, mais la valeur attribuée initialement à la variable correspond à la dernière valeur prise par cet emplacement de mémoire. Il est donc important de déclarer et d'initialiser en même temps pour éviter des erreurs, en attribuant par exemple la valeur 0 à la variable.</p>
 
@@ -131,9 +141,19 @@ int main(int argc, char* argv[]){
     <tr><td>pointeur</td><td>%p</td></tr>
     <tr><td>char</td><td>%d pour afficher le nombre, %c pour afficher le caractère</td></tr>
     <tr><td>chaîne de caractères</td><td>%s</td></tr>
+    <tr><td>float en notation scientifique</td><td>%e</td></tr>
 </table>
 
-<h4> Les principales opérations </h4>
+<h4>Les constantes</h4>
+
+<p>On déclare une constante en C avec l'instruction :</p>
+<pre>const int MON_NOMBRE = 5;</pre>
+
+<hr>
+
+<!-- ===== LES PRINCIPALES OPERATIONS ===== -->
+
+<h3> Les principales opérations </h3>
 
   <table>
     <tr><th>Opérations</th><th>Symboles</th></tr>
@@ -149,21 +169,8 @@ int main(int argc, char* argv[]){
     <tr><td>incrémentation</td><td>++</td></tr>
     <tr><td>décrémentation</td><td>--</td></tr>
     <tr><td>ET logique</td><td>&&</td></tr>
-    <tr><td>OU logique</td><td||</td></tr>
+    <tr><td>OU logique</td><td> || </td></tr>
     <tr><td>NON logique</td><td>!</td></tr>
-  </table>
-
-<h4>Les opérateurs de comparaison</h4>
-
-  <table>
-    <tr><th>Signification</th><th>Opérateurs</th></tr>
-    <tr><td>égalité</td><td>==</td></tr>
-    <tr><td>égalité (valeur et type)</td><td>===</td></tr>
-    <tr><td>différent</td><td>!=</td></tr>
-    <tr><td>inférieur</td><td><</td></tr>
-    <tr><td>inférieur ou égal</td><td><=</td></tr>
-    <tr><td>supérieur</td><td>></td></tr>
-    <tr><td>supérieur ou égal</td><td>>=</td></tr>
   </table>
 
 <h4>Particularité de C</h4>
@@ -179,10 +186,61 @@ int b = 2;</pre></td><td><pre>float resultat = a/b</pre></td><td>2.0</td></tr>
 float b = 2.0;</pre></td><td><pre>float resultat = a/b</pre></td><td>2.5</td></tr>
 </table>
 
-<h4>Les constantes</h4>
+<h4>Les opérateurs de comparaison</h4>
 
-<p>On déclare une constante en C avec l'instruction :</p>
-<pre>const int MON_NOMBRE = 5;</pre>
+  <table>
+    <tr><th>Signification</th><th>Opérateurs</th></tr>
+    <tr><td>égalité</td><td>==</td></tr>
+    <tr><td>égalité (valeur et type)</td><td>===</td></tr>
+    <tr><td>différent</td><td>!=</td></tr>
+    <tr><td>inférieur</td><td><</td></tr>
+    <tr><td>inférieur ou égal</td><td><=</td></tr>
+    <tr><td>supérieur</td><td>></td></tr>
+    <tr><td>supérieur ou égal</td><td>>=</td></tr>
+  </table>
+
+<hr>
+
+<!-- ===== LES TABLEAUX ===== -->
+
+<h3>Les tableaux</h3>
+
+<p>Les tableaux en C sont des objets contenant des variables de même type, et disposant d'une taille fixée.</p>
+<p>Notons que les adresses des variables d'un tableau sont contigues.</p>
+<p>Pour définir un tableau de 5 <em>int</em> :</p>
+<pre>int tableau[5];</pre>
+
+<p>Pour initialiser un tableau lorsqu'on connaît les valeurs à l'avance :</p>
+<pre>int tableau[5] = {0, 4, 3, 5, 2};</pre>
+
+<p>Il est également possible de laisser le compilateur déterminer la taille du tableau lorsqu'on lui donne les valeurs à l'avance :</p>
+<pre>int tableau[] = {0, 4, 3, 5, 2};</pre>
+
+<p>Comme dans tous les langages, le premier indice d'un tableau est 0.</p>
+<p>Par ailleurs, le code suivant renvoie l'adresse de la première case du tableau :</p>
+<pre>int tab[5];
+print("%d", tab);</pre>
+
+<p>Pour parcourir un tableau :</p>
+<pre>for(int i=0; i<5; i++){
+    printf("%d \n", tableau[i];
+}</pre>
+
+<h4>Propriétés d'un tableau</h4>
+
+  <table>
+    <tr><th>Propriétés</th><th>Codes</th></tr>
+    <tr><td>taille</td><td><pre>sizeof tab / sizeof tab[0]</pre></td></tr>
+    <tr><td>élément d'indice i</td><td><pre>tab[i]</pre></td></tr>
+    <tr><td>dernier élément d'une liste</td><td><pre>tab[-1]</pre></td></tr>
+    <tr><td>modifier l'élément d'indice i</td><td><pre>tab[i] = nouvelleValeur</pre></td></tr>
+    <tr><td>indice d'un élément</td><td><pre>tab.index(element)</pre></td></tr>
+  </table>
+
+<h4>Une initialisation particulière à C</h4>
+
+<pre>int tableau[5] = {1};</pre>
+<p>Cette instruction va en fait affecter la valeur 1 au 1er élément du tableau, puis la valeur 0 aux quatre autres.</p>
 
 <hr>
 
@@ -190,10 +248,9 @@ float b = 2.0;</pre></td><td><pre>float resultat = a/b</pre></td><td>2.5</td></t
 
 <h3>Manipuler des chaînes de caractères</h3>
 
-<p>La bibliothèque <em>string.h</em> offre une multitude de fonctions dédiées aux chaînes.</p>
-<pre>#include &ltstring.h&gt</pre>
+<h4>Les caractères</h4>
 
-<p>En C un caractère est en fait un nombre stocké tel quel dans la mémoire et affiché sous forme de caractère si on le spécifie avec l'attribut <em>%c</em>, en utilisant la table ASCII.</p>
+<p>En C un caractère est en fait un nombre stocké tel quel dans la mémoire et affiché sous forme de caractère grâce à la table ASCII, si on le spécifie en utilisant l'attribut <em>%c</em>.</p>
 
 <pre>char lettre = 'a';
 printf("%d", lettre);</pre>
@@ -203,21 +260,38 @@ printf("%d", lettre);</pre>
 <pre>char lettre = 'a';
 printf("%c", lettre);</pre>
 
-<p>affiche bien la lettre <em>a</em>. Notons que les caractères sont entourés de <strong>'</strong> et non de <strong>"</strong>.</p>
-<p>En C une chaîne de caractères est un tableau de caractères et le dernier élément de cette chaîne est obligatoirement <em>\0</em></p>
-<p>Par conséquent pour stocker une chaîne de 7 caractères, il faut en fait un tableau de 8 éléments.</p>
+<p>affiche bien la lettre <em>a</em>.</p>
+<p>Notons que les caractères sont obligatoirement entourés de <strong>'</strong> alors que les chaînes de caractères sont entourées de <strong>"</strong>.</p>
 
-<p>Dans la pratique, pour initialiser et afficher une chaîne de caractères, on utilisera :</p>
+<h4>Les chaînes de caractères</h4>
+
+<p>En C, une chaîne de caractères est un tableau de caractères de type char dont le dernier élément est \0. Il s'agit en fait d'un caractère de contrôle non affichable qui permet d'indiquer la fin de la chaîne. Ainsi une chaîne composée de n éléments sera en fait un tableau de n+1 éléments. La taille d'une chaîne de caractères est immuable une fois initialisée. On peut toutefois n'utiliser que partiellement l'espace alloué en insérant le caractère de fin de chaîne \0 à un emplacement avant la fin du tableau.</p>
+<p>La bibliothèque <em>string.h</em> offre une multitude de fonctions dédiées aux chaînes.</p>
+<pre>#include &ltstring.h&gt</pre>
+
+<p>Pour définir une chaîne de caractères, il faut définir la taille de la chaîne de caractères. On pourra prendre une taille supérieure à la taille effective, car une fois définie, la taille ne pourra plus être modifiée. Dans ce cas, les emplacements non utilisés restent vides, mais occupent quand même de la place mémoire.</p>
+<pre>char chaine[100];
+chaine[0] = 'b';
+chaine[1] = 'o';
+chaine[2] = 'n';
+chaine[3] = 'j';
+chaine[4] = 'o';
+chaine[5] = 'u';
+chaine[6] = 'r';
+chaine[7] = '\0';</pre>
+
+<p>On pourra également faire une déclaration dans une même accolade, et dans ce cas la taille du tableau est lue par le processeur et il est inutile de la spécifier :</p>
+<pre>char chaine[] = {'b', 'o', 'n', 'j', 'o', 'u', 'r', '\0'};</pre>
+
+<p>Dans la pratique, pour initialiser et afficher une chaîne de caractères, on utilisera plutôt :</p>
 <pre>char chaine[] = "bonjour";
 printf("%s", chaine);</pre>
 
-<p>On constate donc qu'il n'est pas nécessaire de définir la taille du tableau représentant la chaine, et qu'il n'est pas nécessaire de passer par une boucle pour afficher la chaine. Par ailleurs, il s'affiche bien des lettres et non des chiffres comme on aurait pu le craindre. En fait en utilisant des guillemets, le compilateur calcule automatiquement la taille nécessaire, il compte les lettres et ajoute 1 case mémoire pour placer \0</p>
+<p>Il n'est pas non plus nécessaire de définir la taille du tableau représentant la chaine. Par ailleurs, en utilisant l'élément %s, il s'affiche bien des lettres et non des chiffres comme on aurait pu le craindre.</p>
 
-<p>Attention, cette méthode de déclaration-initialisation automatique d'une chaîne de caractères ne fonctionne qu'au moment de l'initialisation. Après il est impossible d'écrire :</p>
-<pre>chaine = "bonjour"</pre>
-<p>Il faudra ensuite utiliser une boucle pour définir la chaine.</p>
+<p>Attention, cette méthode de déclaration-initialisation automatique d'une chaîne de caractères ne fonctionne qu'au moment de l'initialisation. Après il est impossible d'écrire <em>chaine = "bonjour"</em>. Il faudra ensuite utiliser une boucle pour définir la chaine.</p>
 
-<p>Notons qu'une chaîne de caractères n'est par définition pas modifiable. Toutefois, il est quand même possible d'en modifier les termes uns à uns.</p>
+<p>Notons qu'une chaîne de caractères n'est en principe pas modifiable. Toutefois, il est quand même possible de créer d'autres chaînes de caractères à partir d'une chaîne initiale.</p>
 
 <table>
     <tr><th>Propriétés</th><th>Codes</th></tr>
@@ -225,10 +299,21 @@ printf("%s", chaine);</pre>
     <tr><td>copie d'une chaîne à l'intérieur d'une autre</td><td><pre>strcpy(chaineAcopier, chaineDestinataire)</pre></td></tr>
     <tr><td>concaténer chaine1 dans chaine2</td><td><pre>strcat(chaine1, chaine2)</pre></td></tr>
     <tr><td>comparer deux chaînes</td><td><pre>strcmp(chaine1, chaine2)</pre></td></tr>
-    <tr><td>rechercher le caractère a dans chaine</td><td><pre>strchr(chaine, 'a')</pre></td></tr>
+    <tr><td>renvoyer le reste de la chaine à partir du caractère a</td><td><pre>strchr(chaine, 'a')</pre></td></tr>
+    <tr><td>renvoyer le reste de la chaine à partir de souschaine trouvé dans la chaine</td><td><pre>strstr(chaine, souschaine)</pre></td></tr>
+    <tr><td>écrire une sous chaine dans une chaîne</td><td><pre>sprintf(chaine, sousChaine)</pre></td></tr>
 </table>
 
 <p>Attention, de façon contre-intuitive, la comparaison de deux chaines renvoie 0 si les chaînes sont identiques et un nombre positif ou négatif sinon.</p>
+
+<p>Attention à l'utilisation particulière des instructions ci-dessus qui utilisent systématiquement un pointeur.</p>
+<pre>char chaine[] = "bien le bonjour";
+char *suiteChaine = NULL;
+    
+suiteChaine = strstr(chaine, "on");
+if (suiteChaine != NULL){
+    printf("%s", suiteChaine);
+}</pre>
 
 <hr>
 
@@ -236,7 +321,7 @@ printf("%s", chaine);</pre>
 
 <h3>Saisie par l'utilisateur</h3>
 
-<p>Dans le cas d'une valeur numérique :</p>
+<p>Dans le cas d'une valeur numérique, on saisit la variable age sous forme d'adresse :</p>
 <pre>int age = 0;
 printf("Quel âge avez-vous ?");
 scanf("%d", &age);
@@ -338,7 +423,7 @@ else{
 
 <h4>Particularité de C</h4>
 
-<p>Afin de pouvoir lire des fonctions se trouvant après la méthode main(), il faut rajouter en début de code derrière les préconditions le prototype des fonctions utilisées :</p>
+<p>Afin de pouvoir lire des fonctions se trouvant après la méthode main(), il faut d'abord déclarer ces fonctions en début de code derrière les préconditions en rajoutant le prototype des fonctions utilisées :</p>
 <pre>#include &ltstdio.h&gt
 #include &ltstlib.h&gt
 type maFonction(type parametre);</pre>
@@ -351,46 +436,6 @@ type maFonction(type parametre);</pre>
 <p>Attention, cette règle d'emploi des prototypes est importante. Lorsqu'on appelle une fonction située dans monFichier.c depuis le fichier main.c il est nécessaire d'inclure le prototype de cette fonction dans les préconditions pour que le compilateur puisse vérifier que l'appel de la fonction est conforme à sa declaration. Il est donc nécessaire d'importer monFichier.h pour utiliser une fonction de monFichier.c</p>
 
 <hr>
-
-<!-- ===== LES TABLEAUX ===== -->
-
-<h3>Les tableaux</h3>
-
-<p>Les tableaux en C sont des objets contenant des variables de même type, et disposant d'une taille fixée.</p>
-<p>Notons que les adresses des variables d'un tableau sont contigues.</p>
-<p>Pour définir un tableau de 5 <em>int</em> :</p>
-<pre>int tableau[5];</pre>
-
-<p>Pour initialiser un tableau lorsqu'on connaît les valeurs à l'avance :</p>
-<pre>int tableau[5] = {0, 4, 3, 5, 2};</pre>
-
-<p>Comme dans tous les langages, le premier indice d'un tableau est 0.</p>
-<p>Par ailleurs, le code suivant renvoie l'adresse de la première case du tableau :</p>
-<pre>int tab[5];
-print("%d", tab);</pre>
-
-<p>Pour parcourir un tableau :</p>
-<pre>for(int i=0; i<5; i++){
-    printf("%d \n", tableau[i];
-}</pre>
-
-<h4>Propriétés d'un tableau</h4>
-
-  <table>
-    <tr><th>Propriétés</th><th>Codes</th></tr>
-    <tr><td>taille</td><td><pre>len(tab)</pre></td></tr>
-    <tr><td>élément d'indice i</td><td><pre>tab[i]</pre></td></tr>
-    <tr><td>dernier élément d'une liste</td><td><pre>tab[-1]</pre></td></tr>
-    <tr><td>modifier l'élément d'indice i</td><td><pre>tab[i] = nouvelleValeur</pre></td></tr>
-    <tr><td>indice d'un élément</td><td><pre>tab.index(element)</pre></td></tr>
-  </table>
-
-<h4>Une initialisation particulière à C</h4>
-
-<pre>int tableau[5] = {1};</pre>
-<p>Cette instruction va en fait affecter la valeur 1 au 1er élément du tableau, puis la valeur 0 aux quatre autres.</p>
-
-<hr>
 <!-- ===== LES POINTEURS ===== -->
 
 <h3>Les pointeurs</h3>
@@ -400,7 +445,7 @@ print("%d", tab);</pre>
 
 <p>Considérons la variable <em>nbre</em> à laquelle on affecte la valeur 12. L'adresse de la variable <em>nbre</em> est notée <em>&nbre</em> et donnée par le pointeur <em>pointeurSur_nbre</em>. L'instruction <em>*pointeurSur_nbre</em> permet d'accéder à la valeur de <em>nbre</em> à partir de son pointeur.</p>
 
-<img src="pointeur.png">
+<img src="pointeur.png" alt="pointeur">
 
 <p>Le code suivant :</p>
 <pre>int nbre = 12;
@@ -448,6 +493,59 @@ int main(int argc, char* argv[]) {
 void modification(int* pointeurParametre){
     *pointeurParametre = *pointeurParametre+2;
 }</pre>
+
+<h4>Utilisation des pointeurs dans les fonctions</h4>
+
+<p>Il est rarement judicieux de déclarer une variable globale. Pourtant C proposer de modifier une variable sans la déclarer globale, mais en travaillant sur son adresse à l'aide du pointeur qui lui est associé. L'exemple suivant ne permet pas d'inverser la valeur des variables a et b :</p>
+<pre>void permuter(int a, int b);
+
+int main(int argc, char* argv[]) {
+    
+    int a = 10;
+    int b = 20;
+    
+    permuter(a, b);
+     
+    printf("%d, %d", a, b);
+    
+    return (EXIT_SUCCESS);
+}
+
+void permuter(int a, int b){
+    
+    int c;
+    
+    c = a;
+    a = b;
+    b = c; 
+}</pre>
+
+<p>En revanche, l'utilisation des pointeurs *a et *b permet d'obtenir le résultat voulu :</p>
+
+<pre>void permuter(int *a, int *b);
+
+int main(int argc, char* argv[]) {
+    
+    int a = 10;
+    int b = 20;
+    
+    permuter(&a, &b);
+     
+    printf("%d, %d", a, b);
+    
+    return (EXIT_SUCCESS);
+}
+
+void permuter(int *a, int *b){
+    
+    int c;
+    
+    c = *a;
+    *a = *b;
+    *b = c; 
+}</pre>
+
+<p>On peut également, comme dans de nombreux autres langages, renvoyer un tableau pour obtenir le résultat voulu :</p>
 
 <hr>
 

@@ -73,15 +73,15 @@ h3{ /* titres paragraphes */
   font-size: 1.7em;
   margin-top: 40px;
   font-family: Arial, Verdana, "Trebuchet MS";
-  color: rgb(153,102,102);
+  color: rgb(102,153,204);
 }
 
 h4{ /* sous-titres paragraphes */
-  font-size: 1.3em;
+  font-size: 1.2em;
   font-style: italic;
   margin-top: 40px;
   font-family: Arial, Verdana, "Trebuchet MS";
-  color: rgb(153,102,102);
+  color: rgb(102,153,204);
 }
 
 /* ===== PRINCIPALES BALISES ===== */
@@ -102,7 +102,7 @@ p{ /* paragraphes */
 }
 
 strong{ /* mise en valeur */
-  color: rgb(102,153,204);
+  color: rgb(153,102,102);
   font-family: Courier;
   font-weight: normal;
   font-size: 0.9em;
@@ -128,8 +128,8 @@ fieldset{ /* cadre avec titre */
 }
 
 pre{ /* lignes de codes */
-  background-color: #DAE8EF;
-  color: rgb(102,153,204);
+  background-color: #F4F5D3;
+  color: rgb(153,102,102);
   font-family: Courier;
   padding-left: 5px;
   margin-bottom:0px;
