@@ -126,6 +126,11 @@ int main(int argc, char* argv[]){
 
 <p>En C il n'existe pas de type booleen. On fait donc prendre les valeurs 0 et 1 à une variable qui va jouer le rôle d'un booléen. Il n'existe pas non plus de type chaîne de caractères. En revanche, le type char qui est un type particulier de nombres compris entre -128 et 127, permet en fait de représenter des caractères. La correspondance entre les nombres et les caractères est assurée par la table ASCII.</p>
 
+<h4>Conversion implicite et cast d'un type</h4>
+
+<p>Dans une expression contenant des éléments de plusieurs types, le type du résultat respecte la règle suivante : le type le plus faible est converti implicitement dans le type le plus fort. Par exemple, un char avec un int produit un int, un int avec un float produit un float. Si on veut convertir de façon explicite une variable dans un autre type (cast), on utilise la forme suivante :</p>
+<pre>int x;
+float y = (float)x;</pre>
 
 <h4>Affichage d'une variable</h4>
     
@@ -148,6 +153,9 @@ int main(int argc, char* argv[]){
 <p>On déclare une constante en C avec l'instruction :</p>
 <pre>const int MON_NOMBRE = 5;</pre>
 
+<h4>Taille des données</h4>
+
+<p>En C, un octet est représenté par un char. L'instruction <strong>sizeof</strong> permet de connaître la taille en octets d'une donnée. La taille d'un char vaut donc 1.</p>
 <hr>
 
 <!-- ===== LES PRINCIPALES OPERATIONS ===== -->
@@ -290,12 +298,22 @@ printf("%s", chaine);</pre>
 
 <p>Attention, cette méthode de déclaration-initialisation automatique d'une chaîne de caractères ne fonctionne qu'au moment de l'initialisation. Après il est impossible d'écrire <em>chaine = "bonjour"</em>. Il faudra ensuite utiliser une boucle pour définir la chaine.</p>
 
+<p>Lors de l'initialisation d'une chaine, le saut de ligne sans marqueur n'est pas interprété par le compilateur :</p>
+<pre>strcpy(t1, "hello world"
+            " et aussi bonjour");</pre>
+<p>affichera : hello world et aussi bonjour</p>
+
+<p>Puisque, vu d'un pointeur, une chaine est représentée par l'adresse de son premier élément, on peut définir une chaine en utilisant un pointeur :</p>
+<pre>char *s = "bonjour";</pre>
+
 <p>Notons qu'une chaîne de caractères n'est en principe pas modifiable. Toutefois, il est quand même possible de créer d'autres chaînes de caractères à partir d'une chaîne initiale.</p>
 
 <table>
     <tr><th>Propriétés</th><th>Codes</th></tr>
     <tr><td>taille sans compter le \0</td><td><pre>strlen(chaine)</pre></td></tr>
-    <tr><td>copie d'une chaîne à l'intérieur d'une autre</td><td><pre>strcpy(chaineAcopier, chaineDestinataire)</pre></td></tr>
+    <tr><td>remplacement de chaineDestinataire par chaienAcopier</td><td><pre>strcpy(chaineDestinataire, chaineAcopier)</pre></td></tr>
+    <tr><td>copie de chaineAcopier dans chaineDestinataire (qui est écrasée)</td><td><pre>strncpy(chaineDestinataire, chaineAcopier, 
+                nbreCaracteresAcopier)</pre></td></tr>
     <tr><td>concaténer chaine1 dans chaine2</td><td><pre>strcat(chaine1, chaine2)</pre></td></tr>
     <tr><td>comparer deux chaînes</td><td><pre>strcmp(chaine1, chaine2)</pre></td></tr>
     <tr><td>renvoyer le reste de la chaine à partir du caractère a</td><td><pre>strchr(chaine, 'a')</pre></td></tr>
@@ -304,6 +322,8 @@ printf("%s", chaine);</pre>
 </table>
 
 <p>Attention, de façon contre-intuitive, la comparaison de deux chaines renvoie 0 si les chaînes sont identiques et un nombre positif ou négatif sinon.</p>
+
+<p>Attention, comparer deux chaines avec un == ne compare pas les valeurs mais les adresses.</p>
 
 <p>Attention à l'utilisation particulière des instructions ci-dessus qui utilisent systématiquement un pointeur.</p>
 <pre>char chaine[] = "bien le bonjour";
@@ -544,7 +564,7 @@ void permuter(int *a, int *b){
     *b = c; 
 }</pre>
 
-<p>On peut également, comme dans de nombreux autres langages, renvoyer un tableau pour obtenir le résultat voulu :</p>
+<p>En fait, l'utilisation des pointeurs est systématique en C car on ne peut pas comme dans d'autres langages écrire une fonction qui renvoie un tableau. Ainsi, les fonctions ne renvoient qu'un unique élément.</p>
 
 <hr>
 
