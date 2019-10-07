@@ -31,7 +31,67 @@
 
 <section id="principal">
 
-<p> A venir</p>
+<hr>
+
+<!-- ===== LA PROGRAMMATION RESEAU ===== -->
+
+<h3>La programmation réseau</h3>
+
+<h4>Rappels sur les réseaux</h4>
+
+<p>La communication réseau est définie par le modèle OSI en 7 couches. Toutefois, la plupart des logiciels reposent sur le modèle TCP/IP en 4 couches : réseau, Internet, transport, application. C'est dans cette dernière couche que se positionne Java.</p>
+<p>Notons que par défaut les principaux protocoles de transfert utilisent les ports suivants :</p>
+<ul>
+    <li>http : port 80</li>
+    <li>ftp : port 20 ou 21</li>
+    <li>smtp : port 25</li>
+</ul>
+
+<h4>La classe InetAddress</h4>
+
+<p>Pour manipuler des adresses IP, on utilise la classe InetAddress. On peut par exemple créer un objet adresse de la façon suivante :</p>
+<pre>InetAddress adresse = InetAddress.getLocalHost();</pre>
+
+<table>
+    <tr><th>Objectif</th><th>Code</th></tr>
+    <tr><td>nom de l'hôte (client)</td><td>adresse.getHostName()</td></tr>
+    <tr><td>adresse IP</td><td>adresse.getHostAddress()</td></tr>
+    <tr><td>teste si l'adresse est de type boucle locale</td><td>adresse.isLoopbackAddress()</td></tr>
+</table>
+
+<p>Ainsi pour récupérer l'adresse IP de son poste et son adresse de boucle locale :</p>
+<pre>import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+try {
+	InetAddress adresse = InetAddress.getLocalHost();
+		           
+	System.out.println("L'adresse IP de " + adresse.getHostName() + " est : " + adresse.getHostAddress()); 
+		         
+	adresse = InetAddress.getByName("localhost");
+		        
+	System.out.println("L'adresse IP de " + adresse.getHostName() + " est : " + adresse.getHostAddress()); 
+} catch (UnknownHostException e) {
+        e.printStackTrace();
+}</pre>
+
+<p>De même pour récupérer l'adresse IP d'un site Internet à partir de son url :</p>
+<pre>import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+try {
+	//Nous appelons une méthode statique de cet objet pour en récupérer une instance 
+	InetAddress adresse = InetAddress.getByName("meteocentrale.ch");
+	System.out.println("L'adresse IP de " + adresse.getHostName() + " est : " + adresse.getHostAddress());
+	         
+	//Certains sites Internet peuvent avoir plusieurs adresses IP
+	InetAddress[] addresses = InetAddress.getAllByName("amazon.fr");
+	System.out.println("\nToutes les adresses IP de amazon.fr : ");
+	for(InetAddress ad : addresses)
+	    System.out.println(" - " + ad.getHostAddress()); 
+} catch (UnknownHostException e) {
+	e.printStackTrace();
+}</pre>
 
 </section>
 

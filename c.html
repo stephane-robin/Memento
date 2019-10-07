@@ -81,6 +81,17 @@
 
     <p>L'installation de librairies se fait à l'aide de l'instruction <strong>#include &ltnomLibrairie&gt</strong>.</p>
 
+    <h4>Lancer une compilation avec Makefile</h4>
+    
+    <p>Une fois le fichier Makefile créé, il faut ouvrir le Terminal et se rendre dans le dossier du projet</p>
+    <pre>cd Documents/monProjet</pre>
+    
+    <p>puis exécuter le Makefile avec l'instruction</p>
+    <pre>make</pre>
+    
+    <p>Les fichiers fichiers.c se construisent alors en suivant les directives du Makefile. Pour ouvrir directement un fichier, il faut forcer le compilateur à rester dans le dossier local</p>
+    <pre>./monFichier</pre>
+    
 <hr>
 
   <!-- ===== HELLO WORLD ===== -->
@@ -481,24 +492,25 @@ printf("%d", *pointeur);</pre>
 
 <h4>Intérêt des pointeurs</h4>
 
-<p>Le code suivant renvoie la valeur 0 car la valeur modifiée de maVariable reste dans la fonction modification(). En effet maVariable n'a pas une portée globale, ce qui serait à proscrire. On pourrait contourner ce problème en définissant une variable prenant la valeur de maVariable dans le main.</p>
-<pre>void modification(int parametre);
+<p>Le code suivant renvoie bien la valeur 2, mais il peut être avantageusement remplacé par un code utilisant des pointeurs. Rappelons que l'utilisation de variables globales reste à proscrire.</p>
+<pre>int modification(int parametre);
 
 int main(int argc, char* argv[]) {
     
     int maVariable = 0;
-    modification(maVariable);
+    maVariable = modification(maVariable);
     printf("%d", maVariable);
     
     return (EXIT_SUCCESS);
 }
 
-void modification(int parametre){
+int modification(int parametre){
     parametre = parametre+2;
+    return parametre;
 }</pre>
 
-<p>Si on modifie ce code en utilisant un pointeur, on peut changer la valeur de maVariable bien qu'elle ne soit pas globale. On obtient dans ce cas 2 :</p>
-<pre>void modification(int* pointeurParametre);
+<p>Si on modifie ce code en utilisant un pointeur, on parvient à changer directement la valeur de maVariable bien qu'elle ne soit pas globale. On obtient dans ce cas 2 :</p>
+<pre>void modification(int* parametre);
 
 int main(int argc, char* argv[]) {
     
@@ -510,12 +522,12 @@ int main(int argc, char* argv[]) {
 }
 
 void modification(int* pointeurParametre){
-    *pointeurParametre = *pointeurParametre+2;
+    *parametre = *parametre+2;
 }</pre>
 
 <h4>Utilisation des pointeurs dans les fonctions</h4>
 
-<p>Il est rarement judicieux de déclarer une variable globale. Pourtant C proposer de modifier une variable sans la déclarer globale, mais en travaillant sur son adresse à l'aide du pointeur qui lui est associé. L'exemple suivant ne permet pas d'inverser la valeur des variables a et b :</p>
+<p>Il est rarement judicieux de déclarer une variable globale. Pourtant C propose de modifier une variable sans la déclarer globale, mais en travaillant sur son adresse à l'aide du pointeur qui lui est associé. L'exemple suivant ne permet pas d'inverser la valeur des variables a et b :</p>
 <pre>void permuter(int a, int b);
 
 int main(int argc, char* argv[]) {
@@ -564,7 +576,34 @@ void permuter(int *a, int *b){
     *b = c; 
 }</pre>
 
-<p>En fait, l'utilisation des pointeurs est systématique en C car on ne peut pas comme dans d'autres langages écrire une fonction qui renvoie un tableau. Ainsi, les fonctions ne renvoient qu'un unique élément.</p>
+<p>En fait, l'utilisation d'un tableau pour stocker le résultat de la fonction permuter ne fonctionne pas en C. Ainsi le code suivant lève une exception.</p>
+<pre>int[2] inverse(int a, int b);
+
+int main(int argc, char** argv) {
+
+    int a = 10;
+    int b = 20;
+    int[2] tab;
+    
+    tab = inverse(a, b);
+    printf("%d, %d", tab[0], tab[1]);
+    
+    return (EXIT_SUCCESS);
+}
+
+int[2] inverse(int a, int b){
+    int c = a;
+    int[2] tab;
+    
+    a = b;
+    b = c;
+  
+    tab[0] = a;
+    tab[1] = b;
+    return tab;
+}</pre>
+
+<p>L'utilisation des pointeurs est donc systématique en C car on ne peut pas comme dans d'autres langages écrire une fonction qui renvoie un tableau. Ainsi, les fonctions ne renvoient qu'un unique élément.</p>
 
 <hr>
 
