@@ -39,7 +39,7 @@
 
 <h4>Rappels sur les réseaux</h4>
 
-<p>La communication réseau est définie par le modèle OSI en 7 couches. Toutefois, la plupart des logiciels reposent sur le modèle TCP/IP en 4 couches : réseau, Internet, transport, application. C'est dans cette dernière couche que se positionne Java.</p>
+<p>La communication réseau est initialement définie par le modèle OSI en 7 couches. Toutefois, la plupart des logiciels reposent sur le modèle TCP/IP en 4 couches : réseau, Internet, transport, application. C'est dans cette dernière couche que se positionne Java. C'est ce modèle TCP/IP que nous utiliserons ici.</p>
 <p>Notons que par défaut les principaux protocoles de transfert utilisent les ports suivants :</p>
 <ul>
     <li>http : port 80</li>
@@ -50,7 +50,11 @@
 <h4>La classe InetAddress</h4>
 
 <p>Pour manipuler des adresses IP, on utilise la classe InetAddress. On peut par exemple créer un objet adresse de la façon suivante :</p>
-<pre>InetAddress adresse = InetAddress.getLocalHost();</pre>
+<pre>import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+InetAddress adresse = InetAddress.getLocalHost();</pre>
+<p></p>
 
 <table>
     <tr><th>Objectif</th><th>Code</th></tr>
@@ -60,29 +64,25 @@
 </table>
 
 <p>Ainsi pour récupérer l'adresse IP de son poste et son adresse de boucle locale :</p>
-<pre>import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-try {
+<pre>try {
 	InetAddress adresse = InetAddress.getLocalHost();
 		           
-	System.out.println("L'adresse IP de " + adresse.getHostName() + " est : " + adresse.getHostAddress()); 
+	System.out.println("L'adresse IP de " + adresse.getHostName() + " est : "
+        + adresse.getHostAddress()); 
 		         
 	adresse = InetAddress.getByName("localhost");
 		        
-	System.out.println("L'adresse IP de " + adresse.getHostName() + " est : " + adresse.getHostAddress()); 
+	System.out.println("L'adresse IP de " + adresse.getHostName() + " est : "
+        + adresse.getHostAddress()); 
 } catch (UnknownHostException e) {
         e.printStackTrace();
 }</pre>
 
 <p>De même pour récupérer l'adresse IP d'un site Internet à partir de son url :</p>
-<pre>import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-try {
-	//Nous appelons une méthode statique de cet objet pour en récupérer une instance 
+<pre>try {
 	InetAddress adresse = InetAddress.getByName("meteocentrale.ch");
-	System.out.println("L'adresse IP de " + adresse.getHostName() + " est : " + adresse.getHostAddress());
+	System.out.println("L'adresse IP de " + adresse.getHostName() + " est : "
+        + adresse.getHostAddress());
 	         
 	//Certains sites Internet peuvent avoir plusieurs adresses IP
 	InetAddress[] addresses = InetAddress.getAllByName("amazon.fr");
@@ -93,6 +93,66 @@ try {
 	e.printStackTrace();
 }</pre>
 
+<h4>La classe URL</h4>
+
+<p>On peut également utiliser la classe URL :</p>
+<pre>import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+URL url = new URL("http://www.meteofrance.fr");</pre>
+
+<p></p>
+<table>
+    <tr><th>Objectif</th><th>Code</th></tr>
+    <tr><td>nom du site</td><td>url.getAuthority()</td></tr>
+    <tr><td>port par défaut</td><td>url.getDefaultPort()</td></tr>
+    <tr><td>nom de l'hébergeur</td><td>url.getHost()</td></tr>
+    <tr><td>numéro de port spécifié</td><td>url.getPort()</td></tr>
+    <tr><td>protocole</td><td>url.getProtocol()</td></tr>
+</table>
+
+<p>Ainsi pour récupérer les données d'un site Internet :</p>
+<pre>try {
+         
+    URL url = new URL("http://www.meteo.fr");
+         
+    System.out.println("Authority : " + url.getAuthority());
+    System.out.println("Default port : " + url.getDefaultPort());
+    System.out.println("Host : " + url.getHost());
+    System.out.println("Port : " + url.getPort());
+    System.out.println("Protocol : " + url.getProtocol());
+         
+} catch (MalformedURLException e) {
+    e.printStackTrace();
+}</pre>
+
+<p>Dans cet exemple le port -1 signifie que le port n'a pas été spécifié dans l'URL.</p>
+
+<p>Pour vérifier qu'une saisie utilisateur correspond à une url, on peut par exemple utiliser la condition :</p>
+<pre>if(host.matches("[a-zA-Z\\.]+"))</pre>
+
+<hr>
+
+<!-- ===== LES SOCKETS ===== -->
+
+<h3>Les sockets</h3>
+
+<p>La communication de plusieurs machines sur un réseau nécessite la connaissance d'adresses, de ports et de protocoles. Chaque machine doit également utiliser Pour cela, chacune des machines doit utiliser des sockets, qui sont des moyens de partager des données en réseau.</p>
+<p>Java fait la différence entre deux types de sockets :</p>
+<ul>
+    <li>socket côté client : permet de se connecter à une machine distante afin de communiquer avec elle</li>
+    <li>socket côté serveur : connexion qui attend qu'un client vienne se connecter afin de communiquer avec lui</li>
+</ul>
+
+    <p>En fait, les sockets permettent de se connecter à une machine distante, de recevoir et envoyer des données, de fermer une connexion établie, d'attendre une connexion de l'extérieur, d'écouter les communications entrantes, d'utiliser un port.</p>
+    <p>L'utilisation de socket côté client se déroule ainsi :</p>
+    <ul>
+        <li>instancier une socket</li>
+        <li>connecter la socket avec le service côté serveur (ftp, http)</li>
+        <li>échanger les données avec la socket serveur</li>
+        <li>fermer la socket lorsque les communications sont teminées</li>
+    </ul>
 </section>
 
 <footer>
