@@ -51,9 +51,7 @@
 
 <p>Pour manipuler des adresses IP, on utilise la classe InetAddress. On peut par exemple créer un objet adresse de la façon suivante :</p>
 <pre>import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-InetAddress adresse = InetAddress.getLocalHost();</pre>
+import java.net.UnknownHostException;</pre>
 <p></p>
 
 <table>
@@ -98,9 +96,7 @@ InetAddress adresse = InetAddress.getLocalHost();</pre>
 <p>On peut également utiliser la classe URL :</p>
 <pre>import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
-
-URL url = new URL("http://www.meteofrance.fr");</pre>
+import java.net.URL;</pre>
 
 <p></p>
 <table>
@@ -115,7 +111,7 @@ URL url = new URL("http://www.meteofrance.fr");</pre>
 <p>Ainsi pour récupérer les données d'un site Internet :</p>
 <pre>try {
          
-    URL url = new URL("http://www.meteo.fr");
+    URL url = new URL("http://www.meteofrance.fr");
          
     System.out.println("Authority : " + url.getAuthority());
     System.out.println("Default port : " + url.getDefaultPort());
@@ -138,14 +134,15 @@ URL url = new URL("http://www.meteofrance.fr");</pre>
 
 <h3>Les sockets</h3>
 
-<p>La communication de plusieurs machines sur un réseau nécessite la connaissance d'adresses, de ports et de protocoles. Chaque machine doit également utiliser Pour cela, chacune des machines doit utiliser des sockets, qui sont des moyens de partager des données en réseau.</p>
+<p>La communication de plusieurs machines sur un réseau nécessite la connaissance d'adresses, de ports, de protocoles et l'utilisation de sockets. Les sockets permettent de se connecter à une machine distante, de recevoir et envoyer des données, de fermer une connexion établie, d'attendre une connexion de l'extérieur, d'écouter les communications entrantes, d'utiliser un port. Les sockets constituent donc un moyen de partager des données en réseau.</p>
 <p>Java fait la différence entre deux types de sockets :</p>
 <ul>
     <li>socket côté client : permet de se connecter à une machine distante afin de communiquer avec elle</li>
     <li>socket côté serveur : connexion qui attend qu'un client vienne se connecter afin de communiquer avec lui</li>
 </ul>
 
-    <p>En fait, les sockets permettent de se connecter à une machine distante, de recevoir et envoyer des données, de fermer une connexion établie, d'attendre une connexion de l'extérieur, d'écouter les communications entrantes, d'utiliser un port.</p>
+    <p>Les sockets travaillent en full-duplex, i.e. le client et le serveur peuvent envoyer et recevoir des signaux simultanément. Il n'y a donc aucune attente.</p>
+
     <p>L'utilisation de socket côté client se déroule ainsi :</p>
     <ul>
         <li>instancier une socket</li>
@@ -153,6 +150,96 @@ URL url = new URL("http://www.meteofrance.fr");</pre>
         <li>échanger les données avec la socket serveur</li>
         <li>fermer la socket lorsque les communications sont teminées</li>
     </ul>
+
+    <p>La classe java.net.Socket permet la connexion réseau côté client et utilise par défaut le protocole TCP.</p>
+
+    <p>Pour tester les 1024 premiers ports d'une machine à l'aide de cette classe :</p>
+    <pre>import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+for(int i = 1; i <= 1024; i++){
+        try {
+             Socket soc = new Socket("127.0.0.1", i);
+             System.out.println("La machine autorise les connexions sur le port : " + i);
+         } catch (UnknownHostException e) {
+            e.printStackTrace();
+         }catch (IOException e) {
+            System.out.println("ioexception");
+            //Si une exception de ce type est levée
+            //c'est que le port n'est pas ouvert ou n'est pas autorisé
+         }
+}</pre>
+
+<p>Pour spécifier sur quel port le serveur devra répondre :</p>
+    <pre>try {
+         //Nous spécifions que la réponse devra se faire par ce chemin
+         InetAddress lo = InetAddress.getByName("188.165.53.185");
+
+         //Le fait de mettre 0 dans le numéro de port de réponse
+         //informe que n'importe quel numéro est accepté
+         Socket soc = new Socket("www.adret-attitude.ch", 80, lo, 0);
+      }catch (UnknownHostException e) {
+         e.printStackTrace();
+      } catch (Exception e) {
+         e.printStackTrace();
+      }</pre>
+
+<hr>
+
+    <!-- ===== LES PROXYS ===== -->
+
+    <h3>Les proxys</h3>
+
+    <p>Un proxy constitue une autre façon de se connecter à un serveur. Le proxy est un intermédiaire faisant le lien entre le client et le serveur.</p>
+<pre>import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.Socket;
+import java.net.SocketAddress;
+
+//On crée une adresse correspondant à notre proxy
+SocketAddress proxyAddress = new InetSocketAddress("10.10.10.10", 8080);
+
+//On instancie la classe Proxy avec le type souhaité
+Proxy proxy = new Proxy(Proxy.Type.SOCKS, proxyAddress);
+
+//On crée notre socket utilisant le proxy
+Socket s = new Socket(proxy);
+
+//On crée l'adresse que l'on souhaite atteindre via le proxy
+SocketAddress remote = new InetSocketAddress("www.adret-attitude.ch", 80);
+try {
+    //On connecte le tout !
+    s.connect(remote);
+} catch (IOException e) {
+    e.printStackTrace();
+}</pre>
+
+    <p></p>
+
+    <table>
+        <tr><th>Objectif</th><th>Code</th></tr>
+        <tr><td>port côté serveur</td><td>s.getPort()</td></tr>
+        <tr><td>port côté client</td><td>s.getLocalPort()</td></tr>
+        <tr><td>nom hôte distant</td><td>s.getInetAddress().getHostName()</td></tr>
+        <tr><td>adresse hôte distant</td><td>s.getInetAddress().getHostAddress()</td></tr>
+        <tr><td>adresse socket hôte distant</td><td>s.getRemoteSocketAddress()</td></tr>
+    </table>
+
+    <pre>try {
+    Socket s = new Socket("www.adret-attitude.ch", 80);
+    System.out.println("Port de communication côté serveur : " + s.getPort());
+    System.out.println("Port de communication côté client : " + s.getLocalPort());
+    System.out.println("Nom de l'hôte distant : " + s.getInetAddress().getHostName());
+    System.out.println("Adresse de l'hôte distant : " + s.getInetAddress().getHostAddress());
+    System.out.println("Adresse socket de l'hôte distant : " + s.getRemoteSocketAddress());
+} catch (UnknownHostException e) {
+        e.printStackTrace();
+} catch (IOException e) {
+        e.printStackTrace();
+}</pre>
+
 </section>
 
 <footer>
