@@ -134,56 +134,103 @@ import java.net.URL;</pre>
 
 <h3>Les sockets</h3>
 
-<p>La communication de plusieurs machines sur un réseau nécessite la connaissance d'adresses, de ports, de protocoles et l'utilisation de sockets. Les sockets permettent de se connecter à une machine distante, de recevoir et envoyer des données, de fermer une connexion établie, d'attendre une connexion de l'extérieur, d'écouter les communications entrantes, d'utiliser un port. Les sockets constituent donc un moyen de partager des données en réseau.</p>
-<p>Java fait la différence entre deux types de sockets :</p>
+    <p>Les sockets sont des API permettant de gérer les communications entre programmes. La communication de plusieurs machines sur un réseau nécessite donc la connaissance d'adresses, de ports, de protocoles et l'utilisation de sockets. Les sockets permettent de se connecter à une machine distante, de recevoir et envoyer des données, de fermer une connexion établie, d'attendre une connexion de l'extérieur, d'écouter les communications entrantes.</p>
+<p>Une même socket sert aussi bien à envoyer qu'à recevoir des communications.</p>
+
+    <p>Java fait la différence entre deux types de sockets :</p>
 <ul>
     <li>socket côté client : permet de se connecter à une machine distante afin de communiquer avec elle</li>
     <li>socket côté serveur : connexion qui attend qu'un client vienne se connecter afin de communiquer avec lui</li>
 </ul>
 
-    <p>Les sockets travaillent en full-duplex, i.e. le client et le serveur peuvent envoyer et recevoir des signaux simultanément. Il n'y a donc aucune attente.</p>
+    <p>Les sockets travaillent en full-duplex, i.e. le client et le serveur peuvent envoyer et recevoir des signaux simultanément. Il n'y a donc aucune attente. Il existe deux modes de connexion :</p>
+    <ul>
+        <li>le mode connecté où deux sockets établissent une communication durable qui permet d'éviter de transmettre l'identité de la socket destinatrice à chaque envoi. Dans ce cas, un des programmes prend le rôle du serveur et l'autre le rôle du client. Le serveur est un programme rendant des services aux clients</li>
+        <li>le mode non connecté</li>
+    </ul>
 
     <p>L'utilisation de socket côté client se déroule ainsi :</p>
     <ul>
-        <li>instancier une socket</li>
-        <li>connecter la socket avec le service côté serveur (ftp, http)</li>
-        <li>échanger les données avec la socket serveur</li>
-        <li>fermer la socket lorsque les communications sont teminées</li>
+        <li>demande de connexion avec le serveur</li>
+        <li>connexion de la socket avec le service côté serveur (ftp, http)</li>
+        <li>envoi des messages</li>
+        <li>fermeture de la connexion</li>
     </ul>
 
     <p>La classe java.net.Socket permet la connexion réseau côté client et utilise par défaut le protocole TCP.</p>
 
-    <p>Pour tester les 1024 premiers ports d'une machine à l'aide de cette classe :</p>
+    <p>L'utilisation de socket côté serveur se déroule ainsi :</p>
+    <ul>
+        <li>attente de demande de connexion venant d'un client</li>
+        <li>ouverture de la connexion</li>
+        <li>traitement des messages</li>
+        <li>fermeture de la connexion</li>
+    </ul>
+
+    <h4>Tester les ports disponibles du client</h4>
+
+    <p>Pour tester les 1024 premiers ports du client à l'aide de cette classe :</p>
     <pre>import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 for(int i = 1; i <= 1024; i++){
-        try {
-             Socket soc = new Socket("127.0.0.1", i);
-             System.out.println("La machine autorise les connexions sur le port : " + i);
-         } catch (UnknownHostException e) {
-            e.printStackTrace();
-         }catch (IOException e) {
-            System.out.println("ioexception");
-            //Si une exception de ce type est levée
-            //c'est que le port n'est pas ouvert ou n'est pas autorisé
+    try {
+        Socket soc = new Socket("127.0.0.1", i);
+        System.out.println("La machine autorise les connexions sur le port : " + i);
+    } catch (UnknownHostException e) {
+        e.printStackTrace();
+    }catch (IOException e) {
+        System.out.println("ioexception");
+        //Si une exception de ce type est levée
+        //c'est que le port n'est pas ouvert ou n'est pas autorisé
+    }
+}</pre>
+
+<p>Pour spécifier sur quel port du client le serveur devra répondre :</p>
+    <pre>try {
+    //Nous spécifions que la réponse devra se faire par ce chemin
+    InetAddress lo = InetAddress.getByName("188.165.53.185");
+
+    //Le fait de mettre 0 dans le numéro de port de réponse
+    //informe que n'importe quel numéro est accepté
+    Socket soc = new Socket("www.adret-attitude.ch", 80, lo, 0);
+}catch (UnknownHostException e) {
+    e.printStackTrace();
+} catch (Exception e) {
+    e.printStackTrace();
+}</pre>
+
+    <h4>Fermer une socket en fin de communication</h4>
+
+    <p>La machine virtuelle Java ferme les sockets non utilisés à la fin de l'exécution du programme. Toutefois, le nombre de sockets ouvertes par un programme est limité, ce qui conduit à des erreurs quand cette limite est atteinte. La méthode close() permet de fermer la connexion.</p>
+
+    <p>Pour fermer une socket en fin de communication :</p>
+    <pre>Socket sock = null;
+      try {
+         //On se connecte au site
+         sock = new Socket("www.adret-attitude.com", 80);
+
+      } catch (UnknownHostException e) {
+         e.printStackTrace();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+      finally{
+         if(sock != null){
+            try {
+               sock.close();
+            } catch (IOException e) {
+               e.printStackTrace();
+               sock = null;
+            }
          }
 }</pre>
 
-<p>Pour spécifier sur quel port le serveur devra répondre :</p>
-    <pre>try {
-         //Nous spécifions que la réponse devra se faire par ce chemin
-         InetAddress lo = InetAddress.getByName("188.165.53.185");
+    <h4>Communiquer avec un serveur</h4>
 
-         //Le fait de mettre 0 dans le numéro de port de réponse
-         //informe que n'importe quel numéro est accepté
-         Socket soc = new Socket("www.adret-attitude.ch", 80, lo, 0);
-      }catch (UnknownHostException e) {
-         e.printStackTrace();
-      } catch (Exception e) {
-         e.printStackTrace();
-      }</pre>
+    <p>On utilise l'objet HttpURLConnection.</p>
+    <p>Les flux BufferedInputStrean et BufferedOutputStrean permettent de gagner en performance plutôt que de travailler directement avec les sockets.</p>
 
 <hr>
 
@@ -239,6 +286,7 @@ try {
 } catch (IOException e) {
         e.printStackTrace();
 }</pre>
+
 
 </section>
 
