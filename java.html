@@ -31,6 +31,18 @@
 
 <section id="principal">
 
+    <div class="bloc">
+
+        <div class="gauche">
+            <p></p>
+        </div>
+
+        <div class="droite">
+            <img src="java.png" width="60" height="100">
+        </div>
+
+    </div>
+
 <hr>
 
 <!-- ===== LA PROGRAMMATION RESEAU ===== -->
@@ -39,7 +51,7 @@
 
 <h4>Rappels sur les réseaux</h4>
 
-<p>La communication réseau est initialement définie par le modèle OSI en 7 couches. Toutefois, la plupart des logiciels reposent sur le modèle TCP/IP en 4 couches : réseau, Internet, transport, application. C'est dans cette dernière couche que se positionne Java. C'est ce modèle TCP/IP que nous utiliserons ici.</p>
+<p>La communication réseau est initialement définie par le modèle OSI en 7 couches. Toutefois, la plupart des logiciels reposent sur le modèle TCP/IP en 4 couches : réseau, Internet, transport, application. C'est dans cette dernière couche du modèle TCP/IP que se positionne Java.</p>
 <p>Notons que par défaut les principaux protocoles de transfert utilisent les ports suivants :</p>
 <ul>
     <li>http : port 80</li>
@@ -137,17 +149,13 @@ import java.net.URL;</pre>
     <p>Les sockets sont des API permettant de gérer les communications entre programmes. La communication de plusieurs machines sur un réseau nécessite donc la connaissance d'adresses, de ports, de protocoles et l'utilisation de sockets. Les sockets permettent de se connecter à une machine distante, de recevoir et envoyer des données, de fermer une connexion établie, d'attendre une connexion de l'extérieur, d'écouter les communications entrantes.</p>
 <p>Une même socket sert aussi bien à envoyer qu'à recevoir des communications.</p>
 
+    <p>Une socket est identifiée de manière unique par l'adresse IP de la machine suivi du numéro de port utilisé, ce dernier étant compris entre 1024 et 65536.</p>
+
     <p>Java fait la différence entre deux types de sockets :</p>
 <ul>
-    <li>socket côté client : permet de se connecter à une machine distante afin de communiquer avec elle</li>
-    <li>socket côté serveur : connexion qui attend qu'un client vienne se connecter afin de communiquer avec lui</li>
+    <li>socket côté client permettant de se connecter à une machine distante afin de communiquer avec elle</li>
+    <li>socket côté serveur, qui une fois connecté attend qu'un client vienne se connecter afin de communiquer avec lui</li>
 </ul>
-
-    <p>Les sockets travaillent en full-duplex, i.e. le client et le serveur peuvent envoyer et recevoir des signaux simultanément. Il n'y a donc aucune attente. Il existe deux modes de connexion :</p>
-    <ul>
-        <li>le mode connecté où deux sockets établissent une communication durable qui permet d'éviter de transmettre l'identité de la socket destinatrice à chaque envoi. Dans ce cas, un des programmes prend le rôle du serveur et l'autre le rôle du client. Le serveur est un programme rendant des services aux clients</li>
-        <li>le mode non connecté</li>
-    </ul>
 
     <p>L'utilisation de socket côté client se déroule ainsi :</p>
     <ul>
@@ -157,8 +165,6 @@ import java.net.URL;</pre>
         <li>fermeture de la connexion</li>
     </ul>
 
-    <p>La classe java.net.Socket permet la connexion réseau côté client et utilise par défaut le protocole TCP.</p>
-
     <p>L'utilisation de socket côté serveur se déroule ainsi :</p>
     <ul>
         <li>attente de demande de connexion venant d'un client</li>
@@ -167,23 +173,63 @@ import java.net.URL;</pre>
         <li>fermeture de la connexion</li>
     </ul>
 
+    <p>Le serveur utilise une socket spécifique pour recevoir des demandes de connexion, puis crée une socket de communication pour échanger avec le client.</p>
+
+    <p>Les sockets travaillent en full-duplex, i.e. le client et le serveur peuvent envoyer et recevoir des signaux simultanément. Il n'y a donc aucune attente. Il existe deux modes de connexion :</p>
+    <ul>
+        <li>le mode connecté où deux sockets établissent une communication durable qui permet d'éviter de transmettre l'identité de la socket destinatrice à chaque envoi. Dans ce cas, un des programmes prend le rôle du serveur et l'autre le rôle du client. Le serveur est donc vu comme un programme rendant des services aux clients</li>
+        <li>le mode non connecté où le destinataire de la socket est précisé à chaque envoi.</li>
+    </ul>
+
+    <h4>Le mode connecté</h4>
+
+    <pre>import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;</pre>
+
+    <p>Dans le mode connecté, les serveurs utilisent la classe ServerSocket et les clients utilisent la classe Socket.</p>
+    <p>La création de sockets côté serveur se fait grâce à l'instruction :</p>
+    <pre>public ServerSocket(int port) throws IOException
+public ServerSocket(int port, int backlog) throws IOException
+public ServerSocket(int port, int backlog, InetAddress adresse) throws IOException</pre>
+
+    <p>Le serveur attend ensuite les demandes de connexion en utilisant une fonction bloquante i.e. qu'elle ne libère pas le programme tant qu'elle n'a pas reçu de demande de connexion :</p>
+    <pre>public Socket accept() throws IOException</pre>
+
+    <p>La création de sockets côté client se fait grâce à l'instruction :</p>
+    <pre>public Socket(String host, int port) throws UnknownHostEception, IOException
+public Socket(InetAddress adresse, int port) throws IOException
+public Socket(String host, int port, InetAddress adresseLocale, int localPort)
+        throws UnknownHostException, IOException
+public Socket(InetAddress adresse, int port, InetAddress adresseLocale, int localPort)
+        throws IOException</pre>
+
+    <p>Les méthodes de la classe Socket permettant d'obtenir des informations sur la connexion :</p>
+
+    <table>
+        <tr><th>Instruction</th><th>Résultat</th></tr>
+        <tr><td>adresse.getInetAddress()</td><td>fournit l'adresse IP distante</td></tr>
+        <tr><td>adresse.getLocalAddress()</td><td>fournit l'adresse IP locale</td></tr>
+        <tr><td>adresse.getPort()</td><td>fournit le nmr de port distant</td></tr>
+        <tr><td>adresse.getLocalPort()</td><td>fournit le nmr de port local</td></tr>
+    </table>
+
+    <h4>Le mode non connecté</h4>
+
+    <p>Dans le mode non connecté, la communication utilise la classe DatagramSocket.</p>
+
     <h4>Tester les ports disponibles du client</h4>
 
     <p>Pour tester les 1024 premiers ports du client à l'aide de cette classe :</p>
-    <pre>import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
-
-for(int i = 1; i <= 1024; i++){
+    <pre>for(int i = 1; i <= 1024; i++){
     try {
         Socket soc = new Socket("127.0.0.1", i);
-        System.out.println("La machine autorise les connexions sur le port : " + i);
+        System.out.println("ports autorisés sur la machine : " + i);
     } catch (UnknownHostException e) {
         e.printStackTrace();
     }catch (IOException e) {
         System.out.println("ioexception");
-        //Si une exception de ce type est levée
-        //c'est que le port n'est pas ouvert ou n'est pas autorisé
+        // le port n'est pas ouvert ou n'est pas autorisé
     }
 }</pre>
 
