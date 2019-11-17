@@ -35,10 +35,10 @@
 
         <div class="gauche">
             <p>Java est un langage orienté objet qui utilise un compilateur (javac) puis une machine virtuelle
-                compabible toutes plateformes JVM Java Virtual Machine pour interpréter le Byte code. De ce fait,
+                compatible toutes plateformes JVM Java Virtual Machine pour interpréter le Byte code. De ce fait,
                 c'est un langage offrant une grande portabilité.
                 C’est un langage à la fois compilé et interprété. Il est donc plus rapide que Python (interprété) mais
-                plus lent que C++ (compilé).</p>
+                plus lent que C++ (compilé). java -version en ligne de commande permet de vérifier que java est installé.</p>
         </div>
 
         <div class="droite">
@@ -47,7 +47,26 @@
 
     </div>
 
-<hr>
+    <hr>
+
+    <p style="font-weight:bold"> Table des matières :</p>
+        <ul>
+            <li> <a href="">La programmation réseau</a> </li>
+            <li> <a href="#">Les sockets</a> </li>
+            <li> <a href="#">Les streams</a> </li>
+            <li> <a href="#">Les proxys</a> </li>
+            <li> <a href="#">Le RMI</a></li>
+        </ul>
+
+    <hr>
+
+    <!-- EXECUTER JAVA AU TERMINAL -->
+
+    <h3>Exécuter Java au terminal</h3>
+
+    <p>Pour exécuter un programme Java en utilisant le terminal, il faut d'abord se rendre dans le dossier comportant le fichier, puis compiler le programme avec la commande <strong>javac monFichier.java</strong>. Le fichier se transforme alors en binaire exécutable par la Machine Virtuelle Java : monFichier.class. Pour exécuter ce programme il reste maintenant à utiliser la commande <strong>java monFichier</strong>.</p>
+
+    <hr>
 
 <!-- ===== LA PROGRAMMATION RESEAU ===== -->
 
@@ -65,11 +84,25 @@
 
 <h4>La classe InetAddress</h4>
 
-<p>Pour manipuler des adresses IP, on utilise la classe InetAddress. On peut par exemple créer un objet adresse de la façon suivante :</p>
-<pre>import java.net.InetAddress;
-import java.net.UnknownHostException;</pre>
-<p></p>
+<p>Pour manipuler des adresses IP, on utilise la classe InetAddress.</p>
+<pre>import java.net.*;
 
+try{
+    InetAddress adresse = InetAddress.getByName("meteocentrale.ch");
+}catch (UnknownHostException e) {
+    e.printStackTrace();
+}</pre>
+<p>A noter que dans le cas de l'adresse locale, on peut définir indifféremment :</p>
+    <pre>import java.net.*;
+
+try{
+    InetAddress adresse = InetAddress.getByName("localhost");
+    InetAddress adresse = InetAddress.getLocalHost();
+}catch (UnknownHostException e) {
+    e.printStackTrace();
+}</pre>
+
+    <p>Les méthodes associées à la classe InetAddress nécessitent également la gestion de UnknownHostException :</p>
 <table>
     <tr><th>Objectif</th><th>Code</th></tr>
     <tr><td>nom de l'hôte (client)</td><td>adresse.getHostName()</td></tr>
@@ -77,44 +110,34 @@ import java.net.UnknownHostException;</pre>
     <tr><td>teste si l'adresse est de type boucle locale</td><td>adresse.isLoopbackAddress()</td></tr>
 </table>
 
-<p>Ainsi pour récupérer l'adresse IP de son poste et son adresse de boucle locale :</p>
-<pre>try {
-	InetAddress adresse = InetAddress.getLocalHost();
-		           
-	System.out.println("L'adresse IP de " + adresse.getHostName() + " est : "
-        + adresse.getHostAddress()); 
-		         
-	adresse = InetAddress.getByName("localhost");
-		        
-	System.out.println("L'adresse IP de " + adresse.getHostName() + " est : "
-        + adresse.getHostAddress()); 
-} catch (UnknownHostException e) {
-        e.printStackTrace();
-}</pre>
+    <p>Certains sites Internet peuvent avoir plusieurs adresses IP :</p>
+<pre>import java.net.*;
 
-<p>De même pour récupérer l'adresse IP d'un site Internet à partir de son url :</p>
-<pre>try {
-	InetAddress adresse = InetAddress.getByName("meteocentrale.ch");
-	System.out.println("L'adresse IP de " + adresse.getHostName() + " est : "
-        + adresse.getHostAddress());
-	         
-	//Certains sites Internet peuvent avoir plusieurs adresses IP
-	InetAddress[] addresses = InetAddress.getAllByName("amazon.fr");
-	System.out.println("\nToutes les adresses IP de amazon.fr : ");
-	for(InetAddress ad : addresses)
-	    System.out.println(" - " + ad.getHostAddress()); 
-} catch (UnknownHostException e) {
-	e.printStackTrace();
+try{
+    InetAddress[] adresses = InetAddress.getAllByName("amazon.fr");
+    System.out.println("Toutes les adresses IP : ");
+    for(InetAddress valeur : adresses)
+        System.out.println(" - " + valeur.getHostAddress());
+}catch(UnknownHostException e) {
+        e.printStackTrace();
 }</pre>
 
 <h4>La classe URL</h4>
 
-<p>On peut également utiliser la classe URL :</p>
-<pre>import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;</pre>
+<p>On peut également utiliser la classe URL pour récupérer les données d'un site Internet :</p>
+<pre>import java.io.*;
+import java.net.*;
 
-<p></p>
+try {
+    URL url = new URL("http://www.meteofrance.fr");
+
+    }catch(MalformedURLException e) {
+        e.printStackTrace();
+}
+</pre>
+
+    <p>Les méthodes associées à la classe URL nécessitent également la gestion de MalformedURLException.</p>
+
 <table>
     <tr><th>Objectif</th><th>Code</th></tr>
     <tr><td>nom du site</td><td>url.getAuthority()</td></tr>
@@ -124,22 +147,7 @@ import java.net.URL;</pre>
     <tr><td>protocole</td><td>url.getProtocol()</td></tr>
 </table>
 
-<p>Ainsi pour récupérer les données d'un site Internet :</p>
-<pre>try {
-         
-    URL url = new URL("http://www.meteofrance.fr");
-         
-    System.out.println("Authority : " + url.getAuthority());
-    System.out.println("Default port : " + url.getDefaultPort());
-    System.out.println("Host : " + url.getHost());
-    System.out.println("Port : " + url.getPort());
-    System.out.println("Protocol : " + url.getProtocol());
-         
-} catch (MalformedURLException e) {
-    e.printStackTrace();
-}</pre>
-
-<p>Dans cet exemple le port -1 signifie que le port n'a pas été spécifié dans l'URL.</p>
+<p>Lorsque url.getPort() renvoie -1, cela signifie que le port n'a pas été spécifié dans l'URL.</p>
 
 <p>Pour vérifier qu'une saisie utilisateur correspond à une url, on peut par exemple utiliser la condition :</p>
 <pre>if(host.matches("[a-zA-Z\\.]+"))</pre>
@@ -155,73 +163,149 @@ import java.net.URL;</pre>
 
     <p>Une socket est identifiée de manière unique par l'adresse IP de la machine suivi du numéro de port utilisé, ce dernier étant compris entre 1024 et 65536.</p>
 
-    <p>Java fait la différence entre deux types de sockets :</p>
-<ul>
-    <li>socket côté client permettant de se connecter à une machine distante afin de communiquer avec elle</li>
-    <li>socket côté serveur, qui une fois connecté attend qu'un client vienne se connecter afin de communiquer avec lui</li>
-</ul>
+    <p>Java fait la différence entre deux types de sockets : côté client et côté serveur.</p>
 
-    <p>L'utilisation de socket côté client se déroule ainsi :</p>
+    <p>Une socket côté client permet de se connecter à une machine distante afin de communiquer avec elle. L'utilisation de socket côté client se déroule ainsi :</p>
     <ul>
-        <li>demande de connexion avec le serveur</li>
-        <li>connexion de la socket avec le service côté serveur (ftp, http)</li>
+        <li>connexion avec le serveur</li>
+        <li>ouverture de la communication avec le serveur</li>
         <li>envoi des messages</li>
         <li>fermeture de la connexion</li>
     </ul>
 
-    <p>L'utilisation de socket côté serveur se déroule ainsi :</p>
+    <p>Un serveur utilise une socket spécifique pour recevoir des demandes de connexion, puis crée une socket de communication pour échanger avec le client. L'utilisation de socket côté serveur se déroule ainsi :</p>
     <ul>
         <li>attente de demande de connexion venant d'un client</li>
-        <li>ouverture de la connexion</li>
+        <li>ouverture de la communication avec le client</li>
         <li>traitement des messages</li>
         <li>fermeture de la connexion</li>
     </ul>
 
-    <p>Le serveur utilise une socket spécifique pour recevoir des demandes de connexion, puis crée une socket de communication pour échanger avec le client.</p>
-
-    <p>Les sockets travaillent en full-duplex, i.e. le client et le serveur peuvent envoyer et recevoir des signaux simultanément. Il n'y a donc aucune attente. Il existe deux modes de connexion :</p>
-    <ul>
-        <li>le mode connecté où deux sockets établissent une communication durable qui permet d'éviter de transmettre l'identité de la socket destinatrice à chaque envoi. Dans ce cas, un des programmes prend le rôle du serveur et l'autre le rôle du client. Le serveur est donc vu comme un programme rendant des services aux clients</li>
-        <li>le mode non connecté où le destinataire de la socket est précisé à chaque envoi.</li>
-    </ul>
+    <p>Les sockets travaillent en full-duplex, i.e. le client et le serveur peuvent envoyer et recevoir des signaux simultanément. Il n'y a donc aucune attente.</p>
 
     <h4>Le mode connecté</h4>
 
-    <pre>import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;</pre>
+    <p>En mode connecté, deux sockets établissent une communication durable qui permet d'éviter de transmettre l'identité de la socket destinatrice à chaque envoi. Dans ce cas, un des programmes prend le rôle du serveur et l'autre le rôle du client. Le serveur est donc vu comme un programme rendant des services aux clients. La socket côté serveur doit être définie avant la socket côté client.</p>
+    <p>En mode connecté, le serveur doit être lancé en premier.</p>
 
-    <p>Dans le mode connecté, les serveurs utilisent la classe ServerSocket et les clients utilisent la classe Socket.</p>
-    <p>La création de sockets côté serveur se fait grâce à l'instruction :</p>
-    <pre>public ServerSocket(int port) throws IOException
-public ServerSocket(int port, int backlog) throws IOException
-public ServerSocket(int port, int backlog, InetAddress adresse) throws IOException</pre>
+    <p>La création d'une socket côté serveur utilise la classe ServerSocket et se fait grâce à l'une des instructions :</p>
+    <pre>import java.net.*;
+import java.io.*;
 
-    <p>Le serveur attend ensuite les demandes de connexion en utilisant une fonction bloquante i.e. qu'elle ne libère pas le programme tant qu'elle n'a pas reçu de demande de connexion :</p>
-    <pre>public Socket accept() throws IOException</pre>
+try{
+    // crée une socket serveur en fixant le nmr de port
+    ServerSocket socket_serveur = new ServerSocket(int port);
 
-    <p>La création de sockets côté client se fait grâce à l'instruction :</p>
-    <pre>public Socket(String host, int port) throws UnknownHostEception, IOException
-public Socket(InetAddress adresse, int port) throws IOException
-public Socket(String host, int port, InetAddress adresseLocale, int localPort)
-        throws UnknownHostException, IOException
-public Socket(InetAddress adresse, int port, InetAddress adresseLocale, int localPort)
-        throws IOException</pre>
+    // crée une socket serveur en fixant le nmr de port et taille de file d'attente de
+    // demande de connexion
+    ServerSocket socket_serveur = new ServerSocket(int port, int backlog);
 
-    <p>Les méthodes de la classe Socket permettant d'obtenir des informations sur la connexion :</p>
+    // crée une socket serveur en fixant le nmr de port, taille de file d'attente de
+    // demande de connexion et adresse IP
+    ServerSocket socket_serveur = new ServerSocket(int port, int backlog, InetAddress
+        adresse);
+}catch((IOException e){
+    e.printStackTrace();
+}</pre>
+
+    <p>Le serveur attend ensuite les demandes de connexion en utilisant la fonction bloquante accept() i.e. qu'elle ne libère pas le programme tant qu'elle n'a pas reçu de demande de connexion :</p>
+
+    <p>La création d'une socket côté client utilise la classe Socket et se fait grâce à l'une des instructions :</p>
+    <pre>import java.net.*;
+import java.io.*;
+
+try{
+    // crée une socket client connectée avec le serveur dont le nom et le nmr de port
+    // sont donnés
+    Socket socket_client = new Socket(String host, int port);
+
+    // crée une socket client connectée avec le serveur dont l'adresse IP et le nmr de
+    // port sont donnés
+    Socket socket_client = new Socket(InetAddress adresse, int port);
+
+    // crée une socket client connectée avec le serveur dont le nom et le nmr de port
+    // sont donnés, fixe l'adresse IP locale et le nmr de port local
+    Socket socket_client = new Socket(String host, int port, InetAddress adresseLocale,
+        int localPort);
+
+    // crée une socket client connectée avec le serveur dont l'adresse IP et le nmr de port
+    // sont donnés, fixe l'adresse IP locale et le nmr de port local
+    Socket socket_client = new Socket(InetAddress adresse, int port, InetAddress
+        adresseLocale, int localPort);
+}catch(IOException e){
+    e.printStackTrace();
+}</pre>
+
+    <p>La machine virtuelle Java ferme les sockets non utilisés à la fin de l'exécution du programme. Toutefois, le nombre de sockets ouvertes par un programme est limité, ce qui conduit à des erreurs quand cette limite est atteinte. La méthode close() permet de fermer la connexion.</p>
+
+    <p>Les méthodes de la classe Socket permettant d'obtenir des informations sur la connexion et nécessitent également la gestion de IOException :</p>
 
     <table>
         <tr><th>Instruction</th><th>Résultat</th></tr>
-        <tr><td>adresse.getInetAddress()</td><td>fournit l'adresse IP distante</td></tr>
-        <tr><td>adresse.getLocalAddress()</td><td>fournit l'adresse IP locale</td></tr>
-        <tr><td>adresse.getPort()</td><td>fournit le nmr de port distant</td></tr>
-        <tr><td>adresse.getLocalPort()</td><td>fournit le nmr de port local</td></tr>
+        <tr><td>socket_client.getInetAddress()</td><td>fournit l'adresse IP distante</td></tr>
+        <tr><td>socket_client.getLocalAddress()</td><td>fournit l'adresse IP locale</td></tr>
+        <tr><td>socket_client.getPort()</td><td>fournit le nmr de port distant</td></tr>
+        <tr><td>socket_client.getLocalPort()</td><td>fournit le nmr de port local</td></tr>
     </table>
+
+<p><em>Exemple complet en mode connecté :</em></p>
+
+    <pre>import java.io.*;   // pour OutputStream et write()
+import java.net.*;  // pour ServerSocket, getOutputStream(), accept() et close()
+
+public class ServeurConnect {
+
+    public ServeurConnect(){
+        try{
+            // creation socket serveur
+            ServerSocket socket_serveur = new ServerSocket(5555);
+            // attente demande de connexion venant du client puis creation d'une
+            // connexion
+            Socket connexion = socket_serveur.accept();
+            // ouverture communication avec le client
+            OutputStream com_sortante = connexion.getOutputStream();
+
+            // traitements
+            byte[] tableau_data = {1,2,3,4,5};
+            com_sortante.write(tableau_data);
+
+             // fermeture connexion
+            connexion.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}
+
+import java.io.*;   // pour InputStream et read()
+import java.net.*;  // pour Socket, getInputStream() et close()
+
+public class ClientConnect {
+
+    public ClientConnect(){
+        try{
+            // creation socket client connectée au serveur sur le port 5555
+            Socket socket_client = new Socket("localhost", 5555);
+            // ouverture communication avec le serveur
+            InputStream com_entrante = socket_client.getInputStream();
+
+            // traitement
+            byte[] tableau_buffer = new byte[5];
+            int recu = com_entrante.read(tableau_buffer);
+
+            // fermeture connexion
+            socket_client.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+}</pre>
 
     <h4>Le mode non connecté</h4>
 
-    <p>Dans le mode non connecté, la communication utilise la classe DatagramSocket.</p>
+    <p>En mode non connecté, le destinataire de la socket est précisé à chaque envoi. La communication utilise dans ce cas la classe DatagramSocket.</p>
 
+    <p>En mode non connecté, le programme récepteur doit être lancé en premier.</p>
     <h4>Tester les ports disponibles du client</h4>
 
     <p>Pour tester les 1024 premiers ports du client à l'aide de cette classe :</p>
@@ -249,32 +333,6 @@ public Socket(InetAddress adresse, int port, InetAddress adresseLocale, int loca
     e.printStackTrace();
 } catch (Exception e) {
     e.printStackTrace();
-}</pre>
-
-    <h4>Fermer une socket en fin de communication</h4>
-
-    <p>La machine virtuelle Java ferme les sockets non utilisés à la fin de l'exécution du programme. Toutefois, le nombre de sockets ouvertes par un programme est limité, ce qui conduit à des erreurs quand cette limite est atteinte. La méthode close() permet de fermer la connexion.</p>
-
-    <p>Pour fermer une socket en fin de communication :</p>
-    <pre>Socket sock = null;
-      try {
-         //On se connecte au site
-         sock = new Socket("www.adret-attitude.com", 80);
-
-      } catch (UnknownHostException e) {
-         e.printStackTrace();
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
-      finally{
-         if(sock != null){
-            try {
-               sock.close();
-            } catch (IOException e) {
-               e.printStackTrace();
-               sock = null;
-            }
-         }
 }</pre>
 
     <h4>Communiquer avec un serveur</h4>
@@ -344,6 +402,83 @@ try {
 } catch (IOException e) {
         e.printStackTrace();
 }</pre>
+
+    <hr>
+
+    <!-- Le RMI -->
+
+    <h3>Le mécanisme RMI</h3>
+
+    <p>Le RMI permet d'appeler du code à distance. L'implémentation se trouve du côté du serveur et le rôle de RMI est de lier les interfaces côté client aux implémentations distantes. Concrètement, il faut définir l'interface de l'objet distant, l'implémentation, l'application serveur et l'application cliente.</p>
+    <p>Le RMI permet de créer un objet distant sur une machine serveur et de le rendre accessible aux autres machines. Une machine cliente peut récupérer une représentation locale de l'objet distant appelée talon ou <em>stub</em>. Le client utilise alors ce talon comme si l'objet distant était local.</p>
+    <p>Il est donc nécessaire de disposer de deux objets :</p>
+    <ul>
+        <li>un Stub, objet côté client qui va rediriger l'appel vers le serveur</li>
+        <li>un Skeleton, objet côté serveur qui sera atteint par le Stub</li>
+    </ul>
+
+    <img src="skeleton.png" width="300" height="250">
+
+    <p>Cette technique offre pour avantages de mettre à jour le client de manière transparente et de masquer l'exécution distante du code tout en travaillant comme si l'exécution était locale.</p>
+
+    <h4>Côté serveur</h4>
+
+    <p>L'interface est l'entité partagée par les clients et le serveur. L'interface est présente côté client. L'interface de l'objet distant est connue des 2 côtés, client et seveur.</p>
+
+    <pre>import java.rmi.*;
+
+public interface Hello extends Remote {
+    public void sayHello(String nom) throws RemoteException;
+}</pre>
+
+    <p>L'implémentation de l'interface se fait côté serveur et ne doit pas être présente côté client sous peine de perdre l'utilité de RMI. Le talon implémente l'interface de l'objet distant pour le client et le squelette utilise la même interface pour transmettre les appels à l'objet distant.</p>
+
+    <pre>import java.rmi.server.UnicastRemoteObject;
+import java.rmi.*;
+
+public class HelloImpl extends UnicastRemoteObject implements Hello {
+    public HelloImpl() throws RemoteException {
+        super();
+    }
+    public void sayHello(String nom) throws RemoteException {
+        System.out.println("Hello "+nom");
+    }
+}</pre>
+
+    <p>Dans la classe principale côté serveur, il faut instancier l'implémentation, créer le skeleton puis publier grâce au registry.</p>
+
+    <pre>import java.rmi.*;
+import java.net.*;
+
+class HelloServer {
+    public static void main(String[] args) {
+        try {
+            HelloImpl obj = new HelloImpl();
+            Naming.rebind("Hello", obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</pre>
+
+    <h4>Côté client</h4>
+
+    <p>L'appel côté client d'une méthode d'un objet distant consiste à obtenir une référence sur l'objet distant puis à appeler la méthode à partir de cette référence.</p>
+    <pre>import java.rmi.*;
+import java.net.*;
+
+class HelloClient {
+    public static void main(String[] args) {
+        try {
+            Hello obj = (Hello) Naming.lookup("//"+args[0]+"/Hello");
+                obj.sayHello("Mike");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}</pre>
+
+
 
 
 </section>

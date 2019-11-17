@@ -69,11 +69,16 @@ h2{ /* titre document */
   font-size: 3em;
 }
 
-h3{ /* titres paragraphes */
+h3{/* titres paragraphes */
   font-size: 1.7em;
   margin-top: 40px;
   font-family: Arial, Verdana, "Trebuchet MS";
   color: rgb(102,153,204);
+}
+
+h3::before{/* compteur de titre */
+  counter-increment: compteur_titre;
+  content: counter(compteur_titre) ". ";
 }
 
 h4{ /* sous-titres paragraphes */
@@ -85,6 +90,10 @@ h4{ /* sous-titres paragraphes */
 }
 
 /* ===== PRINCIPALES BALISES ===== */
+
+body{
+  counter-reset: compteur_titre;
+}
 
 header{ /* entête */
   margin-top: 110px;
@@ -128,7 +137,7 @@ fieldset{ /* cadre avec titre */
 }
 
 pre{ /* lignes de codes */
-  background-color: #F4F5D3;
+  /*background-color: #928C89;*/
   color: rgb(153,102,102);
   font-family: Courier;
   padding-left: 5px;
