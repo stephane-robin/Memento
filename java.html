@@ -486,6 +486,110 @@ class HelloClient {
 
     <h3>JMS</h3>
 
+    <p>JMS Java Message Service est une interface de programmation API spécialisée dans la création, l'envoi et la lecture de messages. JMS s'apparente donc à un service de messagerie permettant d'envoyer des messages d'une application à une autre sur un poste distant. Les particularités de JMS sont les suivantes :</p>
+        <ul>
+            <li>asynchrone, un message arrivera au client sans qu'il n'ait fait de requête</li>
+            <li>fiable, il s'assure que le message soit délivré</li>
+        </ul>
+
+    <p>La communication par message est implantée par un bus de messages ou MOM Message Oriented Middleware.</p>
+
+    <p>JMS contient les rôles suivants :</p>
+    <ul>
+        <li>le fournisseur JMS est la plateforme de messagerie</li>
+        <li>les clients JMS produisent et consomment des messages</li>
+        <li>les messages contiennent des informations communiquées entre les clients</li>
+        <li>les objets administrés sont configurés par un administrateur</li>
+    </ul>
+
+    <p>Il existe 2 types de domaines de messagerie avec JMS, la communication point à point et la communication événementielle. Chacun de ces modes de communication utilise des objets intermédiaires par lesquels transitent les messages, appelés MOM Message Oriented Middleware. De ce fait, il est inutile d'établir une connexion entre un émetteur et un récepteur.</p>
+
+    <p>Dans la communication point à point l'objet intermédiaire est une file d'attente (queue). plusieurs émetteurs peuvent envoyer sur la même file d'attente mais un seul destinataire peut consommer le message. On parle de communication N à 1.</p>
+
+    <p>Dans la communication événementielle l'objet intermédiaire est un sujet (topic). Les émetteurs envoient leurs messages sur un topic. Les récepteurs s'inscrivent au topic pour recevoir les messages publiés sur ce topic.</p>
+
+    <p>L'utilisation du bus de messages permet de mettre en place des services qui n'existaient pas en communication directe :</p>
+    <ul>
+        <li>transaction : envoi et réception groupés</li>
+        <li>persistance : retransmission des messages en cas de panne</li>
+        <li>multicast : communication de groupe</li>
+        <li>log : trace des échanges</li>
+        <li>gestion des droits d'accès</li>
+    </ul>
+
+    <p>Les MOM s'appuient sur le protocole TCP/IP qui lui-même s'appuie sur les sockets.</p>
+
+    <p>Les ConnectionFactory sont des objets qui permettent de créer une connexion au provider.</p>
+
+    <p>Exemple de bus de messages : ActiveMQ de Apache.</p>
+
+    <h4>Construction d'un service de messagerie avec JMS 2</h4>
+
+<pre>JMSConnectionFactory factory = new JMSConnectionFactory("tcp://localhost:61616");
+
+@Resource(lookup = "jms/MyQueue");  // dans le cas d'un queue
+public static Queue queue;
+
+@Resource(lookup = "jms/MyTopic");  // dans le cas d'un topic
+public static Topic topic;
+
+JMSContext context = connectFactory.createContext();
+
+JMSProducer producer = connectionFactory.createProducer(dest);
+
+JMSConsumer consumer = context.createConsumer(dest);
+
+producer.send(queue, "hello world");
+
+Message m = consumer.receive();
+
+context.createProducer().send(dest, message);
+
+Listener myListener = new Listener();
+consumer.setMessageListener(myListener);
+
+class MyListener implements MessageListener {
+    public void onMessage(Message msg) {
+    System.out.println(((TextMessage)msg).getText());
+    }
+}
+</pre>
+
+    <h4>Construction d'un service de messagerie avec JMS 1</h4>
+
+    <pre>properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+properties.put("connectionFactory.ConnectionFactory", "tcp://localhost:61616");
+InitialContext ic = new InitialContext(properties);
+ConnectionFactory connectFactory = (ConnectionFactory) ic.lookup("ConnectionFactory");
+
+props.put("topic.MyTopic", "MyTopic");      // dans le cas d'un topic
+Topic topic = (Topic) ctx.lookup("MyTopic");
+
+props.put("queue.MyQueue", "MyQueue");      // dans le cas d'un queue
+Queue queue = (Queue) ctx.lookup("MyQueze");
+
+Connection connect = connectFactory.createConnection("identifiant", "pw");
+Session sess = connect.createSessions(false, Session .AUTO_ACKNOLEDGE);
+
+MessageProducer producer = sess.createProducer(dest);
+
+MessageConsumer consumer = sess.createConsumer(dest);
+
+producer.send(queue, "hello world");
+
+Message m = consumer.receive();
+
+context.createProducer().send(dest, message);
+
+Listener myListener = new Listener();
+sess.setMessageListener(myListener);
+
+class MyListener implements MessageListener {
+    public void onMessage(Message msg) {
+    System.out.println(((TextMessage)msg).getText());
+    }
+}</pre>
+
 
     <hr>
 
