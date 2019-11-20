@@ -74,6 +74,7 @@ h3{/* titres paragraphes */
   margin-top: 40px;
   font-family: Arial, Verdana, "Trebuchet MS";
   color: rgb(102,153,204);
+  border-bottom: 1px solid rgb(102,153,204);
 }
 
 h3::before{/* compteur de titre */
@@ -110,15 +111,21 @@ p{ /* paragraphes */
   text-align: justify;
 }
 
+.pcle{ /*paragraphes de mots-clés */
+  width: 80%;
+  margin: auto;
+
+  font-family: Arial, Verdana, "Trebuchet MS";
+  font-size: 1.2em;
+  text-align: justify;
+  font-style: italic;
+}
+
 strong{ /* mise en valeur */
   color: rgb(153,102,102);
   font-family: Courier;
   font-weight: normal;
   font-size: 0.9em;
-}
-
-hr{ /* ligne de séparation */
-  margin-top: 50px;
 }
 
 figure{ /* figure */
@@ -137,7 +144,6 @@ fieldset{ /* cadre avec titre */
 }
 
 pre{ /* lignes de codes */
-  /*background-color: #928C89;*/
   color: rgb(153,102,102);
   font-family: Courier;
   padding-left: 5px;

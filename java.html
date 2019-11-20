@@ -47,8 +47,6 @@
 
     </div>
 
-    <hr>
-
     <p style="font-weight:bold"> Table des matières :</p>
         <ul>
             <li> <a href="">La programmation réseau</a> </li>
@@ -60,15 +58,11 @@
             <li> <a href="#">Les services Web</a></li>
         </ul>
 
-    <hr>
-
     <!-- EXECUTER JAVA AU TERMINAL -->
 
     <h3>Exécuter Java au terminal</h3>
 
     <p>Pour exécuter un programme Java en utilisant le terminal, il faut d'abord se rendre dans le dossier comportant le fichier, puis compiler le programme avec la commande <strong>javac monFichier.java</strong>. Le fichier se transforme alors en binaire exécutable par la Machine Virtuelle Java : monFichier.class. Pour exécuter ce programme il reste maintenant à utiliser la commande <strong>java monFichier</strong>.</p>
-
-    <hr>
 
 <!-- ===== LA PROGRAMMATION RESEAU ===== -->
 
@@ -86,7 +80,7 @@
 
 <h4>La classe InetAddress</h4>
 
-<p>Pour manipuler des adresses IP, on utilise la classe InetAddress.</p>
+<p>Pour manipuler des adresses IP, on utilise la classe InetAddress. Par exemple pour obtenir l'adresse IP d'un site connu par son nom de domaine :</p>
 <pre>import java.net.*;
 
 try{
@@ -98,7 +92,7 @@ try{
     <pre>import java.net.*;
 
 try{
-    InetAddress adresse = InetAddress.getByName("localhost");
+    InetAddress adresse = InetAddress.getByName("localhost"); // ou
     InetAddress adresse = InetAddress.getLocalHost();
 }catch (UnknownHostException e) {
     e.printStackTrace();
@@ -107,9 +101,9 @@ try{
     <p>Les méthodes associées à la classe InetAddress nécessitent également la gestion de UnknownHostException :</p>
 <table>
     <tr><th>Objectif</th><th>Code</th></tr>
-    <tr><td>nom de l'hôte (client)</td><td>adresse.getHostName()</td></tr>
-    <tr><td>adresse IP</td><td>adresse.getHostAddress()</td></tr>
-    <tr><td>teste si l'adresse est de type boucle locale</td><td>adresse.isLoopbackAddress()</td></tr>
+    <tr><td>nom de l'hôte (client)</td><td><pre>adresse.getHostName()</pre></td></tr>
+    <tr><td>adresse IP</td><td><pre>adresse.getHostAddress()</pre></td></tr>
+    <tr><td>teste si l'adresse est de type boucle locale</td><td><pre>adresse.isLoopbackAddress()</pre></td></tr>
 </table>
 
     <p>Certains sites Internet peuvent avoir plusieurs adresses IP :</p>
@@ -132,9 +126,8 @@ import java.net.*;
 
 try {
     URL url = new URL("http://www.meteofrance.fr");
-
-    }catch(MalformedURLException e) {
-        e.printStackTrace();
+}catch(MalformedURLException e) {
+    e.printStackTrace();
 }
 </pre>
 
@@ -154,22 +147,23 @@ try {
 <p>Pour vérifier qu'une saisie utilisateur correspond à une url, on peut par exemple utiliser la condition :</p>
 <pre>if(host.matches("[a-zA-Z\\.]+"))</pre>
 
-<hr>
-
 <!-- ===== LES SOCKETS ===== -->
 
 <h3>Les sockets</h3>
 
+    <div class="pcle">- Mots-clés -</br>
+        API : une interface de programmation applicative est un ensemble normalisé de classes, de méthodes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels. Ces services sont offerts à travers une bibliothèque ou un service Web.</div>
+
     <p>Les sockets sont des API permettant de gérer les communications entre programmes. La communication de plusieurs machines sur un réseau nécessite donc la connaissance d'adresses, de ports, de protocoles et l'utilisation de sockets. Les sockets permettent de se connecter à une machine distante, de recevoir et envoyer des données, de fermer une connexion établie, d'attendre une connexion de l'extérieur, d'écouter les communications entrantes.</p>
 <p>Une même socket sert aussi bien à envoyer qu'à recevoir des communications.</p>
 
-    <p>Une socket est identifiée de manière unique par l'adresse IP de la machine suivi du numéro de port utilisé, ce dernier étant compris entre 1024 et 65536.</p>
+    <p>Une socket est identifiée de manière unique par l'adresse IP de la machine suivie du numéro de port utilisé, ce dernier étant compris entre 1024 et 65536.</p>
 
     <p>Java fait la différence entre deux types de sockets : côté client et côté serveur.</p>
 
     <p>Une socket côté client permet de se connecter à une machine distante afin de communiquer avec elle. L'utilisation de socket côté client se déroule ainsi :</p>
     <ul>
-        <li>connexion avec le serveur</li>
+        <li>demande de connexion avec le serveur</li>
         <li>ouverture de la communication avec le serveur</li>
         <li>envoi des messages</li>
         <li>fermeture de la connexion</li>
@@ -187,127 +181,171 @@ try {
 
     <h4>Le mode connecté</h4>
 
-    <p>En mode connecté, deux sockets établissent une communication durable qui permet d'éviter de transmettre l'identité de la socket destinatrice à chaque envoi. Dans ce cas, un des programmes prend le rôle du serveur et l'autre le rôle du client. Le serveur est donc vu comme un programme rendant des services aux clients. La socket côté serveur doit être définie avant la socket côté client.</p>
-    <p>En mode connecté, le serveur doit être lancé en premier.</p>
+    <p>En mode connecté, deux sockets établissent une communication durable qui permet d'éviter de transmettre l'identité de la socket destinatrice à chaque envoi. Dans ce cas, un des programmes prend le rôle du serveur et l'autre le rôle du client. Le serveur est donc vu comme un programme rendant des services aux clients.</p>
+    <fieldset><legend>IMPORTANT</legend><p>La socket côté serveur doit être lancée avant la socket côté client.</p></fieldset>
 
-    <p>La création d'une socket côté serveur utilise la classe ServerSocket et se fait grâce à l'une des instructions :</p>
-    <pre>import java.net.*;
-import java.io.*;
+    <p>La création d'une socket côté serveur utilise la classe ServerSocket. Le serveur attend ensuite les demandes de connexion en utilisant la fonction bloquante accept() i.e. qu'elle ne libère pas le programme tant qu'elle n'a pas reçu de demande de connexion.</p>
 
-try{
-    // crée une socket serveur en fixant le nmr de port
-    ServerSocket socket_serveur = new ServerSocket(int port);
-
-    // crée une socket serveur en fixant le nmr de port et taille de file d'attente de
-    // demande de connexion
-    ServerSocket socket_serveur = new ServerSocket(int port, int backlog);
-
-    // crée une socket serveur en fixant le nmr de port, taille de file d'attente de
-    // demande de connexion et adresse IP
-    ServerSocket socket_serveur = new ServerSocket(int port, int backlog, InetAddress
-        adresse);
-}catch((IOException e){
-    e.printStackTrace();
-}</pre>
-
-    <p>Le serveur attend ensuite les demandes de connexion en utilisant la fonction bloquante accept() i.e. qu'elle ne libère pas le programme tant qu'elle n'a pas reçu de demande de connexion :</p>
-
-    <p>La création d'une socket côté client utilise la classe Socket et se fait grâce à l'une des instructions :</p>
-    <pre>import java.net.*;
-import java.io.*;
-
-try{
-    // crée une socket client connectée avec le serveur dont le nom et le nmr de port
-    // sont donnés
-    Socket socket_client = new Socket(String host, int port);
-
-    // crée une socket client connectée avec le serveur dont l'adresse IP et le nmr de
-    // port sont donnés
-    Socket socket_client = new Socket(InetAddress adresse, int port);
-
-    // crée une socket client connectée avec le serveur dont le nom et le nmr de port
-    // sont donnés, fixe l'adresse IP locale et le nmr de port local
-    Socket socket_client = new Socket(String host, int port, InetAddress adresseLocale,
-        int localPort);
-
-    // crée une socket client connectée avec le serveur dont l'adresse IP et le nmr de port
-    // sont donnés, fixe l'adresse IP locale et le nmr de port local
-    Socket socket_client = new Socket(InetAddress adresse, int port, InetAddress
-        adresseLocale, int localPort);
-}catch(IOException e){
-    e.printStackTrace();
-}</pre>
-
-    <p>La machine virtuelle Java ferme les sockets non utilisés à la fin de l'exécution du programme. Toutefois, le nombre de sockets ouvertes par un programme est limité, ce qui conduit à des erreurs quand cette limite est atteinte. La méthode close() permet de fermer la connexion.</p>
+    <p>La création d'une socket côté client utilise la classe Socket.</p>
 
     <p>Les méthodes de la classe Socket permettant d'obtenir des informations sur la connexion et nécessitent également la gestion de IOException :</p>
 
     <table>
         <tr><th>Instruction</th><th>Résultat</th></tr>
-        <tr><td>socket_client.getInetAddress()</td><td>fournit l'adresse IP distante</td></tr>
-        <tr><td>socket_client.getLocalAddress()</td><td>fournit l'adresse IP locale</td></tr>
-        <tr><td>socket_client.getPort()</td><td>fournit le nmr de port distant</td></tr>
-        <tr><td>socket_client.getLocalPort()</td><td>fournit le nmr de port local</td></tr>
+        <tr><td><pre>socket_client.getInetAddress()</pre></td><td>fournit l'adresse IP distante</td></tr>
+        <tr><td><pre>socket_client.getLocalAddress()</pre></td><td>fournit l'adresse IP locale</td></tr>
+        <tr><td><pre>socket_client.getPort()</pre></td><td>fournit le nmr de port distant</td></tr>
+        <tr><td><pre>socket_client.getLocalPort()</pre></td><td>fournit le nmr de port local</td></tr>
     </table>
 
-<p><em>Exemple complet en mode connecté :</em></p>
+    <p>La machine virtuelle Java ferme les sockets non utilisés à la fin de l'exécution du programme. Toutefois, le nombre de sockets ouvertes par un programme est limité, ce qui conduit à des erreurs quand cette limite est atteinte. La méthode close() permet de fermer la connexion.</p>
 
-    <pre>import java.io.*;   // pour OutputStream et write()
-import java.net.*;  // pour ServerSocket, getOutputStream(), accept() et close()
+    <p><em>Exemple côté serveur :</em></p>
+
+<pre>import java.io.*;
+import java.net.*;
 
 public class ServeurConnect {
 
-    public ServeurConnect(){
+    public static void main(String[] args) {
+        byte[] buffer = new byte[200];
+
         try{
-            // creation socket serveur
-            ServerSocket socket_serveur = new ServerSocket(5555);
-            // attente demande de connexion venant du client puis creation d'une
-            // connexion
-            Socket connexion = socket_serveur.accept();
-            // ouverture communication avec le client
-            OutputStream com_sortante = connexion.getOutputStream();
+            // creation socket serveur de communication sur le port 5555
+            ServerSocket srv = new ServerSocket(5555);
 
-            // traitements
-            byte[] tableau_data = {1,2,3,4,5};
-            com_sortante.write(tableau_data);
+            // attente demande de connexion venant du client
+            // puis creation d'une socket de connexion
+            Socket connexion = srv.accept();
 
-             // fermeture connexion
+            // communication entrante en provenance du client
+            DataInputStream com_entrante = new DataInputStream(connexion.getInputStream());
+            int recu = com_entrante.read(buffer);
+            System.out.println("Quantité reçue : "+ recu);
+            System.out.println("Message reçu : "+ new String(buffer));
+
+            // communication sortante vers le client
+            DataOutputStream com_sortante = new DataOutputStream(connexion.getOutputStream());
+            com_sortante.writeBytes("l'article coute 120 chf");
+
+            // fermeture connexion
+            com_entrante.close();
+            com_sortante.close();
             connexion.close();
+            srv.close();
         }catch(IOException e){
             e.printStackTrace();
         }
     }
 }
+</pre>
 
-import java.io.*;   // pour InputStream et read()
-import java.net.*;  // pour Socket, getInputStream() et close()
+    <p><em>Exemple côté client :</em></p>
+
+<pre>import java.io.*;
+import java.net.*;
 
 public class ClientConnect {
 
-    public ClientConnect(){
-        try{
-            // creation socket client connectée au serveur sur le port 5555
-            Socket socket_client = new Socket("localhost", 5555);
-            // ouverture communication avec le serveur
-            InputStream com_entrante = socket_client.getInputStream();
+    public static void main(String[] args) {
+        // allégation de mémoire pour le buffer du message à recevoir
+        byte[] buffer = new byte[200];
 
-            // traitement
-            byte[] tableau_buffer = new byte[5];
-            int recu = com_entrante.read(tableau_buffer);
+        try{
+            // creation socket client de communication sur le port 5555,
+            // une socket serveur de communication et une socket de
+            // connexion doivent avoir été créées au préalable
+            Socket clt = new Socket("localhost", 5555);
+
+            // communication sortante vers le serveur
+            DataOutputStream com_sortante = new DataOutputStream(clt.getOutputStream());
+            com_sortante.writeBytes("quel est le prix de l'article ?");
+
+            // communication entrante en provenance du serveur
+            DataInputStream com_entrante = new DataInputStream(clt.getInputStream());
+            int recu = com_entrante.read(buffer);
+            System.out.println("Quantité reçue : "+ recu);
+            System.out.println("Message reçu : "+ new String(buffer));
 
             // fermeture connexion
-            socket_client.close();
+            com_sortante.close();
+            com_entrante.close();
+            clt.close();
         }catch(IOException e){
             e.printStackTrace();
         }
     }
-}</pre>
+}
+</pre>
 
     <h4>Le mode non connecté</h4>
 
     <p>En mode non connecté, le destinataire de la socket est précisé à chaque envoi. La communication utilise dans ce cas la classe DatagramSocket.</p>
 
-    <p>En mode non connecté, le programme récepteur doit être lancé en premier.</p>
+    <fieldset><legend>IMPORTANT</legend><p>En mode non connecté, le programme récepteur doit être lancé en premier.</p></fieldset>
+
+    <p><em>Exemple côté récepteur :</em></p>
+
+<pre>import java.io.*;
+import java.net.*;
+import java.nio.*;
+
+public class RecepteurUDP {
+
+    public static void main(String[] args) {
+        byte[] buffer = new byte[256];
+        try {
+            // creation de la socket de reception
+            DatagramSocket rcp = new DatagramSocket(5555);
+
+            // creation et reception du paquet
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+            rcp.receive(packet);
+
+            // conversion du message reçu en byte[] vers un entier
+            // puis affichage
+            int message = ByteBuffer.wrap(buffer).getInt();
+            System.out.println("Message recu :  " + message);
+
+            // fermeture de connexion
+            rcp.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</pre>
+
+    <p><em>Exemple côté émetteur :</em></p>
+
+<pre>import java.io.*;
+import java.net.*;
+import java.nio.*;
+
+public class EmetteurUDP {
+
+    public static void main(String[] args) {
+
+        // transformation de l'entier en byte[]
+        ByteBuffer tabByte = ByteBuffer.allocate(4);
+        byte[] buffer =  tabByte.putInt(1402).array();
+
+        try {
+            // creation de la socket émettrice
+            DatagramSocket emt = new DatagramSocket();
+
+            // recherche de l'adresse IP de l'émetteur
+            InetAddress adresseIP = InetAddress.getByName("localhost");
+
+            // creation et envoi du paquet
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, adresseIP, 5555);
+            emt.send(packet);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</pre>
+
     <h4>Tester les ports disponibles du client</h4>
 
     <p>Pour tester les 1024 premiers ports du client à l'aide de cette classe :</p>
@@ -342,15 +380,12 @@ public class ClientConnect {
     <p>On utilise l'objet HttpURLConnection.</p>
     <p>Les flux BufferedInputStrean et BufferedOutputStrean permettent de gagner en performance plutôt que de travailler directement avec les sockets.</p>
 
-    <hr>
-
     <!-- LES STREAMS -->
 
     <h3>Les streams</h3>
 
 
 
-<hr>
 
     <!-- ===== LES PROXYS ===== -->
 
@@ -404,8 +439,6 @@ try {
 } catch (IOException e) {
         e.printStackTrace();
 }</pre>
-
-    <hr>
 
     <!-- Le RMI -->
 
@@ -479,8 +512,6 @@ class HelloClient {
         }
     }
 }</pre>
-
-    <hr>
 
     <!-- JMS -->
 
@@ -590,26 +621,108 @@ class MyListener implements MessageListener {
     }
 }</pre>
 
-
-    <hr>
-
     <!-- Les services Web -->
 
     <h3>Les services Web</h3>
 
-    <p>Les services Web sont un ensemble de technologies permettant l'invocation de méthodes distantes. La communication et l'échange de données sont basés sur les standard Web HTTP et XML. Il existe 2 familles de services Web.</p>
+    <p><em>- Mots-clés -</br>
+    sérialisation : codage d'une information sous la fome d'une suite de données atomiques.</br>
+    parser un fichier : consiste à analyser un fichier afin d'en retirer les informations utiles.</br>
+    serveur d'applications :</em> </p>
 
-    <p>SOAP Simple Object Access Protocol est un protocole de RPC Remote Procedure Call orienté objet et basé sur XML qui permet la transmission de messages entre objets distants. Le transfert se fait par le protocole HTTP ou SMTP. XML est déjà utilisé pour stocker et organiser les informations des requêtes. Un message SOAP est un document XML qui sert d'enveloppe à une en-tête et un corps de message.</p>
-    <p>SOAP permet l'interopérabilité entre différentes plate-formes.</p>
+    <p>Les services Web sont un ensemble de technologies permettant l'invocation de méthodes distantes. La communication et l'échange de données sont basés sur les standards Web HTTP et XML. Il existe 2 familles de services Web : SOAP et REST.</p>
 
-    <p>Dans le cas de l'envoi d'une image, on peut utiliser un message MIME Multimedia Internet Mail Extension comme attachement d'un message SOAP.</p>
+    <h4>SOAP Simple Object Access Protocol</h4>
 
-    <p>Le client a besoin de la description détaillée du service Web qu'il veut utiliser avant de pouvoir interagir. Cette description est donnée par le WSDL Web Service Description Langage dans un document XML. WSDL est en fait un contrat entre un client et un serveur.</p>
+    <p>SOAP est un protocole de RPC Remote Procedure Call orienté objet et basé sur l'échange de données structurées en XML. Le transfert se fait par le protocole HTTP ou SMTP. Un message SOAP est un document XML composé d'une <em>envelope</em> avec un <em>header</em> et le <em>body</em>, corps du message. Dans le cas de l'envoi d'une image, on peut utiliser un message SOAP avec attachement en utilisant un message MIME Multimedia Internet Mail Extension. SOAP permet l'appel de méthodes distantes dans un environnement distribué.</p>
 
-    <p>L'annuaire des services UDDI Universal Description Discovery and Integration est un standard pour l'enregistrement et la publication des informations sur les services Web. Une entrée du répertoire UDDI est constituée d'un fichier XML.</p>
+    <p>Les principaux avantages des services Web SOAP sont :</p>
+    <ul>
+        <li>l'interopérabilité entre différentes plate-formes</li>
+        <li>l'utilisation de normes et de standards</li>
+        <li>flexibitlité et scalabilité</li>
+    </ul>
 
-    <p>Pour développer un service Web, nous pouvons utiliser JAX-WS intégré dans Java.</p>
-     arret p87
+    <p>WSDL Web Service Description Langage donne la description au format XML des services Web en précisant les méthodes pouvant être invoquées. Le client a besoin de cette description détaillée des services Web avant de pouvoir les utiliser.</p>
+
+    <p>UDDI Universal Description Discovery and Integration est un annuaire des services publiés par les providers. Une entrée du répertoire UDDI est constituée d'un fichier XML.</p>
+
+    <p>Il est possible de réaliser la communication entre des applications écrites dans des langages différents, en utilisant le protocole SOAP. Les données échangées suivant le protocole HTTP seront représentées en XML.</p>
+    <p><em>Exemple de requête SOAP :</em></p>
+
+    <pre>HTTP/1.1 200 OK
+Content-Type: text/xml; charset=utf-8
+Content-Length: length
+
+&lt?xml version="1.0" encoding="utf-8"?&gt
+&ltsoap:Envelope xmlns:soap="http://www.w3.org/2001/soap/envelope"&gt
+&ltsoap:Body&gt
+    &ltm:GetPrice xmlns:m="http://www.w3schools.com/prices"&gt
+        &ltm:Item&gtApples&lt/m:Item&gt
+    &lt/m:GetPrice&gt
+&lt/soap:Body&gt
+&lt/soap:Envelope&gt</pre>
+
+    <p><em>Réponse SOAP :</em></p>
+
+    <pre>HTTP/1.1 200 OK
+Content-Type: text/xml; charset=utf-8
+Content-Length: length
+
+&lt?xml version="1.0" encoding="utf-8"?&gt
+&ltsoap:Envelope xmlns:soap="http://www.w3.org/2001/soap/envelope"&gt
+&ltsoap:Body&gt
+    &ltm:GetPriceResponse xmlns:m="http://www.w3schools.com/prices"&gt
+        &ltm:Price&gt2.59&lt/m:Price&gt
+    &lt/m:GetPriceResponse&gt
+&lt/soap:Body&gt
+&lt/soap:Envelope&gt</pre>
+
+    <h4>Développement d'un service Web SOAP avec JAX-WS</h4>
+
+    <p>JAX-WS est intégré dans Java pour développer des services Web.</p>
+    <p>Le développement d'un service Web SOAP avec JAX-WS se fait en plusieurs étapes :</p>
+    <ul>
+        <li>créer une interface publique</li>
+        <li>implémenter l'interface</li>
+        <li>publier et déployer l'application localement</li>
+    </ul>
+
+    <pre>// interface publique
+import javax.jws.*;
+import javax.jws.soap.*;
+
+@WebService
+@SOAPBinding(style = Style.RCP)
+public interface HelloWorld {
+    String getHelloWorldAsString(String nom);
+}</pre>
+
+    <pre>// implémentation de l'interface
+import javax.jws.*;
+
+@WebService(endpointInterface = "ws.HelloWorld")
+public class HelloWorldImpl implements HelloWorld {
+
+    @Overrride
+    public String getHelloWorldAsString(String nom) {
+        return "Hello World JAX-WS "+nom;
+    }
+}</pre>
+
+<pre><code class="language-css">// publication de l'application et déploiement
+import javax.xml.ws.*;
+
+public class HelleWorldPublisher {
+    public static void main(String[] args) {
+        Endpoint.publish("http://localhost:9999/ws/hello", new HelloWorldIml());
+    }
+    }</code></pre>
+
+    <h4>REST Representational State Transfer</h4>
+
+    <p>Pour utiliser un service Web REST, il faut pointer vers une URL avec le protocole HTTP.</p>
+
 </section>
 
 <footer>
