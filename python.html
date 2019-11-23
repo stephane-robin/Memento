@@ -3,8 +3,11 @@
 <head>
   <title> Memento </title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="prism.css">
   <meta charset="utf-8">
 </head>
+
+<script defer src="prism.js"></script>
 
 <body>
 
@@ -43,8 +46,6 @@
 
 </div>
 
-<hr>
-
 <p style="font-weight:bold"> Table des matières :</p>
   <ul>
     <li> <a href="#">Hello world</a> </li>
@@ -65,16 +66,12 @@
     <li> <a href="#">Les exceptions</a> </li>
   </ul>
 
-<hr>
-
 <!-- ===== HELLO WORLD ===== -->
 
 <h3>Hello world</h3>
 
 <p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, Python n'utilise pas de <strong>;</strong> à la fin de chaque instruction. Il le remplace par un retour à la ligne. Notons que les accolades symbolisant un bloc sont remplacées par une indentation.</p>
-<pre>print("Hello World");</pre>
-
-<hr>
+  <pre><code class="language-javascript">print("Hello World");</code></pre>
 
 <!-- ===== GENERALITES ===== -->
 
@@ -94,39 +91,35 @@
   <h4>Particularité des systèmes Linux et Mac</h4>
 
     <p>Il est souvent nécessaire de placer en début de code le chemin absolu de l'interpréteur, puis de préciser l'encodage (ici 3.7 représente la version de Python):</p>
-    <pre>#!/usr/bin/python3.7
-# -*-coding:Utf-8 -*</pre>
+    <pre><code class="language-javascript">#!/usr/bin/python3.7
+# -*-coding:Utf-8 -*</code></pre>
     <p>Remarquons que l'encodate utf8 est natif sous Atom.</p>
 
   <h4>Particularité du système Windows</h4>
 
     <p>Il est nécessaire de mettre en pause le programme en fin d'exécution afin de pouvoir lire le résultat. Préciser l'encodage peut s'avérer nécessaire sous Windows.</p>
-    <pre># -*-coding:Latin-1 -*
+    <pre><code class="language-javascript"># -*-coding:Latin-1 -*
 import os
 # le programme se trouve ici
-os.system("pause")</pre>
-
-<hr>
+os.system("pause")</code></pre>
 
 <!-- ===== IMPORTER UN PACKAGE ===== -->
 
 <h3>Importer un package</h3>
 
-<pre>import nomPackage as np</pre>
+  <pre><code class="language-javascript">import nomPackage as np</code></pre>
 
 <p>Chaque fonction du package sera ensuite appelée avec le préfixe <em>np</em>.</p>
-<pre>np.maFonction(5)</pre>
+  <pre><code class="language-javascript">np.maFonction(5)</code></pre>
 
 <p>On peut également importer un package sans le renommer à l'aide d'un préfixe, lorsqu'il n'y a aucun risque de confusion entre les fonctions.</p>
-<pre>import nomPackage</pre>
+  <pre><code class="language-javascript">import nomPackage</code></pre>
 
 <p>Dans ce cas, il faudra appeler chaque fonction en utilisant <em>nomPackage</em> comme préfixe.</p>
-<pre>nomPackage.maFonction(5)</pre>
+  <pre><code class="language-javascript">nomPackage.maFonction(5)</code></pre>
 
 <p>Pour le package math, on préfère utiliser l'instruction suivante pour éviter d'ajouter un préfixe à chaque calcul :</p>
-<pre>from math import *</pre>
-
-<hr>
+  <pre><code class="language-javascript">from math import *</code></pre>
 
 <!-- ===== LES VARIABLES ===== -->
 
@@ -153,9 +146,9 @@ os.system("pause")</pre>
   <h4>Particularité de Python</h4>
 
   <p>Python permet de permuter simplement les valeurs de deux variables sans passer par une troisième.</p>
-  <pre>a = 2
+  <pre><code class="language-javascript">a = 2
 b = 5
-a, b = b, a</pre>
+a, b = b, a</code></pre>
 
   <h4> Les principales opérations </h4>
 
@@ -194,8 +187,6 @@ a, b = b, a</pre>
 
   <p>Les constantes n'existent pas en Python. On utilise généralement des variables globales qu'on ne modifie pas.</p>
 
-<hr>
-
 <!-- ===== MANIPULER DES CHAINES DE CARACTERES ===== -->
 
 <h3>Manipuler des chaînes de caractères</h3>
@@ -229,31 +220,27 @@ a, b = b, a</pre>
 
   <h4>Parcourir une chaîne de caractères élément par élément</h4>
 
-  <pre>for(let i=0; i&ltchaine.length; i++){
+  <pre><code class="language-javascript">for(let i=0; i&ltchaine.length; i++){
   chaine[i];
-}</pre>
+}</code></pre>
 
   <h4>Template literal</h4>
 
   <p>Python permet d'inclure des expressions dans une chaîne de caractères appelées <em>template literal</em>. Pour cela, il faut définir les emplacement avec <strong>{}</strong> et utiliser la méthode <strong>format()</strong>.</p>
-  <pre>{} est le fils de {}.format("Antoine", "Albert")</pre>
-
-<hr>
+  <pre><code class="language-javascript">{} est le fils de {}.format("Antoine", "Albert")</code></pre>
 
 <!-- ===== SAISIE D'UNE VALEUR PAR L'UTILISATEUR ===== -->
 
 <h3>Saisie d'une valeur par l'utilisateur</h3>
 
-  <pre>nom = input("Quel est votre nom ?");
-print("Bonjour ",nom);</pre>
+  <pre><code class="language-javascript">nom = input("Quel est votre nom ?");
+print("Bonjour ",nom);</code></pre>
 
 <p></p>
 
-  <fieldset><legend><img src="target.png" width="40" height="40"> </legend>
-    <p><em>Attention</em>, la valeur saisie est systématiquement de type <em>String</em>. Il convient donc de la transformer en nombre le cas échéant.</p>
+  <fieldset><legend>ATTENTION </legend>
+    <p>La valeur saisie est systématiquement de type <em>String</em>. Il convient donc de la transformer en nombre le cas échéant.</p>
   </fieldset>
-
-  <hr>
 
   <!-- ===== BRANCHEMENT CONDITIONNEL ===== -->
 
@@ -261,25 +248,23 @@ print("Bonjour ",nom);</pre>
 
     <h4>La condition if</h4>
 
-    <pre>if condition :
+    <pre><code class="language-javascript">if condition :
   instructions
 else :
-  instructions</pre>
+instructions</code></pre>
 
     <h4>Particularités de Python</h4>
 
     <p>L'instruction <strong>elif</strong> est la contraction de l'instruction <strong>else if</strong>.</p>
 
-    <pre>if condition :
+    <pre><code class="language-javascript">if condition :
   instructions
 elif condition :
   instructions
 else :
-  instructions</pre>
+  instructions</code></pre>
     
     <p>L'instruction <strong>switch</strong> n'existe pas de façon native en Python.</p>
-
-  <hr>
 
   <!-- ===== LES BOUCLES ===== -->
 
@@ -287,26 +272,24 @@ else :
 
     <h4>La boucle while</h4>
 
-    <pre>while condition :
-  instructions</pre>
+    <pre><code class="language-javascript">while condition :
+  instructions</code></pre>
 
     <h4>La boucle for</h4>
 
-    <pre>for i in range(0, 5):
-  instructions</pre>
+    <pre><code class="language-javascript">for i in range(0, 5):
+  instructions</code></pre>
 
-    <pre>for elmt in chaine :
-  instructions</pre>
+    <pre><code class="language-javascript">for elmt in chaine :
+  instructions</code></pre>
 
     <h4>Particularité de Python</h4>
 
-    <pre>for lettre in chaine :
+    <pre><code class="language-javascript">for lettre in chaine :
   if lettre in "aeiouy" :
-    instructions</pre>
+  instructions</code></pre>
 
       <p>Le mot clé <strong>break</strong> permet d'interrompre une boucle et d'exécuter le code qui suit la boucle. Le mot clé <strong>continue</strong> permet de continuer une boucle en repartant du début du bloc sans exécuter ce qui suit <strong>continue</strong> dans le bloc.</p>
-
-<hr>
 
 <!-- ===== LES TABLEAUX ===== -->
 
@@ -315,7 +298,7 @@ else :
   <p>Les tableaux contiennent des éléments dont le nombre de bouge pas. On peut toutefois changer ces éléments.</p>
 
   <p>On peut créer un tableau de la manière suivante :</p>
-  <pre>tab = (element1, element2)</pre>
+  <pre><code class="language-javascript">tab = (element1, element2)</code></pre>
 
   <p>L'indice du 1er élément d'un tableau est 0.</p>
 
@@ -330,20 +313,18 @@ else :
     <tr><td>indice d'un élément</td><td><pre>tab.index(element)</pre></td></tr>
   </table>
 
-<hr>
-
 <!-- ===== LES LISTES ===== -->
 
 <h3>Les listes</h3>
 
   <p>Les listes contiennent des éléments dont le nombre peut varier.</p>
   <p>On peut créer une liste de la manière suivante :</p>
-  <pre>liste = [element1, element2, element3];</pre>
+  <pre><code class="language-javascript">liste = [element1, element2, element3];</code></pre>
 
   <p>L'indice du 1er élément d'une liste est 0.</p>
 
   <p>Pour créer une liste vide</p>
-  <pre>maListe = list()</pre>
+  <pre><code class="language-javascript">maListe = list()</code></pre>
 
   <h4>Propriétés d'une liste</h4>
 
@@ -370,82 +351,80 @@ else :
   <h4>Parcourir une liste</h4>
 
   <p>Si on souhaite afficher une liste sans mise en forme particulière, l'utilisation de <strong>print</strong> est suffisante.</p>
-  <pre>print(maListe)</pre>
+  <pre><code class="language-javascript">print(maListe)</code></pre>
 
   <p>On peut également afficher les éléments de maListe les uns à la suite des autres. A noter que <strong>print</strong> entraîne systématiquement un retour à la ligne, contrairement à certains autres langages où il faut rajouter quelques lettres pour aller à la ligne.</p>
 
-  <pre>for i in range(0, len(maListe)):
-    print(maListe[i])</pre>
+  <pre><code class="language-javascript">for i in range(0, len(maListe)):
+    print(maListe[i])</code></pre>
 
   <p>ou encore</p>
 
-  <pre>for i in range(len(maListe)):
-    print(maListe[i])</pre>
+  <pre><code class="language-javascript">for i in range(len(maListe)):
+    print(maListe[i])</code></pre>
 
   <p>Python offre la possibilité de parcourir une liste sans référence aux indices, mais en utilisant un itérateur des éléments qui composent la liste. Ceci correspond à l'instruction <strong>forEach</strong> d'autres langages.</p>
-  <pre>for elmt in maListe:
-  print(elmt)</pre>
+  <pre><code class="language-javascript">for elmt in maListe:
+    print(elmt)</code></pre>
 
   <h4>Particularités de Python</h4>
 
   <p>Python offre deux autres possibilités pour afficher les éléments d'une liste :</p>
-  <pre>for value in maListe:
-  print(value)</pre>
-  <pre>for value in enumerate(maListe):
-  print(value)</pre>
-  <pre>for i, value in enumerate(maListe):
-  print("indice {}, valeur {}".format(i,value))</pre>
+  <pre><code class="language-javascript">for value in maListe:
+    print(value)</code></pre>
+  <pre><code class="language-javascript">for value in enumerate(maListe):
+    print(value)</code></pre>
+  <pre><code class="language-javascript">for i, value in enumerate(maListe):
+    print("indice {}, valeur {}".format(i,value))</code></pre>
 
   <p>En Python on peut stocker des éléments de différents types dans une liste.</p>
-  <pre>maListe = ["Antoine", 12, false];</pre>
+  <pre><code class="language-javascript">maListe = ["Antoine", 12, false];</code></pre>
 
   <p>En Python, l'appel à un indice ne figurant pas dans la liste conduit à une exception de la forme <em>IndexError: list index out of range</em>.</p>
 
   <p>Les compréhensions de liste permettent de modifier les éléments d'une liste selon une structure très particulière. Par exemple pour mettre les éléments au carré, on procède ainsi :</p>
-  <pre>nouvelleListe = [elt**2 for elt in maListe]</pre>
+  <pre><code class="language-javascript">nouvelleListe = [elt**2 for elt in maListe]</code></pre>
 
   <p>Les compréhensions de liste permettent également de filtrer les éléments d'une liste suivant une condition particulière. Par exemple pour rechercher les éléments pairs, on procède ainsi :</p>
-  <pre>nouvelleListe = [elt for elt in maListe if elt%2==0]</pre>
-
-<hr>
+  <pre><code class="language-javascript">nouvelleListe = [elt for elt in maListe if elt%2==0]</code></pre>
 
 <!-- ===== LES DICTIONNAIRES ===== -->
 
 <h3>Les dictionnaires</h3>
 
   <p>Les dictionnaires sont constitués d'un ensemble de clés-valeurs, dans lequel il n'y a aucun ordre. Ils se construisent avec des accolades à la place des crochets et des virgules entre les éléments.</p>
-  <pre>dico ={
+  <pre><code class="language-javascript">dico ={
   "nom" : "Antoine",
   "prenom" : "Hervé";
-}</pre>
+}</code></pre>
 
   <p>Pour créer un dictionnaire vide :</p>
-  <pre>dico = dict()</pre>
+  <pre><code class="language-javascript">dico = dict()</code></pre>
 
   <p>Pour accéder à un élément du tableau, il ne faut plus appeler son indice qui n'existe pas mais appeler la clé de la façon suivante :</p>
 
-  <pre>dico.nom</pre>
+  <pre><code class="language-javascript">dico.nom</code></pre>
   <p>On remarque donc qu'un tableau associatif n'est autre qu'un objet dans lequel les clés sont des propriétés qui possèdent des valeurs.</p>
 
   <p>Dans certains cas, on préfèrera appeler l'élément du tableau de la manière suivante :</p>
-  <pre>dico["nom"]</pre>
+  <pre><code class="language-javascript">dico["nom"]</code></pre>
 
   <p>Pour ajouter un élément à la fin d'un tableau associatif, il suffit de créer cet élément :</p>
-  <pre>tabAsso["lieuNaissance"] = "Lausanne";</pre>
+  <pre><code class="language-javascript">tabAsso["lieuNaissance"] = "Lausanne";</code></pre>
 
   <p>ou encore</p>
-  <pre>tabAsso.lieuNaissance = "Lausanne";</pre>
+  <pre><code class="language-javascript">tabAsso.lieuNaissance = "Lausanne";</code></pre>
 
   <h4>Parcourir un dictionnaire</h4>
 
-  <pre>for cle in dico.keys():
+  <pre><code class="language-javascript">for cle in dico.keys():
   print(cle)
 
 for valeur in dico.values():
   print(valeur)
 
 for cle, valeur in dico.items():
-  print("Clé {} -> Valeur {}".format(cle, valeur))</pre>
+    print("Clé {} -> Valeur {}".format(cle, valeur))</code></pre>
 
   <h4>Propriétés d'un dictionnaire</h4>
 
@@ -461,35 +440,33 @@ for cle, valeur in dico.items():
     <tr><td>suppression d'un élément défini par sa clé et renvoi de sa valeur</td><td><pre>dico.pop("key")</pre></td></tr>
   </table>
 
-  <hr>
-
   <!-- ===== LES FONCTIONS ===== -->
 
   <h3> Les fonctions </h3>
 
   <p>La déclaration d'une fonction se réalise de la manière suivante :</p>
-  <pre>def nomFonction(parametre) :
+  <pre><code class="language-javascript">def nomFonction(parametre) :
   instructions
-  return valeur</pre>
+  return valeur</code></pre>
 
-  <fieldset><legend><img src="target.png" width="40" height="40"> </legend>
-    <p><em>Attention</em>, en Python le type de retour de la fonction et le type des arguments ne sont pas spécifiés lors de la déclaration. Il est donc impossible de surcharger une fonction en Python.</p>
+  <fieldset><legend><ATTENTION </legend>
+    <p><En Python le type de retour de la fonction et le type des arguments ne sont pas spécifiés lors de la déclaration. Il est donc impossible de surcharger une fonction en Python.</p>
   </fieldset>
 
   <p>L'appel de la fonction se fait de la façon suivante :</p>
-  <pre>int valeur = nomFonction(12)</pre>
+  <pre><code class="language-javascript">int valeur = nomFonction(12)</code></pre>
 
   <p>Lorsqu'il n'y a pas de valeur de retour, on parle de procédure :</p>
-  <pre>def nomProcedure(parametre) :
-  instructions</pre>
+  <pre><code class="language-javascript">def nomProcedure(parametre) :
+    instructions</code></pre>
 
   <p>L'appel de la procédure se fait de la façon suivante :</p>
-  <pre>nomProcedure(12);</pre>
+  <pre><code class="language-javascript">nomProcedure(12);</code></pre>
 
   <p>Pour une fonction comme pour une procédure, on peut définir une valeur de paramètre par défaut si celle-ci n'est pas spécifiée, de la manière suivante :</p>
-  <pre>def nomFonction(parametre1, parametre2=43) :
+  <pre><code class="language-javascript">def nomFonction(parametre1, parametre2=43) :
   instructions
-  return valeur</pre>
+    return valeur</code></pre>
 
   <p>Bien que la valeur 43 soit attribuée par défaut au parametre2, celui-ci peut prendre n'importe quelle valeur qui lui soit attribuée.</p>
 
@@ -497,26 +474,26 @@ for cle, valeur in dico.items():
     <h4>Documenter une fonction</h4>
 
     <p>En Python, l'ajout d'une <em>docstring</em> se fait sous le nom de la fonction, avec une indentation et 3 guillements. Elle peut s'étendre sur plusieurs lignes.</p>
-    <pre>def maFonction(parametre) :
+    <pre><code class="language-javascript">def maFonction(parametre) :
   """documentation
   de maFonction"""
   instructions
-  return</pre>
+  return</code></pre>
 
     <p>On appelle la documentation en utilisant l'instruction <strong>help(maFonction)</strong></p>
 
     <h4>Fonction anonyme</h4>
 
     <p>En Python, la fonction anonyme est appelée fonction <em>lambda</em>, mais le principe reste identique. On remplace dans ce cas le mot-clé <strong>def</strong> par <strong>lambda</strong> et on ne spécifie aucun nom pour la fonction créée.</p>
-    <pre>int maVariable = lambda x :
+    <pre><code class="language-javascript">int maVariable = lambda x :
   2*x
 
-print(maVariable(3))</pre>
+   print(maVariable(3))</code></pre>
 
-    <pre>str maVariable = lambda parametre :
+    <pre><code class="language-javascript">str maVariable = lambda parametre :
   "Bonjour ",parametre
 
-print(maVariable("Hervé"))</pre>
+   print(maVariable("Hervé"))</code></pre>
 
   <p>On remarque qu'une fonction lambda utilise une construction particuliére et transforme la variable <em>maVariable</em> en fonction.</p>
 
@@ -534,7 +511,7 @@ print(maVariable("Hervé"))</pre>
   <h3> Les objets en JavaScript </h3>
 
     <p>La création d'une classe requiert les mot-clés <strong>class</strong> et <strong>constructor()</strong>.</p>
-    <pre>class MaClasse{
+    <pre><code class="language-javascript">class MaClasse{
   let nom;
   let prenom;
 
@@ -546,37 +523,32 @@ print(maVariable("Hervé"))</pre>
   uneMethode(parametre){
     instructions;
   }
-}</pre>
+}</code></pre>
 
   <p>L'instanciation d'un objet se fait de façon classique :</p>
-  <pre>let monObjet = new MaClasse("Charles", "Hervé");</pre>
+  <pre><code class="language-javascript">let monObjet = new MaClasse("Charles", "Hervé");</code></pre>
 
   <h4>Particularité de JavaScript</h4>
 
   <p>JavaScript utilise des prototypes qui sont des liens vers d'autres objets pris en référence.</p>
-  <pre>let monObjet = new MaClasse(nom, prenom);
+  <pre><code class="language-javascript">let monObjet = new MaClasse(nom, prenom);
 
-let unAutreObjet = Object.create(monObjet);</pre>
+let unAutreObjet = Object.create(monObjet);</code></pre>
 
   <p>Dans l'exemple ci-dessus, l'objet <em>unAutreObjet</em> utilise le modèle de <em>monObjet</em> pour se construire qui lui-même est une instanciation de <em>maClasse</em>.</p>
-
-<hr>
 
 <!-- ===== RANDOM ===== -->
 
 <h3>Le package random</h3>
 
-  <pre>import random</pre>
+  <pre><code class="language-javascript">import random</code></pre>
   <p>La méthode <strong>randint(4, 7)</strong> renvoie un entier compris entre 4 et 7 compris.</p>
-
-  <hr>
 
 <!-- ===== MATH ===== -->
 
 <h3>Le package math</h3>
 
-  <pre>from math import *</pre>
-  <p></p>
+  <pre><code class="language-javascript">from math import *</code></pre>
 
   <table>
     <tr><th>Instruction</th><th>Effet obtenu</th></tr>
@@ -608,8 +580,6 @@ let unAutreObjet = Object.create(monObjet);</pre>
     <tr><td>e</td><td>e = 2,71</td></tr>
   </table>
 
-<hr>
-
 <!-- ===== JSON ===== -->
 
 <h3>Le package JSON</h3>
@@ -619,7 +589,7 @@ let unAutreObjet = Object.create(monObjet);</pre>
   <pre>import json</pre>
 
   <p>Les données seront stockées suivant le format clé-valeur d'un dictionnaire. On peut par exemple avoir la structure suivante :</p>
-  <pre>{
+  <pre><code class="language-javascript">{
 cle:
     [
       {
@@ -646,30 +616,28 @@ cle:
         cle: valeur
       }
     ]
-}</pre>
+}</code></pre>
 
   <p>Pour afficher ce fichier JSON, il faut d'abord le parcourir et le placer dans un dictionnaire qu'on pourra ensuite afficher :</p>
-  <pre># on crée un dictionnaire local vide
+  <pre><code class="language-javascript"># on crée un dictionnaire local vide
 data = dict()
 
 # on ouvre le fichier json en lecture seule
 with open("monFichier.json", "r") as file:
   # on transforme le fichier json en objet Python
-  data = json.load(file)</pre>
+  data = json.load(file)</code></pre>
 
   <p>Pour écrire sur un fichier JSON, il faut remplacer le fichier de destination par un dictionnaire <em>data</em>. <em>Attention</em>, il faut prendre soin de recopier dans le dictionnaire les valeurs inchangées du fichier JSON, car l'écriture dans le fichier JSON écrase les données présentes dans ce fichier.</p>
-  <pre>data = dict()
+  <pre><code class="language-javascript">data = dict()
 with open("monFichier.json", "w", encoding="utf-8") as file:
-  json.dump(data, file, indent=4)</pre>
-
-<hr>
+json.dump(data, file, indent=4)</code></pre>
 
 <!-- ===== LES EXCEPTIONS ===== -->
 
 <h3>Les exceptions</h3>
 
   <p>Elles se construisent suivant les cas de différentes manières :</p>
-  <pre>try: # cas général
+  <pre><code class="language-javascript">try: # cas général
   instruction à tester
 except:
   instruction en cas d'erreur
@@ -687,9 +655,7 @@ except TypeError:
   try: # division par 0
   instruction à tester
   except ZeroDivisionError:
-  instruction en cas d'erreur</pre>
-
-<hr>
+  instruction en cas d'erreur</code></pre>
 
   <p>Pour aller plus loin, la documentation Python officielle <a href="https://docs.python.org/3.5/library/index.html"><em>The Python Standard Library</em></a>.</p>
 

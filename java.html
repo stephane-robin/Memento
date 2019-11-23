@@ -3,8 +3,11 @@
 <head>
   <title> Memento </title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="prism.css">
   <meta charset="utf-8">
 </head>
+
+<script defer src="prism.js"></script>
 
 <body>
 
@@ -62,7 +65,7 @@
 
     <h3>Exécuter Java au terminal</h3>
 
-    <p>Pour exécuter un programme Java en utilisant le terminal, il faut d'abord se rendre dans le dossier comportant le fichier, puis compiler le programme avec la commande <strong>javac monFichier.java</strong>. Le fichier se transforme alors en binaire exécutable par la Machine Virtuelle Java : monFichier.class. Pour exécuter ce programme il reste maintenant à utiliser la commande <strong>java monFichier</strong>.</p>
+    <p>Pour exécuter un programme Java en utilisant le terminal, il faut d'abord se rendre dans le dossier comportant le fichier, puis compiler le programme avec la commande</p> <pre><code class="language-javascript">javac monFichier.java</code></pre> <p>Le fichier se transforme alors en binaire exécutable par la Machine Virtuelle Java : monFichier.class. Pour exécuter ce programme il reste maintenant à utiliser la commande</p> <pre><code class="language-javascript">java monFichier</code></pre>
 
 <!-- ===== LA PROGRAMMATION RESEAU ===== -->
 
@@ -81,22 +84,24 @@
 <h4>La classe InetAddress</h4>
 
 <p>Pour manipuler des adresses IP, on utilise la classe InetAddress. Par exemple pour obtenir l'adresse IP d'un site connu par son nom de domaine :</p>
-<pre>import java.net.*;
+<pre><code class="language-javascript">import java.net.*;
 
 try{
     InetAddress adresse = InetAddress.getByName("meteocentrale.ch");
 }catch (UnknownHostException e) {
     e.printStackTrace();
-}</pre>
+}</code></pre>
+
 <p>A noter que dans le cas de l'adresse locale, on peut définir indifféremment :</p>
-    <pre>import java.net.*;
+
+    <pre><code class="language-javascript">import java.net.*;
 
 try{
     InetAddress adresse = InetAddress.getByName("localhost"); // ou
     InetAddress adresse = InetAddress.getLocalHost();
 }catch (UnknownHostException e) {
     e.printStackTrace();
-}</pre>
+}</code></pre>
 
     <p>Les méthodes associées à la classe InetAddress nécessitent également la gestion de UnknownHostException :</p>
 <table>
@@ -107,7 +112,7 @@ try{
 </table>
 
     <p>Certains sites Internet peuvent avoir plusieurs adresses IP :</p>
-<pre>import java.net.*;
+<pre><code class="language-javascript">import java.net.*;
 
 try{
     InetAddress[] adresses = InetAddress.getAllByName("amazon.fr");
@@ -116,20 +121,19 @@ try{
         System.out.println(" - " + valeur.getHostAddress());
 }catch(UnknownHostException e) {
         e.printStackTrace();
-}</pre>
+}</code></pre>
 
 <h4>La classe URL</h4>
 
 <p>On peut également utiliser la classe URL pour récupérer les données d'un site Internet :</p>
-<pre>import java.io.*;
+<pre><code class="language-javascript">import java.io.*;
 import java.net.*;
 
 try {
     URL url = new URL("http://www.meteofrance.fr");
 }catch(MalformedURLException e) {
     e.printStackTrace();
-}
-</pre>
+}</code></pre>
 
     <p>Les méthodes associées à la classe URL nécessitent également la gestion de MalformedURLException.</p>
 
@@ -202,7 +206,7 @@ try {
 
     <p><em>Exemple côté serveur :</em></p>
 
-<pre>import java.io.*;
+<pre><code class="language-javascript">import java.io.*;
 import java.net.*;
 
 public class ServeurConnect {
@@ -237,12 +241,11 @@ public class ServeurConnect {
             e.printStackTrace();
         }
     }
-}
-</pre>
+}</code></pre>
 
     <p><em>Exemple côté client :</em></p>
 
-<pre>import java.io.*;
+<pre><code class="language-javascript">import java.io.*;
 import java.net.*;
 
 public class ClientConnect {
@@ -275,8 +278,7 @@ public class ClientConnect {
             e.printStackTrace();
         }
     }
-}
-</pre>
+}</code></pre>
 
     <h4>Le mode non connecté</h4>
 
@@ -286,7 +288,7 @@ public class ClientConnect {
 
     <p><em>Exemple côté récepteur :</em></p>
 
-<pre>import java.io.*;
+<pre><code class="language-javascript">import java.io.*;
 import java.net.*;
 import java.nio.*;
 
@@ -313,11 +315,11 @@ public class RecepteurUDP {
             e.printStackTrace();
         }
     }
-}</pre>
+}</code></pre>
 
     <p><em>Exemple côté émetteur :</em></p>
 
-<pre>import java.io.*;
+<pre><code class="language-javascript">import java.io.*;
 import java.net.*;
 import java.nio.*;
 
@@ -344,12 +346,12 @@ public class EmetteurUDP {
             e.printStackTrace();
         }
     }
-}</pre>
+}</code></pre>
 
     <h4>Tester les ports disponibles du client</h4>
 
     <p>Pour tester les 1024 premiers ports du client à l'aide de cette classe :</p>
-    <pre>for(int i = 1; i <= 1024; i++){
+    <pre><code class="language-javascript">for(int i = 1; i <= 1024; i++){
     try {
         Socket soc = new Socket("127.0.0.1", i);
         System.out.println("ports autorisés sur la machine : " + i);
@@ -359,10 +361,10 @@ public class EmetteurUDP {
         System.out.println("ioexception");
         // le port n'est pas ouvert ou n'est pas autorisé
     }
-}</pre>
+}</code></pre>
 
 <p>Pour spécifier sur quel port du client le serveur devra répondre :</p>
-    <pre>try {
+    <pre><code class="language-javascript">try {
     //Nous spécifions que la réponse devra se faire par ce chemin
     InetAddress lo = InetAddress.getByName("188.165.53.185");
 
@@ -373,7 +375,7 @@ public class EmetteurUDP {
     e.printStackTrace();
 } catch (Exception e) {
     e.printStackTrace();
-}</pre>
+}</code></pre>
 
     <h4>Communiquer avec un serveur</h4>
 
@@ -392,7 +394,7 @@ public class EmetteurUDP {
     <h3>Les proxys</h3>
 
     <p>Un proxy constitue une autre façon de se connecter à un serveur. Le proxy est un intermédiaire faisant le lien entre le client et le serveur.</p>
-<pre>import java.io.IOException;
+<pre><code class="language-javascript">import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.Socket;
@@ -414,7 +416,7 @@ try {
     s.connect(remote);
 } catch (IOException e) {
     e.printStackTrace();
-}</pre>
+}</code></pre>
 
     <p></p>
 
@@ -427,7 +429,7 @@ try {
         <tr><td>adresse socket hôte distant</td><td>s.getRemoteSocketAddress()</td></tr>
     </table>
 
-    <pre>try {
+    <pre><code class="language-javascript">try {
     Socket s = new Socket("www.adret-attitude.ch", 80);
     System.out.println("Port de communication côté serveur : " + s.getPort());
     System.out.println("Port de communication côté client : " + s.getLocalPort());
@@ -438,7 +440,7 @@ try {
         e.printStackTrace();
 } catch (IOException e) {
         e.printStackTrace();
-}</pre>
+}</code></pre>
 
     <!-- Le RMI -->
 
@@ -460,15 +462,15 @@ try {
 
     <p>L'interface est l'entité partagée par les clients et le serveur. L'interface est présente côté client. L'interface de l'objet distant est connue des 2 côtés, client et seveur.</p>
 
-    <pre>import java.rmi.*;
+    <pre><code class="language-javascript">import java.rmi.*;
 
 public interface Hello extends Remote {
     public void sayHello(String nom) throws RemoteException;
-}</pre>
+}</code></pre>
 
     <p>L'implémentation de l'interface se fait côté serveur et ne doit pas être présente côté client sous peine de perdre l'utilité de RMI. Le talon implémente l'interface de l'objet distant pour le client et le squelette utilise la même interface pour transmettre les appels à l'objet distant.</p>
 
-    <pre>import java.rmi.server.UnicastRemoteObject;
+    <pre><code class="language-javascript">import java.rmi.server.UnicastRemoteObject;
 import java.rmi.*;
 
 public class HelloImpl extends UnicastRemoteObject implements Hello {
@@ -478,11 +480,11 @@ public class HelloImpl extends UnicastRemoteObject implements Hello {
     public void sayHello(String nom) throws RemoteException {
         System.out.println("Hello "+nom");
     }
-}</pre>
+}</code></pre>
 
     <p>Dans la classe principale côté serveur, il faut instancier l'implémentation, créer le skeleton puis publier grâce au registry.</p>
 
-    <pre>import java.rmi.*;
+    <pre><code class="language-javascript">import java.rmi.*;
 import java.net.*;
 
 class HelloServer {
@@ -494,12 +496,12 @@ class HelloServer {
             e.printStackTrace();
         }
     }
-}</pre>
+}</code></pre>
 
     <h4>Côté client</h4>
 
     <p>L'appel côté client d'une méthode d'un objet distant consiste à obtenir une référence sur l'objet distant puis à appeler la méthode à partir de cette référence.</p>
-    <pre>import java.rmi.*;
+    <pre><code class="language-javascript">import java.rmi.*;
 import java.net.*;
 
 class HelloClient {
@@ -511,7 +513,7 @@ class HelloClient {
             System.out.println(e.getMessage());
         }
     }
-}</pre>
+}</code></pre>
 
     <!-- JMS -->
 
@@ -556,7 +558,7 @@ class HelloClient {
 
     <h4>Construction d'un service de messagerie avec JMS 2</h4>
 
-<pre>JMSConnectionFactory factory = new JMSConnectionFactory("tcp://localhost:61616");
+<pre><code class="language-javascript">JMSConnectionFactory factory = new JMSConnectionFactory("tcp://localhost:61616");
 
 @Resource(lookup = "jms/MyQueue");  // dans le cas d'un queue
 public static Queue queue;
@@ -583,12 +585,11 @@ class MyListener implements MessageListener {
     public void onMessage(Message msg) {
     System.out.println(((TextMessage)msg).getText());
     }
-}
-</pre>
+}</code></pre>
 
     <h4>Construction d'un service de messagerie avec JMS 1</h4>
 
-    <pre>properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+    <pre><code class="language-javascript">properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
 properties.put("connectionFactory.ConnectionFactory", "tcp://localhost:61616");
 InitialContext ic = new InitialContext(properties);
 ConnectionFactory connectFactory = (ConnectionFactory) ic.lookup("ConnectionFactory");
@@ -619,7 +620,7 @@ class MyListener implements MessageListener {
     public void onMessage(Message msg) {
     System.out.println(((TextMessage)msg).getText());
     }
-}</pre>
+}</code></pre>
 
     <!-- Les services Web -->
 
@@ -650,7 +651,7 @@ class MyListener implements MessageListener {
     <p>Il est possible de réaliser la communication entre des applications écrites dans des langages différents, en utilisant le protocole SOAP. Les données échangées suivant le protocole HTTP seront représentées en XML.</p>
     <p><em>Exemple de requête SOAP :</em></p>
 
-    <pre>HTTP/1.1 200 OK
+    <pre><code class="language-javascript">HTTP/1.1 200 OK
 Content-Type: text/xml; charset=utf-8
 Content-Length: length
 
@@ -661,11 +662,11 @@ Content-Length: length
         &ltm:Item&gtApples&lt/m:Item&gt
     &lt/m:GetPrice&gt
 &lt/soap:Body&gt
-&lt/soap:Envelope&gt</pre>
+&lt/soap:Envelope&gt</code></pre>
 
     <p><em>Réponse SOAP :</em></p>
 
-    <pre>HTTP/1.1 200 OK
+    <pre><code class="language-javascript">HTTP/1.1 200 OK
 Content-Type: text/xml; charset=utf-8
 Content-Length: length
 
@@ -676,7 +677,7 @@ Content-Length: length
         &ltm:Price&gt2.59&lt/m:Price&gt
     &lt/m:GetPriceResponse&gt
 &lt/soap:Body&gt
-&lt/soap:Envelope&gt</pre>
+&lt/soap:Envelope&gt</code></pre>
 
     <h4>Développement d'un service Web SOAP avec JAX-WS</h4>
 
@@ -688,7 +689,7 @@ Content-Length: length
         <li>publier et déployer l'application localement</li>
     </ul>
 
-    <pre>// interface publique
+    <pre><code class="language-javascript">// interface publique
 import javax.jws.*;
 import javax.jws.soap.*;
 
@@ -696,9 +697,9 @@ import javax.jws.soap.*;
 @SOAPBinding(style = Style.RCP)
 public interface HelloWorld {
     String getHelloWorldAsString(String nom);
-}</pre>
+}</code></pre>
 
-    <pre>// implémentation de l'interface
+    <pre><code class="language-javascript">// implémentation de l'interface
 import javax.jws.*;
 
 @WebService(endpointInterface = "ws.HelloWorld")
@@ -708,16 +709,16 @@ public class HelloWorldImpl implements HelloWorld {
     public String getHelloWorldAsString(String nom) {
         return "Hello World JAX-WS "+nom;
     }
-}</pre>
+}</code></pre>
 
-<pre><code class="language-css">// publication de l'application et déploiement
+<pre><code class="language-javascript">// publication de l'application et déploiement
 import javax.xml.ws.*;
 
 public class HelleWorldPublisher {
     public static void main(String[] args) {
         Endpoint.publish("http://localhost:9999/ws/hello", new HelloWorldIml());
     }
-    }</code></pre>
+}</code></pre>
 
     <h4>REST Representational State Transfer</h4>
 

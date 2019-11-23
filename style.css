@@ -143,12 +143,12 @@ fieldset{ /* cadre avec titre */
   margin-bottom:30px;
 }
 
-pre{ /* lignes de codes */
-  color: rgb(153,102,102);
+/*pre{ /* lignes de codes */
+  /*color: rgb(153,102,102);
   font-family: Courier;
   padding-left: 5px;
   margin-bottom:0px;
-}
+}*/
 
 ul{ /* Listes */
   font-family: Arial, Verdana, "Trebuchet MS";
@@ -167,6 +167,10 @@ ul{ /* Listes */
   text-align: right;
   margin-top: 5px;
   height:30px;
+}
+
+legend{
+  color: rgb(153,102,102);
 }
 
 .ulExemple{
@@ -366,3 +370,6 @@ uniquement pour l'affichage de certains exemples */
 #span2{
   background-color: #70995E;
 }
+
+
+
