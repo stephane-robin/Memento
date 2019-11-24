@@ -42,8 +42,6 @@
   </div>
 </div>
 
-<hr>
-
 <p style="font-weight:bold"> Table des matières :
   <ul>
     <li> <a href="#balise">Lignes de commande</a> </li>
@@ -54,14 +52,12 @@
   </ul>
 </p>
 
-<hr>
-
 <!-- LIGNES DE COMMANDE -->
 
-<h3>Lignes de commande</h3>
+<h3>Lignes de commande du Terminal</h3>
 
 <table>
-  <tr> <th> Objectif <em>monFichier</em> </th> <th> Instruction</th> </tr>
+  <tr> <th> Objectif</th> <th> Instruction</th> </tr>
   <tr> <td> se déplacer dans le dossier <em>Documents</em> </td> <td> <pre>cd Documents</pre> </td> </tr>
   <tr> <td> revenir au dossier parent </td> <td> <pre>cd ..</pre></td> </tr>
   <tr> <td> revenir à la racine </td> <td> <pre>cd r</pre></td> </tr>
@@ -70,12 +66,11 @@
   <tr> <td> créer le fichier <em>monFichier</em> </td> <td> <pre>touch monFichier</pre></td> </tr>
   <tr> <td> créer le dossier <em>monDossier</em> </td> <td> <pre>mkdir monDossier</pre></td> </tr>
   <tr> <td> vider le terminal <em>monFichier</em> </td> <td> <pre>clear</pre></td> </tr>
-  <tr> <td> ouvrir le monFichier qui se trouve dans le répertoire courant </td> <td> <pre>./monFichier</pre></td> </tr>
+  <tr> <td> ouvrir <em>monFichier</em> qui se trouve dans le répertoire courant </td> <td> <pre>./monFichier</pre></td> </tr>
+  <tr> <td> stopper l'exécution d'un code ou d'un serveur </td><td><pre>Ctrl+c</pre></td></tr>
 </table>
 
 <p>Attention, pour ouvrir un fichier du répertoire courant, l'appel direct de monFichier est insuffisant. Il faut d'abord rajouter le chemin local, qui force la connexion.</p>
-
-<hr>
 
 <!-- CONFIGURATION -->
 
@@ -98,8 +93,6 @@ git config --global color.branch auto</pre>
 
 <p>ou initialiser le dossier et démarrer de projet en local avec l'instruction :</p>
 <pre>git init</pre>
-
-<hr>
 
 <!-- PRINCIPALES INSTRUCTIONS -->
 
@@ -139,8 +132,6 @@ git push origin master</pre>
 <p>Ou de façon plus générale :</p>
 <pre>git pull origin master</pre>
 <p>Dans ce cas, origin correspond au remote repository.</p>
-
-<hr>
 
 <!-- L'HISTORIQUE -->
 
@@ -200,8 +191,6 @@ git push --tags</pre>
 <p>On obtient ainsi toutes les modifications faites sur un fichier ligne par ligne avec le début du <em>sha</em> du commit correspondant. Il faut alors utiliser l'instruction suivante pour consulter les détail du commit recherché :</p>
 <pre>git show nrmCommit</pre>
 
-<hr>
-
 <!-- LA GESTION DES BRANCHES -->
 
 <h3>La gestion des branches</h3>
@@ -236,21 +225,19 @@ git merge nomBranche</pre>
 <p>Pour supprimer une branche dont les modifications n'ont pas été incorporées au master, parce que par exemple le travail réalisé n'est pas concluant :</p>
 <pre>git branch -D nomBranche</pre>
 
-<hr>
-
 <!-- IGNORER DES FICHIERS -->
 
 <h3>Ignorer des fichiers</h3>
 
 <p>Il ne faut jamais versionner une variable de configuration, comme par exemple un mot de passe ou une clé secrète. Si le code a déjà été envoyé sur <em>GitHub</em>, il convient de changer de mot de passe ou générer une nouvelle clé secrète.</p>
 
-<p>Il est important d'ignorer certains fichiers dans <em>Git</em>, tels que :
+  <p>Il est important d'ignorer certains fichiers dans <em>Git</em>, tels que :</p>
   <ul>
     <li>les fichiers de configuration (config.xml, database.yml)</li>
     <li>les fichiers temporaires (tml, temp)</li>
     <li>les fichiers créés par l'IDLE ou l'OS (.DS_Store)</li>
   </ul>
-Ainsi, les variables de configuration devront être déplacées dans un fichier de configuration et ignorées dans <em>Git</em>.</p>
+<p>Ainsi, les variables de configuration devront être déplacées dans un fichier de configuration et ignorées dans <em>Git</em>.</p>
 
 <p>Il faut créer un fichier <em>.gitignore</em> et placer dans ce fichier le nom de tous les fichiers qui devront être ignorés par le versionnement.</p>
 <pre>touch .gitignore</pre>

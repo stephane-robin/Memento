@@ -52,24 +52,28 @@
 
     <p style="font-weight:bold"> Table des matières :</p>
         <ul>
-            <li> <a href="">La programmation réseau</a> </li>
-            <li> <a href="#">Les sockets</a> </li>
-            <li> <a href="#">Les streams</a> </li>
-            <li> <a href="#">Les proxys</a> </li>
-            <li> <a href="#">Le RMI</a></li>
-            <li> <a href="#">JMS</a></li>
-            <li> <a href="#">Les services Web</a></li>
+            <li> <a href="#javaterminal">Exécuter Java au Terminal</a></li>
+            <li> <a href="#programmationreseau">La programmation réseau</a> </li>
+            <li> <a href="#programmationclientserveur">Programmation client-serveur</a> </li>
+            <li> <a href="#proxys">Les proxys</a> </li>
+            <li> <a href="#mecanismermi">Le mécanisme RMI</a></li>
+            <li> <a href="#jms">JMS</a></li>
+            <li> <a href="#servicesweb">Les services Web</a></li>
         </ul>
 
-    <!-- EXECUTER JAVA AU TERMINAL -->
 
-    <h3>Exécuter Java au terminal</h3>
+
+    <!-- EXECUTER JAVA AU TERMINAL ================================== -->
+
+    <h3 id="javaterminal">Exécuter Java au terminal</h3>
 
     <p>Pour exécuter un programme Java en utilisant le terminal, il faut d'abord se rendre dans le dossier comportant le fichier, puis compiler le programme avec la commande</p> <pre><code class="language-javascript">javac monFichier.java</code></pre> <p>Le fichier se transforme alors en binaire exécutable par la Machine Virtuelle Java : monFichier.class. Pour exécuter ce programme il reste maintenant à utiliser la commande</p> <pre><code class="language-javascript">java monFichier</code></pre>
 
-<!-- ===== LA PROGRAMMATION RESEAU ===== -->
 
-<h3>La programmation réseau</h3>
+
+<!-- ===== LA PROGRAMMATION RESEAU =================================== -->
+
+<h3 id="programmationreseau">La programmation réseau</h3>
 
 <h4>Rappels sur les réseaux</h4>
 
@@ -151,12 +155,13 @@ try {
 <p>Pour vérifier qu'une saisie utilisateur correspond à une url, on peut par exemple utiliser la condition :</p>
 <pre>if(host.matches("[a-zA-Z\\.]+"))</pre>
 
-<!-- ===== LES SOCKETS ===== -->
 
-<h3>Les sockets</h3>
 
-    <div class="pcle">- Mots-clés -</br>
-        API : une interface de programmation applicative est un ensemble normalisé de classes, de méthodes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels. Ces services sont offerts à travers une bibliothèque ou un service Web.</div>
+<!-- ===== PROGRAMMATION CLIENT SERVEUR =================================== -->
+
+<h3 id="programmationclientserveur">Programmation client-serveur</h3>
+
+    <div class="pcle">API : une interface de programmation applicative est un ensemble normalisé de classes, de méthodes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels. Ces services sont offerts à travers une bibliothèque ou un service Web.</div>
 
     <p>Les sockets sont des API permettant de gérer les communications entre programmes. La communication de plusieurs machines sur un réseau nécessite donc la connaissance d'adresses, de ports, de protocoles et l'utilisation de sockets. Les sockets permettent de se connecter à une machine distante, de recevoir et envoyer des données, de fermer une connexion établie, d'attendre une connexion de l'extérieur, d'écouter les communications entrantes.</p>
 <p>Une même socket sert aussi bien à envoyer qu'à recevoir des communications.</p>
@@ -204,77 +209,260 @@ try {
 
     <p>La machine virtuelle Java ferme les sockets non utilisés à la fin de l'exécution du programme. Toutefois, le nombre de sockets ouvertes par un programme est limité, ce qui conduit à des erreurs quand cette limite est atteinte. La méthode close() permet de fermer la connexion.</p>
 
-    <p><em>Exemple côté serveur :</em></p>
+    <p><em>Transmission d'une chaîne de caractères :</em></p>
+    <p><em>Côté serveur : </em></p>
 
 <pre><code class="language-javascript">import java.io.*;
 import java.net.*;
 
-public class ServeurConnect {
+public class ServerTCP {
 
     public static void main(String[] args) {
-        byte[] buffer = new byte[200];
-
-        try{
-            // creation socket serveur de communication sur le port 5555
+        try {
+            // creation socket serveur communication sur le port 5555
             ServerSocket srv = new ServerSocket(5555);
 
-            // attente demande de connexion venant du client
-            // puis creation d'une socket de connexion
-            Socket connexion = srv.accept();
+            // attente demande de connexion venant du client puis creation socket connexion
+            Socket conn = srv.accept();
 
             // communication entrante en provenance du client
-            DataInputStream com_entrante = new DataInputStream(connexion.getInputStream());
-            int recu = com_entrante.read(buffer);
-            System.out.println("Quantité reçue : "+ recu);
-            System.out.println("Message reçu : "+ new String(buffer));
+            DataInputStream entrant = new DataInputStream(conn.getInputStream());
+            System.out.println("Message reçu : " + entrant.readUTF());
 
             // communication sortante vers le client
-            DataOutputStream com_sortante = new DataOutputStream(connexion.getOutputStream());
-            com_sortante.writeBytes("l'article coute 120 chf");
+            DataOutputStream sortant = new DataOutputStream(conn.getOutputStream());
+            sortant.writeUTF("Voici votre information");
 
             // fermeture connexion
-            com_entrante.close();
-            com_sortante.close();
-            connexion.close();
+            entrant.close();
+            sortant.close();
+            conn.close();
             srv.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }</code></pre>
 
-    <p><em>Exemple côté client :</em></p>
+    <p><em>Côté client :</em></p>
 
 <pre><code class="language-javascript">import java.io.*;
 import java.net.*;
 
-public class ClientConnect {
+public class ClientTCP {
 
     public static void main(String[] args) {
-        // allégation de mémoire pour le buffer du message à recevoir
-        byte[] buffer = new byte[200];
-
-        try{
-            // creation socket client de communication sur le port 5555,
-            // une socket serveur de communication et une socket de
-            // connexion doivent avoir été créées au préalable
+        try {
+            // creation socket client communication sur le port 5555 en local
             Socket clt = new Socket("localhost", 5555);
 
             // communication sortante vers le serveur
-            DataOutputStream com_sortante = new DataOutputStream(clt.getOutputStream());
-            com_sortante.writeBytes("quel est le prix de l'article ?");
+            DataOutputStream sortant = new DataOutputStream(clt.getOutputStream());
+            sortant.writeUTF("Je cherche une information");
 
             // communication entrante en provenance du serveur
-            DataInputStream com_entrante = new DataInputStream(clt.getInputStream());
-            int recu = com_entrante.read(buffer);
-            System.out.println("Quantité reçue : "+ recu);
-            System.out.println("Message reçu : "+ new String(buffer));
+            DataInputStream entrant = new DataInputStream(clt.getInputStream());
+            System.out.println("Message reçu : "+ entrant.readUTF());
 
             // fermeture connexion
-            com_sortante.close();
-            com_entrante.close();
+            sortant.close();
+            entrant.close();
             clt.close();
-        }catch(IOException e){
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+    <p>Les méthodes writeUTF() et readUTF() détectent automatiquement la taille des String dans un flux. Il n'est donc pas nécessaire de la transmettre avec le message. La quantité d'information transmise est donnée par message.length() si on note message la variable représentant le message reçu.</p>
+
+    <p>Il est également possible d'utiliser les instructions write(Byte[] b) et read(Byte[] b) au lieu de writeUTF() et readUTF(). Dans ce cas, l'expéditeur doit envoyer la taille du String en premier pour informer le récepteur de la quantité de données à allouer en mémoire. Il faut créer un buffer pour accueillir le message reçu. Les String sont convertis en Bytes par la méthode .getBytes() avant d'être envoyés, et à la réception l'instruction entrant.read(buffer) ne renvoie pas le message mais la quantité d'information reçue. Il faut alors créer un new String(buffer) pour renvoyer l'information reçue. </p>
+
+    <p><em>Transmission d'un entier :</em></p>
+    <p><em>Côté serveur : </em></p>
+
+<pre><code class="language-javascript">import java.io.*;
+import java.net.*;
+
+public class ServerTCP {
+
+    public static void main(String[] args) {
+        try {
+            ServerSocket srv = new ServerSocket(5555);
+
+            Socket conn = srv.accept();
+
+            DataInputStream entrant = new DataInputStream(conn.getInputStream());
+            int message= entrant.readInt();
+            System.out.println("Message received: " + message);
+
+            entrant.close();
+            conn.close();
+            srv.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+    <p><em>Côté client :</em></p>
+
+<pre><code class="language-javascript">import java.io.*;
+import java.net.*;
+
+public class ClientTCP {
+
+    public static void main(String[] args) {
+        try {
+            Socket sock = new Socket("localhost", 5555);
+
+            DataOutputStream sortant = new DataOutputStream(sock.getOutputStream());
+            sortant.writeInt(1420);
+
+            sortant.close();
+            sock.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+    <p><em>Transmission d'un message sous forme d'objet (expéditeur, date, contenu) :</em></p>
+
+    <p><em>Côté serveur :</em></p>
+
+    <pre><code class="language-javascript">import java.io.*;
+import java.net.*;
+
+public class ServerTCP {
+
+    public static void main(String[] args) {
+
+        try {
+            // creation socket serveur communication sur le port 5555
+            ServerSocket srv = new ServerSocket(5555);
+
+            // attention demande connexion puis creationsocket serveur connexion
+            Socket conn = srv.accept();
+
+            // communication entrante, les data sont placees dans un objet
+            // transforme en Message, puis en String pour affichage
+            DataInputStream dataEntrant = new DataInputStream(conn.getInputStream());
+            ObjectInputStream objetEntrant = new ObjectInputStream(dataEntrant);
+            Message msg = (Message)objetEntrant.readObject();
+            System.out.println("Message reçu : " + msg.toString());
+
+            // fermeture de connexion
+            objetEntrant.close();
+            dataEntrant.close();
+            conn.close();
+            srv.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) { // doit apparaitre
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+    <p><em>Côté client :</em></p>
+
+    <pre><code class="language-javascript">import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class ClientTCP {
+
+    public static void main(String[] args) {
+        Message msg = new Message("steph",new Date(), "hello world");
+
+        try {
+            // creation socket client en local sur le port 5555
+            Socket clt = new Socket("localhost", 5555);
+
+            // communication sortante, les data sont placees dans un objet transmis sous forme de Message
+            DataOutputStream dataSortant = new DataOutputStream(clt.getOutputStream());
+            ObjectOutputStream  objetSortant = new ObjectOutputStream(dataSortant);
+            objetSortant.writeObject(msg);
+
+            // fermeture de connexion
+            objetSortant.close();
+            dataSortant.close();
+            clt.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+    <p><em>et la classe Message utilisée :</em></p>
+
+    <pre><code class="language-javascript">import java.io.*;
+import java.util.*;
+
+public class Message implements Serializable{
+    String name;
+    Date date;
+    String msg;
+
+    public Message(String name, Date date, String msg){
+        this.name = name;
+        this.date = date;
+        this.msg = msg;
+    }
+
+    @Override
+    public String toString(){
+        return "msg=[ " + name + " , " + date.toString()+" , "+msg +" ]";
+    }
+}</code></pre>
+
+    <p><em>Exemple d'un serveur délivrant un service (fournir la date) à tous les clients qui se connectent :</em></p>
+
+    <p><em>Côté serveur :</em></p>
+
+<pre><code class="language-javascript">import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class ServerTCP {
+
+    public static void main(String[] args) {
+        try {
+            ServerSocket srv = new ServerSocket(5555);
+
+            while (true) {
+                Socket conn = srv.accept();
+
+                DataOutputStream sortant = new DataOutputStream(conn.getOutputStream());
+                sortant.writeUTF("Server Date: " + (new Date()).toString());
+
+                sortant.close();
+                conn.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+    <p><em>Côté client :</em></p>
+
+<pre><code class="language-javascript">import java.io.*;
+import java.net.*;
+
+public class ClientTCP {
+
+    public static void main(String[] args) {
+        try {
+            Socket clt = new Socket("localhost", 5555);
+
+            DataInputStream entrant = new DataInputStream(clt.getInputStream());
+            System.out.println(entrant.readUTF());
+
+            entrant.close();
+            clt.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -286,7 +474,65 @@ public class ClientConnect {
 
     <fieldset><legend>IMPORTANT</legend><p>En mode non connecté, le programme récepteur doit être lancé en premier.</p></fieldset>
 
-    <p><em>Exemple côté récepteur :</em></p>
+    <p><em>Transmission d'une chaîne de caractères :</em></p>
+    <p><em>Côté récepteur :</em></p>
+
+<pre><code class="language-javascript">import java.io.*;
+import java.net.*;
+
+public class RecepteurUDP {
+
+    public static void main(String[] args) {
+        // creation d'un buffer pour contenir le message a recevoir
+        byte[] buffer = new byte[256];
+
+        try {
+            // creation de la socket de reception
+            DatagramSocket rcp = new DatagramSocket(5555);
+
+            // creation et reception du paquet
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+            rcp.receive(packet);
+            System.out.println("Message recu =  " + new String(buffer));
+
+            // fermeture de connexion
+            rcp.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+    <p><em>Côté émetteur :</em></p>
+    <pre><code class="language-javascript">import java.io.*;
+import java.net.*;
+
+public class EmetteurUDP {
+
+    public static void main(String[] args) {
+        String message = "rendez-vous à 13h.";
+
+        try {
+            // creation de la socket emettrice
+            DatagramSocket emt = new DatagramSocket();
+
+            // recuperation de l'adresse IP
+            InetAddress adresseIP = InetAddress.getByName("localhost");
+
+            // creation du packet et envoi du message
+            DatagramPacket packet = new DatagramPacket(message.getBytes(), message.getBytes().length, adresseIP, 5555);
+            emt.send(packet);
+
+            // fermeture connexion
+            emt.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+    <p><em>Transmission d'un entier :</em></p>
+    <p><em>Côté récepteur : </em></p>
 
 <pre><code class="language-javascript">import java.io.*;
 import java.net.*;
@@ -297,17 +543,14 @@ public class RecepteurUDP {
     public static void main(String[] args) {
         byte[] buffer = new byte[256];
         try {
-            // creation de la socket de reception
             DatagramSocket rcp = new DatagramSocket(5555);
 
-            // creation et reception du paquet
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
             rcp.receive(packet);
 
             // conversion du message reçu en byte[] vers un entier
-            // puis affichage
-            int message = ByteBuffer.wrap(buffer).getInt();
-            System.out.println("Message recu :  " + message);
+            int entier = ByteBuffer.wrap(buffer).getInt();
+            System.out.println("Message recu :  " + entier);
 
             // fermeture de connexion
             rcp.close();
@@ -317,7 +560,7 @@ public class RecepteurUDP {
     }
 }</code></pre>
 
-    <p><em>Exemple côté émetteur :</em></p>
+    <p><em>Côté émetteur : </em></p>
 
 <pre><code class="language-javascript">import java.io.*;
 import java.net.*;
@@ -326,19 +569,15 @@ import java.nio.*;
 public class EmetteurUDP {
 
     public static void main(String[] args) {
-
         // transformation de l'entier en byte[]
         ByteBuffer tabByte = ByteBuffer.allocate(4);
         byte[] buffer =  tabByte.putInt(1402).array();
 
         try {
-            // creation de la socket émettrice
             DatagramSocket emt = new DatagramSocket();
 
-            // recherche de l'adresse IP de l'émetteur
             InetAddress adresseIP = InetAddress.getByName("localhost");
 
-            // creation et envoi du paquet
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, adresseIP, 5555);
             emt.send(packet);
 
@@ -382,16 +621,11 @@ public class EmetteurUDP {
     <p>On utilise l'objet HttpURLConnection.</p>
     <p>Les flux BufferedInputStrean et BufferedOutputStrean permettent de gagner en performance plutôt que de travailler directement avec les sockets.</p>
 
-    <!-- LES STREAMS -->
-
-    <h3>Les streams</h3>
 
 
+    <!-- ===== LES PROXYS ======================================= -->
 
-
-    <!-- ===== LES PROXYS ===== -->
-
-    <h3>Les proxys</h3>
+    <h3 id="proxys">Les proxys</h3>
 
     <p>Un proxy constitue une autre façon de se connecter à un serveur. Le proxy est un intermédiaire faisant le lien entre le client et le serveur.</p>
 <pre><code class="language-javascript">import java.io.IOException;
@@ -442,25 +676,27 @@ try {
         e.printStackTrace();
 }</code></pre>
 
-    <!-- Le RMI -->
 
-    <h3>Le mécanisme RMI</h3>
 
-    <p>Le RMI permet d'appeler du code à distance. L'implémentation se trouve du côté du serveur et le rôle de RMI est de lier les interfaces côté client aux implémentations distantes. Concrètement, il faut définir l'interface de l'objet distant, l'implémentation, l'application serveur et l'application cliente.</p>
-    <p>Le RMI permet de créer un objet distant sur une machine serveur et de le rendre accessible aux autres machines. Une machine cliente peut récupérer une représentation locale de l'objet distant appelée talon ou <em>stub</em>. Le client utilise alors ce talon comme si l'objet distant était local.</p>
-    <p>Il est donc nécessaire de disposer de deux objets :</p>
-    <ul>
-        <li>un Stub, objet côté client qui va rediriger l'appel vers le serveur</li>
-        <li>un Skeleton, objet côté serveur qui sera atteint par le Stub</li>
-    </ul>
+    <!-- Le RMI ------------------------------>
+
+    <h3 id="mecanismermi">Le mécanisme RMI</h3>
+
+    <p>Le RMI permet d'appeler du code à distance, en créant un objet distant sur une machine serveur qui est rendu accessible aux autres machines. L'implémentation se trouve du côté du serveur et le rôle de RMI est de lier l'interface côté client à l'implémentation distante.</p>
+    <p>Il faut donc définir :</p>
+        <ul>
+            <li>l'interface de l'objet distant</li>
+            <li>l'implémentation</li>
+            <li>l'application serveur</li>
+            <li>l'application client</li>
+        </ul>
+
+    <p>Ainsi, le client peut récupérer une représentation locale de l'objet distant appelée talon ou <em>stub</em>, qui utilise une représentation distante appelée <em>skeleton</em>. Le client utilise alors ce talon comme si l'objet distant était local. Le registry qui définit les liens entre <em>stub</em> et <em>skeleton</em> est créé en ligne de commande par l'instruction rmiregistry.</p>
+    <p>Cette technique offre pour avantages de mettre à jour le client de manière transparente et de masquer l'exécution distante du code tout en travaillant comme si l'exécution était locale.</p>
 
     <img src="skeleton.png" width="300" height="250">
 
-    <p>Cette technique offre pour avantages de mettre à jour le client de manière transparente et de masquer l'exécution distante du code tout en travaillant comme si l'exécution était locale.</p>
-
-    <h4>Côté serveur</h4>
-
-    <p>L'interface est l'entité partagée par les clients et le serveur. L'interface est présente côté client. L'interface de l'objet distant est connue des 2 côtés, client et seveur.</p>
+    <p>L'interface est l'entité partagée par le client et le serveur, donc présente de deux côtés.</p>
 
     <pre><code class="language-javascript">import java.rmi.*;
 
@@ -468,9 +704,11 @@ public interface Hello extends Remote {
     public void sayHello(String nom) throws RemoteException;
 }</code></pre>
 
-    <p>L'implémentation de l'interface se fait côté serveur et ne doit pas être présente côté client sous peine de perdre l'utilité de RMI. Le talon implémente l'interface de l'objet distant pour le client et le squelette utilise la même interface pour transmettre les appels à l'objet distant.</p>
+    <h4>Côté serveur</h4>
 
-    <pre><code class="language-javascript">import java.rmi.server.UnicastRemoteObject;
+    <p>L'implémentation de l'interface se fait côté serveur et ne doit pas être présente côté client sous peine de perdre l'utilité de RMI. Le <em>stub</em> implémente l'interface de l'objet distant pour le client et le <em>skeleton</em> utilise la même interface pour transmettre les appels à l'objet distant.</p>
+
+    <pre><code class="language-javascript">import java.rmi.server.*;
 import java.rmi.*;
 
 public class HelloImpl extends UnicastRemoteObject implements Hello {
@@ -482,7 +720,7 @@ public class HelloImpl extends UnicastRemoteObject implements Hello {
     }
 }</code></pre>
 
-    <p>Dans la classe principale côté serveur, il faut instancier l'implémentation, créer le skeleton puis publier grâce au registry.</p>
+    <p>Dans la classe principale côté serveur, il faut instancier l'implémentation, puis créer le skeleton i.e. un lien vers l'interface.</p>
 
     <pre><code class="language-javascript">import java.rmi.*;
 import java.net.*;
@@ -492,7 +730,9 @@ class HelloServer {
         try {
             HelloImpl obj = new HelloImpl();
             Naming.rebind("Hello", obj);
-        } catch (Exception e) {
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
@@ -507,17 +747,25 @@ import java.net.*;
 class HelloClient {
     public static void main(String[] args) {
         try {
+            // arg[0] represente l'url qui sera le 1er argument entre en ligne de commande
+            // lors de l'exécution java HelloClient localhost:5555
             Hello obj = (Hello) Naming.lookup("//"+args[0]+"/Hello");
-                obj.sayHello("Mike");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            obj.sayHello("Mike");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
     }
 }</code></pre>
 
-    <!-- JMS -->
 
-    <h3>JMS</h3>
+
+    <!-- JMS --------------------------------------->
+
+    <h3 id="jms">JMS</h3>
 
     <p>JMS Java Message Service est une interface de programmation API spécialisée dans la création, l'envoi et la lecture de messages. JMS s'apparente donc à un service de messagerie permettant d'envoyer des messages d'une application à une autre sur un poste distant. Les particularités de JMS sont les suivantes :</p>
         <ul>
@@ -622,9 +870,11 @@ class MyListener implements MessageListener {
     }
 }</code></pre>
 
-    <!-- Les services Web -->
 
-    <h3>Les services Web</h3>
+
+    <!-- Les services Web -------------------------------------------------->
+
+    <h3 id="servicesweb">Les services Web</h3>
 
     <p><em>- Mots-clés -</br>
     sérialisation : codage d'une information sous la fome d'une suite de données atomiques.</br>
