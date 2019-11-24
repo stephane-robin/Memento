@@ -53,6 +53,7 @@
     <p style="font-weight:bold"> Table des matières :</p>
         <ul>
             <li> <a href="#javaterminal">Exécuter Java au Terminal</a></li>
+            <li> <a href="#dates">Les dates</a></li>
             <li> <a href="#programmationreseau">La programmation réseau</a> </li>
             <li> <a href="#programmationclientserveur">Programmation client-serveur</a> </li>
             <li> <a href="#proxys">Les proxys</a> </li>
@@ -71,7 +72,60 @@
 
 
 
-<!-- ===== LA PROGRAMMATION RESEAU =================================== -->
+    <!-- LES DATES -------------------------------------------------->
+
+    <h3 id="#dates">Les dates</h3>
+
+    <p>L'utilisation de la classe Date est obsolète. Il est préférable d'utiliser la classe GregorianCalendar qui hérite de la classe abstraite Calendar.</p>
+    <p>On peut afficher le timestamp du moment sans formattage particulier en utilisant</p>
+    <pre><code class="language-javascript">new GregorianCalendar().getTime()</code></pre>
+
+    <p>Pour instancier une date à la date du jour, on utilise</p>
+    <pre><code class="language-javascript">GregorianCalendar date = new GregorianCalendar();</code></pre>
+
+    <p>Pour instancier une date à la date du 03/06/2018</p>
+    <pre><code class="language-javascript">GregorianCalendar date = new GreogorianCalendar(2018,05,03);</code></pre>
+    <p>car les mois sont notés de 0 à 11.</p>
+
+    <p>Les différents éléments de date sont les suivants :</p>
+    <pre><code class="language-javascript">date.get(Calendar.YEAR);
+date.get(Calendar.MONTH);
+date.get(Calendar.DAY_OF_MONTH);
+date.get(Calendar.DAY_OF_WEEK);</code></pre>
+
+    <p>On remarque que Calendar.YEAR concerne la classe Calendar et non l’objet date. On peut modifier la date prise en compte dans l’objet date de la façon suivante :</p>
+    <pre><code class="language-javascript">date.set(Calendar.YEAR, annee);
+date.set(Calendar.MONTH, mois);
+date.set(Calendar.DAY_OF_MONTH, jour);
+date.set(Calendar.DAY_OF_WEEK, jourDeLaSemaine);</code></pre>
+
+    <fieldset><legend>ATTENTION</legend><p> Calendar.MONTH va de 0 à 11, et 0 est donc le mois de janvier. Calendar.DAY_OF_WEEK va de 1 à 7, et 1 est donc dimanche.</p></fieldset>
+
+    <p>Toutefois, si on veut afficher correctement la date, on peut utiliser</p>
+    <pre><code class="language-javascript">System.out.printf("%04d,%02d,%02d,%02d\n",annee,mois,jour,jourSemaine);</code></pre>
+
+    <p>ou encore formatter de la façon suivante :</p>
+    <pre><code class="language-javascript">SimpleDateFormat formattage = new SimpleDateFormat("yyyy-MM-dd-EEEE");
+System.out.println(formattage.format(date.getTime()));</code></pre>
+
+    <p><em>Exemple de saisie clavier de date puis affichage de la date saisie :</em></p>
+
+    <pre><code class="language-javascript">Scanner saisie = new Scanner(System.in);
+System.out.println("entrez année");
+int annee = saisie.nextInt();
+System.out.println("entrez mois");
+int mois = saisie.nextInt();
+System.out.println("entrez jour");
+int jour = saisie.nextInt();
+
+GregorianCalendar date = new GregorianCalendar(annee,mois,jour);
+date.set(Calendar.MONTH, mois-1);
+SimpleDateFormat formattage = new SimpleDateFormat("yyyy-MM-dd-EEEE");
+System.out.println(formattage.format(date.getTime()));</code></pre>
+
+
+
+    <!-- ===== LA PROGRAMMATION RESEAU =================================== -->
 
 <h3 id="programmationreseau">La programmation réseau</h3>
 
@@ -401,11 +455,12 @@ public class ClientTCP {
 import java.util.*;
 
 public class Message implements Serializable{
+    // un objet de type Message doit etre serialisable pour pouvoir etre transmis
     String name;
     Date date;
     String msg;
 
-    public Message(String name, Date date, String msg){
+    public Message(String name, GregorianCalendar date, String msg){
         this.name = name;
         this.date = date;
         this.msg = msg;
@@ -413,7 +468,7 @@ public class Message implements Serializable{
 
     @Override
     public String toString(){
-        return "msg=[ " + name + " , " + date.toString()+" , "+msg +" ]";
+        return "msg=[ " + name + " , " + date.getTime()+" , "+msg +" ]";
     }
 }</code></pre>
 
@@ -682,8 +737,7 @@ try {
 
     <h3 id="mecanismermi">Le mécanisme RMI</h3>
 
-    <p>Le RMI permet d'appeler du code à distance, en créant un objet distant sur une machine serveur qui est rendu accessible aux autres machines. L'implémentation se trouve du côté du serveur et le rôle de RMI est de lier l'interface côté client à l'implémentation distante.</p>
-    <p>Il faut donc définir :</p>
+    <p>Le RMI permet d'appeler du code à distance, en créant un objet distant sur une machine serveur qui est rendu accessible aux autres machines. Il faut définir :</p>
         <ul>
             <li>l'interface de l'objet distant</li>
             <li>l'implémentation</li>
@@ -691,12 +745,12 @@ try {
             <li>l'application client</li>
         </ul>
 
-    <p>Ainsi, le client peut récupérer une représentation locale de l'objet distant appelée talon ou <em>stub</em>, qui utilise une représentation distante appelée <em>skeleton</em>. Le client utilise alors ce talon comme si l'objet distant était local. Le registry qui définit les liens entre <em>stub</em> et <em>skeleton</em> est créé en ligne de commande par l'instruction rmiregistry.</p>
+    <p>Le client peut récupérer une représentation locale de l'objet distant appelée talon ou <em>stub</em>, qui utilise une représentation distante appelée <em>skeleton</em>. Le client utilise alors ce talon comme si l'objet distant était local. Ainsi, le <em>stub</em> sert de lien côté client avec l'interface alors que le <em>skeleton</em> sert de lien côté serveur avec l'interface. Le registry qui définit les liens entre <em>stub</em> et <em>skeleton</em> est créé en ligne de commande par l'instruction rmiregistry.</p>
     <p>Cette technique offre pour avantages de mettre à jour le client de manière transparente et de masquer l'exécution distante du code tout en travaillant comme si l'exécution était locale.</p>
 
     <img src="skeleton.png" width="300" height="250">
 
-    <p>L'interface est l'entité partagée par le client et le serveur, donc présente de deux côtés.</p>
+    <p>L'interface est l'entité partagée par le client et le serveur, donc présente des deux côtés.</p>
 
     <pre><code class="language-javascript">import java.rmi.*;
 
@@ -706,7 +760,7 @@ public interface Hello extends Remote {
 
     <h4>Côté serveur</h4>
 
-    <p>L'implémentation de l'interface se fait côté serveur et ne doit pas être présente côté client sous peine de perdre l'utilité de RMI. Le <em>stub</em> implémente l'interface de l'objet distant pour le client et le <em>skeleton</em> utilise la même interface pour transmettre les appels à l'objet distant.</p>
+    <p>L'implémentation de l'interface se fait côté serveur et ne doit pas être présente côté client sous peine de perdre l'utilité de RMI.  et l'implémentation côté serveur hérite de l'interface.</p>
 
     <pre><code class="language-javascript">import java.rmi.server.*;
 import java.rmi.*;
@@ -720,7 +774,7 @@ public class HelloImpl extends UnicastRemoteObject implements Hello {
     }
 }</code></pre>
 
-    <p>Dans la classe principale côté serveur, il faut instancier l'implémentation, puis créer le skeleton i.e. un lien vers l'interface.</p>
+    <p>Dans la classe principale côté serveur, il faut instancier l'implémentation, puis le <em>skeleton</em> est défini pour transmettre les appels à l'objet distant.</p>
 
     <pre><code class="language-javascript">import java.rmi.*;
 import java.net.*;
@@ -739,7 +793,7 @@ class HelloServer {
 }</code></pre>
 
     <h4>Côté client</h4>
-
+    Le <em>stub</em> implémente l'interface de l'objet distant pour le client
     <p>L'appel côté client d'une méthode d'un objet distant consiste à obtenir une référence sur l'objet distant puis à appeler la méthode à partir de cette référence.</p>
     <pre><code class="language-javascript">import java.rmi.*;
 import java.net.*;
@@ -756,6 +810,110 @@ class HelloClient {
         } catch (NotBoundException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+<p><em>Exemple d'une boite de messagerie :</em> le client peut déposer un message après s'être inscrit et consulter son message.</p>
+<p><em>L'interface :</em></p>
+
+<pre><code class="language-javascript">import java.rmi.*;
+
+public interface Boite extends Remote{
+    public int inscrire() throws RemoteException;
+    public void envoieMessage(int nclient, Message mess) throws RemoteException;
+    public Message getMessage(int nclient) throws RemoteException;
+}</code></pre>
+
+    <p><em>Côté serveur :</em></p>
+
+    <p>La classe Message :</p>
+<pre><code class="language-javascript">import java.util.*;
+import java.io.*;
+
+public class Message implements Serializable{
+    public String nom;
+    public String message;
+    public GregorianCalendar date;
+
+    public Message(String nom, GregorianCalendar date, String message) {
+        this.nom = nom;
+        this.date = date;
+        this.message = message;
+    }
+
+    @Override
+    public String toString(){
+        return "Le "+date.getTime()+" "+nom+" a écrit : "+message;
+    }
+}</code></pre>
+
+    <p>l'implémentation :</p>
+<pre><code class="language-javascript">import java.rmi.*;
+import java.rmi.server.*;
+import java.util.*;
+
+public class BoiteMessageImpl extends UnicastRemoteObject implements Boite{
+    public static int nmrClient;
+    public Vector vectMess;
+
+    public BoiteMessageImpl() throws RemoteException{
+        super();
+        nmrClient = 0;
+        vectMess = new Vector(10);
+    }
+
+    public int inscrire() throws RemoteException{
+        return nmrClient++;
+    }
+
+    public void envoieMessage(int nclient, Message mess) throws RemoteException{
+        vectMess.add(nclient, mess);
+    }
+
+    public Message getMessage(int nclient) throws RemoteException {
+        return (Message)vectMess.get(nclient);
+    }
+}</code></pre>
+
+    <p>et la classe principale :</p>
+<pre><code class="language-javascript">import java.rmi.*;
+import java.net.*;
+
+public class BoiteServer {
+    public static void main(String[] args){
+        try{
+            BoiteMessageImpl obj = new BoiteMessageImpl();
+            Naming.rebind("Boite", obj);
+        }catch(RemoteException e){
+            e.printStackTrace();
+        }catch(MalformedURLException e){
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+    <p><em>Côté client :</em></p>
+
+    <p>La classe principale :</p>
+<pre><code class="language-javascript">import java.rmi.*;
+import java.net.*;
+import java.util.*;
+
+public class BoiteClient {
+    public static void main(String[] args){
+        try{
+            Boite boiteMess = (Boite)Naming.lookup("//"+args[0]+"/Boite");
+            int nclient = boiteMess.inscrire();
+            Message m = new Message("Mike", new GregorianCalendar(), "hello world");
+            boiteMess.envoieMessage(nbclient, m);
+            System.out.println("Dernier message : "+boiteMess.getMessage(nclient).toString());
+        }catch(RemoteException e){
+            e.printStackTrace();
+        }catch(NotBoundException e){
+            e.printStackTrace();
+        }catch(MalformedURLException e){
             e.printStackTrace();
         }
     }
