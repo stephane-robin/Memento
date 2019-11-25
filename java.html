@@ -217,8 +217,7 @@ try {
 
     <div class="pcle">API : une interface de programmation applicative est un ensemble normalisé de classes, de méthodes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels. Ces services sont offerts à travers une bibliothèque ou un service Web.</div>
 
-    <p>Les sockets sont des API permettant de gérer les communications entre programmes. La communication de plusieurs machines sur un réseau nécessite donc la connaissance d'adresses, de ports, de protocoles et l'utilisation de sockets. Les sockets permettent de se connecter à une machine distante, de recevoir et envoyer des données, de fermer une connexion établie, d'attendre une connexion de l'extérieur, d'écouter les communications entrantes.</p>
-<p>Une même socket sert aussi bien à envoyer qu'à recevoir des communications.</p>
+    <p>Les sockets sont des API permettant de gérer les communications entre programmes. La communication de plusieurs machines sur un réseau nécessite donc la connaissance d'adresses, de ports, de protocoles et l'utilisation de sockets. Les sockets permettent de se connecter à une machine distante, de recevoir et envoyer des données, de fermer une connexion établie, d'attendre une connexion de l'extérieur, d'écouter les communications entrantes. Une même socket sert aussi bien à envoyer qu'à recevoir des communications. Notons également que le protocole TCP/IP s'appuie sur les sockets.</p>
 
     <p>Une socket est identifiée de manière unique par l'adresse IP de la machine suivie du numéro de port utilisé, ce dernier étant compris entre 1024 et 65536.</p>
 
@@ -815,6 +814,10 @@ class HelloClient {
     }
 }</code></pre>
 
+    <fieldset><legend>ATTENTION</legend>L'appel à distance d'une méthode n'est pas équivalent à l'appel local de cette méthode. Dans le cas d'un appel distant, les paramètres, les valeurs de retour et les exceptions sont transmis par copie et doivent donc être sérialisables. Or les types primitifs et les objets distants le sont par défaut. En revanche, les types créés ne sont pas sérialisables mais peuvent le devenir si les classes correspondantes implémentent l'interface java.io.Serializable.</fieldset>
+
+    <p>Notons que l'application cliente devra également gérer la synchronisation des appels à distance à l'aide de threads pour éviter le blocage du système.</p>
+
 <p><em>Exemple d'une boite de messagerie :</em> le client peut déposer un message après s'être inscrit et consulter son message.</p>
 <p><em>L'interface :</em></p>
 
@@ -923,7 +926,10 @@ public class BoiteClient {
 
     <!-- JMS --------------------------------------->
 
-    <h3 id="jms">JMS</h3>
+    <h3 id="jms">Le mécanisme JMS</h3>
+
+    <div class="pcle">message : ensemble de données groupées pour être envoyées et reçues en même temps.</br>
+        <em>ConnectionFactory :</em> objet permettant de créer une connexion au provider.</div>
 
     <p>JMS Java Message Service est une interface de programmation API spécialisée dans la création, l'envoi et la lecture de messages. JMS s'apparente donc à un service de messagerie permettant d'envoyer des messages d'une application à une autre sur un poste distant. Les particularités de JMS sont les suivantes :</p>
         <ul>
@@ -931,7 +937,14 @@ public class BoiteClient {
             <li>fiable, il s'assure que le message soit délivré</li>
         </ul>
 
-    <p>La communication par message est implantée par un bus de messages ou MOM Message Oriented Middleware.</p>
+    <p>La particularité de la communication par message vient du fait que les messages sont envoyés sur un objet intermédiaire MOM Message Oriented Middleware, et le récepteur doit venir les chercher. Des bus gèrent les transports de messages vers les objets intermédiaires. Ce mode de communication indirect permet de mettre en place des services avancés :</p>
+    <ul>
+        <li>transaction : envoi et réception groupés</li>
+        <li>persistance : retransmission des messages en cas de panne</li>
+        <li>multicast : communication de groupe</li>
+        <li>log : trace des échanges</li>
+        <li>gestion des droits d'accès</li>
+    </ul>
 
     <p>JMS contient les rôles suivants :</p>
     <ul>
@@ -941,41 +954,34 @@ public class BoiteClient {
         <li>les objets administrés sont configurés par un administrateur</li>
     </ul>
 
-    <p>Il existe 2 types de domaines de messagerie avec JMS, la communication point à point et la communication événementielle. Chacun de ces modes de communication utilise des objets intermédiaires par lesquels transitent les messages, appelés MOM Message Oriented Middleware. De ce fait, il est inutile d'établir une connexion entre un émetteur et un récepteur.</p>
+    <p>JMS repose sur deux modes de communication principaux : la communication point-à-point et la communication événementielle. Chacun de ces modes de communication utilise des objets intermédiaires par lesquels transitent les messages. De ce fait, il est inutile d'établir une connexion entre un émetteur et un récepteur.</p>
 
-    <p>Dans la communication point à point l'objet intermédiaire est une file d'attente (queue). plusieurs émetteurs peuvent envoyer sur la même file d'attente mais un seul destinataire peut consommer le message. On parle de communication N à 1.</p>
+    <p>Dans la communication point-à-point, l'objet intermédiaire est une file d'attente (queue). Plusieurs émetteurs peuvent envoyer sur la même file d'attente mais un seul destinataire peut consommer le message. On parle de communication N à 1. La communication est asynchrone et mémorisée.</p>
 
-    <p>Dans la communication événementielle l'objet intermédiaire est un sujet (topic). Les émetteurs envoient leurs messages sur un topic. Les récepteurs s'inscrivent au topic pour recevoir les messages publiés sur ce topic.</p>
+    <p>Dans la communication événementielle, l'objet intermédiaire est un sujet (topic). Les émetteurs envoient leurs messages sur un topic. Les récepteurs s'inscrivent au topic pour recevoir les messages publiés sur ce topic. Plusieurs émetteurs peuvent envoyer des messages sur le même topic et plusieurs consommateurs peuvent consulter les messages du topic.</p>
 
-    <p>L'utilisation du bus de messages permet de mettre en place des services qui n'existaient pas en communication directe :</p>
-    <ul>
-        <li>transaction : envoi et réception groupés</li>
-        <li>persistance : retransmission des messages en cas de panne</li>
-        <li>multicast : communication de groupe</li>
-        <li>log : trace des échanges</li>
-        <li>gestion des droits d'accès</li>
-    </ul>
-
-    <p>Les MOM s'appuient sur le protocole TCP/IP qui lui-même s'appuie sur les sockets.</p>
-
-    <p>Les ConnectionFactory sont des objets qui permettent de créer une connexion au provider.</p>
-
-    <p>Exemple de bus de messages : ActiveMQ de Apache.</p>
+    <p><em>Exemple de bus de messages :</em> ActiveMQ de Apache.</p>
 
     <h4>Construction d'un service de messagerie avec JMS 2</h4>
 
-<pre><code class="language-javascript">JMSConnectionFactory factory = new JMSConnectionFactory("tcp://localhost:61616");
+<pre><code class="language-javascript">// connexion au provider qui est en fait l'onjet intermédiaire, localhost pour l'exemple
+JMSConnectionFactory factory = new JMSConnectionFactory("tcp://localhost:61616");
 
-@Resource(lookup = "jms/MyQueue");  // dans le cas d'un queue
+// création et accès à la file d'attente
+@Resource(lookup = "jms/MyQueue");
 public static Queue queue;
 
-@Resource(lookup = "jms/MyTopic");  // dans le cas d'un topic
+// ou création et accès au topic
+@Resource(lookup = "jms/MyTopic");
 public static Topic topic;
 
+// connexion de l'utilisateur au bus et creation de session
 JMSContext context = connectFactory.createContext();
 
+// creation d'un objet emetteur, dest est une queue ou un topic
 JMSProducer producer = connectionFactory.createProducer(dest);
 
+// creation d'un objet destinataire
 JMSConsumer consumer = context.createConsumer(dest);
 
 producer.send(queue, "hello world");
@@ -995,22 +1001,28 @@ class MyListener implements MessageListener {
 
     <h4>Construction d'un service de messagerie avec JMS 1</h4>
 
-    <pre><code class="language-javascript">properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+    <pre><code class="language-javascript">// connexion au provider qui est en fait l'onjet intermédiaire, localhost pour l'exemple
+properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
 properties.put("connectionFactory.ConnectionFactory", "tcp://localhost:61616");
 InitialContext ic = new InitialContext(properties);
 ConnectionFactory connectFactory = (ConnectionFactory) ic.lookup("ConnectionFactory");
 
-props.put("topic.MyTopic", "MyTopic");      // dans le cas d'un topic
-Topic topic = (Topic) ctx.lookup("MyTopic");
-
-props.put("queue.MyQueue", "MyQueue");      // dans le cas d'un queue
+// création et accès à la file d'attente
+props.put("queue.MyQueue", "MyQueue");
 Queue queue = (Queue) ctx.lookup("MyQueze");
 
+// création et accès au topic
+props.put("topic.MyTopic", "MyTopic");
+Topic topic = (Topic) ctx.lookup("MyTopic");
+
+// connexion et creation de session
 Connection connect = connectFactory.createConnection("identifiant", "pw");
 Session sess = connect.createSessions(false, Session .AUTO_ACKNOLEDGE);
 
+// creation d'un objet emetteur, dest est une queue ou un topic
 MessageProducer producer = sess.createProducer(dest);
 
+// creation d'un objet destinataire
 MessageConsumer consumer = sess.createConsumer(dest);
 
 producer.send(queue, "hello world");
@@ -1034,10 +1046,9 @@ class MyListener implements MessageListener {
 
     <h3 id="servicesweb">Les services Web</h3>
 
-    <p><em>- Mots-clés -</br>
-    sérialisation : codage d'une information sous la fome d'une suite de données atomiques.</br>
-    parser un fichier : consiste à analyser un fichier afin d'en retirer les informations utiles.</br>
-    serveur d'applications :</em> </p>
+    <div class="pcle"><em>sérialisation :</em> codage d'une information sous la fome d'une suite de données atomiques.</br>
+    <em>parser un fichier :</em> consiste à analyser un fichier afin d'en retirer les informations utiles.</br>
+    <em>serveur d'applications :</em> </div>
 
     <p>Les services Web sont un ensemble de technologies permettant l'invocation de méthodes distantes. La communication et l'échange de données sont basés sur les standards Web HTTP et XML. Il existe 2 familles de services Web : SOAP et REST.</p>
 
