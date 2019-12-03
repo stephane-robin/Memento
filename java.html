@@ -241,8 +241,9 @@ try {
 
     <p>Les sockets travaillent en full-duplex, i.e. le client et le serveur peuvent envoyer et recevoir des signaux simultanément. Il n'y a donc aucune attente.</p>
 
-    <h4>Le mode connecté</h4>
+    <h4>Les différents modes de connexion</h4>
 
+    <p><em>Le mode connecté</em></p>
     <p>En mode connecté, deux sockets établissent une communication durable qui permet d'éviter de transmettre l'identité de la socket destinatrice à chaque envoi. Dans ce cas, un des programmes prend le rôle du serveur et l'autre le rôle du client. Le serveur est donc vu comme un programme rendant des services aux clients.</p>
     <fieldset><legend>IMPORTANT</legend><p>La socket côté serveur doit être lancée avant la socket côté client.</p></fieldset>
 
@@ -262,7 +263,13 @@ try {
 
     <p>La machine virtuelle Java ferme les sockets non utilisés à la fin de l'exécution du programme. Toutefois, le nombre de sockets ouvertes par un programme est limité, ce qui conduit à des erreurs quand cette limite est atteinte. La méthode close() permet de fermer la connexion.</p>
 
-    <p><em>Transmission d'une chaîne de caractères :</em></p>
+    <p><em>Le mode non connecté</em></p>
+    <p>En mode non connecté, le destinataire de la socket est précisé à chaque envoi. La communication utilise dans ce cas la classe DatagramSocket.</p>
+
+    <fieldset><legend>IMPORTANT</legend><p>En mode non connecté, le programme récepteur doit être lancé en premier.</p></fieldset>
+
+    <h4>Transmission d'une chaîne de caractères en mode connecté :</h4>
+
     <p><em>Côté serveur : </em></p>
 
 <pre><code class="language-javascript">import java.io.*;
@@ -331,7 +338,7 @@ public class ClientTCP {
 
     <p>Il est également possible d'utiliser les instructions write(Byte[] b) et read(Byte[] b) au lieu de writeUTF() et readUTF(). Dans ce cas, l'expéditeur doit envoyer la taille du String en premier pour informer le récepteur de la quantité de données à allouer en mémoire. Il faut créer un buffer pour accueillir le message reçu. Les String sont convertis en Bytes par la méthode .getBytes() avant d'être envoyés, et à la réception l'instruction entrant.read(buffer) ne renvoie pas le message mais la quantité d'information reçue. Il faut alors créer un new String(buffer) pour renvoyer l'information reçue. </p>
 
-    <p><em>Transmission d'un entier :</em></p>
+    <h4>Transmission d'un entier en mode connecté :</h4>
     <p><em>Côté serveur : </em></p>
 
 <pre><code class="language-javascript">import java.io.*;
@@ -380,7 +387,7 @@ public class ClientTCP {
     }
 }</code></pre>
 
-    <p><em>Transmission d'un message sous forme d'objet (expéditeur, date, contenu) :</em></p>
+    <h4>Transmission d'un message sous forme d'objet en mode connecté :</h4>
 
     <p><em>Côté serveur :</em></p>
 
@@ -471,7 +478,7 @@ public class Message implements Serializable{
     }
 }</code></pre>
 
-    <p><em>Exemple d'un serveur délivrant un service (fournir la date) à tous les clients qui se connectent :</em></p>
+    <p><em>Serveur délivrant un service (fournir la date) à tous les clients qui se connectent :</em></p>
 
     <p><em>Côté serveur :</em></p>
 
@@ -522,13 +529,7 @@ public class ClientTCP {
     }
 }</code></pre>
 
-    <h4>Le mode non connecté</h4>
-
-    <p>En mode non connecté, le destinataire de la socket est précisé à chaque envoi. La communication utilise dans ce cas la classe DatagramSocket.</p>
-
-    <fieldset><legend>IMPORTANT</legend><p>En mode non connecté, le programme récepteur doit être lancé en premier.</p></fieldset>
-
-    <p><em>Transmission d'une chaîne de caractères :</em></p>
+    <h4>Transmission d'une chaîne de caractères en mode non connecté :</h4>
     <p><em>Côté récepteur :</em></p>
 
 <pre><code class="language-javascript">import java.io.*;
@@ -585,7 +586,7 @@ public class EmetteurUDP {
     }
 }</code></pre>
 
-    <p><em>Transmission d'un entier :</em></p>
+    <h4>Transmission d'un entier en mode non connecté :</h4>
     <p><em>Côté récepteur : </em></p>
 
 <pre><code class="language-javascript">import java.io.*;
@@ -929,7 +930,7 @@ public class BoiteClient {
     <h3 id="jms">Le mécanisme JMS</h3>
 
     <div class="pcle">message : ensemble de données groupées pour être envoyées et reçues en même temps.</br>
-        <em>ConnectionFactory :</em> objet permettant de créer une connexion au provider.</div>
+        <em>serveur d'application :</em> infrastructure offrant un contexte d'exécution pour des composants applicatifs.</div>
 
     <p>JMS Java Message Service est une interface de programmation API spécialisée dans la création, l'envoi et la lecture de messages. JMS s'apparente donc à un service de messagerie permettant d'envoyer des messages d'une application à une autre sur un poste distant. Les particularités de JMS sont les suivantes :</p>
         <ul>
@@ -937,7 +938,7 @@ public class BoiteClient {
             <li>fiable, il s'assure que le message soit délivré</li>
         </ul>
 
-    <p>La particularité de la communication par message vient du fait que les messages sont envoyés sur un objet intermédiaire MOM Message Oriented Middleware, et le récepteur doit venir les chercher. Des bus gèrent les transports de messages vers les objets intermédiaires. Ce mode de communication indirect permet de mettre en place des services avancés :</p>
+    <p>La particularité de la communication par message vient du fait que les messages sont envoyés sur un objet intermédiaire MOM Message Oriented Middleware, et le consumer doit venir les chercher. Des bus gèrent les transports de messages vers les objets intermédiaires. Ce mode de communication indirect permet de mettre en place des services avancés :</p>
     <ul>
         <li>transaction : envoi et réception groupés</li>
         <li>persistance : retransmission des messages en cas de panne</li>
@@ -946,101 +947,316 @@ public class BoiteClient {
         <li>gestion des droits d'accès</li>
     </ul>
 
-    <p>JMS contient les rôles suivants :</p>
+    <p>JMS repose sur deux modes de communication principaux : la communication point-à-point et la communication événementielle. Chacun de ces modes de communication utilise des objets intermédiaires par lesquels transitent les messages et accessibles via un objet JMSConnectionFactory. De ce fait, il est inutile d'établir une connexion entre un émetteur et un récepteur.</p>
+
+    <p>Dans la communication point-à-point, l'objet intermédiaire est une file d'attente (queue). Plusieurs senders peuvent envoyer sur la même file d'attente mais un seul receiver peut voir le message. On parle de communication N à 1. La communication est asynchrone et mémorisée.</p>
+
+    <p>Dans la communication événementielle, l'objet intermédiaire est un sujet (topic). Les publishers envoient leurs messages sur un topic. Les subscribers s'inscrivent au topic pour recevoir les messages publiés sur ce topic. Plusieurs publishers peuvent envoyer des messages sur le même topic et plusieurs subscribers peuvent consulter les messages du topic.</p>
+
+    <p>JMS contient les classes suivantes :</p>
     <ul>
-        <li>le fournisseur JMS est la plateforme de messagerie</li>
-        <li>les clients JMS produisent et consomment des messages</li>
-        <li>les messages contiennent des informations communiquées entre les clients</li>
+        <li>le fournisseur est l'objet intermédiaire qui jour le rôle de plateforme de messagerie</li>
+        <li>le publisher/sender créé des messages</li>
+        <li>le subscriber/receiver lit les messages</li>
+        <li>le message contient des informations communiquées entre clients</li>
         <li>les objets administrés sont configurés par un administrateur</li>
     </ul>
+    <p>Il existe différents types de fournisseurs, comme par exemple ActiveMQ de Apache. Les objets administrés ne sont pas traités dans ce résumé. Nous allons donc présenter les classes Publisher/Sender, Subscriber/Receiver et Message.</p>
 
-    <p>JMS repose sur deux modes de communication principaux : la communication point-à-point et la communication événementielle. Chacun de ces modes de communication utilise des objets intermédiaires par lesquels transitent les messages. De ce fait, il est inutile d'établir une connexion entre un émetteur et un récepteur.</p>
+    <h4>Construction d'un service de messagerie Topic avec JMS 1.1</h4>
 
-    <p>Dans la communication point-à-point, l'objet intermédiaire est une file d'attente (queue). Plusieurs émetteurs peuvent envoyer sur la même file d'attente mais un seul destinataire peut consommer le message. On parle de communication N à 1. La communication est asynchrone et mémorisée.</p>
+    <p><em>Côté Publisher :</em></p>
 
-    <p>Dans la communication événementielle, l'objet intermédiaire est un sujet (topic). Les émetteurs envoient leurs messages sur un topic. Les récepteurs s'inscrivent au topic pour recevoir les messages publiés sur ce topic. Plusieurs émetteurs peuvent envoyer des messages sur le même topic et plusieurs consommateurs peuvent consulter les messages du topic.</p>
+<pre><code class="language-javascript">import java.util.*;
+import javax.naming.*;
+import javax.jms.*;
 
-    <p><em>Exemple de bus de messages :</em> ActiveMQ de Apache.</p>
+public class Publisher {
 
-    <h4>Construction d'un service de messagerie avec JMS 2</h4>
+    public static void main(String[] args) {
+		try {
+			// initialisation, le detail des proprietes se trouve dans jndi.properties
+	    	Properties props = new Properties();
+	    	InitialContext ctx = new InitialContext();
 
-<pre><code class="language-javascript">// connexion au provider qui est en fait l'onjet intermédiaire, localhost pour l'exemple
-JMSConnectionFactory factory = new JMSConnectionFactory("tcp://localhost:61616");
+	    	// connexion au provider et à l'objet intermediaire
+	    	ConnectionFactory factory = (ConnectionFactory) ctx.lookup("Fournisseur");
 
-// création et accès à la file d'attente
-@Resource(lookup = "jms/MyQueue");
-public static Queue queue;
+	    	// creation et acces au topic
+	    	Topic topic = (Topic) ctx.lookup("MyTopic");
 
-// ou création et accès au topic
-@Resource(lookup = "jms/MyTopic");
-public static Topic topic;
+		    // connexion de l'utilisateur au bus
+	    	Connection conn = factory.createConnection();
 
-// connexion de l'utilisateur au bus et creation de session
-JMSContext context = connectFactory.createContext();
+	    	// creation de session
+	    	Session sess = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-// creation d'un objet emetteur, dest est une queue ou un topic
-JMSProducer producer = connectionFactory.createProducer(dest);
+		    // creation d'un objet emetteur
+	   		MessageProducer producer = sess.createProducer(topic);
+	    	// topicPublisher.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-// creation d'un objet destinataire
-JMSConsumer consumer = context.createConsumer(dest);
+			// publication d'un message "hello world"
+	    	TextMessage message = sess.createTextMessage();
+	    	message.setText("hello world");
+	    	producer.send(message);
 
-producer.send(queue, "hello world");
-
-Message m = consumer.receive();
-
-context.createProducer().send(dest, message);
-
-Listener myListener = new Listener();
-consumer.setMessageListener(myListener);
-
-class MyListener implements MessageListener {
-    public void onMessage(Message msg) {
-    System.out.println(((TextMessage)msg).getText());
+	    	// fermeture de connexion
+	    	conn.close();
+		} catch (Exception e) {
+	    	e.printStackTrace();
+		}
     }
 }</code></pre>
 
-    <h4>Construction d'un service de messagerie avec JMS 1</h4>
+    <p><em>Côté Subscriber :</em></p>
 
-    <pre><code class="language-javascript">// connexion au provider qui est en fait l'onjet intermédiaire, localhost pour l'exemple
-properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
-properties.put("connectionFactory.ConnectionFactory", "tcp://localhost:61616");
-InitialContext ic = new InitialContext(properties);
-ConnectionFactory connectFactory = (ConnectionFactory) ic.lookup("ConnectionFactory");
+<pre><code class="language-javascript">import javax.naming.*;
+import javax.jms.*;
 
-// création et accès à la file d'attente
-props.put("queue.MyQueue", "MyQueue");
-Queue queue = (Queue) ctx.lookup("MyQueze");
+public class Subscriber {
 
-// création et accès au topic
-props.put("topic.MyTopic", "MyTopic");
-Topic topic = (Topic) ctx.lookup("MyTopic");
+    public static void main(String[] args) {
+		try {
+	    	// initialisation
+	    	InitialContext ctx = new InitialContext();
 
-// connexion et creation de session
-Connection connect = connectFactory.createConnection("identifiant", "pw");
-Session sess = connect.createSessions(false, Session .AUTO_ACKNOLEDGE);
+		    // connexion au provider et à l'objet intermediaire
+	    	ConnectionFactory factory = (ConnectionFactory) ctx.lookup("ConnectionFactory");
 
-// creation d'un objet emetteur, dest est une queue ou un topic
-MessageProducer producer = sess.createProducer(dest);
+			// creation et acces au topic
+			Topic topic = (Topic) ctx.lookup("MyTopic");
 
-// creation d'un objet destinataire
-MessageConsumer consumer = sess.createConsumer(dest);
+	    	// connexion de l'utilisateur au bus
+	    	Connection conn = factory.createConnection();
 
-producer.send(queue, "hello world");
+		    // creation de session
+	    	Session sess = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-Message m = consumer.receive();
+	    	// creation d'un objet destinataire
+	    	MessageConsumer consumer = sess.createConsumer(topic);
 
-context.createProducer().send(dest, message);
+		    // lecture d'un message, receive est une fonction bloquante
+		    conn.start();
+	    	TextMessage message = (TextMessage) consumer.receive();
+	    	System.out.println("message lu : " + message.getText());
 
-Listener myListener = new Listener();
-sess.setMessageListener(myListener);
-
-class MyListener implements MessageListener {
-    public void onMessage(Message msg) {
-    System.out.println(((TextMessage)msg).getText());
+		    // fermeture connexion
+		    conn.close();
+		} catch( Exception e ) {
+	    	e.printStackTrace();
+		}
     }
 }</code></pre>
 
+    <h4>Construction d'un service de messagerie Queue avec JMS 1.1</h4>
 
+<p><em>Côté Sender</em></p>
+
+    <pre><code class="language-javascript">import javax.naming.*;
+import javax.jms.*;
+
+public class Sender {
+
+    public static void main(String[] args) {
+		try {
+			// initialisation
+	    	InitialContext ctx = new InitialContext();
+
+			// connexion au provider et à l'objet intermediaire
+	    	ConnectionFactory factory = (ConnectionFactory) ctx.lookup("Fournisseur");
+
+			// creation et acces a la file d'attente
+			Queue queue = (Queue) ctx.lookup("MyQueue");
+
+			// connexion de l'utilisateur au bus
+	    	Connection conn = factory.createConnection();
+
+			// creation de session
+	    	Session sess = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+			// creation d'un objet emetteur
+	    	MessageProducer producer = sess.createProducer(queue);
+	    	producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+
+			// envoi d'un message "hello world"
+	    	TextMessage message = sess.createTextMessage("hello world");
+	   		producer.send(message);
+
+		    // fermeture connexion
+	   		conn.close();
+		} catch( Exception e ) {
+	    	e.printStackTrace();
+		}
+    }
+}</code></pre>
+
+    <p><em>Côté Receiver :</em></p>
+
+    <pre><code class="language-javascript">import javax.naming.*;
+import javax.jms.*;
+
+public class Receiver {
+
+    public static void main(String[] args) {
+		try {
+	    	// initialisation
+	    	InitialContext ctx = new InitialContext();
+
+	    	// connexion au provider et a l'objet intermediaire
+	    	ConnectionFactory factory = (ConnectionFactory) ctx.lookup("Fournisseur");
+
+			// creation et acces a la file d'attente
+			Queue queue = (Queue) ctx.lookup("MyQueue");
+
+	    	// connexion de l'utilisateur au bus
+	    	Connection conn = factory.createConnection();
+
+	    	// creation de session
+	    	Session sess = connect.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+	    	// creation d'un objet destinataire
+	    	MessageConsumer consumer = sess.createConsumer(queue);
+
+	    	// lecture d'un message, receive est une fonction bloquante
+	    	conn.start();
+	    	TextMessage message = (TextMessage) consumer.receive();
+		    System.out.println("message reçu: " + message.getText());
+
+	    	// fermeture connexion
+	    	conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+}</code></pre>
+
+    <h4>Echange de mails avec JMS 1.1</h4>
+
+    <p><em>Côté Sender</em></p>
+
+    <pre><code class="language-javascript">import javax.naming.*;
+import javax.jms.*;
+import java.util.*;
+
+public class Sender {
+
+	public static void main(String[] args) {
+		try {
+	    	// initialisation
+	    	InitialContext ctx = new InitialContext();
+
+	    	// connexion au fournisseur et a l'objet intermediaire
+	    	QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("fournisseur");
+
+			// creation et acces a la file d'attente
+			Queue queue = (Queue) ctx.lookup("MyQueue");
+
+	    	// connexion de l'utilisateur au bus
+	    	QueueConnection conn = factory.createQueueConnection();
+
+	    	// creation de session
+	    	QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+
+	    	// creation d'un objet emetteur
+	    	QueueSender producer = sess.createSender(queue);
+	    	producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+
+	    	// envoi d'un mail
+	    	GregorianCalendar date = new GregorianCalendar(2016,11,24);
+	    	Letter letter = new Letter("moi", date, "Hello");
+	    	ObjectMessage message = sess.createObjectMessage(letter);
+	    	conn.start();
+	    	producer.send(message);
+
+	    	// attente que le destinataire reçoive le message
+	    	Thread.sleep( 5000 );
+
+	    	// creation d'un objet destinataire
+	    	QueueReceiver consumer = queueSession.createReceiver(queue);
+
+	    	// reception d'un message reponse
+	    	TextMessage reponse = (TextMessage) consumer.receive();
+	    	System.out.println("received: " + reponse.getText());
+
+	    	// fermeture connexion
+	    	conn.close();
+		} catch ( Exception e ) {
+	    	e.printStackTrace();
+		}
+    }
+}</code></pre>
+
+    <p><em>Côté Receiver</em></p>
+
+    <pre><code class="language-javascript">import javax.naming.*;
+import javax.jms.*;
+import java.util.*;
+
+public class TP12Receiver {
+
+    public static void main(String[] args) {
+		try {
+	    	// initialisation
+	    	InitialContext ctx = new InitialContext();
+
+	    	// connexion au fournisseur et a l'objet intermediaire
+	    	QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("Fournisseur");
+
+			// creation et acces a la file d'attente
+			Queue queue = (Queue) ctx.lookup("MyQueue");
+
+	    	// connexion de l'utilisateur au bus
+	    	QueueConnection conn = factory.createQueueConnection();
+
+	    	// creation de session
+	    	QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+
+	    	// creation d'un objet destinataire
+	    	QueueReceiver consumer = sess.createReceiver(queue);
+
+	    	// lecture d'un mail
+	    	conn.start();
+	    	ObjectMessage message = (ObjectMessage) consumer.receive();
+	    	Letter letter = (Letter) message.getObject();
+	    	System.out.print("mail reçu : "+ letter.toString());
+
+	    	// creation d'un objet emetteur
+	    	QueueSender producer = sess.createSender(queue);
+	    	producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+
+	    	// envoi d'un message reponse
+	    	TextMessage reponse = sess.createTextMessage("Merci");
+	    	producer.send(reponse);
+
+	    	// fermeture connexion
+	    	conn.close();
+		} catch (Exception e) {
+	    	e.printStackTrace();
+		}
+    }
+}</code></pre>
+
+    <p><em>et la classe Letter :</em></p>
+
+    <pre><code class="language-javascript">import java.util.*;
+import java.io.*;
+
+public class Letter implements Serializable {
+    String emetteur;
+    GregorianCalendar date;
+    String texte;
+
+    public Letter(String emetteur, GregorianCalendar date, String texte) {
+	    this.emetteur = emetteur;
+	    this.date = date;
+	    this.texte = texte;
+    }
+
+    @Override
+    public String toString() {
+        System.out.println("message de : " + emet + ", émis le : " + date.getTime() + ", contenu : " + text );
+    }
+}</code></pre>
 
     <!-- Les services Web -------------------------------------------------->
 
