@@ -1275,22 +1275,22 @@ public class Letter implements Serializable {
         <li>utilisation des formats XNL dans les échanges de données</li>
         <li>flexibilité, extensibilité</li>
     </ul>
-    <h4>SOAP Simple Object Access Protocol</h4>
+    <h4>SOAP Simple Object Access Protocol (depracated)</h4>
 
-    <p>SOAP est un protocole de RPC Remote Procedure Call orienté objet et basé sur l'échange de données structurées en XML. Le transfert se fait par le protocole HTTP ou SMTP. Un message SOAP est un document XML composé d'une <em>envelope</em> avec un <em>header</em> et le <em>body</em>, corps du message. Dans le cas de l'envoi d'une image, on peut utiliser un message SOAP avec attachement en utilisant un message MIME Multimedia Internet Mail Extension. SOAP permet l'appel de méthodes distantes dans un environnement distribué.</p>
+    <p>SOAP est un protocole de RPC Remote Procedure Call orienté objet et basé sur l'échange de données structurées en XML. SOAP permet l'appel de méthodes distantes dans un environnement distribué.</p>
+    <p>Un message SOAP est un document XML composé d'une <em>envelope</em> avec un <em>header</em> et le <em>body</em>, corps du message. Dans le cas de l'envoi d'une image, on peut utiliser un message SOAP avec attachement en utilisant un message MIME Multimedia Internet Mail Extension.</p>
 
-    <p>Les principaux avantages des services Web SOAP sont :</p>
+    <p>L'architecture des services SOAP se base sur les protocoles suivants :</p>
     <ul>
-        <li>l'interopérabilité entre différentes plate-formes</li>
-        <li>l'utilisation de normes et de standards</li>
-        <li>flexibitlité et scalabilité</li>
+        <li>un protocole de transfert HTTP ou SMTP, les données échangées sont représentées en XML</li>
+        <li>un protocole de description des services et méthodes WSDL</li>
+        <li>un protocole de localisation des services UDDI</li>
     </ul>
 
     <p>WSDL Web Service Description Langage donne la description au format XML des services Web en précisant les méthodes pouvant être invoquées. Le client a besoin de cette description détaillée des services Web avant de pouvoir les utiliser.</p>
 
     <p>UDDI Universal Description Discovery and Integration est un annuaire des services publiés par les providers. Une entrée du répertoire UDDI est constituée d'un fichier XML.</p>
 
-    <p>Il est possible de réaliser la communication entre des applications écrites dans des langages différents, en utilisant le protocole SOAP. Les données échangées suivant le protocole HTTP seront représentées en XML.</p>
     <p><em>Exemple de requête SOAP :</em></p>
 
     <pre><code class="language-javascript">HTTP/1.1 200 OK
@@ -1364,7 +1364,17 @@ public class HelleWorldPublisher {
 
     <h4>REST Representational State Transfer</h4>
 
-    <p>Pour utiliser un service Web REST, il faut pointer vers une URL avec le protocole HTTP.</p>
+    <p>Le service Web de type REST est plus souple que le type SOAP qui est maintenant désué. REST est avant tout un style architectural dans lequel on ne trouve pas de contrat comme pour RMI ou SOAP.</p>
+    <p>REST se base sur le protocole HTTP pour transférer les ressources qui sont identifiées par des URI Uniform Resource Identifier.</p>
+
+    <p>Les URI regroupent 2 sous-types d'identificateurs, les URN Uniform Resource Name et les URL Uniform Resource Locator. Les URL comprennent les chemins d'accès aux ressources accessibles. Par exemple http://domaine/chemin et mailto: adresseMail@gmail.com sont des URL. Les URN permettent de définir une identification unique et persistance pour une ressource. Par exemple l'adresse MAC d'une ordinateur, la référence ISBN:0-233-988897-2 d'un livre sont des URN.</p>
+
+    <p>Les principales caractéristiques des services REST sont les suivantes :</p>
+    <ul>
+        <li>identification des ressources via des URI</li>
+        <li>manipulation des ressources avec uniquement 4 méthodes : put, get, post, delete</li>
+        <li>les ressources sont séparées de leur représentation HTML, XML, PDF, JPEG, JSON</li>
+    </ul>
 
 </section>
 
