@@ -122,10 +122,7 @@ p{ /* paragraphes */
 }
 
 strong{ /* mise en valeur */
-  color: rgb(153,102,102);
-  font-family: Courier;
-  font-weight: normal;
-  font-size: 0.9em;
+  font-weight: bold;
 }
 
 figure{ /* figure */
