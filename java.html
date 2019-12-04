@@ -1372,9 +1372,36 @@ public class HelleWorldPublisher {
     <p>Les principales caractéristiques des services REST sont les suivantes :</p>
     <ul>
         <li>identification des ressources via des URI</li>
-        <li>manipulation des ressources avec uniquement 4 méthodes : put, get, post, delete</li>
+        <li>manipulation des ressources avec uniquement 4 opérations CRUD : Create avec la méthode POST, Retrieve avec la méthode GET, Update avec la méthode PUT et Delete avec la méthode DELETE</li>
         <li>les ressources sont séparées de leur représentation HTML, XML, PDF, JPEG, JSON</li>
     </ul>
+
+    <p>Les requêtes du protocole HTTP sont composées d'une ligne de commande, d'une entête et d'un corps de message. Le format de stockage des données est pincipalement JSON JavaScript Object Notation, contrairement à SOAP qui utilisait XML.</p>
+
+    <p><em>Exemple de format JSON :</em></p>
+
+<pre><code class="language-javascript">{
+    'prenom': 'Stephane',
+    'nom': 'Dupret',
+    'age': 35,
+    'adresse': {
+        'rue': '12 bd de la libération',
+        'ville': 'Marseille',
+        'codePostal': '13013'
+    },
+    'numerosTph': [
+        {
+        'type': 'domicile',
+        'nmr': '01234567889'
+        },
+        {
+        'type': 'bureau',
+        'nmr': '0198765432'
+        }
+    ]
+}</code></pre>
+
+
 
 </section>
 
