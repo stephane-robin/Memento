@@ -7,7 +7,21 @@
   <meta charset="utf-8">
 </head>
 
+<!-- script de gestion des couleurs de code -->
 <script defer src="prism.js"></script>
+
+<!-- script de gestion de l'apparition du contenu d'une section -->
+<script type="text/javascript">
+function affichageConditionnel(bouton, id) {
+    var div = document.getElementById(id);
+    if(div.style.display=="none") { // si le div est masqué, on l'affiche et on change le contenu du bouton
+        div.style.display = "block";
+        bouton.innerHTML = "-";
+    } else { // s'il est visible, on le masque et on change le contenu du bouton
+        div.style.display = "none";
+        bouton.innerHTML = "+";
+    }
+}</script>
 
 <body>
 
@@ -66,15 +80,20 @@
 
     <!-- EXECUTER JAVA AU TERMINAL ================================== -->
 
-    <h3 id="javaterminal">Exécuter Java au terminal</h3>
+    <h3 id="javaterminal">Exécuter Java au terminal <button type="submit" onclick="affichageConditionnel(this,'javaterminal_cache');"> + </button></h3>
+
+    <div id="javaterminal_cache" style="display:none;">
 
     <p>Pour exécuter un programme Java en utilisant le terminal, il faut d'abord se rendre dans le dossier comportant le fichier, puis compiler le programme avec la commande</p> <pre><code class="language-javascript">javac monFichier.java</code></pre> <p>Le fichier se transforme alors en binaire exécutable par la Machine Virtuelle Java : monFichier.class. Pour exécuter ce programme il reste maintenant à utiliser la commande</p> <pre><code class="language-javascript">java monFichier</code></pre>
 
+    </div>
 
 
     <!-- LES DATES -------------------------------------------------->
 
-    <h3 id="#dates">Les dates</h3>
+    <h3 id="#dates">Les dates<button type="submit" onclick="affichageConditionnel(this,'dates_cache');"> + </button></h3>
+
+    <div id="dates_cache" style="display:none;">
 
     <p>L'utilisation de la classe Date est obsolète. Il est préférable d'utiliser la classe GregorianCalendar qui hérite de la classe abstraite Calendar.</p>
     <p>On peut afficher le timestamp du moment sans formattage particulier en utilisant</p>
@@ -123,11 +142,98 @@ date.set(Calendar.MONTH, mois-1);
 SimpleDateFormat formattage = new SimpleDateFormat("yyyy-MM-dd-EEEE");
 System.out.println(formattage.format(date.getTime()));</code></pre>
 
+    </div>
+
+
+
+    <!------------- LES LISTES ET DICTIONNAIRES ----------------------------->
+
+    <h3>Les listes et dictionnaires<button type="submit" onclick="affichageConditionnel(this,'listesdictionnaires_cache');"> + </button></h3>
+
+    <div id="listesdictionnaires_cache" style="display:none;">
+
+        <pre><code class="language-javascript">import java.util.*;</code></pre>
+
+    <p>Les collections (ensemble, liste, dictionnaires) sont des conteneurs dynamiques pouvant accepter des objets de types différents et dont la taille varie.</p>
+
+    <p>les ensembles contiennent des éléments non indexés et sans relation d'ordre. On ne peut donc pas y accéder en faisant référence à un String ou un index. Toutefois, on peut parcourir tout l'ensemble et vérifier si un terme appartient à cet ensemble. On les utilise essentiellement pour afficher les éléments d'un dictionnaire après avoir créé un ensemble de clés.</p>
+
+    <p>Les listes contiennent des index auxquels sont associés une valeur unique. Elles s'apparentent à des tableaux sauf que leur taille peut varier et qu'elles peuvent contenir des éléments de types différents.</p>
+
+    <p>Les dictionnaire contiennent des clés auxquelles sont associées une valeur unique.</p>
+
+    <h4>Les listes</h4>
+
+    <table>
+        <tr><th>Objectif</th><th>Code</th></tr>
+        <tr><td>définir une liste</td><td><pre>ArrayList maListe = new ArrayList();</pre></td></tr>
+        <tr><td>définir une liste à partir d'un tableau</td><td><pre>String[] tableau = new String("toto", "tata");
+ArraList maListe = new ArrayList(Arrays.asList(tableau));</pre></td></tr>
+        <tr><td>définir une liste composée d'un seul type d'élément</td><td><pre>ArrayList&ltString&gt maListe = new ArrayList&ltString&gt();</pre></td></tr>
+        <tr><td>ajouter l'élément <em>bonjour</em></td><td><pre>maListe.add("bonjour")</pre></td></tr>
+        <tr><td>ajouter l'élément <em>bonjour</em> à l'emplacement d'indice 4</td><td><pre>maListe.add(4, "bonjour")</pre></td></tr>
+        <tr><td>remplace l'élément d'indice 4 par <em>bonjour</em></td><td><pre>maListe.set(4, "bonjour")</pre></td></tr>
+        <tr><td>renvoyer l'élément d'indice 4</td><td><pre>maListe.get(4)</pre></td></tr>
+        <tr><td>renvoyer la taille de maListe</td><td><pre>maListe.size()</pre></td></tr>
+        <tr><td>renvoyer l'indice de l'élément <em>bonjour</em></td><td><pre>maListe.indexOf("bonjour")</pre></td></tr>
+        <tr><td>supprimer l'élément d'indice 4</td><td><pre>maListe.remove(4)</pre></td></tr>
+        <tr><td>comparer l'élément d'indice 4 à celui d'indice 5</td><td><pre>maListe.get(4).equals(maListe.get(5)</pre></td></tr>
+        <tr><td>tester si l'élément <em>bonjour</em> appartient à maListe</td><td><pre>maListe.contains("bonjour)</pre></td></tr>
+        <tr><td>vider maListe</td><td><pre>maListe.clear()</pre></td></tr>
+        <tr><td>copier par valeurs de maListe</td><td><pre>ArrayList listeCopie = (ArrayList) maListe.clone();</pre></td></tr>
+    </table>
+
+    <p>ArrayList ne fonctionne qu’avec des types objets pour produire des objets. Ainsi on ne peut pas avoir de liste avec des éléments de type int. Pour pallier ce problème, Java a prévu de faire correspondre à chaque type primitif un objet équivalent. Ainsi au type primitif int correspond l’objet Integer, au type primitif double correspond le type complexe Double. L'autoboxing permet de passer d'un type primitif à son objet correspondant de façon automatisée. En revanche, il convient de déclarer les listes avec les types objet et non les types primitifs. On écrira ainsi :</p>
+        <pre><code class="language-javascript">ArrayList&ltInteger&gt maListe = new ArrayList&ltInteger&gt();</code></pre>
+
+    <p>Attention, la comparaison de 2 éléments ne se fait pas avec l'opérateur == car on compare des objets et non des types primitifs.</p>
+    <p>Pour afficher une liste :</p>
+
+        <pre><code class="language-javascript">Iterator iterateur = maListe.iterator();
+while(iterateur.hasNext()) {
+    System.out.print(iterateur.next()+"\t");
+}</code></pre>
+
+        <pre><code class="language-javascript">for(int i=0; i&ltmaListe.size();i++) {
+    System.out.print(maListe.get(i)+"\t");
+}</code></pre>
+
+    <h4>Les dictionnaires</h4>
+
+        <table>
+            <tr><th>Objectif</th><th>Code</th></tr>
+            <tr><td>définir un dictionnaire</td><td><pre>HashMap dico = new HashMap();</pre></td></tr>
+            <tr><td>définir une liste composée d'un type d'élément spécifique</td><td><pre>HashMap&ltString, String&gt dico = new HashMap&ltString, String&gt();</pre></td></tr>
+            <tr><td>ajouter l'élément <em>lundi, Monday</em></td><td><pre>dico.put("lundi", Monday)</pre></td></tr>
+            <tr><td>remplace l'élément de clé <em>lundi</em></td><td><pre>dico.put("lundi", "Montag")</pre></td></tr>
+            <tr><td>renvoyer la valeur de l'élément de clé <em>lundi</em></td><td><pre>dico.get("lundi")</pre></td></tr>
+            <tr><td>renvoyer la taille de dico</td><td><pre>dico.size()</pre></td></tr>
+            <tr><td>supprimer l'élément de clé <em>lundi</em></td><td><pre>dico.remove("lundi")</pre></td></tr>
+            <tr><td>vider dico</td><td><pre>dico.clear()</pre></td></tr>
+        </table>
+
+        <p>Pour afficher un dictionnaire :</p>
+
+        <pre><code class="language-javascript">HashMap dico = new HashMap();
+Set ensemble = dico.keySet();
+for(Object clef : ensemble){
+    System.out.println(clef+" :"dico.get(clef));
+}</code></pre>
+
+        <pre><code class="language-javascript">Iterator iterateur = ensemble.iterator();
+while(iterateur.hasNext()) {
+Object clef = iterateur.next();
+    System.out.println(clef+":"+dico.get(clef));
+}</code></pre>
+
+    </div>
 
 
     <!-- ===== LA PROGRAMMATION RESEAU =================================== -->
 
-<h3 id="programmationreseau">La programmation réseau</h3>
+<h3 id="programmationreseau">La programmation réseau<button type="submit" onclick="affichageConditionnel(this,'programmationreseau_cache');"> + </button></h3>
+
+    <div id="programmationreseau_cache" style="display:none;">
 
 <h4>Rappels sur les réseaux</h4>
 
@@ -209,13 +315,17 @@ try {
 <p>Pour vérifier qu'une saisie utilisateur correspond à une url, on peut par exemple utiliser la condition :</p>
 <pre>if(host.matches("[a-zA-Z\\.]+"))</pre>
 
+    </div>
+
 
 
 <!-- ===== PROGRAMMATION CLIENT SERVEUR =================================== -->
 
-<h3 id="programmationclientserveur">Programmation client-serveur</h3>
+<h3 id="programmationclientserveur">Programmation client-serveur<button type="submit" onclick="affichageConditionnel(this,'programmationclientserveur_cache');"> + </button></h3>
 
-    <div class="pcle">API : une interface de programmation applicative est un ensemble normalisé de classes, de méthodes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels. Ces services sont offerts à travers une bibliothèque ou un service Web.</div>
+    <div id="programmationclientserveur_cache" style="display:none;">
+
+        <div class="pcle"><strong>API Application Programming Interface</strong> : ensemble normalisé de classes, de méthodes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels. C'est la partie du programme qu'on expose au monde extérieur pour manipuler celui-ci. Ces services sont offerts à travers une bibliothèque ou un service Web. L'API est au développeur ce que l'User Interface est à l'utilisateur.</div>
 
     <p>Les sockets sont des API permettant de gérer les communications entre programmes. La communication de plusieurs machines sur un réseau nécessite donc la connaissance d'adresses, de ports, de protocoles et l'utilisation de sockets. Les sockets permettent de se connecter à une machine distante, de recevoir et envoyer des données, de fermer une connexion établie, d'attendre une connexion de l'extérieur, d'écouter les communications entrantes. Une même socket sert aussi bien à envoyer qu'à recevoir des communications. Notons également que le protocole TCP/IP s'appuie sur les sockets.</p>
 
@@ -676,11 +786,15 @@ public class EmetteurUDP {
     <p>On utilise l'objet HttpURLConnection.</p>
     <p>Les flux BufferedInputStrean et BufferedOutputStrean permettent de gagner en performance plutôt que de travailler directement avec les sockets.</p>
 
+    </div>
+
 
 
     <!-- ===== LES PROXYS ======================================= -->
 
-    <h3 id="proxys">Les proxys</h3>
+    <h3 id="proxys">Les proxys<button type="submit" onclick="affichageConditionnel(this,'proxys_cache');"> + </button></h3>
+
+    <div id="proxys_cache" style="display:none;">
 
     <p>Un proxy constitue une autre façon de se connecter à un serveur. Le proxy est un intermédiaire faisant le lien entre le client et le serveur.</p>
 <pre><code class="language-javascript">import java.io.IOException;
@@ -731,11 +845,15 @@ try {
         e.printStackTrace();
 }</code></pre>
 
+    </div>
+
 
 
     <!-- Le RMI ------------------------------>
 
-    <h3 id="mecanismermi">Le mécanisme RMI</h3>
+    <h3 id="mecanismermi">Le mécanisme RMI<button type="submit" onclick="affichageConditionnel(this,'mecanismermi_cache');"> + </button></h3>
+
+    <div id="mecanismermi_cache" style="display:none;">
 
     <p>Le RMI permet d'appeler du code à distance, en créant un objet distant sur une machine serveur qui est rendu accessible aux autres machines. Il faut définir :</p>
         <ul>
@@ -923,11 +1041,15 @@ public class BoiteClient {
     }
 }</code></pre>
 
+    </div>
+
 
 
     <!-- JMS --------------------------------------->
 
-    <h3 id="jms">Le mécanisme JMS</h3>
+    <h3 id="jms">Le mécanisme JMS<button type="submit" onclick="affichageConditionnel(this,'jms_cache');"> + </button></h3>
+
+    <div id="jms_cache" style="display:none;">
 
     <div class="pcle">message : ensemble de données groupées pour être envoyées et reçues en même temps.</br>
         <em>serveur d'application :</em> infrastructure offrant un contexte d'exécution pour des composants applicatifs.</div>
@@ -1258,15 +1380,23 @@ public class Letter implements Serializable {
     }
 }</code></pre>
 
+    </div>
+
+
+
     <!-- Les services Web -------------------------------------------------->
 
-    <h3 id="servicesweb">Les services Web</h3>
+    <h3 id="servicesweb">Les services Web<button type="submit" onclick="affichageConditionnel(this,'servicesweb_cache');"> + </button></h3>
 
-    <div class="pcle"><strong>sérialisation :</strong> codage d'une information sous la fome d'une suite de données atomiques.</br>
-    <strong>parser un fichier :</strong> consiste à analyser un fichier afin d'en retirer les informations utiles.</br>
-    <strong>serveur d'applications :</strong> logiciel d'infrastructure offrant un contexte d'exécution pour des applications Web et non pas de simples procédures ou scripts</div>
+    <div id="servicesweb_cache" style="display:none;">
 
-    <p>Les services Web sont un ensemble de technologies permettant l'invocation de méthodes distantes. La communication et l'échange de données sont basés sur les standards Web HTTP et XML. Il existe 2 familles de services Web : SOAP et REST.</p>
+    <div class="pcle"><strong>sérialisation</strong> : codage d'une information sous fome de suite de données atomiques.</br>
+    <strong>parser un fichier</strong> : analyser un fichier afin d'en retirer les informations utiles.</br>
+        <strong>serveur d'applications</strong> : logiciel d'infrastructure offrant un contexte d'exécution pour des applications Web et non pas de simples procédures ou scripts.</br>
+        <strong>verbe HTTP</strong> : méthodes HTTP GET, POST, PUT, DELETE, ...</br>
+    <strong>POJO Plain Old Java Object </strong> : objet Java lié à aucune restriction autre que celles forcées par la spécification du langage Java. Ainsi un POJO n'étend pas de classe pré-définie, n'implémente pas d'interface et ne contient pas d'annotation pré-spécifiée @...</div>
+
+    <p>Les services Web sont un ensemble de technologies permettant l'invocation de méthodes distantes. La communication et l'échange de données sont basés sur les standards Web HTTP et XML. SOAP et REST sont 2 solutions permettant à un client d'accéder aux services Web.</p>
 
     <p>Les principaux avantages des services Web sont les suivants :</p>
     <ul>
@@ -1275,6 +1405,7 @@ public class Letter implements Serializable {
         <li>utilisation des formats XNL dans les échanges de données</li>
         <li>flexibilité, extensibilité</li>
     </ul>
+
     <h4>SOAP Simple Object Access Protocol (depracated)</h4>
 
     <p>SOAP est un protocole de RPC Remote Procedure Call orienté objet et basé sur l'échange de données structurées en XML. SOAP permet l'appel de méthodes distantes dans un environnement distribué.</p>
@@ -1364,7 +1495,7 @@ public class HelleWorldPublisher {
 
     <h4>REST Representational State Transfer</h4>
 
-    <p>Le service Web de type REST est plus souple que le type SOAP qui est maintenant désué. REST est avant tout un style architectural dans lequel on ne trouve pas de contrat comme pour RMI ou SOAP.</p>
+    <p>Le service Web de type REST est plus souple que le type SOAP qui est maintenant désué. REST est une API dans lequel on ne trouve pas de contrat comme pour RMI ou SOAP.</p>
     <p>REST se base sur le protocole HTTP pour transférer les ressources qui sont identifiées par des URI Uniform Resource Identifier.</p>
 
     <p>Les URI regroupent 2 sous-types d'identificateurs, les URN Uniform Resource Name et les URL Uniform Resource Locator. Les URL comprennent les chemins d'accès aux ressources accessibles. Par exemple http://domaine/chemin et mailto: adresseMail@gmail.com sont des URL. Les URN permettent de définir une identification unique et persistance pour une ressource. Par exemple l'adresse MAC d'une ordinateur, la référence ISBN:0-233-988897-2 d'un livre sont des URN.</p>
@@ -1375,6 +1506,10 @@ public class HelleWorldPublisher {
         <li>manipulation des ressources avec uniquement 4 opérations CRUD : Create avec la méthode POST, Retrieve avec la méthode GET, Update avec la méthode PUT et Delete avec la méthode DELETE</li>
         <li>les ressources sont séparées de leur représentation HTML, XML, PDF, JPEG, JSON</li>
     </ul>
+
+    <p>Plusieurs frameworks aident au développement des Web services REST en prenant en charge l'analyse et le traitement des requêtes côté serveur et des réponses côté client, comme par exemple Spring. L'interface Java pour implémenter des services Web REST s'appelle JAX-RS, basée sur des POJO (Plain Old Java Object)</p>
+
+    <p>Les services Web REST sont généralement déployés dans les serveurs d'application comme Tomcat et JBoss.</p>
 
     <p>Les requêtes du protocole HTTP sont composées d'une ligne de commande, d'une entête et d'un corps de message. Le format de stockage des données est pincipalement JSON JavaScript Object Notation, contrairement à SOAP qui utilisait XML.</p>
 
@@ -1401,11 +1536,49 @@ public class HelleWorldPublisher {
     ]
 }</code></pre>
 
+    <p><pre>Exemple d'utilisation de JSON avec le package Gson</pre></p>
 
+    <pre><code class="language-javascript">import com.google.gson.Gson
+Gson gson = new Gson();
+MyInData mid = new MyInData(45, 0.1, "hello");
+String toJsonString = gson.toJson(mid);
+
+MyInData fromJsonString = gson.froJson(jsonString, MyInData.class);</code></pre>
+
+<p><em>Exemple de service REST :</em></p>
+
+    <pre><code class="language-javascript">@Path('helloworld')
+public class HelloWorldResource {
+    public static final String MESSAGE ='hello world';
+
+    @GET
+    @Produces('text/plain')
+    public String getHello() {
+        return MESSAGE;
+    }
+}</code></pre>
+
+    <p>L'annotation @Path permet d'indiquer que l'objet doit être exposé comme un service répondant à des requêtes REST.</p>
+
+    <p><em>Les principaux codes statut de réponse : </em></p>
+        <ul>
+            <li>200 OK : tout s'est bien passé</li>
+            <li>201 Created : la création de la ressource s'est bien passée</li>
+            <li>204 No content : tout s'est bien passé mais le contenu de la ressource n'est pas renvoyé en réponse</li>
+            <li>304 Not modified : le contenu n'a pas été modifié</li>
+            <li>400 Bad request : la demande n'a pas pu être traitée correctement</li>
+            <li>401 Unauthorized : l'authentification a échoué</li>
+            <li>404 Not found : la ressource n'existe pas</li>
+            <li>405 Method not allowed : la méthode HTTP utilisée n'est pas traitable par l'API</li>
+            <li>406 Not acceptable : l'API n'est pas capable de fournir le format demandé</li>
+            <li>500 Server error : le serveur a rencontré un problème</li>
+        </ul>
+    </div>
 
 </section>
 
 <footer>
+    Stephane Robin
 </footer>
 
 </body>

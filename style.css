@@ -101,6 +101,10 @@ header{ /* entête */
 }
 
 footer{ /* pied de page */
+  font-family: Arial, Verdana, "Trebuchet MS";
+  font-size: 0.9em;
+  color: #828786;
+  text-align: center;
   height: 20%;
   margin: 20px;
 }
