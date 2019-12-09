@@ -1394,7 +1394,8 @@ public class Letter implements Serializable {
     <strong>parser un fichier</strong> : analyser un fichier afin d'en retirer les informations utiles.</br>
         <strong>serveur d'applications</strong> : logiciel d'infrastructure offrant un contexte d'exécution pour des applications Web et non pas de simples procédures ou scripts.</br>
         <strong>verbe HTTP</strong> : méthodes HTTP GET, POST, PUT, DELETE, ...</br>
-    <strong>POJO Plain Old Java Object </strong> : objet Java lié à aucune restriction autre que celles forcées par la spécification du langage Java. Ainsi un POJO n'étend pas de classe pré-définie, n'implémente pas d'interface et ne contient pas d'annotation pré-spécifiée @...</div>
+        <strong>POJO Plain Old Java Object </strong> : objet Java lié à aucune restriction autre que celles de la spécification du langage Java. Un POJO n'étend pas de classe pré-définie, n'implémente pas d'interface et ne contient pas d'annotation pré-spécifiée @...</br>
+        <strong>Servlet </strong> : classe Java qui permet de créer dynamiquement des données au sein d'un serveur HTTP. Ces données sont présentées au format HTML ou XML.</div>
 
     <p>Les services Web sont un ensemble de technologies permettant l'invocation de méthodes distantes. La communication et l'échange de données sont basés sur les standards Web HTTP et XML. SOAP et REST sont 2 solutions permettant à un client d'accéder aux services Web.</p>
 
@@ -1507,7 +1508,7 @@ public class HelleWorldPublisher {
         <li>les ressources sont séparées de leur représentation HTML, XML, PDF, JPEG, JSON</li>
     </ul>
 
-    <p>Plusieurs frameworks aident au développement des Web services REST en prenant en charge l'analyse et le traitement des requêtes côté serveur et des réponses côté client, comme par exemple Spring. L'interface Java pour implémenter des services Web REST s'appelle JAX-RS, basée sur des POJO (Plain Old Java Object)</p>
+    <p>Plusieurs frameworks aident au développement des Web services REST en prenant en charge l'analyse et le traitement des requêtes côté serveur et des réponses côté client, comme par exemple Spring ou Jersey qui est intégré dans Java EE. L'interface Java pour implémenter des services Web REST s'appelle JAX-RS. Il s'agit d'un Servlet basé sur des POJO et contenant des annotations @Path, @GET, @Produces qui complètent l'objet pour en faire un objet invocable à distance à travers une méthode HTTP et accessible par un URI. L'annotation @Path permet d'indiquer que l'objet doit être exposé comme un service répondant à des requêtes REST.</p>
 
     <p>Les services Web REST sont généralement déployés dans les serveurs d'application comme Tomcat et JBoss.</p>
 
@@ -1536,7 +1537,7 @@ public class HelleWorldPublisher {
     ]
 }</code></pre>
 
-    <p><pre>Exemple d'utilisation de JSON avec le package Gson</pre></p>
+    <p>Exemple d'utilisation de JSON avec le package Gson</p>
 
     <pre><code class="language-javascript">import com.google.gson.Gson
 Gson gson = new Gson();
@@ -1547,18 +1548,180 @@ MyInData fromJsonString = gson.froJson(jsonString, MyInData.class);</code></pre>
 
 <p><em>Exemple de service REST :</em></p>
 
-    <pre><code class="language-javascript">@Path('helloworld')
-public class HelloWorldResource {
-    public static final String MESSAGE ='hello world';
 
-    @GET
-    @Produces('text/plain')
-    public String getHello() {
-        return MESSAGE;
+<pre><code class="language-javascript">import javax.xml.bind.annotation.*;
+
+@XmlRootElement
+// important to serialize this pojo on xml with Jackson.
+public class Contact {
+    public String name;
+    public String email;
+
+    public Contact(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return " name : " + name + ", email=" + email;
     }
 }</code></pre>
 
-    <p>L'annotation @Path permet d'indiquer que l'objet doit être exposé comme un service répondant à des requêtes REST.</p>
+        <p>Le Servlet JAX-RS :</p>
+
+<pre><code class="language-javascript">import java.util.*;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
+import javax.ws.rs.core.Response.*;
+import fr.ctu.model.*;
+
+@Path("/contacts")
+// path to the sub-url to resources // objet Java annoté
+public class ContactBookResource {
+    public static ContactDAO dao = new ContactDAO();
+
+    @GET
+    // we request HTTP GET (all contacts)
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    // produce XML and JSON
+    public ArrayList<Contact>  getContacts() {
+        return dao.listeContacts;
+    }
+
+    @GET
+    // on obtient les informations du contact a partir de son id
+    @Path("{id}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response getContact(@PathParam("id") int id) {
+        try {
+            Contact contact = dao.listeContacts.get(id);
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        catch (IndexOutOfBoundsException e){
+            return Response.status(Response.Status.OK).entity(contact).build();
+        }
+    }
+
+    @POST
+    // on ajoute un contact sous format JSON
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response setContact(Contact contact) {
+
+        Contact originalContact = dao.listeContacts.get(contact.getId());
+        if (originalContact != null) {
+
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+
+        dao.addContact(contact);
+
+        return Response.status(Response.Status.OK).entity(contact).build();
+    }
+
+    @PUT
+    // le contact est modifie a partir de son id
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response updateContact(@PathParam("id") int id, Contact contact) {
+
+        Contact originalContact = dao.getContact(id);
+
+        if (!dao.listeContacts.contains(contact)) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        contact.setId(id);
+        dao.updateContact(id, contact);
+
+        return Response.status(Status.OK).entity(contact).build();
+    }
+
+    @DELETE
+    // le contact est efface par rapport a son id
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response deleteContact(@PathParam("id") int id) {
+
+        Contact originalContact = dao.getContact(id);
+
+        if (originalContact == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        dao.deleteContact(id);
+
+        return Response.status(Status.OK).entity(originalContact).build();
+    }
+}</code></pre>
+
+<pre><code class="language-javascript">import java.util.*;
+
+public class ContactDAO {
+
+    public ArrayList<Contact> listeContacts = new ArrayList<Contact>();
+
+    public ContactDAO() {
+        Contact c1 = new Contact("utilisateur1", "utilisateur1@plop.org");
+        Contact c2 = new Contact("utilisateur2", "utilisateur2@user.org");
+
+        listeContacts.clear();
+        listeContacts.add(c1);
+        listeContacts.add(c2);
+        listeContacts.add(c3);
+    }
+
+    public Contact getContact(int id) {
+        return listeContacts.get(id);
+    }
+
+    public void addContact(Contact contact) {
+        listeContacts.add(contact);
+    }
+
+    public void updateContact(int id, Contact contact) {
+        listeContacts.set(id,contact);
+    }
+
+    public void deleteContact(int id) {
+        listeContacts.remove(id);
+    }
+}</code></pre>
+
+<pre><code class="language-javascript">import java.util.logging.*;
+import org.eclipse.jetty.server.*;
+import org.eclipse.jetty.servlet.*;
+import org.glassfish.jersey.servlet.*;
+
+public class JettyServer {
+
+    public static void main(String[] args) {
+
+        Server server = new Server(8080);
+
+        ServletContextHandler ctx = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
+        ctx.setContextPath("/");
+        server.setHandler(ctx);
+
+        ServletHolder servletHolder = ctx.addServlet(ServletContainer.class, "/rest/*");
+        servletHolder.setInitOrder(1);
+        servletHolder.setInitParameter("jersey.config.server.provider.packages", "fr.ctu.rest");
+
+        try {
+            server.start();
+            System.out.println("Services deployed on URL = http://localhost:8080/rest/contacts");
+            server.join();
+        } catch (Exception e) {
+            e.getStackTrace();
+        } finally {
+            server.destroy();
+        }
+    }
+}</code></pre>
+
 
     <p><em>Les principaux codes statut de réponse : </em></p>
         <ul>

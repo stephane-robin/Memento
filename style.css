@@ -118,7 +118,7 @@ p{ /* paragraphes */
 .pcle{ /*paragraphes de mots-clés */
   width: 80%;
   margin: auto;
-
+  color: rgb(153,102,102);
   font-family: Arial, Verdana, "Trebuchet MS";
   font-size: 1.2em;
   text-align: justify;
