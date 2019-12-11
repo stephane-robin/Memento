@@ -1416,7 +1416,7 @@ public class Letter implements Serializable {
     <ul>
         <li>un protocole de transfert HTTP ou SMTP, les données échangées sont représentées en XML</li>
         <li>un protocole de description des services et méthodes WSDL</li>
-        <li>un protocole de localisation des services UDDI</li>
+        <li>un protocole de localisation des services UDDI, facultatif</li>
     </ul>
 
     <p>WSDL Web Service Description Langage donne la description au format XML des services Web en précisant les méthodes pouvant être invoquées. Le client a besoin de cette description détaillée des services Web avant de pouvoir les utiliser.</p>
@@ -1463,6 +1463,8 @@ Content-Length: length
         <li>publier et déployer l'application localement</li>
     </ul>
 
+        <p>Les fichiers côté client sont créés lors de la génération du stub</p>
+        <p> le fichier main du client : voir cours</p>
     <pre><code class="language-javascript">// interface publique
 import javax.jws.*;
 import javax.jws.soap.*;
@@ -1474,6 +1476,7 @@ public interface HelloWorld {
 }</code></pre>
 
     <pre><code class="language-javascript">// implémentation de l'interface
+        // voici mon contrat WSDL
 import javax.jws.*;
 
 @WebService(endpointInterface = "ws.HelloWorld")
@@ -1486,6 +1489,7 @@ public class HelloWorldImpl implements HelloWorld {
 }</code></pre>
 
 <pre><code class="language-javascript">// publication de l'application et déploiement
+    // j'ai exécuté la requête et je retourne le résultat
 import javax.xml.ws.*;
 
 public class HelleWorldPublisher {
@@ -1551,8 +1555,8 @@ MyInData fromJsonString = gson.froJson(jsonString, MyInData.class);</code></pre>
 
 <pre><code class="language-javascript">import javax.xml.bind.annotation.*;
 
+// il faut serialiser ce pojo en XML en utilisant Jackson
 @XmlRootElement
-// important to serialize this pojo on xml with Jackson.
 public class Contact {
     public String name;
     public String email;
@@ -1577,15 +1581,14 @@ import javax.ws.rs.core.Response.*;
 import fr.ctu.model.*;
 
 @Path("/contacts")
-// path to the sub-url to resources // objet Java annoté
+// path to the sub-url to resources
 public class ContactBookResource {
     public static ContactDAO dao = new ContactDAO();
 
     @GET
-    // we request HTTP GET (all contacts)
+    // produit des fichiers XML et JSON
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    // produce XML and JSON
-    public ArrayList<Contact>  getContacts() {
+    public ArrayList&ltContact&gt  getContacts() {
         return dao.listeContacts;
     }
 
@@ -1702,18 +1705,20 @@ public class JettyServer {
 
         Server server = new Server(8080);
 
+        // gestionnaire d'événements sur le serveur et des principales fonctionnalités
         ServletContextHandler ctx = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
-        ctx.setContextPath("/");
+        ctx.setContextPath("/"); // racine du serveur
         server.setHandler(ctx);
 
-        ServletHolder servletHolder = ctx.addServlet(ServletContainer.class, "/rest/*");
+        // configuration du serveur
+        ServletHolder servletHolder = ctx.addServlet(ServletContainer.class, "/rest/*"); // utilise la classe de servketContainer
         servletHolder.setInitOrder(1);
-        servletHolder.setInitParameter("jersey.config.server.provider.packages", "fr.ctu.rest");
+        servletHolder.setInitParameter("jersey.config.server.provider.packages", "fr.ctu.rest"); // chemin pour import package
 
         try {
             server.start();
             System.out.println("Services deployed on URL = http://localhost:8080/rest/contacts");
-            server.join();
+            server.join(); // gestion des threads sur Jetty
         } catch (Exception e) {
             e.getStackTrace();
         } finally {
@@ -1736,6 +1741,8 @@ public class JettyServer {
             <li>406 Not acceptable : l'API n'est pas capable de fournir le format demandé</li>
             <li>500 Server error : le serveur a rencontré un problème</li>
         </ul>
+
+        <p>servletHolder : configuration, servletContextHandler : gestion des principales fonctionnalités. rest ne nécessite pas de programmation côté client. Un navigateur fonctionne</p>
     </div>
 
 </section>

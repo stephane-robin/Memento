@@ -157,6 +157,11 @@ ul{ /* Listes */
   list-style-image: url('puce.png');
 }
 
+ol{ /* Listes */
+  font-family: Arial, Verdana, "Trebuchet MS";
+  font-size: 1.2em;
+}
+
 #principal{ /* le corps du document sans le menu et le header */
   width: 70%;
   margin: auto; /* pour centrer le document */
