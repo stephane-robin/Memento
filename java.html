@@ -95,6 +95,8 @@ function affichageConditionnel(bouton, id) {
 
     <div id="dates_cache" style="display:none;">
 
+        <h4>La classe GregorianCalendar</h4>
+
     <p>L'utilisation de la classe Date est obsolète. Il est préférable d'utiliser la classe GregorianCalendar qui hérite de la classe abstraite Calendar.</p>
     <p>On peut afficher le timestamp du moment sans formattage particulier en utilisant</p>
     <pre><code class="language-javascript">new GregorianCalendar().getTime()</code></pre>
@@ -141,6 +143,28 @@ GregorianCalendar date = new GregorianCalendar(annee,mois,jour);
 date.set(Calendar.MONTH, mois-1);
 SimpleDateFormat formattage = new SimpleDateFormat("yyyy-MM-dd-EEEE");
 System.out.println(formattage.format(date.getTime()));</code></pre>
+
+        <h4>La classe Timer</h4>
+
+        <pre><code class="language-javascript">import java.util.*;</code></pre>
+
+        <p>Pour répéter une action à intervalles réguliers, il convient d'utiliser un thread avec la classe Timer.</p>
+
+        <pre><code class="language-javascript">public class Principale {
+    public static void main(String[] args) {
+        Timer timer = new Timer();
+        TimerTask tache = new Action();
+        timer.schedule(tache, 2000, 10); // toutes les 2000 ms, 10 répétitions
+    }
+}</code></pre>
+
+        <p>et la tâche à effectuer plusieurs fois :</p>
+
+        <pre><code class="language-javascript">public class Action extends TimerTask{
+    public void run(){
+        System.out.println("hello world");
+    }
+}</code></pre>
 
     </div>
 
@@ -438,7 +462,7 @@ try {
 
         <div class="pcle"><strong>API Application Programming Interface</strong> : ensemble normalisé de classes, de méthodes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels. C'est la partie du programme qu'on expose au monde extérieur pour manipuler celui-ci. Ces services sont offerts à travers une bibliothèque ou un service Web. L'API est au développeur ce que l'User Interface est à l'utilisateur.</div>
 
-    <p>Les sockets sont des API permettant de gérer les communications entre programmes. La communication de plusieurs machines sur un réseau nécessite donc la connaissance d'adresses, de ports, de protocoles et l'utilisation de sockets. Les sockets permettent de se connecter à une machine distante, de recevoir et envoyer des données, de fermer une connexion établie, d'attendre une connexion de l'extérieur, d'écouter les communications entrantes. Une même socket sert aussi bien à envoyer qu'à recevoir des communications. Notons également que le protocole TCP/IP s'appuie sur les sockets.  Les sockets travaillent en full-duplex, i.e. le client et le serveur peuvent envoyer et recevoir des signaux simultanément. Il n'y a donc aucune attente.</p>
+    <p>Les sockets sont des API permettant de gérer les communications entre programmes au sein d'une structure client-serveur. La communication avec sockets nécessite la connaissance d'adresses, de ports, et l'utilisation de protocoles (TCP ou UDP). Une même socket sert aussi bien à envoyer qu'à recevoir des données. Les sockets travaillent en full-duplex, i.e. le client et le serveur peuvent envoyer et recevoir des signaux simultanément. Il n'y a donc pas de file d'attente. Notons également que le protocole TCP/IP s'appuie sur les sockets.</p>
 
     <p>Une socket est identifiée de manière unique par l'adresse IP de la machine suivie du numéro de port utilisé, ce dernier étant compris entre 1024 et 65536.</p>
 
@@ -449,13 +473,15 @@ import java.net.*;</code></pre>
 
         <h4>Fonctionnement d'une communication par Sockets</h4>
 
-    <p>Le serveur crée une socket de communication sur un port défini, puis attend la demande de connexion venant d'un client pour ouvrir une socket de connexion. De son côté, le client crée une socket de communication à l'adresse du serveur et sur le port défini pour demander la connexion puis envoie son message au serveur.</p>
+    <p>Le serveur crée une socket de connexion sur un port défini, puis attend la demande de communication venant d'un client pour ouvrir une socket de communication. De son côté, le client crée une socket de communication à l'adresse du serveur et sur le port défini.</p>
 
         <p>Une communication par Sockets est structurée de la façon suivante :</p>
         <ul>
-            <li>une classe Server comprenant une socket de communication et une socket de connexion</li>
-            <li>une classe Client comprenant une socket de communication</li>
+            <li>une classe Server comprenant une socket de connexion et une socket de communication</li>
+            <li>une classe Client comprenant une socket de connexion</li>
         </ul>
+
+        <img src="socket.png" width="620" height="230">
 
         <h4>Tester les ports disponibles du client</h4>
 
@@ -471,21 +497,19 @@ import java.net.*;</code></pre>
 
     <h4>Le mode connecté</h4>
 
-    <p>En mode connecté, deux sockets établissent une communication durable qui permet d'éviter de transmettre l'identité de la socket destinatrice à chaque envoi. Dans ce cas, un des programmes prend le rôle du serveur et l'autre le rôle du client. Le serveur est donc vu comme un programme rendant des services aux clients.</p>
+    <p>En mode connecté, deux sockets établissent une communication durable qui permet d'éviter de transmettre l'identité de la socket destinatrice à chaque envoi. Dans ce cas, un des programmes prend le rôle du serveur et l'autre le rôle du client. Le serveur est donc vu comme un programme rendant des services aux clients. Le mode connecté utilise le protocole TCP.</p>
     <fieldset><legend>IMPORTANT</legend><p>La socket côté serveur doit être lancée avant la socket côté client.</p></fieldset>
 
-    <p>La création d'une socket côté serveur utilise la classe ServerSocket. Le serveur attend ensuite les demandes de connexion en utilisant la fonction bloquante accept() i.e. qu'elle ne libère pas le programme tant qu'elle n'a pas reçu de demande de connexion.</p>
-
-    <p>La création d'une socket côté client utilise la classe Socket.</p>
+    <p>Le serveur utilise la fonction bloquante accept(), qui ne libère pas le programme tant qu'elle n'a pas reçu de demande de communication.</p>
 
     <p>Les méthodes de la classe Socket permettant d'obtenir des informations sur la connexion et nécessitent également la gestion de IOException :</p>
 
     <table>
         <tr><th>Instruction</th><th>Résultat</th></tr>
-        <tr><td><pre>socket_client.getInetAddress()</pre></td><td>fournit l'adresse IP distante</td></tr>
-        <tr><td><pre>socket_client.getLocalAddress()</pre></td><td>fournit l'adresse IP locale</td></tr>
-        <tr><td><pre>socket_client.getPort()</pre></td><td>fournit le nmr de port distant</td></tr>
-        <tr><td><pre>socket_client.getLocalPort()</pre></td><td>fournit le nmr de port local</td></tr>
+        <tr><td><pre><code class="language-javascript">socket_client.getInetAddress()</code></pre></td><td>fournit l'adresse IP distante</td></tr>
+        <tr><td><pre><code class="language-javascript">socket_client.getLocalAddress()</code></pre></td><td>fournit l'adresse IP locale</td></tr>
+        <tr><td><pre><code class="language-javascript">socket_client.getPort()</code></pre></td><td>fournit le nmr de port distant</td></tr>
+        <tr><td><pre><code class="language-javascript">socket_client.getLocalPort()</code></pre></td><td>fournit le nmr de port local</td></tr>
     </table>
 
     <p>La machine virtuelle Java ferme les sockets non utilisés à la fin de l'exécution du programme. Toutefois, le nombre de sockets ouvertes par un programme est limité, ce qui conduit à des erreurs quand cette limite est atteinte. La méthode close() permet de fermer la connexion.</p>
@@ -496,22 +520,22 @@ import java.net.*;</code></pre>
 
         <p>Côté serveur</p>
 
-        <pre><code class="language-javascript">public class ServerTCP {
+        <pre><code class="language-javascript">public class ServeurTCP {
 
     public static void main(String[] args) {
         try {
-            // creation socket serveur de communication sur le port 5555
+            // creation socket serveur de connexion sur le port 5555
             ServerSocket srv = new ServerSocket(5555);
-            // creation socket serveur de connexion
-            Socket conn = srv.accept();
+            // creation socket serveur de communication a la demande d'un client
+            Socket com = srv.accept();
             // creation objet communication entrante en provenance du client
-            DataInputStream entrant = new DataInputStream(conn.getInputStream());
+            DataInputStream dis = new DataInputStream(com.getInputStream());
 
-            System.out.println("Message reçu : " + entrant.readUTF());
+            System.out.println("Message reçu : " + dis.readUTF());
 
             // fermeture connexion
-            entrant.close();
-            conn.close();
+            dis.close();
+            com.close();
             srv.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -528,12 +552,12 @@ import java.net.*;</code></pre>
             // creation socket client de communication sur le port 5555
             Socket clt = new Socket("domaineHote", 5555);
             // communication sortante vers le serveur
-            DataOutputStream sortant = new DataOutputStream(clt.getOutputStream());
+            DataOutputStream dos = new DataOutputStream(clt.getOutputStream());
 
-            sortant.writeUTF("hello world");
+            dos.writeUTF("hello world");
 
             // fermeture connexion
-            sortant.close();
+            dos.close();
             clt.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -545,18 +569,18 @@ import java.net.*;</code></pre>
 
         <p>Côté serveur  </p>
 
-        <pre><code class="language-javascript">public class ServerTCP {
+        <pre><code class="language-javascript">public class ServeurTCP {
 
     public static void main(String[] args) {
         try {
             ServerSocket srv = new ServerSocket(5555);
-            Socket conn = srv.accept();
-            DataInputStream entrant = new DataInputStream(conn.getInputStream());
+            Socket com = srv.accept();
+            DataInputStream dis = new DataInputStream(com.getInputStream());
 
-            System.out.println("Message received: " + entrant.readInt());
+            System.out.println("Message received: " + dis.readInt());
 
-            entrant.close();
-            conn.close();
+            dis.close();
+            com.close();
             srv.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -571,11 +595,11 @@ import java.net.*;</code></pre>
     public static void main(String[] args) {
         try {
             Socket clt = new Socket("domaineHote", 5555);
-            DataOutputStream sortant = new DataOutputStream(clt.getOutputStream());
+            DataOutputStream dos = new DataOutputStream(clt.getOutputStream());
 
-            sortant.writeInt(1420);
+            dos.writeInt(1420);
 
-            sortant.close();
+            dos.close();
             clt.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -587,24 +611,24 @@ import java.net.*;</code></pre>
 
         <p>Côté serveur </p>
 
-        <pre><code class="language-javascript">public class ServerTCP {
+        <pre><code class="language-javascript">public class ServeurTCP {
 
     public static void main(String[] args) {
 
         try {
             ServerSocket srv = new ServerSocket(5555);
-            Socket conn = srv.accept();
+            Socket com = srv.accept();
             // communication entrante, les data sont placees dans un objet
             // transforme en Message, puis en String pour affichage
-            DataInputStream dataEntrant = new DataInputStream(conn.getInputStream());
-            ObjectInputStream objetEntrant = new ObjectInputStream(dataEntrant);
+            DataInputStream dis = new DataInputStream(com.getInputStream());
+            ObjectInputStream objetEntrant = new ObjectInputStream(dis);
 
             Message msg = (Message)objetEntrant.readObject();
             System.out.println("Message reçu : " + msg.toString());
 
             objetEntrant.close();
-            dataEntrant.close();
-            conn.close();
+            dis.close();
+            com.close();
             srv.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -624,13 +648,13 @@ import java.net.*;</code></pre>
         try {
             Socket clt = new Socket("domaineHote", 5555);
             // communication sortante, les data sont placees dans un objet transmis sous forme de Message
-            DataOutputStream dataSortant = new DataOutputStream(clt.getOutputStream());
-            ObjectOutputStream  objetSortant = new ObjectOutputStream(dataSortant);
+            DataOutputStream dos = new DataOutputStream(clt.getOutputStream());
+            ObjectOutputStream  objetSortant = new ObjectOutputStream(dos);
 
             objetSortant.writeObject(msg);
 
             objetSortant.close();
-            dataSortant.close();
+            dos.close();
             clt.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -638,7 +662,7 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <p>et la classe Message utilisée, qui implémente l'interface Serializable nécessaire pour transmettre le message sous forme de data :</p>
+        <p>et la classe Message présente côté serveur et côté client, qui implémente l'interface Serializable nécessaire pour transmettre le message sous forme de data :</p>
 
         <pre><code class="language-javascript">public class Message implements Serializable{
     // un objet de type Message doit etre serialisable pour pouvoir etre transmis
@@ -658,25 +682,47 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <p><em>Serveur délivrant un service :</em></p>
+        <p><em>Serveur connecté à plusieurs clients :</em></p>
 
-        <p>Côté serveur </p>
+        <p>Le serveur ne traite qu'un seul client à la fois. Si ce traitement prend du temps, les autres clients peuvent être bloqués. Pour éviter ce problème, la gestion des connexions peut être pilotée par des threads. On privilégie alors le pool de threads à la création dynamique de threads par souci de performance car dans ce dernier cas, il est possible de créer une infinité de threads ou encore de créer et détruire un thread à chaque nouvelle connexion.</p>
 
-        <pre><code class="language-javascript">// fournit la date à tout client qui se connecte
-public class ServerTCP {
+        <p>Côté serveur</p>
 
+        <p>Le serveur commence par créer un ensemble de threads en attente de recevoir une demande de connexion. Lorsqu'un client demande une connexion, elle est prise en charge par un des threads.</p>
+
+        <pre><code class="language-javascript">public class ServerPool extends Thread { // gestion des threads pour chaque connexion
+    ServerSocket srv;
+
+    public ServerPool(ServeurSocket sock) {
+        srv = sock;
+    }
+
+    public void run() {
+        try{
+            for(int i=0; i<11; i++) { // on considère 10 clients
+                Socket com = srv.accept();
+                DataOutputStream dos = new DataOutputStream(com.getOutputStream());
+
+                while(true) {
+                    dos.writeUTF("hello world");
+                }
+                com.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+public class ServeurTCP {
     public static void main(String[] args) {
         try {
             ServerSocket srv = new ServerSocket(5555);
+            ServerPool[] pool = new ServerPool[8]; // on choisit de travailler avec 8 threads
 
-            while (true) {
-                Socket conn = srv.accept();
-                DataOutputStream sortant = new DataOutputStream(conn.getOutputStream());
-
-                sortant.writeUTF("Date du serveur : " + (new GregorianCalendar().getTime()));
-
-                sortant.close();
-                conn.close();
+            for(ServerPool t : pool) {
+                t = new ServerPool(srv);
+                t.start();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -684,18 +730,17 @@ public class ServerTCP {
     }
 }</code></pre>
 
-        <p>Côté client </p>
-
+        <p>Côté client</p>
         <pre><code class="language-javascript">public class ClientTCP {
 
     public static void main(String[] args) {
         try {
             Socket clt = new Socket("domaineHote", 5555);
-            DataInputStream entrant = new DataInputStream(clt.getInputStream());
+            DataOutputStream dos = new DataOutputStream(clt.getOutputStream());
 
-            System.out.println(entrant.readUTF());
+            dos.writeUTF("hello world");
 
-            entrant.close();
+            dos.close();
             clt.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -705,7 +750,8 @@ public class ServerTCP {
 
         <h4>Le mode non connecté</h4>
 
-    <p>En mode non connecté, le destinataire de la socket est précisé à chaque envoi. La communication utilise dans ce cas la classe DatagramSocket.</p>
+    <p>En mode non connecté, le destinataire de la socket est précisé à chaque envoi. La communication utilise dans ce cas le protocole UDP qui envoie des données au destinataire sans le prévenir et sans s'assurer qu'elles sont bien arrivées.</p>
+<p>Notons que TCP est plus sécurisé que UDP et UDP est plus rapide que TCP.</p>
 
     <fieldset><legend>IMPORTANT</legend><p>En mode non connecté, le programme récepteur doit être lancé en premier.</p></fieldset>
 
@@ -724,7 +770,7 @@ public class ServerTCP {
             // creation de la socket de reception
             DatagramSocket srv = new DatagramSocket(5555);
             // creation et reception du paquet
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+            DatagramPacket paquet = new DatagramPacket(buffer, buffer.length);
 
             srv.receive(paquet);
             System.out.println("Message recu =  " + new String(buffer));
@@ -824,7 +870,7 @@ import java.net.*;</code></pre>
 
         <h4>Fonctionnement d'une communication par RMI</h4>
 
-        <p>Le client peut récupérer une représentation locale de l'objet distant appelée talon ou <em>stub</em>, qui utilise une représentation distante appelée <em>skeleton</em>. Le client utilise alors ce talon comme si l'objet distant était local. Ainsi, le <em>stub</em> sert de lien côté client avec l'interface alors que le <em>skeleton</em> sert de lien côté serveur avec l'interface. Le registry qui définit les liens entre <em>stub</em> et <em>skeleton</em> est créé en ligne de commande par l'instruction rmiregistry.</p>
+        <p>Le client utilise une représentation locale de l'objet distant appelée <em>stub</em>, qui utilise elle-même une représentation distante appelée <em>skeleton</em>. Le client utilise alors ce <em>stub</em> comme si l'objet distant était local. Ainsi, le <em>stub</em> sert de lien côté client avec l'interface alors que le <em>skeleton</em> sert de lien côté serveur avec l'interface. Ils sont transparents pour le programmeur car ils n'apparaissent pas dans les différentes classes. En revanche, ils utilisent un serveur de nom Le registry qui définit les liens entre <em>stub</em> et <em>skeleton</em> est créé en ligne de commande par l'instruction rmiregistry.</p>
 
         <p>Une communication par RMI est structurée de la façon suivante :</p>
         <ul>
@@ -849,7 +895,7 @@ import java.net.*;</code></pre>
     <p>L'implémentation de l'interface se fait côté serveur et ne doit pas être présente côté client sous peine de perdre l'utilité de RMI.  et l'implémentation côté serveur hérite de l'interface.</p>
 
     <pre><code class="language-javascript">public class Implementation extends UnicastRemoteObject implements Hello {
-    public HelloImpl() throws RemoteException {
+    public Implementation() throws RemoteException {
         super();
     }
     public void sayHello(String nom) throws RemoteException {
@@ -863,9 +909,9 @@ import java.net.*;</code></pre>
     public static void main(String[] args) {
         try {
             // creation de l'objet distant
-            HelloImpl obj = new HelloImpl();
+            HelloImpl objetDistant = new HelloImpl();
             // associe l'url de Hello a l'objet distant obj dans le registry, ce qui crée le skeleton
-            Naming.rebind("Hello", obj);
+            Naming.rebind("Hello", objetDistant);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
@@ -895,6 +941,10 @@ import java.net.*;</code></pre>
         }
     }
 }</code></pre>
+
+        <img src="rmi.png" width="500" height="400">
+
+        <p>Le détail de la structure du code est la suivante : le client est lié au serveur de noms par l'instruction <em>Naming.lookup</em> qui pointe vers l'adresse de l'interface <em>Hello</em>. L'objet client obj étant de type Hello peut utiliser la méthode <em>sayHello</em>, mais cette méthode n'est définie qu'au niveau de l'implémentation. Le lien entre le <em>stub</em> etle <em>skeleton</em> permet d'associer obj à objetDistant par le biais de l'interface et l'instuction <em>Naming.rebind</em>. </p>
 
         <fieldset><legend>ATTENTION</legend><p>Lors d'un appel distant les paramètres, les valeurs de retour et les exceptions sont transmis par copie et doivent donc être sérialisables. Or les types primitifs et les objets distants le sont par défaut. En revanche, les types créés ne sont pas sérialisables mais peuvent le devenir si les classes correspondantes implémentent l'interface Serializable.</p></fieldset>
 
@@ -935,7 +985,7 @@ import java.net.*;</code></pre>
     <p>l'implémentation :</p>
 <pre><code class="language-javascript">public class Implementation extends UnicastRemoteObject implements Boite{
     public static int nmrClient;
-    public Vector&ltMessage&gt vectMess;
+    public Vector&ltMessage&gt vectMess; // la classe Vector est compatible avec les Threads
 
     public Implementation() throws RemoteException{
         super();
@@ -978,7 +1028,7 @@ import java.net.*;</code></pre>
             Boite boiteMess = (Boite)Naming.lookup("//"+args[0]+"/Boite");
             int nclient = boiteMess.inscrire();
             Message m = new Message("Mike", new GregorianCalendar(), "hello world");
-            boiteMess.envoyerMessage(nbclient, m);
+            boiteMess.envoyerMessage(nclient, m);
             System.out.println("Dernier message : "+boiteMess.getMessage(nclient).toString());
         }catch(RemoteException e){
             e.printStackTrace();
@@ -1507,17 +1557,19 @@ MyInData fromJsonString = gson.froJson(jsonString, MyInData.class);</code></pre>
 // il faut serialiser ce pojo en XML en utilisant Jackson
 @XmlRootElement
 public class Contact {
+    public int id;
     public String name;
     public String email;
 
-    public Contact(String name, String email) {
+    public Contact(int id, String name, String email) {
+        this.id = id;
         this.name = name;
         this.email = email;
     }
 
     @Override
     public String toString() {
-        return " name : " + name + ", email=" + email;
+        return "id :" + id + " name : " + name + ", email : " + email;
     }
 }</code></pre>
 
@@ -1530,15 +1582,14 @@ import javax.ws.rs.core.Response.*;
 import fr.ctu.model.*;
 
 @Path("/contacts")
-// path to the sub-url to resources
 public class ContactBookResource {
     public static ContactDAO dao = new ContactDAO();
 
     @GET
     // produit des fichiers XML et JSON
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public ArrayList&ltContact&gt  getContacts() {
-        return dao.listeContacts;
+    public ArrayList<Contact>  getContacts() {
+        return dao.getContacts();
     }
 
     @GET
@@ -1546,30 +1597,26 @@ public class ContactBookResource {
     @Path("{id}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response getContact(@PathParam("id") int id) {
-        try {
-            Contact contact = dao.listeContacts.get(id);
+        Contact c = dao.getContact(id);
+        if (c == null)
             return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        catch (IndexOutOfBoundsException e){
-            return Response.status(Response.Status.OK).entity(contact).build();
+        else {
+            return Response.status(Response.Status.OK).entity(c).build();
         }
     }
 
     @POST
-    // on ajoute un contact sous format JSON
+    // on ajoute un contact sous forme JSON
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response setContact(Contact contact) {
-
-        Contact originalContact = dao.listeContacts.get(contact.getId());
+    public Response setContact(Contact c) {
+        Contact originalContact = dao.getContact(c.getId());
         if (originalContact != null) {
-
             return Response.status(Response.Status.CONFLICT).build();
         }
 
-        dao.addContact(contact);
-
-        return Response.status(Response.Status.OK).entity(contact).build();
+        dao.addContact(c);
+        return Response.status(Response.Status.OK).entity(c).build();
     }
 
     @PUT
@@ -1581,7 +1628,7 @@ public class ContactBookResource {
 
         Contact originalContact = dao.getContact(id);
 
-        if (!dao.listeContacts.contains(contact)) {
+        if (originalContact == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
@@ -1614,32 +1661,35 @@ public class ContactBookResource {
 
 public class ContactDAO {
 
-    public ArrayList<Contact> listeContacts = new ArrayList<Contact>();
+    public HashMap<Integer, Contact> dico = new HashMap<Integer, Contact>();
 
     public ContactDAO() {
-        Contact c1 = new Contact("utilisateur1", "utilisateur1@plop.org");
-        Contact c2 = new Contact("utilisateur2", "utilisateur2@user.org");
+        Contact c1 = new Contact(0, "user1", "user1@plop.org");
+        Contact c2 = new Contact(1, "user2", "user2@user.org");
 
-        listeContacts.clear();
-        listeContacts.add(c1);
-        listeContacts.add(c2);
-        listeContacts.add(c3);
+        dico.clear();
+        dico.put(c1.getId(), c1);
+        dico.put(c2.getId(), c2);
+    }
+
+    public ArrayList<Contact> getContacts() {
+        return new ArrayList<Contact>(contacts.values());
     }
 
     public Contact getContact(int id) {
-        return listeContacts.get(id);
+        return dico.get(id);
     }
 
     public void addContact(Contact contact) {
-        listeContacts.add(contact);
+        dico.put(contact.id,contact);
     }
 
     public void updateContact(int id, Contact contact) {
-        listeContacts.set(id,contact);
+        dico.put(id,contact);
     }
 
     public void deleteContact(int id) {
-        listeContacts.remove(id);
+        dico.remove(id);
     }
 }</code></pre>
 
@@ -1659,16 +1709,16 @@ public class JettyServer {
         ctx.setContextPath("/"); // racine du serveur
         server.setHandler(ctx);
 
-        // configuration du serveur
-        ServletHolder servletHolder = ctx.addServlet(ServletContainer.class, "/rest/*"); // utilise la classe de servketContainer
+        // configuraation du serveur
+        ServletHolder servletHolder = ctx.addServlet(ServletContainer.class, "/rest/*"); // utilise la classe ServletContainer
         servletHolder.setInitOrder(1);
         servletHolder.setInitParameter("jersey.config.server.provider.packages", "fr.ctu.rest"); // chemin pour import package
 
         try {
             server.start();
             System.out.println("Services deployed on URL = http://localhost:8080/rest/contacts");
-            server.join(); // gestion des threads sur Jetty
-        } catch (Exception e) {
+            server.join(); // gestion de threads sur Jetty
+        } catch (Exception ex) {
             e.getStackTrace();
         } finally {
             server.destroy();
