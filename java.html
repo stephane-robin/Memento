@@ -166,6 +166,29 @@ System.out.println(formattage.format(date.getTime()));</code></pre>
     }
 }</code></pre>
 
+        <p>On peut également obtenir le même résultat sans la classe <em>Timer</em> utilisant un thread.</p>
+
+        <pre><code class="language-javascript">public class Principale {
+    public static void main(String[] args) {
+        Action t = new Action();
+        t.start();
+    }
+}</code></pre>
+
+        <p>et la tâche à effectuer plusieurs fois :</p>
+        <pre><code class="language-javascript">public class TimeThread extends Thread {
+    public void run(){
+        for(int i=0; i<10; i++) { // 10 répétitions
+            try {
+                Thread.sleep(2000); // toutes les 2000 ms
+                System.out.println("hello world");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}</code></pre>
+
     </div>
 
 
@@ -514,11 +537,11 @@ import java.net.*;</code></pre>
 
     <p>La machine virtuelle Java ferme les sockets non utilisés à la fin de l'exécution du programme. Toutefois, le nombre de sockets ouvertes par un programme est limité, ce qui conduit à des erreurs quand cette limite est atteinte. La méthode close() permet de fermer la connexion.</p>
 
-        <p><em>Transmission d'une chaîne de caractères :</em></p>
+        <h4>Exemple de transmission d'une chaîne de caractères :</h4>
 
         <p>Il n'est pas nécessaire de transmettre la taille des String avec le message lorsqu'on utilise les méthodes writeUTF() et readUTF() qui détectent automatiquement la taille des String dans un flux. La quantité d'information transmise est donnée par message.length() si on note message la variable représentant le message reçu.</p>
 
-        <p>Côté serveur</p>
+        <p><em>Côté serveur</em></p>
 
         <pre><code class="language-javascript">public class ServeurTCP {
 
@@ -543,7 +566,7 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <p>Côté client</p>
+        <p><em>Côté client</em></p>
 
         <pre><code class="language-javascript">public class ClientTCP {
 
@@ -565,9 +588,9 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <p><em>Transmission d'un entier :</em></p>
+        <h4>Exemple de transmission d'un entier :</h4>
 
-        <p>Côté serveur  </p>
+        <p><em>Côté serveur</em>  </p>
 
         <pre><code class="language-javascript">public class ServeurTCP {
 
@@ -588,7 +611,7 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <p>Côté client </p>
+        <p><em>Côté client</em> </p>
 
         <pre><code class="language-javascript">public class ClientTCP {
 
@@ -607,9 +630,9 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <p><em>Transmission d'un objet :</em></p>
+        <h4>Exemple de transmission d'un objet :</h4>
 
-        <p>Côté serveur </p>
+        <p><em>Côté serveur</em> </p>
 
         <pre><code class="language-javascript">public class ServeurTCP {
 
@@ -638,7 +661,7 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <p>Côté client</p>
+        <p><em>Côté client</em></p>
 
         <pre><code class="language-javascript">public class ClientTCP {
 
@@ -682,11 +705,11 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <p><em>Serveur connecté à plusieurs clients :</em></p>
+        <h4>Exemple de serveur connecté à plusieurs clients :</h4>
 
         <p>Le serveur ne traite qu'un seul client à la fois. Si ce traitement prend du temps, les autres clients peuvent être bloqués. Pour éviter ce problème, la gestion des connexions peut être pilotée par des threads. On privilégie alors le pool de threads à la création dynamique de threads par souci de performance car dans ce dernier cas, il est possible de créer une infinité de threads ou encore de créer et détruire un thread à chaque nouvelle connexion.</p>
 
-        <p>Côté serveur</p>
+        <p><em>Côté serveur</em></p>
 
         <p>Le serveur commence par créer un ensemble de threads en attente de recevoir une demande de connexion. Lorsqu'un client demande une connexion, elle est prise en charge par un des threads.</p>
 
@@ -730,7 +753,7 @@ public class ServeurTCP {
     }
 }</code></pre>
 
-        <p>Côté client</p>
+        <p><em>Côté client</em></p>
         <pre><code class="language-javascript">public class ClientTCP {
 
     public static void main(String[] args) {
@@ -756,9 +779,9 @@ public class ServeurTCP {
     <fieldset><legend>IMPORTANT</legend><p>En mode non connecté, le programme récepteur doit être lancé en premier.</p></fieldset>
 
 
-        <p><em>Transmission d'une chaîne de caractères :</em></p>
+        <h4>Exemple de transmission d'une chaîne de caractères :</em></h4>
 
-    <p>Côté serveur </p>
+        <p><em>Côté serveur</em> </p>
 
 <pre><code class="language-javascript">public class ServerUDP {
 
@@ -782,7 +805,7 @@ public class ServeurTCP {
     }
 }</code></pre>
 
-    <p>Côté client </p>
+        <p><em>Côté client </em></p>
 
     <pre><code class="language-javascript">public class ClientUDP {
 
@@ -806,9 +829,9 @@ public class ServeurTCP {
     }
 }</code></pre>
 
-        <p><em>Transmission d'un entier :</em></p>
+        <h4>Exemple de transmission d'un entier :</h4>
 
-    <p>Côté serveur </p>
+        <p><em>Côté serveur</em> </p>
 
 <pre><code class="language-javascript">public class ServerUDP {
 
@@ -829,7 +852,7 @@ public class ServeurTCP {
     }
 }</code></pre>
 
-    <p>Côté client </p>
+        <p><em>Côté client</em> </p>
 
 <pre><code class="language-javascript">public class ClientUDP {
 
@@ -860,7 +883,7 @@ public class ServeurTCP {
 
     <div id="mecanismermi_cache" style="display:none;">
 
-    <p>Le RMI permet d'appeler du code à distance, en créant un objet distant sur une machine serveur. Cette technique offre pour avantages de mettre à jour le client de manière transparente et de masquer l'exécution distante du code tout en travaillant comme si l'exécution était locale.</p>
+    <p>Le RMI permet d'appeler du code à distance, en créant un objet distant sur une machine serveur. Notons que l'appel à distance est bloquant. Cette technique offre pour avantages de mettre à jour le client de manière transparente et de masquer l'exécution distante du code tout en travaillant comme si l'exécution était locale.</p>
 
         <pre><code class="language-javascript">import java.rmi.*;
 import java.rmi.server.*;
@@ -870,7 +893,7 @@ import java.net.*;</code></pre>
 
         <h4>Fonctionnement d'une communication par RMI</h4>
 
-        <p>Le client utilise une représentation locale de l'objet distant appelée <em>stub</em>, qui utilise elle-même une représentation distante appelée <em>skeleton</em>. Le client utilise alors ce <em>stub</em> comme si l'objet distant était local. Ainsi, le <em>stub</em> sert de lien côté client avec l'interface alors que le <em>skeleton</em> sert de lien côté serveur avec l'interface. Ils sont transparents pour le programmeur car ils n'apparaissent pas dans les différentes classes. En revanche, ils utilisent un serveur de nom Le registry qui définit les liens entre <em>stub</em> et <em>skeleton</em> est créé en ligne de commande par l'instruction rmiregistry.</p>
+        <p>Le client utilise une représentation locale de l'objet distant appelée <em>stub</em>, qui utilise elle-même une représentation distante appelée <em>skeleton</em>. Le client utilise alors ce <em>stub</em> comme si l'objet distant était local. Ainsi, le <em>stub</em> sert de lien côté client avec l'interface alors que le <em>skeleton</em> sert de lien côté serveur avec l'interface. Ils sont transparents pour le programmeur car ils n'apparaissent pas dans les différentes classes. En revanche, ils utilisent un serveur de nom, le <em>registry</em>, qui définit les liens entre <em>stub</em> et <em>skeleton</em>. Le <em>registry</em> est créé en ligne de commande par l'instruction <em>rmiregistry</em>.</p>
 
         <p>Une communication par RMI est structurée de la façon suivante :</p>
         <ul>
@@ -880,9 +903,14 @@ import java.net.*;</code></pre>
             <li>une classe Client contenant le <em>stub</em></li>
         </ul>
 
-        <img src="skeleton.png" width="300" height="250">
+        <div class="bloc">
+            <div class="gauche"><img src="skeleton.png" width="300" height="250"></div>
+            <div class="droite"><img src="rmi.png" width="500" height="400"></div>
+        </div>
 
         <h4>Exemple de communication par RMI</h4>
+
+        <p>On présente ici une procédure où le client affiche <em>Hello Mike</em> en utilisant la procédure <em>sayHello</em> présente sur le serveur.</p>
 
     <p>L'interface est l'entité partagée par le client et le serveur, donc présente des deux côtés.</p>
 
@@ -942,15 +970,12 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <img src="rmi.png" width="500" height="400">
-
-        <p>Le détail de la structure du code est la suivante : le client est lié au serveur de noms par l'instruction <em>Naming.lookup</em> qui pointe vers l'adresse de l'interface <em>Hello</em>. L'objet client obj étant de type Hello peut utiliser la méthode <em>sayHello</em>, mais cette méthode n'est définie qu'au niveau de l'implémentation. Le lien entre le <em>stub</em> etle <em>skeleton</em> permet d'associer obj à objetDistant par le biais de l'interface et l'instuction <em>Naming.rebind</em>. </p>
-
         <fieldset><legend>ATTENTION</legend><p>Lors d'un appel distant les paramètres, les valeurs de retour et les exceptions sont transmis par copie et doivent donc être sérialisables. Or les types primitifs et les objets distants le sont par défaut. En revanche, les types créés ne sont pas sérialisables mais peuvent le devenir si les classes correspondantes implémentent l'interface Serializable.</p></fieldset>
 
+        <p>Si les objets distants attendent la connexion en permanence, les ressources mémoire sont monopolisées inutilement. Pour cette raison, on préfère créer des objets distants activables. L'utilisation de la classe UnicastRemoteObjetct est réservée au développement d'objets distants temporaires.</p>
     <p>Notons que l'application cliente devra également gérer la synchronisation des appels à distance à l'aide de threads pour éviter le blocage du système.</p>
 
-<h4>Exemple d'une boite de messagerie :</h4>
+<h4>Exemple d'une boite de messagerie</h4>
 
         <p>le client peut déposer un message après s'être inscrit et consulter son message.</p>
 
