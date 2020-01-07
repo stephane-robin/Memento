@@ -584,7 +584,7 @@ import java.net.*;</code></pre>
 
         <p>Il n'est pas nécessaire de transmettre la taille des String avec le message lorsqu'on utilise les méthodes writeUTF() et readUTF() qui détectent automatiquement la taille des String dans un flux. La quantité d'information transmise est donnée par message.length() si on note message la variable représentant le message reçu.</p>
 
-        <p>Dans cet exemple, un client transmet au serveur une chaîne de caractères.</p>
+        <p>Dans cet exemple, un client transmet une chaîne de caractères au serveur.</p>
 
         <p><em>Côté serveur</em></p>
 
@@ -634,7 +634,7 @@ import java.net.*;</code></pre>
 
         <h4>Exemple de transmission d'un entier par TCP :</h4>
 
-        <p>Dans cet exemple un client transmet au serveur un entier.</p>
+        <p>Dans cet exemple un client transmet un entier au serveur.</p>
 
         <p><em>Côté serveur</em>  </p>
 
@@ -678,7 +678,7 @@ import java.net.*;</code></pre>
 
         <img src="socketObjet.png">
 
-        <p>Dans cet exemple, un client transmet au serveur un objet sous forme de message.</p>
+        <p>Dans cet exemple, un client transmet un objet sous forme de message au serveur.</p>
 
         <p><em>Côté serveur</em> </p>
 
@@ -749,11 +749,16 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <h4>Exemple de serveur connecté à plusieurs clients par TCP :</h4>
+        <h4>Exemple de serveur connecté dynamiquement à plusieurs clients par TCP :</h4>
+
+        <p>Dans cet exemple, 10 clients transmettent une chaîne de caractère au serveur.</p>
+
+        <h4>Exemple de serveur connecté par un pool de threads à plusieurs clients par TCP :</h4>
 
         <p>Le serveur ne traite qu'un seul client à la fois. Si ce traitement prend du temps, les autres clients peuvent être bloqués. Pour éviter ce problème, la gestion des connexions peut être pilotée par des threads. On peut utiliser un le pool de threads qui arrête les sockets de communication des threads ayant terminé leurs traitements pour passer la main aux threads suivants. Dans ce cas, les échanges avec les clients sont uniques puisque les communications sont interrompues. On peut également utiliser une création dynamique de threads au fur et à mesure des besoins. Dans ce cas, la communication peut être maintenue L'inconvénient est la possibilité de créer une infinité de threads ou encore de créer</p>
 
         <p>Dans cet exemple, 10 clients transmettent une chaîne de caractère au serveur.</p>
+
         <p><em>Côté serveur</em></p>
 
         <p>Le serveur commence par créer un ensemble de threads en attente de recevoir une demande de connexion. Lorsqu'un client demande une connexion, elle est prise en charge par un des threads.</p>
@@ -825,9 +830,9 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
     <fieldset><legend>IMPORTANT</legend><p>En mode non connecté, le programme récepteur doit être lancé en premier.</p></fieldset>
 
 
-        <h4>Exemple de transmission d'une chaîne de caractères par UDP :</em></h4>
+        <h4>Exemple de transmission d'une chaîne de caractères par UDP :</h4>
 
-        <p>Dans cet exemple le serveur reçoit une chaîne de caractères provenant d'un client.</p>
+        <p>Dans cet exemple un client transmet une chaîne de caractères au serveur.</p>
 
         <p><em>Côté serveur</em> </p>
 
@@ -879,6 +884,8 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
 
         <h4>Exemple de transmission d'un entier par UDP :</h4>
 
+        <p>Dans cet exemple un client transmet un entier au serveur.</p>
+
         <p><em>Côté serveur</em> </p>
 
 <pre><code class="language-javascript">public class ServerUDP {
@@ -920,6 +927,8 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
     }
 }</code></pre>
 
+        <h4>Exemple de transmission d'un objet par UDP :</h4>
+
     </div>
 
 
@@ -956,7 +965,7 @@ import java.net.*;</code></pre>
 
         <p>On présente ici une procédure où le client affiche <em>Hello Mike</em> en utilisant la procédure <em>sayHello</em> présente sur le serveur.</p>
 
-    <p>L'interface est l'entité partagée par le client et le serveur, donc présente des deux côtés.</p>
+        <p>L'interface est l'entité partagée par le client et le serveur. Il n'est pas nécessaire qu'elle soit présente des deux côtés. Seule sa présence côté serveur est requise car elle est accessible de chaque côté grâce au <em>registry</em>.</p>
 
     <pre><code class="language-javascript">public interface Hello extends Remote {
     public void sayHello(String nom) throws RemoteException;
@@ -1208,10 +1217,10 @@ import javax.jms.*;</code></pre>
 	    	Properties props = new Properties();
             // creation du contexte
 	    	InitialContext ctx = new InitialContext();
+            // creation et acces au topic
+	    	Topic topic = (Topic) ctx.lookup("MyTopic");
 	    	// connexion au provider, creation de l'objet intermediaire
 	    	TopicConnectionFactory factory = (TopicConnectionFactory) ctx.lookup("MyConnectionFactory");
-	    	// creation et acces au topic
-	    	Topic topic = (Topic) ctx.lookup("MyTopic");
 		    // connexion au bus
 	    	TopicConnection conn = factory.createTopicConnection();
 	    	// creation de session
@@ -1219,14 +1228,14 @@ import javax.jms.*;</code></pre>
             // avec le second paramètre Session.AUTO_ACKNOWLEDGE
 	    	TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 		    // creation d'un objet emetteur
-	   		TopicPublisher publisher = sess.createPublisher(topic);
-	    	publisher.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+	   		TopicPublisher pbr = sess.createPublisher(topic);
+	    	pbr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 			// publication d'un message "hello world"
             conn.start();
-	    	TextMessage message = sess.createTextMessage("hello world");
+	    	TextMessage mess = sess.createTextMessage("hello world");
 	    	// possibilité de changer ultérieurement avec message.setText("hello world");
-	    	publisher.publish(message);
+	    	pbr.publish(mess);
 
 	    	// fermeture de connexion
 	    	conn.close();
@@ -1243,17 +1252,17 @@ import javax.jms.*;</code></pre>
     public static void main(String[] args) {
 		try {
 	    	InitialContext ctx = new InitialContext();
+            Topic topic = (Topic) ctx.lookup("MyTopic");
 	    	TopicConnectionFactory factory = (TopicConnectionFactory) ctx.lookup("MyConnectionFactory");
-			Topic topic = (Topic) ctx.lookup("MyTopic");
 	    	TopicConnection conn = factory.createTopicConnection();
 	    	TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 	    	// creation d'un objet destinataire
-	    	TopicSubscriber subscriber = sess.createSubscriber(topic);
+	    	TopicSubscriber scr = sess.createSubscriber(topic);
 
 		    // lecture d'un message, receive est une fonction bloquante
 		    conn.start();
-	    	TextMessage message = (TextMessage) subscriber.receive();
-	    	System.out.println("message lu : " + message.getText());
+	    	TextMessage mess = (TextMessage) scr.receive();
+	    	System.out.println("message lu : " + mess.getText());
 
 		    conn.close();
 		} catch( Exception e ) {
@@ -1264,7 +1273,7 @@ import javax.jms.*;</code></pre>
 
     <h4>Exemple d'une communication Queue avec JMS 1.1 :</h4>
 
-      <p>Dans cet exemple le serveur reçoit une chaîne de caractères provenant d'un client.</p>
+      <p>Dans cet exemple un client envoie une châine de caractères au serveur.</p>
 
         <p><em>Côté serveur :</em></p>
 
@@ -1276,12 +1285,12 @@ import javax.jms.*;</code></pre>
 	    	QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("MyConnectionFactory");
 			Queue queue = (Queue) ctx.lookup("MyQueue");
 	    	QueueConnection conn = factory.createQueueConnection();
-	    	QueueSession sess = connect.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+	    	QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
 	    	QueueReceiver rcv = sess.createReceiver(queue);
 
 	    	conn.start();
-	    	TextMessage message = (TextMessage) rcv.receive();
-		    System.out.println("message reçu: " + message.getText());
+	    	TextMessage mess = (TextMessage) rcv.receive();
+		    System.out.println("message reçu: " + mess.getText());
 
 	    	conn.close();
 		} catch (Exception e) {
@@ -1297,17 +1306,17 @@ import javax.jms.*;</code></pre>
     public static void main(String[] args) {
 		try {
 	    	InitialContext ctx = new InitialContext();
-	    	QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("MyConnectionFactory");
-			// creation et acces a la file d'attente
+            // creation et acces a la file d'attente
 			Queue queue = (Queue) ctx.lookup("MyQueue");
+	    	QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("MyConnectionFactory");
 	    	QueueConnection conn = factory.createQueueConnection();
 	    	QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
 	    	QueueSender sdr = sess.createSender(queue);
-	    	sender.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+	    	sdr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
             conn.start();
-	    	TextMessage message = sess.createTextMessage("hello world");
-	   		sdr.send(message);
+	    	TextMessage mess = sess.createTextMessage("hello world");
+	   		sdr.send(mess);
 
 	   		conn.close();
 		} catch( Exception e ) {
