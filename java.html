@@ -1703,7 +1703,7 @@ public class ContactBookResource {
     // produit des fichiers JSON dans le cas général d'une requête, peut également produire du XML
     @Produces(MediaType.APPLICATION_JSON) // {  , MediaType.APPLICATION_XML})
     public ArrayList&ltContact&gt  getListeContact() {
-        return dao.getListeContact();
+        return Response.status(Response.Status.OK).entity(dao.getListeContact()).build();
     }
 
     @GET
@@ -1711,11 +1711,11 @@ public class ContactBookResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getContact(@PathParam("id") int id) {
-        Contact contact = dao.getContact(id);
+        Contact c = dao.getContact(id);
         if (c == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else {
-            return Response.status(Response.Status.OK).entity(contact).build();
+            return Response.status(Response.Status.OK).entity(c).build();
         }
     }
 
@@ -1723,13 +1723,13 @@ public class ContactBookResource {
     // on ajoute un contact sous forme JSON
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response setContact(Contact contact) {
-        Contact originalContact = dao.getContact(contact.id);
+    public Response setContact(Contact c) {
+        Contact originalContact = dao.getContact(c.id);
         if (originalContact != null) {
             return Response.status(Response.Status.CONFLICT).build();
         } else {
-            dao.addContact(contact);
-            return Response.status(Response.Status.OK).entity(contact).build();
+            dao.setContact(c);
+            return Response.status(Response.Status.OK).entity(c).build();
         }
     }
 
@@ -1738,15 +1738,15 @@ public class ContactBookResource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateContact(@PathParam("id") int ident, Contact contact) {
+    public Response updateContact(@PathParam("id") int ident, Contact c) {
         Contact originalContact = dao.getContact(ident);
 
         if (originalContact == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else {
-            contact.id = ident;
-            dao.updateContact(ident, contact);
-            return Response.status(Status.OK).entity(contact).build();
+            c.id = ident;
+            dao.updateContact(ident, c);
+            return Response.status(Status.OK).entity(c).build();
         }
     }
 
@@ -1791,7 +1791,7 @@ public class ContactDAO {
         return dico.get(id);
     }
 
-    public void addContact(Contact contact) {
+    public void setContact(Contact contact) {
         dico.put(contact.id, contact);
     }
 
