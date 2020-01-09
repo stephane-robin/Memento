@@ -278,10 +278,6 @@ public class Principale {
         <pre><code class="language-javascript">for(String valeur : tab){
     System.out.print(valeur+"\t");</code></pre>
 
-        <h4>Vector</h4>
-
-        <p>La classe Vector, aujourd'hui désuète, permet de définir des tableaux utilisant des méthodes proches de celles des listes. Notons que la classe Vector est compatible avec la synchronisation à l'aide de threads. </p>
-
 
     </div>
 
@@ -345,7 +341,7 @@ while(iterateur.hasNext()) {
             <tr><th>Objectif</th><th>Code</th></tr>
             <tr><td>définir un dictionnaire</td><td><pre>HashMap dico = new HashMap();</pre></td></tr>
             <tr><td>définir une liste composée d'un type d'élément spécifique</td><td><pre>HashMap&ltString, String&gt dico = new HashMap&ltString, String&gt();</pre></td></tr>
-            <tr><td>ajouter l'élément <em>lundi, Monday</em></td><td><pre>dico.put("lundi", Monday)</pre></td></tr>
+            <tr><td>ajouter l'élément <em>lundi, Monday</em></td><td><pre>dico.put("lundi", "Monday")</pre></td></tr>
             <tr><td>remplace l'élément de clé <em>lundi</em></td><td><pre>dico.put("lundi", "Montag")</pre></td></tr>
             <tr><td>renvoyer la valeur de l'élément de clé <em>lundi</em></td><td><pre>dico.get("lundi")</pre></td></tr>
             <tr><td>renvoyer la taille de dico</td><td><pre>dico.size()</pre></td></tr>
@@ -354,6 +350,9 @@ while(iterateur.hasNext()) {
         </table>
 
         <p>Pour afficher un dictionnaire :</p>
+
+        <pre><code class="language-javascript">HashMap dico = new HashMap();
+System.out.println(dico);</code></pre>
 
         <pre><code class="language-javascript">HashMap dico = new HashMap();
 Set ensemble = dico.keySet();
@@ -366,6 +365,11 @@ while(iterateur.hasNext()) {
 Object clef = iterateur.next();
     System.out.println(clef+":"+dico.get(clef));
 }</code></pre>
+
+        <h4>Vector</h4>
+
+        <p>La classe Vector, aujourd'hui désuète, permet de définir des listes dont la taille est fixe, i.e. les objets de classe Vector se manipulent comme des listes mais il faut définir leur taille au moment de la déclaration et ne pas dépasser cette taille. Notons que la classe Vector est compatible avec la synchronisation avec threads. </p>
+
 
     </div>
 
@@ -927,15 +931,14 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
     <pre><code class="language-javascript">public class ClientUDP {
 
     public static void main(String[] args) {
-        String message = "rendez-vous à 13h.";
-
         try {
             // creation de la socket emettrice
             DatagramSocket clt = new DatagramSocket();
             // recuperation de l'adresse IP
             InetAddress adresseIP = InetAddress.getByName("nomHote");
             // creation du packet et envoi du message
-            DatagramPacket paquet = new DatagramPacket(message.getBytes(), message.getBytes().length, adresseIP, 5555);
+            String mess = "hello world";
+            DatagramPacket paquet = new DatagramPacket(mess.getBytes(), mess.getBytes().length, adresseIP, 5555);
 
             clt.send(paquet);
 
@@ -1424,17 +1427,17 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
 
 	    	// envoi d'un mail
 	    	GregorianCalendar date = new GregorianCalendar(2016,11,24);
-	    	ObjetTransmis letter = new ObjetTransmis("moi", date, "Hello");
-	    	ObjectMessage message = sess.createObjectMessage(letter);
+	    	Mail mail = new Mail("moi", date, "Hello");
+	    	ObjectMessage mess = sess.createObjectMessage(mail);
 	    	conn.start();
-	    	sdr.send(message);
+	    	sdr.send(mess);
 
 	    	// attente que le destinataire reçoive le message
 	    	Thread.sleep( 5000 );
 
 	    	// reception d'un message reponse
-	    	TextMessage reponse = (TextMessage) rcv.receive();
-	    	System.out.println("received: " + reponse.getText());
+	    	TextMessage rep = (TextMessage) rcv.receive();
+	    	System.out.println("received: " + rep.getText());
 
 	    	conn.close();
 		} catch ( Exception e ) {
@@ -1451,19 +1454,19 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
 		try {
 	    	// partie commune
 
-	    	QueueReceiver consumer = sess.createReceiver(queue);
-            QueueSender producer = sess.createSender(queue);
+	    	QueueReceiver rcv = sess.createReceiver(queue);
+            QueueSender pdc = sess.createSender(queue);
 	    	producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 	    	// lecture d'un mail
 	    	conn.start();
-	    	ObjectMessage message = (ObjectMessage) consumer.receive();
-	    	ObjetTransmis letter = (ObjetTransmis) message.getObject();
+	    	ObjectMessage mess = (ObjectMessage) rcv.receive();
+	    	Mail mail = (Mail) mess.getObject();
 	    	System.out.print("mail reçu : "+ letter.toString());
 
 	    	// envoi d'un message reponse
-	    	TextMessage reponse = sess.createTextMessage("Merci");
-	    	producer.send(reponse);
+	    	TextMessage rep = sess.createTextMessage("Merci");
+	    	pdc.send(rep);
 
 	    	conn.close();
 		} catch (Exception e) {
@@ -1472,15 +1475,15 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
     }
 }</code></pre>
 
-    <p><em>et la classe ObjetEchange :</em></p>
+    <p><em>et la classe Mail :</em></p>
 
-        <p>La classe ObjetEchange doit être présente à la fois côté serveur et côté client. Comme l'objet doit être transmis, la classe ObjetEchange implémente l'interface Serialitable.</p>
-    <pre><code class="language-javascript">public class ObjetEchange implements Serializable {
+        <p>La classe Mail doit être présente à la fois côté serveur et côté client. Comme l'objet doit être transmis, la classe Mail implémente l'interface Serializable.</p>
+    <pre><code class="language-javascript">public class Mail implements Serializable {
     String emetteur;
     GregorianCalendar date;
     String texte;
 
-    public ObjetEchange(String emetteur, GregorianCalendar date, String texte) {
+    public Mail(String emetteur, GregorianCalendar date, String texte) {
 	    this.emetteur = emetteur;
 	    this.date = date;
 	    this.texte = texte;
@@ -1672,9 +1675,9 @@ MyInData fromJsonString = gson.froJson(jsonString, MyInData.class);</code></pre>
 // il faut serialiser ce pojo en XML en utilisant Jackson
 @XmlRootElement
 public class Contact {
-    public int id;
-    public String name;
-    public String email;
+    int id;
+    String name;
+    String email;
 
     public Contact(int id, String name, String email) {
         this.id = id;
@@ -1684,7 +1687,7 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "id :" + id + " name : " + name + ", email : " + email;
+        return "id :" + id + ", name : " + name + ", email : " + email;
     }
 }</code></pre>
 
@@ -1702,7 +1705,7 @@ public class ContactBookResource {
     @GET
     // produit des fichiers JSON dans le cas général d'une requête, peut également produire du XML
     @Produces(MediaType.APPLICATION_JSON) // {  , MediaType.APPLICATION_XML})
-    public ArrayList&ltContact&gt  getListeContact() {
+    public Response  getListeContact() {
         return Response.status(Response.Status.OK).entity(dao.getListeContact()).build();
     }
 
@@ -1771,7 +1774,7 @@ public class ContactBookResource {
 
 <pre><code class="language-javascript">import java.util.*;
 
-public class ContactDAO {
+public class ContactDAO { // DAO pour Data Access Object
     public HashMap&ltInteger, Contact&gt dico = new HashMap&ltInteger, Contact&gt();
 
     public ContactDAO() {
@@ -1779,8 +1782,8 @@ public class ContactDAO {
         Contact c2 = new Contact(1, "user2", "user2@domaine.org");
 
         dico.clear();
-        dico.put(c1.id, c1);
-        dico.put(c2.id, c2);
+        dico.put(0, c1);
+        dico.put(1, c2);
     }
 
     public ArrayList&ltContact&gt getListeContact() {
