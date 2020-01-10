@@ -1121,20 +1121,20 @@ import java.net.*;</code></pre>
 <p><em>L'interface :</em></p>
 
 <pre><code class="language-javascript">public interface Boite extends Remote{
-    public int inscrire() throws RemoteException;
-    public void envoyerMessage(int nmrClient, Message mess) throws RemoteException;
-    public Message getMessage(int nmrClient) throws RemoteException;
+    public void inscrire(String nom) throws RemoteException;
+    public void envoyerMessage(int nmrClient, Mail mail) throws RemoteException;
+    public Mail getMessage(int nmrClient) throws RemoteException;
 }</code></pre>
 
     <p><em>Côté serveur :</em></p>
 
-    <p>La classe Message :</p>
-<pre><code class="language-javascript">public class Message implements Serializable{
+    <p>La classe Mail :</p>
+<pre><code class="language-javascript">public class Mail implements Serializable{
     public String nom;
-    public String mess;
     public GregorianCalendar date;
+    public String mess;
 
-    public Message(String nom, GregorianCalendar date, String mess) {
+    public Mail(String nom, GregorianCalendar date, String mess) {
         this.nom = nom;
         this.date = date.getTime();
         this.mess = mess;
@@ -1150,25 +1150,26 @@ import java.net.*;</code></pre>
 
         <p>l'implémentation :</p>
 <pre><code class="language-javascript">public class Implementation extends UnicastRemoteObject implements Boite{
-    public static int nmrClient;
-    public Vector&ltMessage&gt vectMess; // la classe Vector est compatible avec les Threads
+    static HashMap ensClient = new HashMap();
+    static HashMap ensMessages = new HashMap();
+    static int nmrClient;
 
     public Implementation() throws RemoteException{
         super();
         nmrClient = 0;
-        vectMess = new Vector(10);
     }
 
-    public int inscrire() throws RemoteException{
-        return nmrClient++;
+    public void inscrire(String nom) throws RemoteException{
+        return nmrClient += 1;
+        ensClient.put(nmrClient, nom);
     }
 
-    public void envoyerMessage(int nmrClient, Message mess) throws RemoteException{
-        vectMess.add(nmrClient, mess);
+    public void envoyerMessage(int nmrClient, Mail mail) throws RemoteException{
+        ensMessage.put(nmrClient, mail);
     }
 
-    public Message getMessage(int nmrClient) throws RemoteException {
-        return (Message)vectMess.get(nmrClient);
+    public Mail getMessage(int nmrClient) throws RemoteException {
+        return ensMessage.get(nmrClient);
     }
 }</code></pre>
 
@@ -1192,10 +1193,10 @@ import java.net.*;</code></pre>
     public static void main(String[] args){
         try{
             Boite obj = (Boite)Naming.lookup("//"+args[0]+"/Boite");
-            int nmrClient = obj.inscrire();
-            Message mess = new Message("Mike", new GregorianCalendar(), "hello world");
-            obj.envoyerMessage(nmrClient, mess);
-            System.out.println("Dernier message : "+obj.getMessage(nmrClient).toString());
+            obj.inscrire("Hervé");
+            Mail mail = new Mail("Mike", new GregorianCalendar(), "hello world");
+            obj.envoyerMessage(12, mail);
+            System.out.println("Dernier message : "+obj.getMessage(12).toString());
         }catch(RemoteException e){
             e.printStackTrace();
         }catch(NotBoundException e){
@@ -1724,14 +1725,15 @@ public class ContactBookResource {
 
     @POST
     // on ajoute un contact sous forme JSON
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response setContact(Contact c) {
-        Contact originalContact = dao.getContact(c.id);
+    public Response setContact(@PathParam("id") int id, Contact c) {
+        Contact originalContact = dao.getContact(id);
         if (originalContact != null) {
             return Response.status(Response.Status.CONFLICT).build();
         } else {
-            dao.setContact(c);
+            dao.setContact(id, c);
             return Response.status(Response.Status.OK).entity(c).build();
         }
     }
@@ -1741,14 +1743,13 @@ public class ContactBookResource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateContact(@PathParam("id") int ident, Contact c) {
-        Contact originalContact = dao.getContact(ident);
+    public Response updateContact(@PathParam("id") int id, Contact c) {
+        Contact originalContact = dao.getContact(id);
 
         if (originalContact == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else {
-            c.id = ident;
-            dao.updateContact(ident, c);
+            dao.updateContact(id, c);
             return Response.status(Status.OK).entity(c).build();
         }
     }
@@ -1778,8 +1779,8 @@ public class ContactDAO { // DAO pour Data Access Object
     public HashMap&ltInteger, Contact&gt dico = new HashMap&ltInteger, Contact&gt();
 
     public ContactDAO() {
-        Contact c1 = new Contact(0, "user1", "user1@domaine.org");
-        Contact c2 = new Contact(1, "user2", "user2@domaine.org");
+        Contact c1 = new Contact("user1", "user1@domaine.org");
+        Contact c2 = new Contact("user2", "user2@domaine.org");
 
         dico.clear();
         dico.put(0, c1);
@@ -1794,8 +1795,8 @@ public class ContactDAO { // DAO pour Data Access Object
         return dico.get(id);
     }
 
-    public void setContact(Contact contact) {
-        dico.put(contact.id, contact);
+    public void setContact(int id, Contact contact) {
+        dico.put(id, contact);
     }
 
     public void updateContact(int id, Contact contact) {
