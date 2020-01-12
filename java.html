@@ -526,7 +526,11 @@ try {
 
         <div class="pcle"><strong>API Application Programming Interface</strong> : ensemble normalisé de classes, de méthodes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels. C'est la partie du programme qu'on expose au monde extérieur pour manipuler celui-ci. Ces services sont offerts à travers une bibliothèque ou un service Web. L'API est au développeur ce que l'User Interface est à l'utilisateur.</div>
 
-    <p>Les sockets sont des API qui gèrent les communications entre programmes au sein d'une structure client-serveur. La communication entre sockets nécessite l'adresse du serveur, le port compris entre 1024 et 65536, et l'utilisation d'un protocole (TCP ou UDP).</p>
+        <p>Les sockets sont des API qui gèrent les communications entre programmes au sein d'une structure client-serveur. La communication entre sockets nécessite l'adresse du serveur, le port compris entre 1024 et 65536, et l'utilisation d'un protocole (TCP ou UDP). Une caractéristique des sockets est la suivante :</p>
+        <ul>
+            <li>les sockets travaillent en full-duplex i.e. une même socket sert aussi bien à envoyer qu'à recevoir des données. Il n'y a donc pas de file d'attente. Toutefois certaines méthodes comme accept() sont des fonctions bloquentes qui ne libèrent pas le programme tant qu'un traitement n'a pas été fait.</li>
+
+        </ul>
 
         <pre><code class="language-javascript">import java.io.*;
 import java.nio.*;
@@ -535,7 +539,7 @@ import java.net.*;</code></pre>
 
     <h4>Le mode connecté</h4>
 
-    <p>En mode connecté, deux sockets établissent une communication durable entre l'émetteur et le récepteur, ce qui permet d'éviter de transmettre l'adresse du récepteur à chaque envoi et gère l'acquittement des données. Dans ce cas, le serveur est vu comme un programme rendant des services aux clients. Les sockets en mode connecté travaillent en full-duplex i.e. une même socket sert aussi bien à envoyer qu'à recevoir des données. Il n'y a donc pas de file d'attente, toutefois le serveur utilise la fonction bloquante accept() qui ne libère pas le programme tant qu'elle n'a pas reçu de demande de communication. Le mode connecté utilise le protocole TCP. Exemple d'application, le protocole HTTP.</p>
+    <p>En mode connecté, deux sockets établissent une communication durable entre l'émetteur et le récepteur, ce qui permet d'éviter de transmettre l'adresse du récepteur à chaque envoi et gère l'acquittement des données. Dans ce cas, le serveur est vu comme un programme rendant des services aux clients. Le mode connecté utilise le protocole TCP. Exemple d'application, le protocole HTTP.</p>
 
         <p>Le serveur crée une socket de connexion sur un port défini, puis attend la demande de communication venant d'un client pour ouvrir une socket de communication. De son côté, le client crée une socket de communication à l'adresse du serveur et sur le port défini.</p>
 
@@ -1039,7 +1043,7 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
 
     <div id="mecanismermi_cache" style="display:none;">
 
-    <p>Le mécanisme RMI permet d'appeler du code à distance, en créant un objet distant sur une machine serveur. Notons que l'appel à distance est bloquant. Cette technique offre pour avantages de mettre à jour le client de manière transparente et de masquer l'exécution distante du code tout en travaillant comme si l'exécution était locale.</p>
+    <p>Le mécanisme RMI permet d'appeler du code à distance, en créant un objet distant sur un serveur. Notons que l'appel à distance est bloquant. Cette technique offre pour avantages de mettre à jour le client de manière transparente et de masquer l'exécution distante du code tout en travaillant comme si l'exécution était locale.</p>
 
         <pre><code class="language-javascript">import java.rmi.*;
 import java.rmi.server.*;
@@ -1049,7 +1053,7 @@ import java.net.*;</code></pre>
 
         <h4>Fonctionnement d'une communication par RMI</h4>
 
-        <p>Le serveur implémente un objet distant qui est publié dans un serveur de noms (<em>registry</em>), i.e. qu'il est associé à un nom à partir duquel les applications clientes pourront récupérer un talon de cet objet. Pour ce faire, Java crée automatiquement sur le serveur une représentation distante appelée <em>skeleton</em> et sur le client une représentation locale appelée <em>stub</em>. Ces représentations sont transparentes pour le programmeur car elles n'apparaissent pas dans les différentes classes. Le client utilise alors ce <em>stub</em> comme si l'objet distant était local.</p>
+        <p>Le serveur implémente un objet distant qui est publié dans un serveur de noms (<em>registry</em>), i.e. qu'il est associé à un nom à partir duquel les applications clientes pourront récupérer un talon de cet objet. Pour ce faire, Java crée automatiquement sur le serveur une représentation distante appelée <em>skeleton</em> et sur le client une représentation locale appelée <em>stub</em>, qui sont transparentes pour le programmeur car elles n'apparaissent pas dans les différentes classes. Le client utilise alors ce <em>stub</em> comme si l'objet distant était local.</p>
 
         <h4>Exemple de transmission d'une chaîne de caractères par RMI :</h4>
 
@@ -1287,7 +1291,7 @@ import javax.jms.*;</code></pre>
 
         <h4>Fonctionnement de JMS</h4>
 
-        <p>Les messages sont envoyés sur un objet intermédiaire MOM, et le récepteur doit venir les chercher. Des bus gèrent les transports de messages vers les objets intermédiaires. De ce fait, il est inutile d'établir une connexion entre un émetteur et un récepteur.</p>
+        <p>Les messages sont envoyés sur un objet intermédiaire MOM, et le récepteur doit venir les chercher. Des bus gèrent les transports de messages vers les objets intermédiaires. De ce fait, il n'y a pas de connexion entre un émetteur et un récepteur. Les récepteurs actifs peuvent voir tous les messages délivrés par l'émetteur, mais celui-ci ne connaît pas  l'état des récepteurs actifs. Les récepteurs peuvent s'inscrire comme DurableSubscriber avec JMS2.0 et dans ce cas, les messages qu'ils n'ont pas consultés durant leur absence peuvent être lus au moment où ils se reconnectent.</p>
 
         <img src="jms.png">
 
@@ -1318,7 +1322,7 @@ InitialContext ctx = new InitialContext();
 Topic topic = (Topic) ctx.lookup("MyTopic");
 // connexion au provider, creation de l'objet intermediaire
 TopicConnectionFactory factory = (TopicConnectionFactory) ctx.lookup("MyConnectionFactory");
-// connexion au bus
+// connexion au bus permettant le transport vers le MOM
 TopicConnection conn = factory.createTopicConnection();
 // creation de session
 // false pour spécifier que les messages reçus seront traités en accord
@@ -1533,7 +1537,7 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
 
     <!-- Les services Web -------------------------------------------------->
 
-    <h3 id="servicesweb">Les services Web<button type="submit" onclick="affichageConditionnel(this,'servicesweb_cache');"> + </button></h3>
+    <h3 id="servicesweb">Le service Web REST<button type="submit" onclick="affichageConditionnel(this,'servicesweb_cache');"> + </button></h3>
 
     <div id="servicesweb_cache" style="display:none;">
 
@@ -1703,8 +1707,7 @@ MyInData fromJsonString = gson.froJson(jsonString, MyInData.class);</code></pre>
 
 <pre><code class="language-javascript">import javax.xml.bind.annotation.*;
 
-// il faut serialiser ce pojo en XML en utilisant Jackson
-@XmlRootElement
+@XmlRootElement  // les objets de type Contact doivent etre serialises en XML
 public class Contact {
     int id;
     String name;
@@ -1731,7 +1734,7 @@ import javax.ws.rs.core.Response.*;
 
 @Path("/mescontacts") // donné comme référence dans l'uri, ne correspond pas forcément au nom du dossier courant
 public class ContactBookResource {
-    static ContactDAO dao = new ContactDAO(); // DAO pour Data Access Object
+    ContactDAO dao = new ContactDAO(); // DAO pour Data Access Object
 
     @GET
     // produit des fichiers JSON dans le cas général d'une requête, peut également produire du XML
