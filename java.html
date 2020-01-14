@@ -1279,7 +1279,7 @@ import java.net.*;</code></pre>
             <strong>serveur d'application :</strong> infrastructure offrant un contexte d'exécution pour des composants applicatifs.</br>
     <strong>JNDI Java Naming and Directory Interface</strong> : il s'agit d'une API Java de connexion à des annuaires, permettant d'accéder à différents services, d'organiser et de rechercher des informations par nommage. JNDI fait partie de Java EE, il est trés utilisé dans les serveurs d'application et nécessite le package naming</div>
 
-    <p>JMS est une API spécialisée dans le service de messagerie (création, envoi et lecture de messages) d'une application à une autre sur un poste distant. JMS utilise des MOM Message Oriented Middleware de type JMSConnectionFactory gérés par des fournisseurs tels que Apache ActiveMQ qui jouent le rôle de plateforme de messagerie. Les particularités de JMS sont les suivantes :</p>
+    <p>JMS est une API spécialisée dans le service de messagerie (création, envoi et lecture de messages) d'une application à une autre sur un poste distant. JMS utilise un MOM Message Oriented Middleware de type JMSConnectionFactory géré par un fournisseur tels que Apache ActiveMQ qui joue le rôle de plateforme de messagerie. Les particularités de JMS sont les suivantes :</p>
         <ul>
             <li>la communication est asynchrone, un message arrivera au client sans qu'il n'ait fait de requête</li>
             <li>JMS est fiable, car il s'assure que le message est bien délivré</li>
@@ -1291,7 +1291,7 @@ import javax.jms.*;</code></pre>
 
         <h4>Fonctionnement de JMS</h4>
 
-        <p>Les messages sont envoyés sur un objet intermédiaire MOM, et le récepteur doit venir les chercher. Des bus gèrent les transports de messages vers les objets intermédiaires. De ce fait, il n'y a pas de connexion entre un émetteur et un récepteur. Les récepteurs actifs peuvent voir tous les messages délivrés par l'émetteur, mais celui-ci ne connaît pas  l'état des récepteurs actifs. Les récepteurs peuvent s'inscrire comme DurableSubscriber avec JMS2.0 et dans ce cas, les messages qu'ils n'ont pas consultés durant leur absence peuvent être lus au moment où ils se reconnectent.</p>
+        <p>Les messages sont envoyés sur un objet intermédiaire MOM qui utilise une structure de file d'attente (queue) ou de sujet (topic), et le récepteur doit venir les chercher. Des bus gèrent les transports de messages vers les objets intermédiaires. De ce fait, il n'y a pas de connexion entre un émetteur et un récepteur. Les récepteurs actifs peuvent voir tous les messages délivrés par l'émetteur, mais celui-ci ne connaît pas  l'état des récepteurs actifs. Les récepteurs peuvent s'inscrire comme DurableSubscriber avec JMS2.0 et dans ce cas, les messages qu'ils n'ont pas consultés durant leur absence peuvent être lus au moment où ils se reconnectent.</p>
 
         <img src="jms.png">
 
@@ -1307,14 +1307,14 @@ import javax.jms.*;</code></pre>
         <h4>Queue et Topic</h4>
 
         <p>JMS repose sur deux modes de communication principaux, la communication point-à-point et la communication événementielle.</p>
-        <p> Dans la communication point-à-point, l'objet intermédiaire utilise une file d'attente (queue). Plusieurs senders peuvent envoyer sur la même file d'attente mais un seul receiver peut voir le message. On parle de communication N à 1. C'est le cas par exemple lorsqu'on utilise une imprimante en mode connecté.</p>
-        <p> Dans la communication événementielle, l'objet intermédiaire utilise un sujet (topic). Les publishers envoient leurs messages sur un topic. Les subscribers s'inscrivent au topic pour recevoir les messages publiés sur ce topic. Plusieurs publishers peuvent envoyer des messages sur le même topic et plusieurs subscribers peuvent consulter les messages du topic. C'est le cas par exemple lors d'un fil de discussion dans un <em>chat</em>.</p>
+        <p> Dans la communication point-à-point, l'objet intermédiaire utilise une file d'attente (queue). Plusieurs émetteurs peuvent envoyer sur la même file d'attente mais un seul récepteur peut voir le message. On parle de communication N à 1. C'est le cas par exemple lorsqu'on utilise une imprimante. Attention, cela ne veut pas dire que seul un unique récepteur peut consulter le message, mais plutôt qu'un seul récepteur peut le consulter. Ainsi, si deux programmes se mettent en attente sur une même queue, le premier programme reçoit le premier message émis, le second progamme reçoit le second message. La structure queue peut également être utilisée vers un destinataire unique pour éviter que tous les récepteurs ayant souscrit à un topic aient la possibilité de consulter un message. C'est le cas par exemple d'une réponse vers un unique utilisateur lorsqu'on se trouve en mode topic. Il faut dans ce cas que l'émetteur initial dispose d'une queue, qu'il annonce dans son message initial en vue d'une réponse.</p>
+        <p> Dans la communication événementielle, l'objet intermédiaire utilise un sujet (topic). L'émetteur publie son message sur un topic. Les récepteurs s'inscrivent au topic pour recevoir les messages publiés sur ce topic. Plusieurs publishers peuvent envoyer des messages sur le même topic et plusieurs subscribers peuvent consulter les messages du topic. C'est le cas par exemple lors d'un fil de discussion dans un <em>chat</em>. Notons que si deux programmes se mettent en attente sur un même topic, les deux programmes reçoivent le message contrairement à une structure queue.</p>
 
     <h4>Exemple d'une communication Topic avec JMS 1.1 :</h4>
 
-        <p>Dans cet exemple le serveur envoie une chaîne de caractères à un client.</p>
+        <p>Dans cet exemple l'émetteur publie une chaîne de caractères sur l'objet intermédiaire de type topic. Un récepteur souscrit au topic pour lire la chaîne de caractères.</p>
 
-        <p>Partie commune au serveur et au client dans un bloc try-catch :</p>
+        <p>Partie commune à l'émetteur et au récepteur dans un bloc try-catch :</p>
 
         <pre><code class="language-javascript">// creation du contexte
 InitialContext ctx = new InitialContext();
@@ -1324,14 +1324,15 @@ Topic topic = (Topic) ctx.lookup("MyTopic");
 TopicConnectionFactory factory = (TopicConnectionFactory) ctx.lookup("MyConnectionFactory");
 // connexion au bus permettant le transport vers le MOM
 TopicConnection conn = factory.createTopicConnection();
+conn.start();
 // creation de session
 // false pour spécifier que les messages reçus seront traités en accord
 // avec le second paramètre Session.AUTO_ACKNOWLEDGE
 TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);</code></pre>
 
-        <p><em>Côté serveur :</em></p>
+        <p><em>Côté émetteur :</em></p>
 
-<pre><code class="language-javascript">public class Server {
+<pre><code class="language-javascript">public class Publisher {
 
     public static void main(String[] args) {
 		try {
@@ -1345,7 +1346,6 @@ TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);</c
 	    	pbr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 			// publication d'un message "hello world"
-            conn.start();
 	    	TextMessage mess = sess.createTextMessage("hello world");
 	    	// possibilité de changer ultérieurement avec message.setText("hello world");
 	    	pbr.publish(mess);
@@ -1358,9 +1358,9 @@ TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);</c
     }
 }</code></pre>
 
-    <p><em>Côté client :</em></p>
+    <p><em>Côté récepteur :</em></p>
 
-<pre><code class="language-javascript">public class Client {
+<pre><code class="language-javascript">public class Subscriber {
 
     public static void main(String[] args) {
 		try {
@@ -1370,7 +1370,6 @@ TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);</c
 	    	TopicSubscriber scr = sess.createSubscriber(topic);
 
 		    // lecture d'un message, receive est une fonction bloquante
-		    conn.start();
 	    	TextMessage mess = (TextMessage) scr.receive();
 	    	System.out.println("message lu : " + mess.getText());
 
@@ -1381,9 +1380,11 @@ TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);</c
     }
 }</code></pre>
 
+        <p>On peut rendre durable l'émetteur en remplaçant sess.createSubscriber(topic) par sess.createSubscriber(topic, nom_id). Il faudra ensuite terminer cette fonctionnalité avec sess.unsubscribe(nom_id)</p>
+
     <h4>Exemple d'une communication Queue avec JMS 1.1 :</h4>
 
-      <p>Dans cet exemple un client envoie une chaîne de caractères au serveur.</p>
+      <p>Dans cet exemple un émetteur envoie une chaîne de caractères à l'objet distant de type queue. Un récepteur consulte la chaîne de caractères.</p>
 
         <p>Partie commune au serveur et au client dans un bloc try-catch :</p>
 
@@ -1392,11 +1393,12 @@ TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);</c
 Queue queue = (Queue) ctx.lookup("MyQueue");
 QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("MyConnectionFactory");
 QueueConnection conn = factory.createQueueConnection();
+conn.start();
 QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</code></pre>
 
-        <p><em>Côté serveur :</em></p>
+        <p><em>Côté récepteur :</em></p>
 
-        <pre><code class="language-javascript">public class Serveur {
+        <pre><code class="language-javascript">public class Receiver {
 
     public static void main(String[] args) {
 		try {
@@ -1404,7 +1406,6 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
 
 	    	QueueReceiver rcv = sess.createReceiver(queue);
 
-	    	conn.start();
 	    	TextMessage mess = (TextMessage) rcv.receive();
 		    System.out.println("message reçu: " + mess.getText());
 
@@ -1415,9 +1416,9 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
     }
 }</code></pre>
 
-<p><em>Côté client</em></p>
+<p><em>Côté émetteur</em></p>
 
-    <pre><code class="language-javascript">public class Client {
+    <pre><code class="language-javascript">public class Emetteur {
 
     public static void main(String[] args) {
 		try {
@@ -1426,7 +1427,6 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
 	    	QueueSender sdr = sess.createSender(queue);
 	    	sdr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-            conn.start();
 	    	TextMessage mess = sess.createTextMessage("hello world");
 	   		sdr.send(mess);
 
@@ -1439,12 +1439,13 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
 
     <h4>Exemple d'un échange de mails Queue avec JMS 1.1 :</h4>
 
-        <p>Dans cet exemple, un serveur transmet un mail sous forme d'objet et reçoit une chaîne de caractères en réponse d'un client.</p>
+        <p>Dans cet exemple, un serveur envoie à l'objet intermédiaire un mail sous forme d'objet et consulte une chaîne de caractères envoyée en réponse par un client. L'échange peut se faire au sein d'une unique session dans laquelle le sender devient receiver.</p>
 
 <pre><code class="language-javascript">InitialContext ctx = new InitialContext();
 Queue queue = (Queue) ctx.lookup("MyQueue");
 QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("MyConnectionFactory");
 QueueConnection conn = factory.createQueueConnection();
+conn.start();
 QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</code></pre>
 
     <p><em>Côté serveur</em></p>
@@ -1461,12 +1462,11 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
 	    	sdr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 	    	QueueReceiver rcv = sess.createReceiver(queue);
 
-	    	// envoi d'un mail
+	    	// envoi d'un message
 	    	GregorianCalendar date = new GregorianCalendar(2016,11,24);
-	    	Mail mail = new Mail("moi", date, "Hello");
-	    	ObjectMessage mess = sess.createObjectMessage(mail);
-	    	conn.start();
-	    	sdr.send(mess);
+	    	Message mess = new Message("Nicolas", date, "hello");
+	    	ObjectMessage obj = sess.createObjectMessage(mess);
+	    	sdr.send(obj);
 
 	    	// attente que le destinataire reçoive le message
 	    	Thread.sleep( 5000 );
@@ -1494,14 +1494,13 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
             QueueSender pdc = sess.createSender(queue);
 	    	producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-	    	// lecture d'un mail
-	    	conn.start();
-	    	ObjectMessage mess = (ObjectMessage) rcv.receive();
-	    	Mail mail = (Mail) mess.getObject();
-	    	System.out.print("mail reçu : "+ letter.toString());
+	    	// lecture d'un message
+	    	ObjectMessage obj = (ObjectMessage) rcv.receive();
+	    	Message mess = (Message) obj.getObject();
+	    	System.out.print("mail reçu : "+ mess.toString());
 
 	    	// envoi d'un message reponse
-	    	TextMessage rep = sess.createTextMessage("Merci");
+	    	TextMessage rep = sess.createTextMessage("world");
 	    	pdc.send(rep);
 
 	    	conn.close();
@@ -1511,24 +1510,110 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
     }
 }</code></pre>
 
-    <p><em>et la classe Mail :</em></p>
+    <p><em>et la classe Message :</em></p>
 
         <p>La classe Mail doit être présente à la fois côté serveur et côté client. Comme l'objet doit être transmis, la classe Mail implémente l'interface Serializable.</p>
-    <pre><code class="language-javascript">public class Mail implements Serializable {
+    <pre><code class="language-javascript">public class Message implements Serializable {
     String emetteur;
     GregorianCalendar date;
-    String texte;
+    String contenu;
 
-    public Mail(String emetteur, GregorianCalendar date, String texte) {
+    public Message(String emetteur, GregorianCalendar date, String contenu) {
 	    this.emetteur = emetteur;
 	    this.date = date;
-	    this.texte = texte;
+	    this.contenu = contenu;
     }
 
     @Override
     public String toString() {
-        System.out.println("message de : " + emetteur + ", émis le : " + date.getTime() + ", contenu : " + texte );
+        System.out.println("message de : " + emetteur + ", émis le : " + date.getTime() + ", contenu : " + contenu );
     }
+}</code></pre>
+
+        <h4>Exemple de topic en JMS1.1 avec une réponse queue destinée uniquement au serveur :</h4>
+
+        <p>Dans cet exemple un serveur publie une chaîne de caractères sur un topic, et un client répond en envoyant une chaîne de caractères sur une queue, pour que seul le serveur puisse le consulter. Le serveur doit donc dans ce cas envoyer sur le topic un objet contenant la chaîne de caractères et la référence du queue à laquelle est connectée le serveur.</p>
+
+        <p><em>La classe Message :</em></p>
+
+        <pre><code class="language-javascript">public class Message{
+   Queue q;
+   String contenu;
+
+   public Message(Queue q, String contenu){
+       this.q = q;
+       this.contenu = contenu;
+   }
+}</code></pre>
+
+        <p><em>Côté serveur :</em></p>
+
+<pre><code class="language-javascript">public class Serveur{
+  public static void main(Strings[] args){
+    try{
+      InitialContext ctx = new InitialContext();
+      Topic topic = (Topic) ctx.lookup("MyTopic");
+      TopicConnectionFactory factory = (TopicConnectionFactory) ctx.lookup("MyConnectionFactoy");
+      TopicConnection connT = factory.createTopicConnection();
+      connT.start();
+      TopicSession sessT = connT.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
+
+      Queue queue = (Queue) ctx.lookup("MyQueue"):
+      QueueConnectionFactory queue = (QueueConnectionFactory) ctx.lookup("MyConnectionfactory");
+      QueueConnection connQ = queue.createQueueConnection();
+      connQ.start();
+      QueueSession sessQ = connQ.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+
+      TopicPublisher pbr = sessT.createPublisher(topic);
+      pbr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+      ObjectMessage obj = sessT.createObjectMessage(new Message(queue, "hello");
+      pbr.publish(mess);
+
+      QueueReceiver rcv = sessQ.createReceiver(queue);
+      TextMessage chaine = (TextMessage) rcv.receive();
+
+      connT.close();
+      connQ.close();
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+  }
+}</code></pre>
+
+
+        <p><em>Côté client concerné par la réponse, les autres clients n'ont pas connaissance du code queue:</em></p>
+
+        <pre><code class="language-javascript">public class Client{
+  public static void main(String[] args){
+     try{
+        InitialContext ctx = new InitialContext();
+        Topic topic = (Topic) ctx.lookup("MyTopic");
+        TopicConnectionFactory factory = (TopicConnectionFactory) ctx.lookup("MyConnectionFactoy");
+        TopicConnection connT = factory.createTopicConnection();
+        connT.start();
+        TopicSession sessT = connT.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
+
+        TopicSubscriber sbr = sess.createSubscriber(topic);
+        ObjectMessage obj = (ObjectMessage) sbr.receive();
+        Message message = (Message) obj.getObject();
+
+        Queue queue = (Queue) ctx.lookup(mess.q):
+        QueueConnectionFactory queue = (QueueConnectionFactory) ctx.lookup("MyConnectionfactory");
+        QueueConnection connQ = queue.createQueueConnection();
+        connQ.start();
+        QueueSession sessQ = connQ.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+
+        QueueSender sdr = sessQ.createSender(queue);
+        sdr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+        TextMessage mess = sessQ.createTextMessage("world");
+        sdr.send(mess);
+
+        connT.close();
+        connQ.close();
+     }catch (Exception e){
+      e.printStackTrace();
+    }
+  }
 }</code></pre>
 
     </div>
@@ -1734,13 +1819,13 @@ import javax.ws.rs.core.Response.*;
 
 @Path("/mescontacts") // donné comme référence dans l'uri, ne correspond pas forcément au nom du dossier courant
 public class ContactBookResource {
-    ContactDAO dao = new ContactDAO(); // DAO pour Data Access Object
+    ContactDAO tableContact = new ContactDAO();
 
     @GET
     // produit des fichiers JSON dans le cas général d'une requête, peut également produire du XML
     @Produces(MediaType.APPLICATION_JSON) // {  , MediaType.APPLICATION_XML})
     public Response  getListeContact() {
-        return Response.status(Response.Status.OK).entity(dao.getListeContact()).build();
+        return Response.status(Response.Status.OK).entity(tableContact.getListeContact()).build();
     }
 
     @GET
@@ -1748,7 +1833,7 @@ public class ContactBookResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getContact(@PathParam("id") int id) {
-        Contact c = dao.getContact(id);
+        Contact c = tableContact.getContact(id);
         if (c == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else {
@@ -1758,31 +1843,28 @@ public class ContactBookResource {
 
     @POST
     // on ajoute un contact sous forme JSON
-    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response setContact(@PathParam("id") int id, Contact c) {
-        Contact originalContact = dao.getContact(id);
+    public Response setContact(Contact c) {
+        Contact originalContact = tableContact.getContact(c.id);
         if (originalContact != null) {
             return Response.status(Response.Status.CONFLICT).build();
         } else {
-            dao.setContact(id, c);
+            tableContact.setContact(c.id, c);
             return Response.status(Response.Status.OK).entity(c).build();
         }
     }
 
     @PUT
     // le contact est modifie a partir de son id
-    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateContact(@PathParam("id") int id, Contact c) {
-        Contact originalContact = dao.getContact(id);
-
+    public Response updateContact(Contact c) {
+        Contact originalContact = tableContact.getContact(c.id);
         if (originalContact == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else {
-            dao.updateContact(id, c);
+            tableContact.updateContact(c.id, c);
             return Response.status(Status.OK).entity(c).build();
         }
     }
@@ -1792,12 +1874,11 @@ public class ContactBookResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteContact(@PathParam("id") int id) {
-        Contact originalContact = dao.getContact(id);
-
+        Contact originalContact = tableContact.getContact(id);
         if (originalContact == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else {
-            dao.deleteContact(id);
+            tableContact.deleteContact(id);
             return Response.status(Status.OK).entity(originalContact).build();
         }
     }
@@ -1808,35 +1889,35 @@ public class ContactBookResource {
 <pre><code class="language-javascript">import java.util.*;
 
 public class ContactDAO { // DAO pour Data Access Object
-    public HashMap&ltInteger, Contact&gt dico = new HashMap&ltInteger, Contact&gt();
+    public HashMap&ltInteger, Contact&gt tableContact = new HashMap&ltInteger, Contact&gt();
 
     public ContactDAO() {
-        Contact c1 = new Contact("user1", "user1@domaine.org");
-        Contact c2 = new Contact("user2", "user2@domaine.org");
+        Contact c1 = new Contact(0, "user1", "user1@domaine.org");
+        Contact c2 = new Contact(1, "user2", "user2@domaine.org");
 
-        dico.clear();
-        dico.put(0, c1);
-        dico.put(1, c2);
+        tableContact.clear();
+        tableContact.put(c1.id, c1);
+        tableContact.put(c2.id, c2);
     }
 
     public ArrayList&ltContact&gt getListeContact() {
-        return new ArrayList&ltContact&gt(dico.values());
+        return new ArrayList&ltContact&gt(tableContact.values());
     }
 
     public Contact getContact(int id) {
-        return dico.get(id);
+        return tableContact.get(id);
     }
 
-    public void setContact(int id, Contact contact) {
-        dico.put(id, contact);
+    public void setContact(Contact c) {
+        tableContact.put(c.id, c);
     }
 
-    public void updateContact(int id, Contact contact) {
-        dico.put(id, contact);
+    public void updateContact(Contact c) {
+        tableContact.put(c.id, c);
     }
 
     public void deleteContact(int id) {
-        dico.remove(id);
+        tableContact.remove(id);
     }
 }</code></pre>
 
