@@ -1086,7 +1086,7 @@ import java.net.*;</code></pre>
             // creation de l'objet distant
             HelloImpl objetDistant = new HelloImpl();
             // associe l'url de Hello a l'objet distant dans le registry, ce qui crée le skeleton
-            Naming.rebind("Hello", objetDistant);
+            Naming.rebind("DossierHello", objetDistant);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
@@ -1104,7 +1104,7 @@ import java.net.*;</code></pre>
             // args[0] represente l'url qui sera le 1er argument entre en ligne de commande
             // lors de l'exécution de java Client localhost:5555, donc ici localhost:5555
             // le fait de pointer vers l'adresse de l'interface Hello cree le stub
-            Hello obj = (Hello) Naming.lookup("//"+args[0]+"/Hello");
+            Hello obj = (Hello) Naming.lookup("//"+args[0]+"/DossierHello");
             obj.sayHello("Mike");
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -1184,7 +1184,7 @@ import java.net.*;</code></pre>
     public static void main(String[] args){
         try{
             BoiteImpl objDistant = new BoiteImpl();
-            Naming.rebind("Boite", objDistant);
+            Naming.rebind("DossierBoite", objDistant);
         }catch(RemoteException e){
             e.printStackTrace();
         }catch(MalformedURLException e){
@@ -1198,7 +1198,7 @@ import java.net.*;</code></pre>
 <pre><code class="language-javascript">public class Client {
     public static void main(String[] args){
         try{
-            Boite obj = (Boite)Naming.lookup("//"+args[0]+"/Boite");
+            Boite obj = (Boite)Naming.lookup("//"+args[0]+"/DossierBoite");
             obj.inscrire("Herv23", new ClientImpl());
             Message mess = new Message(113, "Mike", new GregorianCalendar(), "hello world");
             obj.envoyerMessage(mess);
@@ -1263,6 +1263,84 @@ import java.net.*;</code></pre>
 
         <fieldset><legend>ATTENTION</legend><p>Lors d'un appel distant les paramètres, les valeurs de retour et les exceptions sont transmis par copie et doivent donc être sérialisables. Or les types primitifs et les objets distants le sont par défaut. En revanche, les types créés ne sont pas sérialisables mais peuvent le devenir si les classes correspondantes implémentent l'interface Serializable.</p></fieldset>
 
+<h4>Activation d'objets distants</h4>
+
+        <p>L’activation permet d’éviter l’exposition permanente des objets distants de la classe UnicastRemoteObject. L’objectif est de créer automatiquement des objets RMI à la demande. Ce mécanisme nécessite une référence permanente.</p>
+
+        <h4>Exemple d'activation e transmission d'une chaîne de caractères par RMI :</h4>
+
+        <pre><code class="language-javascript">import java.rmi.*;
+import java rmi.activation.*;
+import java.util.*;</code></pre>
+
+        <p>On présente ici une procédure où le client affiche <em>Hello Mike</em> en utilisant la procédure <em>sayHello</em> présente sur le serveur.</p>
+
+        <p><em>Côté serveur :</em></p>
+
+        <pre><code class="language-javascript">public interface Hello extends Remote {
+    public void sayHello(String nom) throws RemoteException;
+}</code></pre>
+
+        <p>L'implémentation de l'interface se fait côté serveur et ne doit pas être présente côté client.</p>
+
+        <pre><code class="language-javascript">public class HelloImpl extends Activatable implements Hello {
+    public HelloImpl(ActivationID id, MarshalledObject param) throws RemoteException {
+        super(id, 0); // 0 pour un numéro de port anonyme
+    }
+    public void sayHello(String nom) throws RemoteException {
+        System.out.println("Hello "+nom);
+    }
+}</code></pre>
+
+        <p>Dans la classe principale côté serveur, il faut instancier l'implémentation.</p>
+
+        <pre><code class="language-javascript">public class ServeurHello {
+    public static void main(String[] args) {
+        try { // creation de l'objet distant activable
+            System.setSecurityManager(new RMISecurityManager();
+            Properties prop = new Properties();
+            prop.put("java.security.policy", "java.policy");
+            ActivationGroupDesc agd = new ActivationGroupDesc(prop.null);
+            ActivationGroupID agi = ActivationGroup.getSystem().registerGroup(agd);
+            ActivationDesc ad = new ActivationDesc(agi, "DossierHello.HelloImpl", arg[0], null);
+            Hello objetDistant = (Hello) Activatable.register(ad);
+
+            Naming.rebind("DossierHello", objetDistant);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+        <p>Il faut toutefois modifier la politique de sécurité afin de pouvoir créer le groupe d'activation. Le fichier de politique de sécurité est le suivante :</p>
+
+        <pre><code class="language-javascript">grant {
+    // nécessaire pour créer le groupe d'activation
+    permission java.net.SocketPermission "localhost:*","accept,resolve";
+};</code></pre>
+
+        <p><em>Côté client :</em></p>
+
+        <p>L'appel côté client d'une méthode d'un objet distant consiste à obtenir une référence sur l'objet distant puis à appeler la méthode à partir de cette référence.</p>
+        <pre><code class="language-javascript">public class ClientHello {
+    public static void main(String[] args) {
+        try {
+            // args[0] represente l'url qui sera le 1er argument entre en ligne de commande
+            // lors de l'exécution de java Client localhost:5555, donc ici localhost:5555
+            // le fait de pointer vers l'adresse de l'interface Hello cree le stub
+            Hello obj = (Hello) Naming.lookup("//"+args[0]+"/DossierHello");
+            obj.sayHello("Mike");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
 
 
     </div>
@@ -1437,9 +1515,9 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
     }
 }</code></pre>
 
-    <h4>Exemple d'un échange de mails Queue avec JMS 1.1 :</h4>
+    <h4>Exemple d'un échange de messages Queue avec JMS 1.1 :</h4>
 
-        <p>Dans cet exemple, un serveur envoie à l'objet intermédiaire un mail sous forme d'objet et consulte une chaîne de caractères envoyée en réponse par un client. L'échange peut se faire au sein d'une unique session dans laquelle le sender devient receiver.</p>
+        <p>Dans cet exemple, un serveur envoie à l'objet intermédiaire un message sous forme d'objet et consulte une chaîne de caractères envoyée en réponse par un client. L'échange se fait au sein d'une unique session dans laquelle l'émetteur devient récepteur.</p>
 
 <pre><code class="language-javascript">InitialContext ctx = new InitialContext();
 Queue queue = (Queue) ctx.lookup("MyQueue");
@@ -1530,7 +1608,7 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
     }
 }</code></pre>
 
-        <h4>Exemple de topic en JMS1.1 avec une réponse queue destinée uniquement au serveur :</h4>
+        <h4>Exemple de communication topic avec réponse ciblée en JMS1.1 :</h4>
 
         <p>Dans cet exemple un serveur publie une chaîne de caractères sur un topic, et un client répond en envoyant une chaîne de caractères sur une queue, pour que seul le serveur puisse le consulter. Le serveur doit donc dans ce cas envoyer sur le topic un objet contenant la chaîne de caractères et la référence du queue à laquelle est connectée le serveur.</p>
 
@@ -1736,7 +1814,7 @@ public class HelleWorldPublisher {
 
     <h4>REST REpresentational State Transfer</h4>
 
-    <p>REST utilise sur le protocole HTTP pour transférer les données qui sont identifiées par des URI Uniform Resource Identifier. Les requêtes du protocole HTTP sont composées d'une ligne de commande, d'une entête et d'un corps de message. Le format de stockage des données est principalement JSON JavaScript Object Notation, mais également XML.</p>
+    <p>REST utilise le protocole HTTP pour transférer les données qui sont identifiées par des URI Uniform Resource Identifier. Les requêtes du protocole HTTP sont composées d'une ligne de commande, d'une entête et d'un corps de message. Le format de stockage des données est principalement JSON JavaScript Object Notation, mais également XML.</p>
 
         <p>Les URI regroupent 2 sous-types d'identificateurs, les URN Uniform Resource Name et les URL Uniform Resource Locator. Les URL comprennent les chemins d'accès aux ressources accessibles. Par exemple http://domaine/chemin et mailto: adresseMail@gmail.com sont des URL. Les URN permettent de définir une identification unique et persistance pour une ressource. Par exemple l'adresse MAC d'une ordinateur, la référence ISBN:0-233-988897-2 d'un livre sont des URN.</p>
 
@@ -1817,7 +1895,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.*;
 
-@Path("/mescontacts") // donné comme référence dans l'uri, ne correspond pas forcément au nom du dossier courant
+@Path("/DossierContact") // donné comme référence dans l'uri, ne correspond pas forcément au nom du dossier courant
 public class ContactBookResource {
     ContactDAO tableContact = new ContactDAO();
 
@@ -1955,6 +2033,14 @@ public class JettyServer {
     }
 }</code></pre>
 
+        <p>Pour consulter les données sur le serveur, il faut donner les instructions suivantes au terminal côté client :</p>
+        <ul>
+            <li>pour consulter la table des contacts : server/rest/DossierContact</li>
+            <li>pour consulter le contact n°3 : server/rest/DossierContact/3</li>
+            <li>pour rajouter le contact n°5 composé de 5,nicolas,nico@gmail.com : server/rest/DossierContact/5/nicolas/nico@gmail.com</li>
+            <li>pour mettre à jour le contact n°5 : server/rest/DossierContact/5/nicolas/nn32@outlook.com</li>
+            <li>pour supprimer le contact n°3 : server/rest/DossierContact/3</li>
+        </ul>
 
     <p><em>Les principaux codes statut de réponse : </em></p>
         <ul>
