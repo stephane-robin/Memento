@@ -582,8 +582,8 @@ import java.net.*;</code></pre>
             DataOutputStream dos = new DataOutputStream(com.getOutputStream());
             dos.writeInt(1420);
 
-            // fermeture connexion
-            srv.close();
+            // fermeture communication
+            com.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -609,7 +609,7 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <h4>Exemple de transmission d'une chaîne de caractères par TCP :</h4>
+        <h4>Exemple d'un échange de chaînes de caractères par TCP :</h4>
 
         <p>Dans cet exemple, un client transmet "hello" à un serveur qui lui répond "world".</p>
 
@@ -650,7 +650,7 @@ import java.net.*;</code></pre>
             DataOutputStream dos = new DataOutputStream(clt.getOutputStream());
             dos.writeUTF("world");
 
-            srv.close();
+            com.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -662,6 +662,27 @@ import java.net.*;</code></pre>
         <img src="socketObjet.png">
 
         <p>Dans cet exemple, un client transmet un objet sous forme de message au serveur.</p>
+
+        <p><em>Côté client</em></p>
+
+        <pre><code class="language-javascript">public class ClientTCP {
+
+    public static void main(String[] args) {
+        try {
+            Socket clt = new Socket("nomHote", 5555);
+            // communication sortante, les data sont placees dans un objet transmis sous forme de Message
+            DataOutputStream dos = new DataOutputStream(clt.getOutputStream());
+            ObjectOutputStream oos = new ObjectOutputStream(dos);
+
+            Message mess = new Message("nicolas", new Date(), "hello world");
+            oos.writeObject(mess);
+
+            clt.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
 
         <p><em>Côté serveur</em> </p>
 
@@ -681,32 +702,9 @@ import java.net.*;</code></pre>
             System.out.println("Message reçu : " + mess.toString());
 
             com.close();
-            srv.close();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) { // doit apparaitre
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-
-        <p><em>Côté client</em></p>
-
-        <pre><code class="language-javascript">public class ClientTCP {
-
-    public static void main(String[] args) {
-        Message mess = new Message("steph",new Date(), "hello world");
-
-        try {
-            Socket clt = new Socket("nomHote", 5555);
-            // communication sortante, les data sont placees dans un objet transmis sous forme de Message
-            DataOutputStream dos = new DataOutputStream(clt.getOutputStream());
-            ObjectOutputStream  oos = new ObjectOutputStream(dos);
-
-            oos.writeObject(obj);
-
-            clt.close();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -720,7 +718,7 @@ import java.net.*;</code></pre>
     Date date;
     String contenu;
 
-    public Message(String name, GregorianCalendar date, String contenu){
+    public Message(String name, Date date, String contenu){
         this.name = name;
         this.date = date;
         this.contenu = contenu;
@@ -728,17 +726,37 @@ import java.net.*;</code></pre>
 
     @Override
     public String toString(){
-        return "message = [ " + name + " , " + date.getTime()+" , "+contenu +" ]";
+        return "message = [ " + name + " , " + date+" , "+contenu +" ]";
     }
 }</code></pre>
 
         <h4>Exemple de serveur connecté dynamiquement à plusieurs clients par TCP :</h4>
 
-        <p>Dans cet exemple, 10 clients transmettent une chaîne de caractère au serveur.</p>
+        <p>Dans cet exemple, 10 clients transmettent un objet de type Message au serveur.</p>
 
         <img src="socketDynamique.png">
 
         <p>Il faut créer autant de sockets de communications qu'il y a de clients. Mais le serveur ne traite qu'un seul client à la fois. Si ce traitement prend du temps, les autres clients peuvent être bloqués. Pour éviter ce problème, la gestion des connexions peut être pilotée par des threads. On peut utiliser une création dynamique de threads au fur et à mesure des besoins. Dans ce cas, il est problématique de créer une infinité de threads.</p>
+
+        <p><em>Côté client</em></p>
+
+        <pre><code class="language-javascript">public class ClientTCP {
+
+    public static void main(String[] args) {
+        try {
+            Socket clt = new Socket("nomServeur", 5555);
+            DataOutputStream dos = new DataOutputStream(clt.getOutputStream());
+            ObjectOutputStream oos = new ObjectOutputStream();
+
+            Message mess = new Message("tom", new Date(), "hello world");
+            oos.writeObject(mess);
+
+            clt.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
 
         <p><em>Côté serveur</em></p>
 
@@ -781,25 +799,6 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
     }
 }</code></pre>
 
-        <p><em>Côté client</em></p>
-
-        <pre><code class="language-javascript">public class ClientTCP {
-
-    public static void main(String[] args) {
-        try {
-            Socket clt = new Socket("nomServeur", 5555);
-            DataOutputStream dos = new DataOutputStream(clt.getOutputStream());
-            ObjectOutputStream oos = new ObjectOutputStream();
-
-            oos.writeObject(new Message("Nicolas", new Date(), "hello world"));
-
-            clt.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-
         <p><em>Présent des deux côtés :</em></p>
 
         <pre><code class="language-javascript">public class Message implements Serializable{
@@ -821,13 +820,33 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
 
         <h4>Exemple de serveur connecté par un pool de threads à plusieurs clients par TCP :</h4>
 
-        <p>Dans cet exemple, 10 clients transmettent une chaîne de caractère au serveur. Pour éviter la création d'une infinité de threads dynamiques, on peut utiliser un pool de threads qui arrêtent les sockets de communication lorsque le traitement est terminé pour se connecter aux sockets de communication restantes.</p>
+        <p>Dans cet exemple, 10 clients transmettent un objt de type Message au serveur. Pour éviter la création d'une infinité de threads dynamiques, on peut utiliser un pool de threads qui arrêtent les sockets de communication lorsque le traitement est terminé pour se connecter aux sockets de communication restantes.</p>
+
+        <img src="socketPool.png">
+
+        <p><em>Côté client</em></p>
+
+        <pre><code class="language-javascript">public class ClientTCP {
+
+    public static void main(String[] args) {
+        try {
+            Socket clt = new Socket("nomServeur", 5555);
+            DataOutputStream dos = new DataOutputStream(clt.getOutputStream());
+            ObjectOutputStream oos = new ObjectOutputStream();
+
+            Message mess = new Message("Nicolas", new Date(), "hello world");
+            oos.writeObject(mess);
+
+            clt.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
 
         <p><em>Côté serveur</em></p>
 
         <p>Le serveur commence par créer un ensemble de threads en attente de recevoir une demande de connexion. Lorsqu'un client demande une connexion, elle est prise en charge par un des threads.</p>
-
-        <img src="socketPool.png">
 
         <pre><code class="language-javascript">public class ServeurTCP {
     public static void main(String[] args) {
@@ -871,25 +890,6 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
     }
 }</code></pre>
 
-        <p><em>Côté client</em></p>
-
-        <pre><code class="language-javascript">public class ClientTCP {
-
-    public static void main(String[] args) {
-        try {
-            Socket clt = new Socket("nomServeur", 5555);
-            DataOutputStream dos = new DataOutputStream(clt.getOutputStream());
-            ObjectOutputStream oos = new ObjectOutputStream();
-
-            oos.writeObject(new Message("Nicolas", new Date, "hello world"));
-
-            clt.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-
         <p><em>Présent des deux côtés :</em></p>
 
         <pre><code class="language-javascript">public class Message implements Serializable{
@@ -921,27 +921,6 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
         <img src="datagram.png">
 
         <p>L'entier est transformé en tableau de bytes avant d'être envoyé. A la réception ce tableau de bytes est transformé en entier pour être exploité.</p>
-        <p><em>Côté récepteur</em> </p>
-
-        <pre><code class="language-javascript">public class RecepteurUDP {
-
-    public static void main(String[] args) {
-        try {
-            // creation de la socket de communication sur le port 5555 du serveur
-            DatagramSocket rcp = new DatagramSocket(5555);
-
-            // creation d'un buffer pour contenir le message a recevoir
-            byte[] buffer = new byte[256];
-            //reception du paquet
-            DatagramPacket paquet = new DatagramPacket(buffer, buffer.length);
-            rcp.receive(paquet);
-            // conversion du message reçu en byte[] vers un entier
-            System.out.println("Message reçu :  " + ByteBuffer.wrap(buffer).getInt());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
 
         <p><em>Côté émetteur</em> </p>
 
@@ -962,6 +941,28 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
             emt.send(paquet);
 
             emt.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+        <p><em>Côté récepteur</em> </p>
+
+        <pre><code class="language-javascript">public class RecepteurUDP {
+
+    public static void main(String[] args) {
+        try {
+            // creation de la socket de communication sur le port 5555 du serveur
+            DatagramSocket rcp = new DatagramSocket(5555);
+
+            // creation d'un buffer pour contenir le message a recevoir
+            byte[] buffer = new byte[256];
+            //reception du paquet
+            DatagramPacket paquet = new DatagramPacket(buffer, buffer.length);
+            rcp.receive(paquet);
+            // conversion du message reçu en byte[] vers un entier
+            System.out.println("Message reçu :  " + ByteBuffer.wrap(buffer).getInt());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -1085,7 +1086,7 @@ import java.net.*;</code></pre>
         try {
             // creation de l'objet distant
             HelloImpl objetDistant = new HelloImpl();
-            // associe l'url de Hello a l'objet distant dans le registry, ce qui crée le skeleton
+            // publication de objetDistant dans le serveur de noms, ce qui crée le skeleton
             Naming.rebind("DossierHello", objetDistant);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -1284,11 +1285,11 @@ import java.util.*;</code></pre>
         <p>L'implémentation de l'interface se fait côté serveur et ne doit pas être présente côté client.</p>
 
         <pre><code class="language-javascript">public class HelloImpl extends Activatable implements Hello {
-    public HelloImpl(ActivationID id, MarshalledObject param) throws RemoteException {
-        super(id, 0); // 0 pour un numéro de port anonyme
+    public HelloImpl(ActivationID id, MarshalledObject data) throws RemoteException {
+        super(id, 0);
     }
     public void sayHello(String nom) throws RemoteException {
-        System.out.println("Hello "+nom);
+        System.out.println("hello "+nom);
     }
 }</code></pre>
 
@@ -1300,8 +1301,9 @@ import java.util.*;</code></pre>
             System.setSecurityManager(new RMISecurityManager();
             Properties prop = new Properties();
             prop.put("java.security.policy", "java.policy");
-            ActivationGroupDesc agd = new ActivationGroupDesc(prop.null);
+            ActivationGroupDesc agd = new ActivationGroupDesc(prop, null);
             ActivationGroupID agi = ActivationGroup.getSystem().registerGroup(agd);
+            //MarshalledObject data = new MarshalledObject(new Donnees(" Boite Vio ", 2 0));
             ActivationDesc ad = new ActivationDesc(agi, "DossierHello.HelloImpl", arg[0], null);
             Hello objetDistant = (Hello) Activatable.register(ad);
 
@@ -1873,12 +1875,12 @@ MyInData fromJsonString = gson.froJson(jsonString, MyInData.class);</code></pre>
 @XmlRootElement  // les objets de type Contact doivent etre serialises en XML
 public class Contact {
     int id;
-    String name;
+    String nom;
     String email;
 
-    public Contact(int id, String name, String email) {
+    public Contact(int id, String nom, String email) {
         this.id = id;
-        this.name = name;
+        this.nom = nom;
         this.email = email;
     }
 
@@ -1897,13 +1899,13 @@ import javax.ws.rs.core.Response.*;
 
 @Path("/DossierContact") // donné comme référence dans l'uri, ne correspond pas forcément au nom du dossier courant
 public class ContactBookResource {
-    ContactDAO tableContact = new ContactDAO();
+    ContactDAO dao = new ContactDAO();
 
     @GET
     // produit des fichiers JSON dans le cas général d'une requête, peut également produire du XML
     @Produces(MediaType.APPLICATION_JSON) // {  , MediaType.APPLICATION_XML})
     public Response  getListeContact() {
-        return Response.status(Response.Status.OK).entity(tableContact.getListeContact()).build();
+        return Response.status(Response.Status.OK).entity(dao.getListeContact()).build();
     }
 
     @GET
@@ -1911,7 +1913,7 @@ public class ContactBookResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getContact(@PathParam("id") int id) {
-        Contact c = tableContact.getContact(id);
+        Contact c = dao.getContact(id);
         if (c == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else {
@@ -1924,25 +1926,27 @@ public class ContactBookResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response setContact(Contact c) {
-        Contact originalContact = tableContact.getContact(c.id);
+        Contact originalContact = dao.getContact(c.id);
         if (originalContact != null) {
             return Response.status(Response.Status.CONFLICT).build();
         } else {
-            tableContact.setContact(c.id, c);
+            dao.setContact(c);
             return Response.status(Response.Status.OK).entity(c).build();
         }
     }
 
     @PUT
     // le contact est modifie a partir de son id
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateContact(Contact c) {
-        Contact originalContact = tableContact.getContact(c.id);
+    public Response updateContact(@PathParam("id") int ident, Contact c) {
+        Contact originalContact = dao.getContact(c.ident);
         if (originalContact == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else {
-            tableContact.updateContact(c.id, c);
+            c.id = ident;
+            dao.updateContact(ident, c);
             return Response.status(Status.OK).entity(c).build();
         }
     }
@@ -1952,11 +1956,11 @@ public class ContactBookResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteContact(@PathParam("id") int id) {
-        Contact originalContact = tableContact.getContact(id);
+        Contact originalContact = dao.getContact(id);
         if (originalContact == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else {
-            tableContact.deleteContact(id);
+            dao.deleteContact(id);
             return Response.status(Status.OK).entity(originalContact).build();
         }
     }
@@ -1986,8 +1990,8 @@ public class ContactDAO { // DAO pour Data Access Object
         return tableContact.get(id);
     }
 
-    public void setContact(Contact c) {
-        tableContact.put(c.id, c);
+    public void setContact(int id) {
+        tableContact.put(id, c);
     }
 
     public void updateContact(Contact c) {
@@ -2033,13 +2037,18 @@ public class JettyServer {
     }
 }</code></pre>
 
-        <p>Pour consulter les données sur le serveur, il faut donner les instructions suivantes au terminal côté client :</p>
+        <p>Pour consulter les données sur le serveur, les URI pour interrogation des services sont les suivantes. On tient compte uniquement du format JSON, les instructions sont données au terminal côté client :</p>
         <ul>
-            <li>pour consulter la table des contacts : server/rest/DossierContact</li>
-            <li>pour consulter le contact n°3 : server/rest/DossierContact/3</li>
-            <li>pour rajouter le contact n°5 composé de 5,nicolas,nico@gmail.com : server/rest/DossierContact/5/nicolas/nico@gmail.com</li>
-            <li>pour mettre à jour le contact n°5 : server/rest/DossierContact/5/nicolas/nn32@outlook.com</li>
-            <li>pour supprimer le contact n°3 : server/rest/DossierContact/3</li>
+            <li>pour consulter la table des contacts : </br>
+                curl -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://&ltserver&gt/rest/dossiercontact</li>
+            <li>pour consulter le contact n°3 : </br>
+                curl -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://&ltserver&gt/rest/dossiercontact/3</li>
+            <li>pour rajouter le contact n°5 composé de 5,tom,tom@gmail.com : </br>
+                curl -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"id":5,"nom":"tom","email":"tom@gmail.com"}' http://&ltserver&gt/rest/dossiercontact</li>
+            <li>pour mettre à jour le contact n°5 : </br>
+                curl -H "Accept: application/json" -H "Content-Type: application/json" -X PUT -d '{"id":5,"nom":"tom","email":"tom12@gmail.com"}' http://&ltserver&gt/rest/dossiercontact/5</li>
+            <li>pour supprimer le contact n°3 : </br>
+                curl -H "Accept: application/json" -H "Content-Type: application/json" -X DELETE http://&ltserver&gt/rest/dossiercontact/3</li>
         </ul>
 
     <p><em>Les principaux codes statut de réponse : </em></p>
