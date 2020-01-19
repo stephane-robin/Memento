@@ -1250,7 +1250,7 @@ import java.net.*;</code></pre>
     public static void main(String[] args){
         try{
             Boite obj = (Boite)Naming.lookup("//"+args[0]+"/DossierBoite");
-            obj.inscrire("bob", new ClientImpl());
+            obj.inscrire("bob", new NotificationImpl());
             Message mess = new Message(113, "Mike", new Date(), "hello");
             obj.envoyerMessage(mess);
             System.out.println("message : "+obj.getMessage(113).toString());
@@ -1314,7 +1314,7 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <pre><code class="language-javascript">public class Contact implements Serializable{
+        <pre><code class="language-javascript">public class Contact{
     int id;
     String nom;
     Notification obj;
