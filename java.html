@@ -659,8 +659,6 @@ import java.net.*;</code></pre>
 
         <h4>Exemple de transmission d'un objet par TCP :</h4>
 
-        <img src="socketObjet.png">
-
         <p>Dans cet exemple, un client transmet un objet sous forme de message au serveur.</p>
 
         <p><em>Côté client</em></p>
@@ -733,8 +731,6 @@ import java.net.*;</code></pre>
         <h4>Exemple de serveur connecté dynamiquement à plusieurs clients par TCP :</h4>
 
         <p>Dans cet exemple, 10 clients transmettent un objet de type Message au serveur.</p>
-
-        <img src="socketDynamique.png">
 
         <p>Il faut créer autant de sockets de communications qu'il y a de clients. Mais le serveur ne traite qu'un seul client à la fois. Si ce traitement prend du temps, les autres clients peuvent être bloqués. Pour éviter ce problème, la gestion des connexions peut être pilotée par des threads. On peut utiliser une création dynamique de threads au fur et à mesure des besoins. Dans ce cas, il est problématique de créer une infinité de threads.</p>
 
@@ -821,8 +817,6 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
         <h4>Exemple de serveur connecté par un pool de threads à plusieurs clients par TCP :</h4>
 
         <p>Dans cet exemple, 10 clients transmettent un objt de type Message au serveur. Pour éviter la création d'une infinité de threads dynamiques, on peut utiliser un pool de threads qui arrêtent les sockets de communication lorsque le traitement est terminé pour se connecter aux sockets de communication restantes.</p>
-
-        <img src="socketPool.png">
 
         <p><em>Côté client</em></p>
 
@@ -1056,17 +1050,17 @@ import java.net.*;</code></pre>
 
         <p>Le serveur implémente un objet distant qui est publié dans un serveur de noms (<em>registry</em>), i.e. qu'il est associé à un nom à partir duquel les applications clientes pourront récupérer un talon de cet objet. Pour ce faire, Java crée automatiquement sur le serveur une représentation distante appelée <em>skeleton</em> et sur le client une représentation locale appelée <em>stub</em>, qui sont transparentes pour le programmeur car elles n'apparaissent pas dans les différentes classes. Le client utilise alors ce <em>stub</em> comme si l'objet distant était local.</p>
 
-        <h4>Exemple de transmission d'une chaîne de caractères par RMI :</h4>
-
-        <p>On présente ici une procédure où le client affiche <em>Hello Mike</em> en utilisant la procédure <em>sayHello</em> présente sur le serveur.</p>
-
         <img src="rmi.png">
 
-    <p><em>Côté serveur :</em></p>
+        <h4>Exemple d'utilisation d'une méthode distante côté serveur :</h4>
+
+        <p>On présente ici un exemple où le client appelle une procédure sayHello présente côté serveur pour afficher <em>Hello bob</em> côté serveur.</p>
 
         <pre><code class="language-javascript">public interface Hello extends Remote {
     public void sayHello(String nom) throws RemoteException;
 }</code></pre>
+
+    <p><em>Côté serveur :</em></p>
 
     <p>L'implémentation de l'interface se fait côté serveur et ne doit pas être présente côté client.</p>
 
@@ -1087,7 +1081,7 @@ import java.net.*;</code></pre>
             // creation de l'objet distant
             HelloImpl objetDistant = new HelloImpl();
             // publication de objetDistant dans le serveur de noms, ce qui crée le skeleton
-            Naming.rebind("DossierHello", objetDistant);
+            Naming.rebind("repertoirehello", objetDistant);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
@@ -1105,8 +1099,8 @@ import java.net.*;</code></pre>
             // args[0] represente l'url qui sera le 1er argument entre en ligne de commande
             // lors de l'exécution de java Client localhost:5555, donc ici localhost:5555
             // le fait de pointer vers l'adresse de l'interface Hello cree le stub
-            Hello obj = (Hello) Naming.lookup("//"+args[0]+"/DossierHello");
-            obj.sayHello("Mike");
+            Hello obj = (Hello) Naming.lookup("//"+args[0]+"/repertoirehello");
+            obj.sayHello("bob");
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (NotBoundException e) {
@@ -1137,16 +1131,68 @@ import java.net.*;</code></pre>
     permission java.security.AllPermission;
 }</code></pre>
 
-<h4>Exemple d'une boite de messagerie par RMI :</h4>
+        <h4>Exemple d'utilisation d'une méthode distante côté client :</h4>
+
+        <p>On présente un exemple où le client appelle une procédure sayHello présente côté serveur pour afficher <em>Hello bob</em> côté client.</p>
+
+        <pre><code class="language-javascript">public interface Hello extends Remote {
+    public String sayHello(String nom) throws RemoteException;
+}</code></pre>
+
+        <p><em>Côté serveur :</em></p>
+
+        <pre><code class="language-javascript">public class HelloImpl extends UnicastRemoteObject implements Hello {
+    public HelloImpl() throws RemoteException {
+        super();
+    }
+    public String sayHello(String nom) throws RemoteException {
+        return "Hello "+nom;
+    }
+}</code></pre>
+
+        <pre><code class="language-javascript">public class ServeurHello {
+    public static void main(String[] args) {
+        try {
+            // creation de l'objet distant
+            HelloImpl objetDistant = new HelloImpl();
+            // publication de objetDistant dans le serveur de noms, ce qui crée le skeleton
+            Naming.rebind("repertoirehello", objetDistant);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+        <p><em>Côté client :</em></p>
+
+         <pre><code class="language-javascript">public class ClientHello {
+    public static void main(String[] args) {
+        try {
+            // args[0] represente l'url qui sera le 1er argument entre en ligne de commande
+            // lors de l'exécution de java Client localhost:5555, donc ici localhost:5555
+            // le fait de pointer vers l'adresse de l'interface Hello cree le stub
+            Hello obj = (Hello) Naming.lookup("//"+args[0]+"/repertoirehello");
+            System.out.print(obj.sayHello("bob"));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+
+        <h4>Exemple d'une boite de messagerie par RMI :</h4>
 
         <p>Dans cet exemple, le client peut s'inscrire à un service de messagerie, envoyer un message composé d'un identifiant, du nom d'utilisateur, la date et le contenu, consulter le dernier message d'un client par son nom d'utilisateur. Pour cela, on écrase les messages d'un utilisateur au fur et à mesure de leur envoi. Le serveur annonce à tous les clients lorsqu'un utilisateur s'inscrit.</p>
-
-        <img src="rmiObjet.png">
 
 <p><em>L'interface :</em></p>
 
 <pre><code class="language-javascript">public interface Boite extends Remote{
-    public void inscrire(String user, IClientBoite obj) throws RemoteException;
+    public void inscrire(String user, Notification) throws RemoteException;
     public void envoyerMessage(Message message) throws RemoteException;
     public Message getMessage(int id) throws RemoteException;
 }</code></pre>
@@ -1155,28 +1201,32 @@ import java.net.*;</code></pre>
 
         <p>l'implémentation :</p>
 <pre><code class="language-javascript">public class BoiteImpl extends UnicastRemoteObject implements Boite{
-    HashMap&ltString,IClientBoite&gt tableClient = new HashMap&ltString,IClientBoite&gt();
-    HashMap&ltString, Message&gt tableMessage = new HashMap&ltString, Message&gt();
+    HashMap&ltInteger,Contact&gt tableContact = new HashMap&ltInteger,Contact&gt();
+    int nbContact;
+    HashMap&ltInteger, Message&gt tableMessage = new HashMap&ltInteger, Message&gt();
 
     public BoiteImpl() throws RemoteException{
         super();
+        nbContact = 0;
     }
 
     @Override
-    public void inscrire(String user, Notification obj) throws RemoteException{
-        tableClient.put(user, obj);
+    public void inscrire(String nom, Notification obj) throws RemoteException{
+        nbContact += 1;
+        Contact c = new Contact(nbContact, nom, obj);
+        tableContact.put(nbContact, c);
 
-        Set ensemble = tableClient.keySet();
+        Set ensemble = tableContact.keySet();
         for(Object clef : ensemble){
-            tableClients.get(clef).informerInscription(user);
+            tableContact.get(clef).obj.informerInscription(c.nom);
     }
 
-    public void envoyerMessage(Message message) throws RemoteException{
-        tableMessage.put(message.user, message);
+    public void envoyerMessage(int idClient, Message message) throws RemoteException{
+        tableMessage.put(idClient, message);
     }
 
-    public Message getMessage(String user) throws RemoteException {
-        return tableMessage.get(user);
+    public Message getMessage(int idClient) throws RemoteException {
+        return tableMessage.get(idClient);
     }
 }</code></pre>
 
@@ -1200,10 +1250,10 @@ import java.net.*;</code></pre>
     public static void main(String[] args){
         try{
             Boite obj = (Boite)Naming.lookup("//"+args[0]+"/DossierBoite");
-            obj.inscrire("Herv23", new ClientImpl());
-            Message mess = new Message(113, "Mike", new GregorianCalendar(), "hello world");
+            obj.inscrire("bob", new ClientImpl());
+            Message mess = new Message(113, "Mike", new Date(), "hello");
             obj.envoyerMessage(mess);
-            System.out.println("Dernier message : "+obj.getMessage(113).toString());
+            System.out.println("message : "+obj.getMessage(113).toString());
         }catch(RemoteException e){
             e.printStackTrace();
         }catch(NotBoundException e){
@@ -1217,7 +1267,7 @@ import java.net.*;</code></pre>
         <p>L'interface côté client pour que le serveur envoie un message à tous les clients leur indiquant la connexion d'un client :</p>
 
         <pre><code class="language-javascript">public interface Notification extends Remote{
-    public void informerInscription(String user) throws RemoteException;
+    public void informerInscription(String nom) throws RemoteException;
 }</code></pre>
 
         <p>l'implémentation côté client :</p>
@@ -1228,8 +1278,8 @@ import java.net.*;</code></pre>
     }
 
     @Override
-    public void informerInscription(String user) throws RemoteException{
-        System.out.println(user+" vient de se connecter");
+    public void informerInscription(String nom) throws RemoteException{
+        System.out.println(nom+" vient de se connecter");
     }
 }</code></pre>
 
@@ -1246,19 +1296,33 @@ import java.net.*;</code></pre>
 
         <p>La classe Message :</p>
         <pre><code class="language-javascript">public class Message implements Serializable{
+    int id;
     String nom;
-    GregorianCalendar date;
+    Date date;
     String contenu;
 
-    public Message(int id, String nom, GregorianCalendar date, String contenu) {
+    public Message(int id, String nom, Date date, String contenu) {
+        this.id = id;
         this.nom = nom;
-        this.date = date.getTime();
+        this.date = date;
         this.contenu = contenu;
     }
 
     @Override
     public String toString(){
         return "Le "+date+" "+nom+" a écrit : "+contenu;
+    }
+}</code></pre>
+
+        <pre><code class="language-javascript">public class Contact implements Serializable{
+    int id;
+    String nom;
+    Notification obj;
+
+    public Contact(int id, String nom, Notification obj){
+        this.id = id;
+        this.nom = nom;
+        this.obj = obj;
     }
 }</code></pre>
 
@@ -1392,43 +1456,38 @@ import javax.jms.*;</code></pre>
 
     <h4>Exemple d'une communication Topic avec JMS 1.1 :</h4>
 
-        <p>Dans cet exemple l'émetteur publie une chaîne de caractères sur l'objet intermédiaire de type topic. Un récepteur souscrit au topic pour lire la chaîne de caractères.</p>
-
-        <p>Partie commune à l'émetteur et au récepteur dans un bloc try-catch :</p>
-
-        <pre><code class="language-javascript">// creation du contexte
-InitialContext ctx = new InitialContext();
-// creation et acces au topic
-Topic topic = (Topic) ctx.lookup("MyTopic");
-// connexion au provider, creation de l'objet intermediaire
-TopicConnectionFactory factory = (TopicConnectionFactory) ctx.lookup("MyConnectionFactory");
-// connexion au bus permettant le transport vers le MOM
-TopicConnection conn = factory.createTopicConnection();
-conn.start();
-// creation de session
-// false pour spécifier que les messages reçus seront traités en accord
-// avec le second paramètre Session.AUTO_ACKNOWLEDGE
-TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);</code></pre>
+        <p>Dans cet exemple l'émetteur publie une chaîne de caractères sur l'objet intermédiaire utilisant la structure topic. Un récepteur souscrit au topic pour lire la chaîne de caractères.</p>
 
         <p><em>Côté émetteur :</em></p>
 
 <pre><code class="language-javascript">public class Publisher {
-
     public static void main(String[] args) {
 		try {
 			// Le detail des proprietes (url, port, ...) se trouve dans jndi.properties.
-            // La creation de props n'est nécessaire que côté serveur
-	    	Properties props = new Properties();
-            // partie commune
+            // La creation de prop n'est nécessaire que côté serveur
+	    	Properties prop = new Properties();
+            // creation du contexte
+            InitialContext ctx = new InitialContext();
+            // creation et acces au topic
+            Topic topic = (Topic) ctx.lookup("MyTopic");
+            // connexion au provider, creation de l'objet intermediaire
+            TopicConnectionFactory factory = (TopicConnectionFactory) ctx.lookup("MyConnectionFactory");
+            // connexion au bus permettant le transport vers le MOM
+            TopicConnection conn = factory.createTopicConnection();
+            conn.start();
+            // creation de session
+            // false pour spécifier que les messages reçus seront traités en accord
+            // avec le second paramètre Session.AUTO_ACKNOWLEDGE
+            TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 
 		    // creation d'un objet emetteur
 	   		TopicPublisher pbr = sess.createPublisher(topic);
 	    	pbr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 			// publication d'un message "hello world"
-	    	TextMessage mess = sess.createTextMessage("hello world");
+	    	TextMessage tmess = sess.createTextMessage("hello world");
 	    	// possibilité de changer ultérieurement avec message.setText("hello world");
-	    	pbr.publish(mess);
+	    	pbr.publish(tmess);
 
 	    	// fermeture de connexion
 	    	conn.close();
@@ -1444,14 +1503,19 @@ TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);</c
 
     public static void main(String[] args) {
 		try {
-            // partie commune
+            InitialContext ctx = new InitialContext();
+            Topic topic = (Topic) ctx.lookup("MyTopic");
+            TopicConnectionFactory factory = (TopicConnectionFactory) ctx.lookup("MyConnectionFactory");
+            TopicConnection conn = factory.createTopicConnection();
+            conn.start();
+            TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 
 	    	// creation d'un objet destinataire
 	    	TopicSubscriber scr = sess.createSubscriber(topic);
 
 		    // lecture d'un message, receive est une fonction bloquante
-	    	TextMessage mess = (TextMessage) scr.receive();
-	    	System.out.println("message lu : " + mess.getText());
+	    	TextMessage tmess = (TextMessage) scr.receive();
+	    	System.out.println("message lu : " + tmess.getText());
 
 		    conn.close();
 		} catch( Exception e ) {
@@ -1460,55 +1524,32 @@ TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);</c
     }
 }</code></pre>
 
-        <p>On peut rendre durable l'émetteur en remplaçant sess.createSubscriber(topic) par sess.createSubscriber(topic, nom_id). Il faudra ensuite terminer cette fonctionnalité avec sess.unsubscribe(nom_id)</p>
+        <p>La méthode receive() est bloquante. On peut rendre durable le récepteur en remplaçant sess.createSubscriber(topic) par sess.createDurableSubscriber(topic, nom_id). Il faudra ensuite terminer cette fonctionnalité avec sess.unsubscribe(nom_id)</p>
 
     <h4>Exemple d'une communication Queue avec JMS 1.1 :</h4>
 
-      <p>Dans cet exemple un émetteur envoie une chaîne de caractères à l'objet distant de type queue. Un récepteur consulte la chaîne de caractères.</p>
+      <p>Dans cet exemple un émetteur envoie un objet de type Message à l'objet intermédiaire utilisant la structure queue. Un récepteur consulte la chaîne de caractères.</p>
 
-        <p>Partie commune au serveur et au client dans un bloc try-catch :</p>
+        <p><em>Côté émetteur</em></p>
 
-        <pre><code class="language-javascript">InitialContext ctx = new InitialContext();
-// creation et acces a la file d'attente
-Queue queue = (Queue) ctx.lookup("MyQueue");
-QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("MyConnectionFactory");
-QueueConnection conn = factory.createQueueConnection();
-conn.start();
-QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</code></pre>
-
-        <p><em>Côté récepteur :</em></p>
-
-        <pre><code class="language-javascript">public class Receiver {
+        <pre><code class="language-javascript">public class Emetteur {
 
     public static void main(String[] args) {
 		try {
-	    	// partie commune
-
-	    	QueueReceiver rcv = sess.createReceiver(queue);
-
-	    	TextMessage mess = (TextMessage) rcv.receive();
-		    System.out.println("message reçu: " + mess.getText());
-
-	    	conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    }
-}</code></pre>
-
-<p><em>Côté émetteur</em></p>
-
-    <pre><code class="language-javascript">public class Emetteur {
-
-    public static void main(String[] args) {
-		try {
-	    	// partie commune
+	    	InitialContext ctx = new InitialContext();
+            // creation et acces a la file d'attente
+            Queue queue = (Queue) ctx.lookup("MyQueue");
+            QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("MyConnectionFactory");
+            QueueConnection conn = factory.createQueueConnection();
+            conn.start();
+            QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
 
 	    	QueueSender sdr = sess.createSender(queue);
 	    	sdr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-	    	TextMessage mess = sess.createTextMessage("hello world");
-	   		sdr.send(mess);
+	    	Message mess = new Message("bob", new Date(), "hello world");
+            ObjectMessage obj = sess.createObjectMessage(mess);
+	   		sdr.send(obj);
 
 	   		conn.close();
 		} catch( Exception e ) {
@@ -1517,43 +1558,82 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
     }
 }</code></pre>
 
-    <h4>Exemple d'un échange de messages Queue avec JMS 1.1 :</h4>
+        <p><em>Côté récepteur :</em></p>
 
-        <p>Dans cet exemple, un serveur envoie à l'objet intermédiaire un message sous forme d'objet et consulte une chaîne de caractères envoyée en réponse par un client. L'échange se fait au sein d'une unique session dans laquelle l'émetteur devient récepteur.</p>
+        <pre><code class="language-javascript">public class Receiver {
 
-<pre><code class="language-javascript">InitialContext ctx = new InitialContext();
-Queue queue = (Queue) ctx.lookup("MyQueue");
-QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("MyConnectionFactory");
-QueueConnection conn = factory.createQueueConnection();
-conn.start();
-QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</code></pre>
+    public static void main(String[] args) {
+		try {
+            Properties prop = new Properties();
+	    	InitialContext ctx = new InitialContext();
+            Queue queue = (Queue) ctx.lookup("MyQueue");
+            QueueConnectionFactory factory = (QueueConnectionFactory) ctx.lookup("MyConnectionFactory");
+            QueueConnection conn = factory.createQueueConnection();
+            conn.start();
+            QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+
+	    	QueueReceiver rcv = sess.createReceiver(queue);
+
+	    	ObjectMessage obj = (ObjectMessage) rcv.receive();
+            Message mess = (Message) obj.getObject();
+		    System.out.println("message reçu: " + mess.toString());
+
+	    	conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+}</code></pre>
+
+        <p>La classe Message doit être présente à la fois côté serveur et côté client. Comme l'objet doit être transmis, la classe Message implémente l'interface Serializable.</p>
+
+        <pre><code class="language-javascript">public class Message implements Serializable{
+    String nom;
+    Date date;
+    String contenu;
+
+    public Message(String nom, Date date, String contenu){
+        this.nom = nom;
+        this.date = date;
+        this.contenu = contenu;
+    }
+
+    @Override
+    public String toString(){
+        System.out,print("nom: "+nom+",date: "+date+", contenu: "+contenu);
+    }
+}</code></pre>
+
+    <h4>Exemple d'un échange sur un Topic avec JMS 1.1 :</h4>
+
+        <p>Dans cet exemple, un serveur publie sur l'objet intermédiaire une chaîne de caractères et consulte une chaîne de caractères publiée en réponse par un client. L'échange se fait au sein d'une unique session.</p>
 
     <p><em>Côté serveur</em></p>
 
-        <img src="JMSObjet.png">
-
     <pre><code class="language-javascript">public class Serveur {
-
 	public static void main(String[] args) {
 		try {
-	    	// partie commune
+            Properties prop = new Properties();
+	    	InitialContext ctx = new InitialContext();
+            Topic topic = (Topic) ctx.lookup("MyTopic");
+            TopicConnectionFactory factory = (TopicConnectionFactory) ctx.lookup("MyConnectionFactory");
+            TopicConnection conn = factory.createTopicConnection();
+            conn.start();
+            TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 
-	    	QueueSender sdr = sess.createSender(queue);
-	    	sdr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-	    	QueueReceiver rcv = sess.createReceiver(queue);
-
-	    	// envoi d'un message
-	    	GregorianCalendar date = new GregorianCalendar(2016,11,24);
-	    	Message mess = new Message("Nicolas", date, "hello");
-	    	ObjectMessage obj = sess.createObjectMessage(mess);
-	    	sdr.send(obj);
+            // envoi d'un message
+	    	TopicPublisher pbr = sess.createPublisher(topic);
+	    	pbr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+            TextMessage tmess = sess.createTextMessage("hello");
+	    	pbr.publish(tmess);
 
 	    	// attente que le destinataire reçoive le message
 	    	Thread.sleep( 5000 );
 
 	    	// reception d'un message reponse
-	    	TextMessage rep = (TextMessage) rcv.receive();
-	    	System.out.println("received: " + rep.getText());
+            TopicSubscriber sbr = sess.createSubscriber(topic);
+	    	TextMessage treponse = (TextMessage) sbr.receive();
+	    	System.out.println(treponse.getText());
 
 	    	conn.close();
 		} catch ( Exception e ) {
@@ -1568,20 +1648,23 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
 
     public static void main(String[] args) {
 		try {
-	    	// partie commune
-
-	    	QueueReceiver rcv = sess.createReceiver(queue);
-            QueueSender pdc = sess.createSender(queue);
-	    	producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+	    	InitialContext ctx = new InitialContext();
+            Topic topic = (Topic) ctx.lookup("MyTopic");
+            TopicConnectionFactory factory = (TopicConnectionFactory) ctx.lookup("MyConnectionFactory");
+            TopicConnection conn = factory.createTopicConnection();
+            conn.start();
+            TopicSession sess = conn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 
 	    	// lecture d'un message
-	    	ObjectMessage obj = (ObjectMessage) rcv.receive();
-	    	Message mess = (Message) obj.getObject();
-	    	System.out.print("mail reçu : "+ mess.toString());
+	    	TopicSubscriber sbr = sess.createSubscriber(topic);
+            TextMessage tmess = (TextMessage) sbr.receive();
+	    	System.out.print(tmess.getText());
 
 	    	// envoi d'un message reponse
-	    	TextMessage rep = sess.createTextMessage("world");
-	    	pdc.send(rep);
+            TopicPublisher pbr = sess.createPublisher(topic);
+	    	pbr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+	    	TextMessage treponse = sess.createTextMessage("world");
+	    	pbr.send(treponse);
 
 	    	conn.close();
 		} catch (Exception e) {
@@ -1590,47 +1673,16 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
     }
 }</code></pre>
 
-    <p><em>et la classe Message :</em></p>
-
-        <p>La classe Mail doit être présente à la fois côté serveur et côté client. Comme l'objet doit être transmis, la classe Mail implémente l'interface Serializable.</p>
-    <pre><code class="language-javascript">public class Message implements Serializable {
-    String emetteur;
-    GregorianCalendar date;
-    String contenu;
-
-    public Message(String emetteur, GregorianCalendar date, String contenu) {
-	    this.emetteur = emetteur;
-	    this.date = date;
-	    this.contenu = contenu;
-    }
-
-    @Override
-    public String toString() {
-        System.out.println("message de : " + emetteur + ", émis le : " + date.getTime() + ", contenu : " + contenu );
-    }
-}</code></pre>
-
         <h4>Exemple de communication topic avec réponse ciblée en JMS1.1 :</h4>
 
         <p>Dans cet exemple un serveur publie une chaîne de caractères sur un topic, et un client répond en envoyant une chaîne de caractères sur une queue, pour que seul le serveur puisse le consulter. Le serveur doit donc dans ce cas envoyer sur le topic un objet contenant la chaîne de caractères et la référence du queue à laquelle est connectée le serveur.</p>
-
-        <p><em>La classe Message :</em></p>
-
-        <pre><code class="language-javascript">public class Message{
-   Queue q;
-   String contenu;
-
-   public Message(Queue q, String contenu){
-       this.q = q;
-       this.contenu = contenu;
-   }
-}</code></pre>
 
         <p><em>Côté serveur :</em></p>
 
 <pre><code class="language-javascript">public class Serveur{
   public static void main(Strings[] args){
     try{
+      Properties prop = new Properties();
       InitialContext ctx = new InitialContext();
       Topic topic = (Topic) ctx.lookup("MyTopic");
       TopicConnectionFactory factory = (TopicConnectionFactory) ctx.lookup("MyConnectionFactoy");
@@ -1638,19 +1690,19 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
       connT.start();
       TopicSession sessT = connT.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 
+      TopicPublisher pbr = sessT.createPublisher(topic);
+      pbr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+      TextMessage tmess = sess.createTextMessage("hello");
+      pbr.publish(tmess);
+
       Queue queue = (Queue) ctx.lookup("MyQueue"):
       QueueConnectionFactory queue = (QueueConnectionFactory) ctx.lookup("MyConnectionfactory");
       QueueConnection connQ = queue.createQueueConnection();
       connQ.start();
       QueueSession sessQ = connQ.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
 
-      TopicPublisher pbr = sessT.createPublisher(topic);
-      pbr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-      ObjectMessage obj = sessT.createObjectMessage(new Message(queue, "hello");
-      pbr.publish(mess);
-
       QueueReceiver rcv = sessQ.createReceiver(queue);
-      TextMessage chaine = (TextMessage) rcv.receive();
+      TextMessage tmess = (TextMessage) rcv.receive();
 
       connT.close();
       connQ.close();
@@ -1659,7 +1711,6 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
     }
   }
 }</code></pre>
-
 
         <p><em>Côté client concerné par la réponse, les autres clients n'ont pas connaissance du code queue:</em></p>
 
@@ -1674,10 +1725,9 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
         TopicSession sessT = connT.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
 
         TopicSubscriber sbr = sess.createSubscriber(topic);
-        ObjectMessage obj = (ObjectMessage) sbr.receive();
-        Message message = (Message) obj.getObject();
+        TextMessage tmess = (TextMessage) sbr.receive();
 
-        Queue queue = (Queue) ctx.lookup(mess.q):
+        Queue queue = (Queue) ctx.lookup("MyQueue"):
         QueueConnectionFactory queue = (QueueConnectionFactory) ctx.lookup("MyConnectionfactory");
         QueueConnection connQ = queue.createQueueConnection();
         connQ.start();
@@ -1685,8 +1735,8 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
 
         QueueSender sdr = sessQ.createSender(queue);
         sdr.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-        TextMessage mess = sessQ.createTextMessage("world");
-        sdr.send(mess);
+        TextMessage tmess = sessQ.createTextMessage("world");
+        sdr.send(tmess);
 
         connT.close();
         connQ.close();
@@ -1694,6 +1744,21 @@ QueueSession sess = conn.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);</c
       e.printStackTrace();
     }
   }
+}</code></pre>
+
+        <p>Il est possible de créer un Listener chez le serveur, qui attend un message pour suivre des instructions.</p>
+
+        <pre><code class="language-javascript">AlertListener al = new AlertListener();
+pbr.setMessageListener(al);</code></pre>
+
+        <pre><code class="language-javascript">public class AlertListener implements MessageListener{
+    public void onMessage(Message mess){
+        try{
+            System.out.print("Alerte:"+(TextMessage)mess.getText());
+        catch(JMSException e){
+            e.printStackTrace();
+        }
+    }
 }</code></pre>
 
     </div>
@@ -1990,12 +2055,12 @@ public class ContactDAO { // DAO pour Data Access Object
         return tableContact.get(id);
     }
 
-    public void setContact(int id) {
-        tableContact.put(id, c);
+    public void setContact(Contact c) {
+        tableContact.put(c.id, c);
     }
 
-    public void updateContact(Contact c) {
-        tableContact.put(c.id, c);
+    public void updateContact(int id, Contact c) {
+        tableContact.put(id, c);
     }
 
     public void deleteContact(int id) {
@@ -2043,10 +2108,10 @@ public class JettyServer {
                 curl -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://&ltserver&gt/rest/dossiercontact</li>
             <li>pour consulter le contact n°3 : </br>
                 curl -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://&ltserver&gt/rest/dossiercontact/3</li>
-            <li>pour rajouter le contact n°5 composé de 5,tom,tom@gmail.com : </br>
-                curl -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"id":5,"nom":"tom","email":"tom@gmail.com"}' http://&ltserver&gt/rest/dossiercontact</li>
+            <li>pour rajouter le contact composé de 5,tom,tom@gmail.com : </br>
+                curl -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d "{'id':5,'nom':'tom','email':'tom@gmail.com'}" http://&ltserver&gt/rest/dossiercontact</li>
             <li>pour mettre à jour le contact n°5 : </br>
-                curl -H "Accept: application/json" -H "Content-Type: application/json" -X PUT -d '{"id":5,"nom":"tom","email":"tom12@gmail.com"}' http://&ltserver&gt/rest/dossiercontact/5</li>
+                curl -H "Accept: application/json" -H "Content-Type: application/json" -X PUT -d "{'id':5,'nom':'tom','email':'tom12@gmail.com'}" http://&ltserver&gt/rest/dossiercontact/5</li>
             <li>pour supprimer le contact n°3 : </br>
                 curl -H "Accept: application/json" -H "Content-Type: application/json" -X DELETE http://&ltserver&gt/rest/dossiercontact/3</li>
         </ul>
