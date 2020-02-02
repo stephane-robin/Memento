@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title> Memento </title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="prism.css">
-  <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <title> Memento </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="prism.css">
 </head>
 
 <!-- script de gestion des couleurs de code -->
@@ -25,6 +25,7 @@ function affichageConditionnel(bouton, id) {
 
 <body>
 
+<!-- Image de présentation-->
 <header>
   <div class="heroImage">
     <div class="heroTexte">
@@ -33,10 +34,11 @@ function affichageConditionnel(bouton, id) {
   </div>
 </header>
 
+<!-- Bandeau et menu -->
 <div id="bandeau">
   <div id="titre"> <h1> Memento </h1> </div>
   <nav>
-    <div class="element"> <a href="index.html">HTML</a> </div>
+    <div class="element"> <a href="html.html">HTML</a> </div>
     <div class="element"> <a href="css.html">CSS</a> </div>
     <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
     <div class="element"> <a href="python.html">PYTHON</a> </div>
@@ -47,22 +49,6 @@ function affichageConditionnel(bouton, id) {
 </div>
 
 <section id="principal">
-
-    <div class="bloc">
-
-        <div class="gauche">
-            <p>Java est un langage orienté objet qui utilise un compilateur (javac) puis une machine virtuelle
-                compatible toutes plateformes JVM Java Virtual Machine pour interpréter le Byte code. De ce fait,
-                c'est un langage offrant une grande portabilité.
-                C’est un langage à la fois compilé et interprété. Il est donc plus rapide que Python (interprété) mais
-                plus lent que C++ (compilé).</p>
-        </div>
-
-        <div class="droite">
-            <img src="java.png" width="60" height="100">
-        </div>
-
-    </div>
 
     <p style="font-weight:bold"> Table des matières :</p>
         <ul>
@@ -100,23 +86,23 @@ function affichageConditionnel(bouton, id) {
 
     <p>L'utilisation de la classe Date est obsolète. Il est préférable d'utiliser la classe GregorianCalendar qui hérite de la classe abstraite Calendar.</p>
     <p>On peut afficher le timestamp du moment sans formattage particulier en utilisant</p>
-    <pre><code class="language-javascript">new GregorianCalendar().getTime()</code></pre>
+    <pre><code class="language-java">new GregorianCalendar().getTime()</code></pre>
 
     <p>Pour instancier une date à la date du jour, on utilise</p>
-    <pre><code class="language-javascript">GregorianCalendar date = new GregorianCalendar();</code></pre>
+    <pre><code class="language-java">GregorianCalendar date = new GregorianCalendar();</code></pre>
 
     <p>Pour instancier une date à la date du 03/06/2018</p>
-    <pre><code class="language-javascript">GregorianCalendar date = new GreogorianCalendar(2018,05,03);</code></pre>
+    <pre><code class="language-java">GregorianCalendar date = new GreogorianCalendar(2018,05,03);</code></pre>
     <p>car les mois sont notés de 0 à 11.</p>
 
     <p>Les différents éléments de date sont les suivants :</p>
-    <pre><code class="language-javascript">date.get(Calendar.YEAR);
+    <pre><code class="language-java">date.get(Calendar.YEAR);
 date.get(Calendar.MONTH);
 date.get(Calendar.DAY_OF_MONTH);
 date.get(Calendar.DAY_OF_WEEK);</code></pre>
 
     <p>On remarque que Calendar.YEAR concerne la classe Calendar et non l’objet date. On peut modifier la date prise en compte dans l’objet date de la façon suivante :</p>
-    <pre><code class="language-javascript">date.set(Calendar.YEAR, annee);
+    <pre><code class="language-java">date.set(Calendar.YEAR, annee);
 date.set(Calendar.MONTH, mois);
 date.set(Calendar.DAY_OF_MONTH, jour);
 date.set(Calendar.DAY_OF_WEEK, jourDeLaSemaine);</code></pre>
@@ -124,15 +110,15 @@ date.set(Calendar.DAY_OF_WEEK, jourDeLaSemaine);</code></pre>
     <fieldset><legend>ATTENTION</legend><p> Calendar.MONTH va de 0 à 11, et 0 est donc le mois de janvier. Calendar.DAY_OF_WEEK va de 1 à 7, et 1 est donc dimanche.</p></fieldset>
 
     <p>Toutefois, si on veut afficher correctement la date, on peut utiliser</p>
-    <pre><code class="language-javascript">System.out.printf("%04d,%02d,%02d,%02d\n",annee,mois,jour,jourSemaine);</code></pre>
+    <pre><code class="language-java">System.out.printf("%04d,%02d,%02d,%02d\n",annee,mois,jour,jourSemaine);</code></pre>
 
     <p>ou encore formatter de la façon suivante :</p>
-    <pre><code class="language-javascript">SimpleDateFormat formattage = new SimpleDateFormat("yyyy-MM-dd-EEEE");
+    <pre><code class="language-java">SimpleDateFormat formattage = new SimpleDateFormat("yyyy-MM-dd-EEEE");
 System.out.println(formattage.format(date.getTime()));</code></pre>
 
     <p><em>Exemple de saisie clavier de date puis affichage de la date saisie :</em></p>
 
-    <pre><code class="language-javascript">Scanner saisie = new Scanner(System.in);
+    <pre><code class="language-java">Scanner saisie = new Scanner(System.in);
 System.out.println("entrez année");
 int annee = saisie.nextInt();
 System.out.println("entrez mois");
@@ -148,11 +134,11 @@ System.out.println(formattage.format(date.getTime()));</code></pre>
         <h4>Répétition d'une instruction à l'aide d'un thread</h4>
 
         <p><em>La classe Timer :</em></p>
-        <pre><code class="language-javascript">import java.util.*;</code></pre>
+        <pre><code class="language-java">import java.util.*;</code></pre>
 
         <p>Pour répéter une action à intervalles réguliers, on peut utiliser l'équivalent d'un thread avec la classe Timer.</p>
 
-        <pre><code class="language-javascript">public class Principale {
+        <pre><code class="language-java">public class Principale {
     public static void main(String[] args) {
         Timer timer = new Timer();
         TimerTask tache = new Action();
@@ -162,7 +148,7 @@ System.out.println(formattage.format(date.getTime()));</code></pre>
 
         <p>et la tâche à effectuer plusieurs fois :</p>
 
-        <pre><code class="language-javascript">public class Action extends TimerTask{
+        <pre><code class="language-java">public class Action extends TimerTask{
     public void run(){
         System.out.println("hello world");
     }
@@ -171,7 +157,7 @@ System.out.println(formattage.format(date.getTime()));</code></pre>
         <p><em>Directement avec la classe Thread :</em></p>
         <p>On peut également obtenir le même résultat sans la classe <em>Timer</em> en utilisant un thread.</p>
 
-        <pre><code class="language-javascript">public class Principale {
+        <pre><code class="language-java">public class Principale {
     public static void main(String[] args) {
         Action t = new Action();
         t.start();
@@ -179,7 +165,7 @@ System.out.println(formattage.format(date.getTime()));</code></pre>
 }</code></pre>
 
         <p>et la tâche à effectuer plusieurs fois :</p>
-        <pre><code class="language-javascript">public class TimeThread extends Thread {
+        <pre><code class="language-java">public class TimeThread extends Thread {
     public void run(){
         for(int i=0; i<10; i++) { // 10 répétitions
             try {
@@ -204,11 +190,11 @@ System.out.println(formattage.format(date.getTime()));</code></pre>
 
     <p>La gestion des exceptions assure l'exécution continue du programme. Elle consiste à repérer un morceau de code qui pourrait générer une erreur, et donner une suite d'instructions à suivre en cas d'erreur pour éviter que le programme s'arrête brutalement.</p>
 
-        <pre><code class="language-javascript">import java.util.*;</code></pre>
+        <pre><code class="language-java">import java.util.*;</code></pre>
 
         <p>L'utilisation des mot-clés <em>try-catch-finally</em> gère l'exception. <em>try</em> entoure l'exception, <em>catch</em> indique les instructions à suivre en cas d'erreur, <em>finally</em> est facultatif et indique les instructions à suivre dans tous les cas. La gestion des exceptions peut également servir à analyser les causes de l'erreur.</p>
 
-        <pre><code class="language-javascript">int j = 20, i = 0;
+        <pre><code class="language-java">int j = 20, i = 0;
 try {
     System.out.println(j/i);
 } catch (ArithmeticException e)
@@ -219,7 +205,7 @@ try {
 
         <p>Dans l'exemple suivant, la gestion de l'exception dans le constructeur de Personne est laissée à la classe Principale.</p>
 
-        <pre><code class="language-javascript">public class Personne {
+        <pre><code class="language-java">public class Personne {
     public int age = 0;
     public Personne(int age) throws Exception {
        this.age = age;
@@ -253,29 +239,29 @@ public class Principale {
 
         <p>Les tableaux sont des éléments de stockage statiques, dont la taille ne doit pas varier. Ainsi, on ne peut pas rajouter d'élément à un tableau sous peine d'en modifier totalement la structure. Les tableaux sont indexés à partir de 0 et n'admettent pas de système clé-valeur.</p>
 
-        <pre><code class="language-javascript">import java.util.*;</code></pre>
+        <pre><code class="language-java">import java.util.*;</code></pre>
 
         <h4>Déclaration d'un tableau</h4>
 
         <p>Un tableau doit être déclaré en indiquant le type d'objet qu'il contient. Il ne peut pas contenir des objets de types différents. Toutefois, on peut facilement déroger à cette règle en créant des tableaux de type Object qui est très large.</p>
 
-        <pre><code class="language-javascript">Object[] tab = {"hello", 13, 's'};</code></pre>
+        <pre><code class="language-java">Object[] tab = {"hello", 13, 's'};</code></pre>
 
         <p>Lors de la déclaration d'un tableau, doit être également précisé le nombre d'éléments qu'il contient. Le typage d'un élément et la taille du tableau ne pourront plus être modifiés ultérieurement.</p>
 
-        <pre><code class="language-javascript">int[] tab = {12, 1, 34, 21};</code></pre>
+        <pre><code class="language-java">int[] tab = {12, 1, 34, 21};</code></pre>
 
         <p>Lors de la déclaration d'un tableau vide, tous les éléments sont initialisés automatiquement, les nombres à 0, les booleans à false, les objets et chaînes de caractères à null.</p>
 
-        <pre><code class="language-javascript">int[] tab = new int[6];</code></pre>
+        <pre><code class="language-java">int[] tab = new int[6];</code></pre>
 
         <h4>Affichage d'un tableau</h4>
 
-        <pre><code class="language-javascript">for(int i=0; i&lt tab.length; i++){
+        <pre><code class="language-java">for(int i=0; i&lt tab.length; i++){
     System.out.print(tab[i]+"\t");</code></pre>
         <p>ou encore</p>
 
-        <pre><code class="language-javascript">for(String valeur : tab){
+        <pre><code class="language-java">for(String valeur : tab){
     System.out.print(valeur+"\t");</code></pre>
 
 
@@ -289,7 +275,7 @@ public class Principale {
 
     <div id="listesdictionnaires_cache" style="display:none;">
 
-        <pre><code class="language-javascript">import java.util.*;</code></pre>
+        <pre><code class="language-java">import java.util.*;</code></pre>
 
     <p>Les collections (ensemble, liste, dictionnaires) sont des conteneurs dynamiques pouvant accepter des objets de types différents et dont la taille varie.</p>
 
@@ -321,17 +307,17 @@ ArraList maListe = new ArrayList(Arrays.asList(tableau));</pre></td></tr>
     </table>
 
     <p>ArrayList ne fonctionne qu’avec des types objets pour produire des objets. Ainsi on ne peut pas avoir de liste avec des éléments de type int. Pour pallier ce problème, Java a prévu de faire correspondre à chaque type primitif un objet équivalent. Ainsi au type primitif int correspond l’objet Integer, au type primitif double correspond le type complexe Double. L'autoboxing permet de passer d'un type primitif à son objet correspondant de façon automatisée. En revanche, il convient de déclarer les listes avec les types objet et non les types primitifs. On écrira ainsi :</p>
-        <pre><code class="language-javascript">ArrayList&ltInteger&gt maListe = new ArrayList&ltInteger&gt();</code></pre>
+        <pre><code class="language-java">ArrayList&ltInteger&gt maListe = new ArrayList&ltInteger&gt();</code></pre>
 
     <p>Attention, la comparaison de 2 éléments ne se fait pas avec l'opérateur == car on compare des objets et non des types primitifs.</p>
     <p>Pour afficher une liste :</p>
 
-        <pre><code class="language-javascript">Iterator iterateur = maListe.iterator();
+        <pre><code class="language-java">Iterator iterateur = maListe.iterator();
 while(iterateur.hasNext()) {
     System.out.print(iterateur.next()+"\t");
 }</code></pre>
 
-        <pre><code class="language-javascript">for(int i=0; i&ltmaListe.size();i++) {
+        <pre><code class="language-java">for(int i=0; i&ltmaListe.size();i++) {
     System.out.print(maListe.get(i)+"\t");
 }</code></pre>
 
@@ -350,13 +336,13 @@ while(iterateur.hasNext()) {
 
         <p>Pour afficher un dictionnaire :</p>
 
-        <pre><code class="language-javascript">HashMap dico = new HashMap();
+        <pre><code class="language-java">HashMap dico = new HashMap();
 Set ensemble = dico.keySet();
 for(Object clef : ensemble){
     System.out.println(clef+" :"dico.get(clef));
 }</code></pre>
 
-        <pre><code class="language-javascript">Iterator iterateur = ensemble.iterator();
+        <pre><code class="language-java">Iterator iterateur = ensemble.iterator();
 while(iterateur.hasNext()) {
 Object clef = iterateur.next();
     System.out.println(clef+":"+dico.get(clef));
@@ -388,9 +374,9 @@ Object clef = iterateur.next();
 
 <h4>La classe InetAddress</h4>
 
-        <pre><code class="language-javascript">import java.net.*;</code></pre>
+        <pre><code class="language-java">import java.net.*;</code></pre>
 <p>Pour manipuler des adresses IP, on utilise la classe InetAddress. Par exemple pour obtenir l'adresse IP d'un site connu par son nom de domaine :</p>
-<pre><code class="language-javascript">try{
+<pre><code class="language-java">try{
     InetAddress adresse = InetAddress.getByName("meteocentrale.ch");
 }catch (UnknownHostException e) {
     e.printStackTrace();
@@ -398,7 +384,7 @@ Object clef = iterateur.next();
 
 <p>et pour connaître l'adresse IP de <em>localhost</em> :</p>
 
-    <pre><code class="language-javascript">try{
+    <pre><code class="language-java">try{
     InetAddress adresse = InetAddress.getByName("localhost");
 }catch (UnknownHostException e) {
     e.printStackTrace();
@@ -413,7 +399,7 @@ Object clef = iterateur.next();
 </table>
 
     <p>Certains sites Internet peuvent avoir plusieurs adresses IP :</p>
-<pre><code class="language-javascript">try{
+<pre><code class="language-java">try{
     InetAddress[] adresses = InetAddress.getAllByName("amazon.fr");
     System.out.println("Toutes les adresses IP : ");
     for(InetAddress valeur : adresses) {
@@ -426,7 +412,7 @@ Object clef = iterateur.next();
 <h4>La classe URL</h4>
 
 <p>On peut également utiliser la classe URL pour récupérer les données d'un site Internet :</p>
-<pre><code class="language-javascript">import java.io.*;
+<pre><code class="language-java">import java.io.*;
 import java.net.*;
 
 try {
@@ -464,7 +450,7 @@ try {
     <div id="proxys_cache" style="display:none;">
 
         <p>Un proxy constitue une autre façon de se connecter à un serveur. Le proxy est un intermédiaire faisant le lien entre le client et le serveur.</p>
-        <pre><code class="language-javascript">import java.io.IOException;
+        <pre><code class="language-java">import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.Socket;
@@ -499,7 +485,7 @@ try {
             <tr><td>adresse socket hôte distant</td><td>s.getRemoteSocketAddress()</td></tr>
         </table>
 
-        <pre><code class="language-javascript">try {
+        <pre><code class="language-java">try {
     Socket s = new Socket("www.adret-attitude.ch", 80);
     System.out.println("Port de communication côté serveur : " + s.getPort());
     System.out.println("Port de communication côté client : " + s.getLocalPort());
@@ -532,7 +518,7 @@ try {
 
         </ul>
 
-        <pre><code class="language-javascript">import java.io.*;
+        <pre><code class="language-java">import java.io.*;
 import java.nio.*;
 import java.util.*;
 import java.net.*;</code></pre>
@@ -569,7 +555,7 @@ import java.net.*;</code></pre>
 
         <p><em>Côté serveur</em>  </p>
 
-        <pre><code class="language-javascript">public class ServeurTCP {
+        <pre><code class="language-java">public class ServeurTCP {
 
     public static void main(String[] args) {
         try {
@@ -592,7 +578,7 @@ import java.net.*;</code></pre>
 
         <p><em>Côté client</em> </p>
 
-        <pre><code class="language-javascript">public class ClientTCP {
+        <pre><code class="language-java">public class ClientTCP {
 
     public static void main(String[] args) {
         try {
@@ -615,7 +601,7 @@ import java.net.*;</code></pre>
 
         <p><em>Côté client</em></p>
 
-        <pre><code class="language-javascript">public class ClientTCP {
+        <pre><code class="language-java">public class ClientTCP {
     public static void main(String[] args) {
         try {
             // creation socket client de communication sur le port 5555
@@ -637,7 +623,7 @@ import java.net.*;</code></pre>
 
         <p><em>Côté serveur</em></p>
 
-        <pre><code class="language-javascript">public class ServeurTCP {
+        <pre><code class="language-java">public class ServeurTCP {
 
     public static void main(String[] args) {
         try {
@@ -663,7 +649,7 @@ import java.net.*;</code></pre>
 
         <p><em>Côté client</em></p>
 
-        <pre><code class="language-javascript">public class ClientTCP {
+        <pre><code class="language-java">public class ClientTCP {
 
     public static void main(String[] args) {
         try {
@@ -684,7 +670,7 @@ import java.net.*;</code></pre>
 
         <p><em>Côté serveur</em> </p>
 
-        <pre><code class="language-javascript">public class ServeurTCP {
+        <pre><code class="language-java">public class ServeurTCP {
 
     public static void main(String[] args) {
 
@@ -710,7 +696,7 @@ import java.net.*;</code></pre>
 
         <p>et la classe Message présente côté serveur et côté client, qui implémente l'interface Serializable nécessaire pour transmettre le message sous forme de data :</p>
 
-        <pre><code class="language-javascript">public class Message implements Serializable{
+        <pre><code class="language-java">public class Message implements Serializable{
     // un objet de type Message doit etre serialisable pour pouvoir etre transmis
     String name;
     Date date;
@@ -736,7 +722,7 @@ import java.net.*;</code></pre>
 
         <p><em>Côté client</em></p>
 
-        <pre><code class="language-javascript">public class ClientTCP {
+        <pre><code class="language-java">public class ClientTCP {
 
     public static void main(String[] args) {
         try {
@@ -756,7 +742,7 @@ import java.net.*;</code></pre>
 
         <p><em>Côté serveur</em></p>
 
-        <pre><code class="language-javascript">public class ServeurTCP {
+        <pre><code class="language-java">public class ServeurTCP {
     public static void main(String[] args) {
         try {
             ServerSocket srv = new ServerSocket(5555);
@@ -797,7 +783,7 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
 
         <p><em>Présent des deux côtés :</em></p>
 
-        <pre><code class="language-javascript">public class Message implements Serializable{
+        <pre><code class="language-java">public class Message implements Serializable{
     String nom;
     Date date;
     String contenu;
@@ -820,7 +806,7 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
 
         <p><em>Côté client</em></p>
 
-        <pre><code class="language-javascript">public class ClientTCP {
+        <pre><code class="language-java">public class ClientTCP {
 
     public static void main(String[] args) {
         try {
@@ -842,7 +828,7 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
 
         <p>Le serveur commence par créer un ensemble de threads en attente de recevoir une demande de connexion. Lorsqu'un client demande une connexion, elle est prise en charge par un des threads.</p>
 
-        <pre><code class="language-javascript">public class ServeurTCP {
+        <pre><code class="language-java">public class ServeurTCP {
     public static void main(String[] args) {
         try {
             ServerSocket srv = new ServerSocket(5555);
@@ -886,7 +872,7 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
 
         <p><em>Présent des deux côtés :</em></p>
 
-        <pre><code class="language-javascript">public class Message implements Serializable{
+        <pre><code class="language-java">public class Message implements Serializable{
     String nom;
     Date date;
     String contenu;
@@ -918,7 +904,7 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
 
         <p><em>Côté émetteur</em> </p>
 
-        <pre><code class="language-javascript">public class EmetteurUDP {
+        <pre><code class="language-java">public class EmetteurUDP {
 
     public static void main(String[] args) {
         try {
@@ -943,7 +929,7 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
 
         <p><em>Côté récepteur</em> </p>
 
-        <pre><code class="language-javascript">public class RecepteurUDP {
+        <pre><code class="language-java">public class RecepteurUDP {
 
     public static void main(String[] args) {
         try {
@@ -970,7 +956,7 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
 
         <p><em>Côté client </em></p>
 
-        <pre><code class="language-javascript">public class ClientUDP {
+        <pre><code class="language-java">public class ClientUDP {
 
     public static void main(String[] args) {
         try {
@@ -999,7 +985,7 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
 
         <p><em>Côté serveur</em> </p>
 
-        <pre><code class="language-javascript">public class ServeurUDP {
+        <pre><code class="language-java">public class ServeurUDP {
 
     public static void main(String[] args) {
         try {
@@ -1040,7 +1026,7 @@ public class ServerThread extends Thread { // gestion des threads pour chaque co
 
     <p>Le mécanisme RMI permet d'appeler du code à distance, en créant un objet distant sur un serveur. Notons que l'appel à distance est bloquant. Cette technique offre pour avantages de mettre à jour le client de manière transparente et de masquer l'exécution distante du code tout en travaillant comme si l'exécution était locale.</p>
 
-        <pre><code class="language-javascript">import java.rmi.*;
+        <pre><code class="language-java">import java.rmi.*;
 import java.rmi.server.*;
 import java.util.*;
 import java.io.*;
@@ -1056,7 +1042,7 @@ import java.net.*;</code></pre>
 
         <p>On présente ici un exemple où le client appelle une procédure sayHello présente côté serveur pour afficher <em>Hello bob</em> côté serveur.</p>
 
-        <pre><code class="language-javascript">public interface Hello extends Remote {
+        <pre><code class="language-java">public interface Hello extends Remote {
     public void sayHello(String nom) throws RemoteException;
 }</code></pre>
 
@@ -1064,7 +1050,7 @@ import java.net.*;</code></pre>
 
     <p>L'implémentation de l'interface se fait côté serveur et ne doit pas être présente côté client.</p>
 
-    <pre><code class="language-javascript">public class HelloImpl extends UnicastRemoteObject implements Hello {
+    <pre><code class="language-java">public class HelloImpl extends UnicastRemoteObject implements Hello {
     public HelloImpl() throws RemoteException {
         super();
     }
@@ -1075,7 +1061,7 @@ import java.net.*;</code></pre>
 
     <p>Dans la classe principale côté serveur, il faut instancier l'implémentation.</p>
 
-    <pre><code class="language-javascript">public class ServeurHello {
+    <pre><code class="language-java">public class ServeurHello {
     public static void main(String[] args) {
         try {
             // creation de l'objet distant
@@ -1093,7 +1079,7 @@ import java.net.*;</code></pre>
         <p><em>Côté client :</em></p>
 
     <p>L'appel côté client d'une méthode d'un objet distant consiste à obtenir une référence sur l'objet distant puis à appeler la méthode à partir de cette référence.</p>
-    <pre><code class="language-javascript">public class ClientHello {
+    <pre><code class="language-java">public class ClientHello {
     public static void main(String[] args) {
         try {
             // args[0] represente l'url qui sera le 1er argument entre en ligne de commande
@@ -1112,22 +1098,22 @@ import java.net.*;</code></pre>
 }</code></pre>
 
         <p>La gestion de sécurité se réalise à travers une instance de la classe java.rmi.RMISecurityManager, à la fois côté client et serveur :</p>
-<pre><code class="language-javascript">if(System.getSecurityManager()==null){
+<pre><code class="language-java">if(System.getSecurityManager()==null){
     System.setSecurityManager(new RMISecurityManager());
 }</code></pre>
 
 <p>qui nécessite la bibliothèque :</p>
-        <pre><code class="language-javascript">import java.lang.*;</code></pre>
+        <pre><code class="language-java">import java.lang.*;</code></pre>
 
         <p>Il faut ensuite rajouter dans le package courant le fichier <em>policy</em> suivant :</p>
-        <pre><code class="language-javascript">grant{
+        <pre><code class="language-java">grant{
     permission java.net.SocketPermission "*:1024-65535", connect,accept";
     permission java.net.SocketPermission "*:80", "connect";
 }</code></pre>
 
         <p>ou encore pour tout permettre :</p>
 
-        <pre><code class="language-javascript">grant{
+        <pre><code class="language-java">grant{
     permission java.security.AllPermission;
 }</code></pre>
 
@@ -1135,13 +1121,13 @@ import java.net.*;</code></pre>
 
         <p>On présente un exemple où le client appelle une procédure sayHello présente côté serveur pour afficher <em>Hello bob</em> côté client.</p>
 
-        <pre><code class="language-javascript">public interface Hello extends Remote {
+        <pre><code class="language-java">public interface Hello extends Remote {
     public String sayHello(String nom) throws RemoteException;
 }</code></pre>
 
         <p><em>Côté serveur :</em></p>
 
-        <pre><code class="language-javascript">public class HelloImpl extends UnicastRemoteObject implements Hello {
+        <pre><code class="language-java">public class HelloImpl extends UnicastRemoteObject implements Hello {
     public HelloImpl() throws RemoteException {
         super();
     }
@@ -1150,7 +1136,7 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <pre><code class="language-javascript">public class ServeurHello {
+        <pre><code class="language-java">public class ServeurHello {
     public static void main(String[] args) {
         try {
             // creation de l'objet distant
@@ -1167,7 +1153,7 @@ import java.net.*;</code></pre>
 
         <p><em>Côté client :</em></p>
 
-         <pre><code class="language-javascript">public class ClientHello {
+         <pre><code class="language-java">public class ClientHello {
     public static void main(String[] args) {
         try {
             // args[0] represente l'url qui sera le 1er argument entre en ligne de commande
@@ -1191,7 +1177,7 @@ import java.net.*;</code></pre>
 
 <p><em>L'interface :</em></p>
 
-<pre><code class="language-javascript">public interface Boite extends Remote{
+<pre><code class="language-java">public interface Boite extends Remote{
     public void inscrire(String user, Notification) throws RemoteException;
     public void envoyerMessage(Message message) throws RemoteException;
     public Message getMessage(int id) throws RemoteException;
@@ -1200,7 +1186,7 @@ import java.net.*;</code></pre>
     <p><em>Côté serveur :</em></p>
 
         <p>l'implémentation :</p>
-<pre><code class="language-javascript">public class BoiteImpl extends UnicastRemoteObject implements Boite{
+<pre><code class="language-java">public class BoiteImpl extends UnicastRemoteObject implements Boite{
     HashMap&ltInteger,Contact&gt tableContact = new HashMap&ltInteger,Contact&gt();
     int nbContact;
     HashMap&ltInteger, Message&gt tableMessage = new HashMap&ltInteger, Message&gt();
@@ -1231,7 +1217,7 @@ import java.net.*;</code></pre>
 }</code></pre>
 
     <p>et la classe principale :</p>
-<pre><code class="language-javascript">public class ServeurBoite {
+<pre><code class="language-java">public class ServeurBoite {
     public static void main(String[] args){
         try{
             BoiteImpl objDistant = new BoiteImpl();
@@ -1246,7 +1232,7 @@ import java.net.*;</code></pre>
 
     <p><em>Côté client :</em></p>
 
-<pre><code class="language-javascript">public class Client {
+<pre><code class="language-java">public class Client {
     public static void main(String[] args){
         try{
             Boite obj = (Boite)Naming.lookup("//"+args[0]+"/DossierBoite");
@@ -1266,13 +1252,13 @@ import java.net.*;</code></pre>
 
         <p>L'interface côté client pour que le serveur envoie un message à tous les clients leur indiquant la connexion d'un client :</p>
 
-        <pre><code class="language-javascript">public interface Notification extends Remote{
+        <pre><code class="language-java">public interface Notification extends Remote{
     public void informerInscription(String nom) throws RemoteException;
 }</code></pre>
 
         <p>l'implémentation côté client :</p>
 
-        <pre><code class="language-javascript">public class NotificationImpl extends UnicastRemoteObject implements Notification{
+        <pre><code class="language-java">public class NotificationImpl extends UnicastRemoteObject implements Notification{
     public NotificationImpl() throws RemoteException{
         super();
     }
@@ -1288,14 +1274,14 @@ import java.net.*;</code></pre>
 
         <p>La gestion de sécurité est modifiée pour pouvoir créer le groupe d'activation :</p>
 
-        <pre><code class="language-javascript">grant{
+        <pre><code class="language-java">grant{
     permission java.net.SocketPermission "machine:*", accept, resolve";
 }</code></pre>
 
         <p><em>côté serveur et côté client :</em></p>
 
         <p>La classe Message :</p>
-        <pre><code class="language-javascript">public class Message implements Serializable{
+        <pre><code class="language-java">public class Message implements Serializable{
     int id;
     String nom;
     Date date;
@@ -1314,7 +1300,7 @@ import java.net.*;</code></pre>
     }
 }</code></pre>
 
-        <pre><code class="language-javascript">public class Contact{
+        <pre><code class="language-java">public class Contact{
     int id;
     String nom;
     Notification obj;
@@ -1334,7 +1320,7 @@ import java.net.*;</code></pre>
 
         <h4>Exemple d'activation e transmission d'une chaîne de caractères par RMI :</h4>
 
-        <pre><code class="language-javascript">import java.rmi.*;
+        <pre><code class="language-java">import java.rmi.*;
 import java rmi.activation.*;
 import java.util.*;</code></pre>
 
@@ -1342,13 +1328,13 @@ import java.util.*;</code></pre>
 
         <p><em>Côté serveur :</em></p>
 
-        <pre><code class="language-javascript">public interface Hello extends Remote {
+        <pre><code class="language-java">public interface Hello extends Remote {
     public void sayHello(String nom) throws RemoteException;
 }</code></pre>
 
         <p>L'implémentation de l'interface se fait côté serveur et ne doit pas être présente côté client.</p>
 
-        <pre><code class="language-javascript">public class HelloImpl extends Activatable implements Hello {
+        <pre><code class="language-java">public class HelloImpl extends Activatable implements Hello {
     public HelloImpl(ActivationID id, MarshalledObject data) throws RemoteException {
         super(id, 0);
     }
@@ -1359,7 +1345,7 @@ import java.util.*;</code></pre>
 
         <p>Dans la classe principale côté serveur, il faut instancier l'implémentation.</p>
 
-        <pre><code class="language-javascript">public class ServeurHello {
+        <pre><code class="language-java">public class ServeurHello {
     public static void main(String[] args) {
         try { // creation de l'objet distant activable
             System.setSecurityManager(new RMISecurityManager();
@@ -1382,7 +1368,7 @@ import java.util.*;</code></pre>
 
         <p>Il faut toutefois modifier la politique de sécurité afin de pouvoir créer le groupe d'activation. Le fichier de politique de sécurité est le suivante :</p>
 
-        <pre><code class="language-javascript">grant {
+        <pre><code class="language-java">grant {
     // nécessaire pour créer le groupe d'activation
     permission java.net.SocketPermission "localhost:*","accept,resolve";
 };</code></pre>
@@ -1390,7 +1376,7 @@ import java.util.*;</code></pre>
         <p><em>Côté client :</em></p>
 
         <p>L'appel côté client d'une méthode d'un objet distant consiste à obtenir une référence sur l'objet distant puis à appeler la méthode à partir de cette référence.</p>
-        <pre><code class="language-javascript">public class ClientHello {
+        <pre><code class="language-java">public class ClientHello {
     public static void main(String[] args) {
         try {
             // args[0] represente l'url qui sera le 1er argument entre en ligne de commande
@@ -1429,7 +1415,7 @@ import java.util.*;</code></pre>
             <li>JMS est fiable, car il s'assure que le message est bien délivré</li>
         </ul>
 
-        <pre><code class="language-javascript">import java.util.*;
+        <pre><code class="language-java">import java.util.*;
 import javax.naming.*;
 import javax.jms.*;</code></pre>
 
@@ -1460,7 +1446,7 @@ import javax.jms.*;</code></pre>
 
         <p><em>Côté émetteur :</em></p>
 
-<pre><code class="language-javascript">public class Publisher {
+<pre><code class="language-java">public class Publisher {
     public static void main(String[] args) {
 		try {
 			// Le detail des proprietes (url, port, ...) se trouve dans jndi.properties.
@@ -1499,7 +1485,7 @@ import javax.jms.*;</code></pre>
 
     <p><em>Côté récepteur :</em></p>
 
-<pre><code class="language-javascript">public class Subscriber {
+<pre><code class="language-java">public class Subscriber {
 
     public static void main(String[] args) {
 		try {
@@ -1532,7 +1518,7 @@ import javax.jms.*;</code></pre>
 
         <p><em>Côté émetteur</em></p>
 
-        <pre><code class="language-javascript">public class Emetteur {
+        <pre><code class="language-java">public class Emetteur {
 
     public static void main(String[] args) {
 		try {
@@ -1560,7 +1546,7 @@ import javax.jms.*;</code></pre>
 
         <p><em>Côté récepteur :</em></p>
 
-        <pre><code class="language-javascript">public class Receiver {
+        <pre><code class="language-java">public class Receiver {
 
     public static void main(String[] args) {
 		try {
@@ -1587,7 +1573,7 @@ import javax.jms.*;</code></pre>
 
         <p>La classe Message doit être présente à la fois côté serveur et côté client. Comme l'objet doit être transmis, la classe Message implémente l'interface Serializable.</p>
 
-        <pre><code class="language-javascript">public class Message implements Serializable{
+        <pre><code class="language-java">public class Message implements Serializable{
     String nom;
     Date date;
     String contenu;
@@ -1610,7 +1596,7 @@ import javax.jms.*;</code></pre>
 
     <p><em>Côté serveur</em></p>
 
-    <pre><code class="language-javascript">public class Serveur {
+    <pre><code class="language-java">public class Serveur {
 	public static void main(String[] args) {
 		try {
             Properties prop = new Properties();
@@ -1644,7 +1630,7 @@ import javax.jms.*;</code></pre>
 
     <p><em>Côté client</em></p>
 
-    <pre><code class="language-javascript">public class Client {
+    <pre><code class="language-java">public class Client {
 
     public static void main(String[] args) {
 		try {
@@ -1679,7 +1665,7 @@ import javax.jms.*;</code></pre>
 
         <p><em>Côté serveur :</em></p>
 
-<pre><code class="language-javascript">public class Serveur{
+<pre><code class="language-java">public class Serveur{
   public static void main(Strings[] args){
     try{
       Properties prop = new Properties();
@@ -1714,7 +1700,7 @@ import javax.jms.*;</code></pre>
 
         <p><em>Côté client concerné par la réponse, les autres clients n'ont pas connaissance du code queue:</em></p>
 
-        <pre><code class="language-javascript">public class Client{
+        <pre><code class="language-java">public class Client{
   public static void main(String[] args){
      try{
         InitialContext ctx = new InitialContext();
@@ -1748,10 +1734,10 @@ import javax.jms.*;</code></pre>
 
         <p>Il est possible de créer un Listener chez le serveur, qui attend un message pour suivre des instructions.</p>
 
-        <pre><code class="language-javascript">AlertListener al = new AlertListener();
+        <pre><code class="language-java">AlertListener al = new AlertListener();
 pbr.setMessageListener(al);</code></pre>
 
-        <pre><code class="language-javascript">public class AlertListener implements MessageListener{
+        <pre><code class="language-java">public class AlertListener implements MessageListener{
     public void onMessage(Message mess){
         try{
             System.out.print("Alerte:"+(TextMessage)mess.getText());
@@ -1806,7 +1792,7 @@ pbr.setMessageListener(al);</code></pre>
 
     <p><em>Exemple de requête SOAP :</em></p>
 
-    <pre><code class="language-javascript">HTTP/1.1 200 OK
+    <pre><code class="language-java">HTTP/1.1 200 OK
 Content-Type: text/xml; charset=utf-8
 Content-Length: length
 
@@ -1821,7 +1807,7 @@ Content-Length: length
 
     <p><em>Réponse SOAP :</em></p>
 
-    <pre><code class="language-javascript">HTTP/1.1 200 OK
+    <pre><code class="language-java">HTTP/1.1 200 OK
 Content-Type: text/xml; charset=utf-8
 Content-Length: length
 
@@ -1846,7 +1832,7 @@ Content-Length: length
 
         <p>Les fichiers côté client sont créés lors de la génération du stub</p>
         <p> le fichier main du client : voir cours</p>
-    <pre><code class="language-javascript">// interface publique
+    <pre><code class="language-java">// interface publique
 import javax.jws.*;
 import javax.jws.soap.*;
 
@@ -1856,7 +1842,7 @@ public interface HelloWorld {
     String getHelloWorldAsString(String nom);
 }</code></pre>
 
-    <pre><code class="language-javascript">// implémentation de l'interface
+    <pre><code class="language-java">// implémentation de l'interface
         // voici mon contrat WSDL
 import javax.jws.*;
 
@@ -1869,7 +1855,7 @@ public class HelloWorldImpl implements HelloWorld {
     }
 }</code></pre>
 
-<pre><code class="language-javascript">// publication de l'application et déploiement
+<pre><code class="language-java">// publication de l'application et déploiement
     // j'ai exécuté la requête et je retourne le résultat
 import javax.xml.ws.*;
 
@@ -1899,7 +1885,7 @@ public class HelleWorldPublisher {
 
         <p><em>Exemple de format JSON :</em></p>
 
-<pre><code class="language-javascript">{
+<pre><code class="language-JSON">{
     'prenom': 'Stephane',
     'nom': 'Dupret',
     'age': 35,
@@ -1922,7 +1908,7 @@ public class HelleWorldPublisher {
 
     <p>Exemple d'utilisation de JSON avec le package Gson</p>
 
-    <pre><code class="language-javascript">import com.google.gson.Gson
+    <pre><code class="language-java">import com.google.gson.Gson
 Gson gson = new Gson();
 MyInData mid = new MyInData(45, 0.1, "hello");
 String toJsonString = gson.toJson(mid);
@@ -1935,7 +1921,7 @@ MyInData fromJsonString = gson.froJson(jsonString, MyInData.class);</code></pre>
 
         <img src="rest.png">
 
-<pre><code class="language-javascript">import javax.xml.bind.annotation.*;
+<pre><code class="language-java">import javax.xml.bind.annotation.*;
 
 @XmlRootElement  // les objets de type Contact doivent etre serialises en XML
 public class Contact {
@@ -1957,7 +1943,7 @@ public class Contact {
 
         <p><em>La classe ContactBookResource</em> permet de gérer les requêtes avec la liste des contacts.</p>
 
-<pre><code class="language-javascript">import java.util.*;
+<pre><code class="language-java">import java.util.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.*;
@@ -2033,7 +2019,7 @@ public class ContactBookResource {
 
         <p>Pour des raisons de commodité la liste des contacts est structurées en dictionnaire. Une structure de type liste n'aurait pas permis de conserver l'identité d'un contact à la suite de changements. En effet, suite à des changements, les éléments d'une liste sont bougés et leur index varie. Ce n'est pas le cas pour un dictionnaire auquel on rajoute un champ index. La classe ContactDAO permet de gérer cette liste de contacts.</p>
 
-<pre><code class="language-javascript">import java.util.*;
+<pre><code class="language-java">import java.util.*;
 
 public class ContactDAO { // DAO pour Data Access Object
     public HashMap&ltInteger, Contact&gt tableContact = new HashMap&ltInteger, Contact&gt();
@@ -2070,7 +2056,7 @@ public class ContactDAO { // DAO pour Data Access Object
 
         <p>La configuration du serveur se fait grâce à la classe <em>ServletHolder</em>. La classe <em>ServletContextHandler</em> permet la gestion des principales fonctionnalités.</p>
 
-<pre><code class="language-javascript">import java.util.logging.*;
+<pre><code class="language-java">import java.util.logging.*;
 import org.eclipse.jetty.server.*;
 import org.eclipse.jetty.servlet.*;
 import org.glassfish.jersey.servlet.*;

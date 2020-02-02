@@ -18,9 +18,8 @@
 
 <div id="bandeau">
   <div id="titre"> <h1> Memento </h1> </div>
-  <nav>
-    <div class="element"> <a href="index.html">GENERALITES</a> </div>
-    <div class="element"> <a href="html.html">HTML</a> </div>
+  <nav id="menu">
+    <div class="element"> <a href="index.html">HTML</a> </div>
     <div class="element"> <a href="css.html">CSS</a> </div>
     <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
     <div class="element"> <a href="python.html">PYTHON</a> </div>
@@ -32,12 +31,9 @@
 
 <section id="principal">
 
-<p> HTML signifie HyperText Markup Language. Ce langage sert à gérer et organiser le contenu des pages Web. C'est donc en HTML qu'on écrit le texte, les liens hypertexte, les images et vidéos. L'information apparaît de manière brute sans mise en forme autre que structurelle.</p>
-
-<hr>
-
 <p style="font-weight:bold"> Table des matières :
   <ul>
+    <li> <a href="#">Généralités sur le Web</a> </li>
     <li> <a href="">Hello world</a> </li>
     <li> <a href="#structure">Structure d'une page HTML</a> </li>
     <li> <a href="#balise">Les balises</a> </li>
@@ -57,23 +53,11 @@
   </ul>
 </p>
 
-<!-- ===== HELLO WORLD ===== -->
-
-<h3>Hello world</h3>
-
-  <p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, HTML n'utilise pas de <strong>;</strong> à la fin des instructions, car celles-ci sont regroupées à l'intérieur de balises.</p>
-  <pre>&lt!DOCTYPE HTML&gt
-&lthtml&gt
-&ltbody&gt
-  &ltp&gt Hello world &lt/p&gt
-&lt/body&gt
-&lt/html&gt</pre><footer class="legendeCode">HTML</footer>
-
-<hr>
-
 <!-- ===== STRUCTURE D'UNE PAGE HTML ===== -->
 
 <h3 id="structure"> Structure d'une page HTML </h3>
+
+<p> HTML signifie HyperText Markup Language. Ce langage sert à gérer et organiser le contenu des pages Web. C'est donc en HTML qu'on écrit le texte, les liens hypertexte, les images et vidéos. L'information apparaît de manière brute sans mise en forme autre que structurelle.</p>
 
   <pre>&lt!DOCTYPE HTML&gt
 &lthtml&gt
@@ -106,6 +90,18 @@
     <p> Les commentaires sont visibles par tout utilisateur qui fait apparaître le code source HTML de la page qu'il consulte. Il ne faut donc en aucun cas faire apparaître de mot de passe dans les commentaires. </p>
   </fieldset>
 
+<!-- ===== HELLO WORLD ===== -->
+
+<h3>Hello world</h3>
+
+  <p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, HTML n'utilise pas de <strong>;</strong> à la fin des instructions, car celles-ci sont regroupées à l'intérieur de balises.</p>
+  <pre>&lt!DOCTYPE HTML&gt
+&lthtml&gt
+&ltbody&gt
+  &ltp&gt Hello world &lt/p&gt
+&lt/body&gt
+&lt/html&gt</pre><footer class="legendeCode">HTML</footer>
+  
 <hr>
 
 <!-- ===== LES BALISES ===== -->
@@ -122,7 +118,7 @@
     <tr> <td> informations latérales </td> <td> <pre>&ltaside&gt contenu &lt/aside&gt</pre></td> </tr>
     <tr> <td> pied de page </td> <td> <pre>&ltfooter&gt contenu &lt/footer&gt</pre></td> </tr>
     <tr> <td> bloc indépendant </td> <td> <pre>&ltdiv&gt bloc &lt/div&gt </pre></td> </tr>
-    <tr> <td> contenu <em>inline</em> </td> <td> <em><pre>&ltspan&gt contenu inline &lt/span&gt </pre></em></td> </tr>
+    <tr> <td> contenu <em>inline</em> </td> <td> <pre>&ltspan&gt contenu inline &lt/span&gt </pre></td> </tr>
     <tr> <td> paragraphe </td> <td> <pre>&ltp&gt texte &lt/p&gt</pre></td> </tr>
     <tr> <td> titres </td> <td> <pre>&lth1&gt titre &lt/h1&gt
 &lth2&gt titre &lt/h2&gt
@@ -130,14 +126,14 @@
 &lth4&gt titre &lt/h4&gt
 &lth5&gt titre &lt/h5&gt
 &lth6&gt titre &lt/h6&gt</pre></td> </tr>
-    <tr> <td> mise en valeur </td> <td> <em><pre>&ltem&gt texte &ltem&gt</pre></em></td> </tr>
-    <tr> <td> mise en valeur forte </td> <td> <em><pre>&ltstrong&gt texte &lt/strong&gt</pre></em></td> </tr>
+    <tr> <td> mise en valeur </td> <td> <pre>&ltem&gt texte &ltem&gt</pre></td> </tr>
+    <tr> <td> mise en valeur forte </td> <td> <pre>&ltstrong&gt texte &lt/strong&gt</pre></td> </tr>
     <tr> <td> saut à la ligne </td> <td> <pre>&ltbr/&gt </pre></td> </tr>
     <tr> <td> ligne de séparation horizontale </td> <td> <pre>&lthr&gt</pre> </td> </tr>
-    <tr> <td> lien </td> <td> <em><pre>&lta&gt nom du lien &lt/a&gt</pre></em></td> </tr>
-    <tr> <td> image </td> <td> <em><pre>&ltimg adresse de l'image /&gt</pre></em></td> </tr>
-    <tr> <td> adresse de contact </td> <td> <em><pre>&ltaddress&gt email@gmail.com &lt/address&gt</pre></em></td> </tr>
-    <tr> <td> date, heure </td> <td> <em><pre>&lttime&gt 20:30 &lt/time&gt</pre></em></td> </tr>
+    <tr> <td> lien </td> <td> <pre>&lta&gt nom du lien &lt/a&gt</pre></td> </tr>
+    <tr> <td> image </td> <td> <pre>&ltimg adresse de l'image /&gt</pre></td> </tr>
+    <tr> <td> adresse de contact </td> <td> <pre>&ltaddress&gt email@gmail.com &lt/address&gt</pre></td> </tr>
+    <tr> <td> date, heure </td> <td> <pre>&lttime&gt 20:30 &lt/time&gt</pre></td> </tr>
     <tr> <td> affichage formaté de code source </td> <td> <pre>&ltpre&gt code &lt/pre&gt</pre></td> </tr>
     <tr> <td> barre de progression </td> <td> <pre>&ltprogress&gt texte &lt/progress&gt</pre></td> </tr>
   </table>
@@ -1204,7 +1200,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 <h3 id="queries"> Responsive design et media queries </h3>
 
   <p>A venir</p>
-
+  
 </section>
 
 <footer>
