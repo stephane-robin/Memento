@@ -52,34 +52,35 @@ function affichageConditionnel(bouton, id) {
 
 <p style="font-weight:bold"> Table des matières :</p>
   <ul>
-    <li> <a href="#">Hello world</a> </li>
-    <li> <a href="#">Généralités</a> </li>
-    <li> <a href="#">Importer un package</a> </li>
-    <li> <a href="#">Les variables</a> </li>
-    <li> <a href="#">Manipuler des chaînes de caractères</a> </li>
-    <li> <a href="#">Saisie d'une valeur par l'utilisateur</a> </li>
-    <li> <a href="#">Branchement conditionnel</a> </li>
-    <li> <a href="#">Les boucles</a> </li>
-    <li> <a href="#">Les tableaux</a> </li>
-    <li> <a href="#">Les listes</a> </li>
-    <li> <a href="#">Les dictionnaires</a> </li>
-    <li> <a href="#">Les fonctions</a> </li>
-    <li> <a href="#">Le package random</a> </li>
-    <li> <a href="#">Le package math</a> </li>
-    <li> <a href="#">Le package JSON</a> </li>
-    <li> <a href="#">Les exceptions</a> </li>
+    <li> <a href="#py_generalites">Généralités</a> </li>
+    <li> <a href="#py_hello">Hello world</a> </li>
+    <li> <a href="#py_saisie">Saisie d'une valeur par l'utilisateur</a> </li>
+    <li> <a href="#py_import_package">Importer un package</a> </li>
+    <li> <a href="#py_variable">Les variables</a> </li>
+    <li> <a href="#py_chaine">Manipuler des chaînes de caractères</a> </li>
+    <li> <a href="#py_condition">Branchement conditionnel</a> </li>
+    <li> <a href="#py_boucle">Les boucles</a> </li>
+    <li> <a href="#py_tableau">Les tableaux</a> </li>
+    <li> <a href="#py_liste">Les listes</a> </li>
+    <li> <a href="#py_liste_avance">Utilisation avancée des listes</a> </li>
+    <li> <a href="#py_dictionnaire">Les dictionnaires</a> </li>
+    <li> <a href="#py_fonction">Les fonctions</a> </li>
+    <li> <a href="#py_exception">Les exceptions</a> </li>
+    <li> <a href="#py_objet">La programmation objet</a> </li>
+    <li> <a href="#py_random">Le package random</a> </li>
+    <li> <a href="#py_math">Le package math</a> </li>
+    <li> <a href="#py_fraction">Le package fractions</a> </li>
+    <li> <a href="#py_numpy">Le package Numpy</a> </li>
+    <li> <a href="#py_json">Le package JSON</a> </li>
+    <li> <a href="#py_creer_package">Créer un package</a> </li>
+    <li> <a href="#py_pep">Respect du PEP8</a> </li>
   </ul>
 
-<!-- ===== HELLO WORLD ===== -->
 
-<h3>Hello world</h3>
 
-<p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, Python n'utilise pas de <strong>;</strong> à la fin de chaque instruction. Il le remplace par un retour à la ligne. Notons que les accolades symbolisant un bloc sont remplacées par une indentation.</p>
-  <pre><code class="language-javascript">print("Hello World");</code></pre>
+  <!-- ===== GENERALITES ===== -->
 
-<!-- ===== GENERALITES ===== -->
-
-<h3> Généralités </h3>
+  <h3 id="py_generalites"> Généralités </h3>
 
   <p>Les fichiers Python ont pour extension <em>.py</em></p>
 
@@ -98,21 +99,53 @@ function affichageConditionnel(bouton, id) {
   <p>Pour connaître le chemin vers le dossier Python :</p>
   <pre><code>which python</code></pre>
 
-    <p>Il est souvent nécessaire de placer en début de code le chemin absolu de l'interpréteur (ici 3.7 représente la version de Python), et de préciser l'encodage UTF-8 :</p>
-    <pre><code class="language-python">#!/usr/bin/python3.7
+  <p>Il est souvent nécessaire de placer en début de code le chemin absolu de l'interpréteur (ici 3.7 représente la version de Python), et de préciser l'encodage UTF-8 :</p>
+  <pre><code class="language-python">#!/usr/bin/python3.7
 # -*-coding:Utf-8 -*</code></pre>
 
   <h4>Particularité du système Windows</h4>
 
-    <p>Il est nécessaire de mettre en pause le programme en fin d'exécution afin de pouvoir lire le résultat. Préciser l'encodage peut s'avérer nécessaire sous Windows.</p>
-    <pre><code class="language-python"># -*-coding:Latin-1 -*
+  <p>Il est nécessaire de mettre en pause le programme en fin d'exécution afin de pouvoir lire le résultat. Préciser l'encodage peut s'avérer nécessaire sous Windows.</p>
+  <pre><code class="language-python"># -*-coding:Latin-1 -*
 import os
 # le programme se trouve ici
 os.system("pause")</code></pre>
 
+
+
+  <!-- ===== HELLO WORLD ===== -->
+
+<h3 id="py_hello">Hello world</h3>
+
+<p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, Python n'utilise pas de <strong>;</strong> à la fin de chaque instruction. Il le remplace par un retour à la ligne. Notons que les accolades symbolisant un bloc sont remplacées par une indentation.</p>
+  <pre><code class="language-javascript">print("Hello World");</code></pre>
+
+<p>A noter que <em>print</em> entraîne systématiquement un retour à la ligne, contrairement à certains autres langages où il faut rajouter ln
+pour aller à la ligne. Pour éviter un retour à la ligne, on utilise l'instruction print("hello", end = "")</p>
+
+
+
+  <!-- ===== SAISIE D'UNE VALEUR PAR L'UTILISATEUR ===== -->
+
+  <h3 id="py_saisie">Saisie d'une valeur par l'utilisateur</h3>
+
+  <pre><code class="language-python">nom = input("Quel est votre nom ?");
+print("Bonjour ",nom);</code></pre>
+
+  <p></p>
+
+  <fieldset><legend>ATTENTION </legend>
+    <p>La valeur saisie est systématiquement de type <em>String</em>. Il convient donc de la transformer en nombre le cas échéant.</p>
+  </fieldset>
+
+  <pre><code class="language-python">age = int(input("Quel est votre âge ?"))
+print("Dans deux ans vous aurez ", age+2)</code></pre>
+
+
+
 <!-- ===== IMPORTER UN PACKAGE ===== -->
 
-<h3>Importer un package</h3>
+<h3 id="py_import_package">Importer un package</h3>
 
   <pre><code class="language-python">import nomPackage as np</code></pre>
 
@@ -137,9 +170,11 @@ os.system("pause")</code></pre>
 
   <p>Parmi les packages importants, on trouve Matplotlib utilisé pour les graphiques, Numpy utilisé pour manipuler des séries de nombres, Pandas utilisé pour utiliser des données sous une forme de tableur.</p>
 
+
+
 <!-- ===== LES VARIABLES ===== -->
 
-<h3>Les variables</h3>
+<h3 id="py_variable">Les variables</h3>
 
   <h4> Types </h4>
 
@@ -203,11 +238,13 @@ a, b = b, a</code></pre>
 
   <p>Les constantes n'existent pas en Python. On utilise généralement des variables globales qu'on ne modifie pas.</p>
 
+
+
 <!-- ===== MANIPULER DES CHAINES DE CARACTERES ===== -->
 
-<h3>Les chaînes de caractères</h3>
+<h3 id="py_chaine">Manipuler des chaînes de caractères</h3>
 
-  <p> Pour échapper une apostrophe ou un guillemet, on utilise le signe <strong>\</strong>.<p>
+  <p>L'indice du 1er caractère d'une chaîne est 0. Pour échapper une apostrophe ou un guillemet, on utilise le signe <strong>\</strong>.<p>
 
   <table>
     <tr><th>Propriétés</th><th>Codes</th></tr>
@@ -217,8 +254,11 @@ a, b = b, a</code></pre>
     <tr><td>convertir en minuscules</td><td><pre>chaine.lower()</pre></td></tr>
     <tr><td>convertir en majuscules</td><td><pre>chaine.upper()</pre></td></tr>
     <tr><td>mettre en majuscule le 1er caractère d'une chaîne</td><td><pre>chaine.capitalize()</pre></td></tr>
+    <tr><td>nombre de "d" dans la chaîne</td><td><pre>chaine.count("d")</pre></td></tr>
+    <tr><td>remplacement de "d" par "a"</td><td><pre>chaine.replace("d", "a")</pre></td></tr>
     <tr><td>enlever les espaces au début et à la fin d'une chaine</td><td><pre>chaine.strip()</pre></td></tr>
-    <tr><td>extraire une sous-chaîne, de longueur 5 caractères après le caractère d'indice 3</td><td><pre>chaine[3:5]</pre></td></tr>
+    <tr><td>extrait une sous-chaîne, comprenant la lettre d'indice 3 jusqu'à la lettre d'indice 5 incluse</td><td><pre>chaine[3:6]</pre></td></tr>
+    <tr><td>extrait une sous-chaîne, comprenant la lettre d'indice 3 jusqu'à la lettre d'indice 5 incluse</td><td><pre>chaine[3:6]</pre></td></tr>
     <tr><td>comparaison</td><td>===</td></tr>
     <tr><td>concaténation</td><td>+</td></tr>
     <tr><td>retour à la ligne</td><td>\n</td></tr>
@@ -226,11 +266,11 @@ a, b = b, a</code></pre>
     <tr><td>transformer une chaîne en liste élément par élément</td><td><pre>liste = chaine.split()</pre></td></tr>
     <tr><td>transformer une chaîne avec le séparateur - en liste</td><td><pre>liste = chaine.split("-");</pre></td></tr>
     <tr><td>transformer une liste en chaîne contenant le séparateur - </td><td><pre>chaine = "-".join(maListe)</pre></td></tr>
-    <tr><td>recherche de "non" dans une chaine</td><td><pre>chaine.indexOf("non");</pre></td></tr>
+    <tr><td>recherche de "non" dans une chaine. Renvoie -1  si le caractère recherché ne se trouve pas dans la chaîne</td><td><pre>chaine.indexOf("non")</pre></td></tr>
     <tr><td>retour à la ligne</td><td>\n</td></tr>
+    <tr><td>test si le contenu de la chaîne est numérique. Renvoie un booléen</td><td><pre>chaine.isnumeric()</pre></td></tr>
   </table>
 
-  <p>L'indice du 1er caractère d'une chaîne est 0. Notons que l'instruction <strong>indexOf</strong> renvoie -1  si le caractère recherché ne se trouve pas dans la chaîne.</p>
   <p>L'utilisation d'un indice qui n'existe pas dans la chaîne lève une exception de type <em>IndexError</em>.</p>
   <p>Il n'est pas possible de modifier un caractère d'une chaîne de la façon suivante <em>chaine[4] = "Antoine"</em>. Il s'agit en fait d'une protection des chaînes qui pourront être modifiées par instruction explicite du développeur.</p>
 
@@ -245,25 +285,20 @@ a, b = b, a</code></pre>
   <p>Python permet d'inclure des expressions dans une chaîne de caractères appelées <em>template literal</em>. Pour cela, il faut définir les emplacement avec <strong>{}</strong> et utiliser la méthode <strong>format()</strong>.</p>
   <pre><code class="language-python">{} est le fils de {}.format("Antoine", "Albert")</code></pre>
 
-<!-- ===== SAISIE D'UNE VALEUR PAR L'UTILISATEUR ===== -->
+  <h4>Caster une chaîne de caractères</h4>
 
-<h3>Saisie d'une valeur par l'utilisateur</h3>
+  <p>Il est possible de caster une chaîne de caractères lorsque ceux-ci s'apparentent à des nombres. Pour cela, on utilise
+  les méthodes int() et float(). Cela s'avère utile lorsqu'on demande à un utilisateur de saisir un nombre. Ce dernier est
+  nativement enregistré au format d'une chaîne de caractères qu'il faut caster pour pouvoir appliquer des opérations numériques.</p>
 
-  <pre><code class="language-python">nom = input("Quel est votre nom ?");
-print("Bonjour ",nom);</code></pre>
+  <pre><code class="language-python">chaine = "12"
+nombre = int(chaine)</code></pre>
 
-<p></p>
 
-  <fieldset><legend>ATTENTION </legend>
-    <p>La valeur saisie est systématiquement de type <em>String</em>. Il convient donc de la transformer en nombre le cas échéant.</p>
-  </fieldset>
-
-  <pre><code class="language-python">age = int(input("Quel est votre âge ?"))
-print("Dans deux ans vous aurez ", age+2)</code></pre>
 
   <!-- ===== BRANCHEMENT CONDITIONNEL ===== -->
 
-  <h3>Branchement conditionnel</h3>
+  <h3 id="py_condition">Branchement conditionnel</h3>
 
     <h4>La condition if</h4>
 
@@ -285,16 +320,11 @@ else :
     
     <p>L'instruction <strong>switch</strong> n'existe pas de façon native en Python.</p>
 
+
+
   <!-- ===== LES BOUCLES ===== -->
 
-  <h3> Les boucles </h3>
-
-    <h4>La boucle while</h4>
-
-    <pre><code class="language-python">while condition :
-  instructions</code></pre>
-
-  <p>Le mot clé <strong>break</strong> permet d'interrompre une boucle et d'exécuter le code qui suit la boucle. Le mot clé <strong>continue</strong> permet de sauter le tour de boucle courant puis de continuer à exécuter la boucle.</p>
+  <h3 id="py_boucle"> Les boucles </h3>
 
   <h4>La boucle for</h4>
 
@@ -316,10 +346,18 @@ else :
   if lettre in "aeiouy" :
   instructions</code></pre>
 
+  <h4>La boucle while</h4>
+
+  <pre><code class="language-python">while condition :
+  instructions</code></pre>
+
+  <p>Le mot clé <strong>break</strong> permet d'interrompre une boucle et d'exécuter le code qui suit la boucle. Le mot clé <strong>continue</strong> permet de sauter le tour de boucle courant puis de continuer à exécuter la boucle.</p>
+
+
 
 <!-- ===== LES TABLEAUX ===== -->
 
-<h3>Les tableaux</h3>
+<h3 id="py_tableau">Les tableaux</h3>
 
   <p>Les tableaux contiennent des éléments dont le nombre de bouge pas. On peut toutefois changer ces éléments. Un tableau est considéré comme un type élémentaire en Python.</p>
 
@@ -339,15 +377,21 @@ else :
     <tr><td>indice d'un élément</td><td><pre>tab.index(element)</pre></td></tr>
   </table>
 
+
+
 <!-- ===== LES LISTES ===== -->
 
-<h3>Les listes</h3>
+<h3 id="py_liste">Les listes</h3>
 
-  <p>Les listes contiennent des éléments dont le nombre peut varier. Une liste est un objet complexe en Python.</p>
+  <p>Les listes sont des objets complexes en Python. Elles contiennent des éléments dont le nombre peut varier, mais l'indice du 1er élément est 0.</p>
+
   <p>On peut créer une liste de la manière suivante :</p>
-  <pre><code class="language-python">liste = [element1, element2, element3];</code></pre>
+  <pre><code class="language-python">liste = [element1, element2, element3]</code></pre>
 
-  <p>L'indice du 1er élément d'une liste est 0.</p>
+  <p>En Python on peut stocker des éléments de différents types dans une liste.</p>
+  <pre><code class="language-python">maListe = ["Antoine", 12, false]</code></pre>
+
+  <p>En Python, l'appel à un indice ne figurant pas dans la liste conduit à une exception de la forme <em>IndexError: list index out of range</em>.</p>
 
   <p>Pour créer une liste vide</p>
   <pre><code class="language-python">maListe = list()</code></pre>
@@ -370,6 +414,7 @@ else :
     <tr><td>suppression d'un élément défini par sa valeur, seul le 1er element de cette valeur est supprimé</td><td><pre>maListe.remove(element)</pre></td></tr>
     <tr><td>tri d'une liste d'entiers de façon ascendante (cette fonctionnalité modifie la liste d'origine)</td><td><pre>maListe.sort()</pre></td></tr>
     <tr><td>tri d'une liste d'entiers de façon descendante (cette fonctionnalité modifie la liste d'origine)</td><td><pre>maListe.sort(reverse=True)</pre></td></tr>
+    <tr><td>inversion des éléments d'une liste</td><td><pre>maListe.reverse()</pre></td></tr>
   </table>
 
   <p>Une liste vide a pour taille 0. </p>
@@ -379,12 +424,7 @@ else :
   <p>Si on souhaite afficher une liste sans mise en forme particulière, l'utilisation de <strong>print</strong> est suffisante.</p>
   <pre><code class="language-python">print(maListe)</code></pre>
 
-  <p>On peut également afficher les éléments de maListe les uns à la suite des autres. A noter que <strong>print</strong> entraîne systématiquement un retour à la ligne, contrairement à certains autres langages où il faut rajouter quelques lettres pour aller à la ligne.</p>
-
-  <pre><code class="language-python">for i in range(0, len(maListe)):
-    print(maListe[i])</code></pre>
-
-  <p>ou encore</p>
+  <p>On peut également afficher les éléments de maListe les uns à la suite des autres.</p>
 
   <pre><code class="language-python">for i in range(len(maListe)):
     print(maListe[i])</code></pre>
@@ -393,33 +433,118 @@ else :
   <pre><code class="language-python">for elmt in maListe:
     print(elmt)</code></pre>
 
-  <h4>Particularités de Python</h4>
-
   <p>Python offre deux autres possibilités pour afficher les éléments d'une liste :</p>
-  <pre><code class="language-python">for value in maListe:
-    print(value)</code></pre>
+
   <pre><code class="language-python">for value in enumerate(maListe):
     print(value)</code></pre>
   <pre><code class="language-python">for i, value in enumerate(maListe):
     print("indice {}, valeur {}".format(i,value))</code></pre>
 
-  <p>En Python on peut stocker des éléments de différents types dans une liste.</p>
-  <pre><code class="language-python">maListe = ["Antoine", 12, false];</code></pre>
 
-  <p>En Python, l'appel à un indice ne figurant pas dans la liste conduit à une exception de la forme <em>IndexError: list index out of range</em>.</p>
 
-  <p>Les compréhensions de liste permettent de modifier les éléments d'une liste selon une structure très particulière. Par exemple pour mettre les éléments au carré, on procède ainsi :</p>
+  <!-- ====== UTILISATION AVANCEE DES LISTES ===== -->
+
+  <h3 id="py_liste_avance">Utilisation avancée des listes</h3>
+
+  <h4>Affectation par valeurs, affectation par référence</h4>
+
+  <p>Il existe principalement deux manières de copier des listes en Python avec des fonctionnalités différentes. L'affectation
+  par référence pointe vers l'adresse d'une liste, et donc tout changement opéré sur la copie affecte l'original. En revanche,
+  l'affectation par valeurs copie les éléments d'une liste un à un, et donc tout changement opéré sur la copie n'a aucun effet
+  sur l'original. L'affectation par référence consomme moins d'espace mémoire.</p>
+
+  <pre><code class="language-python">maListe = ["a", "b", "c"]
+copie_liste = maListe
+
+copie_liste[1] = "hello"
+print(maListe)</code></pre>
+
+  <p>Le code ci-dessus qui copie la liste par référence affiche ['a', 'hello', 'c'], alors que le code ci-dessous qui
+  copie la liste par valeurs affiche</p>
+
+  <pre><code class="language-python">maListe = ["a", "b", "c"]
+copie_liste = list(maListe)
+
+copie_liste[1] = "hello"
+print(maListe)</code></pre>
+
+  <p>Ce dernier code est équivalent à :</p>
+
+  <pre><code class="language-python">maListe = ["a", "b", "c"]
+copie_liste = list()
+for i in range(3):
+    copie_liste[i] = maListe[i]
+
+copie_liste[1] = "hello"
+print(maListe)</code></pre>
+
+  <h4>Les fonctions callback avec map</h4>
+
+  <pre><code class="language-python">def carre(x):
+    return x ** 2
+
+maListe = [1, 2, 3, 4, 5]
+print map(carre, maListe) # Affiche [1, 4, 9, 16, 25]</code></pre>
+
+  <h4>Les fonction callback avec filter</h4>
+
+  <pre><code class="language-python">def pair(x):
+    return not bool(x % 2)
+
+maListe = [1, 2, 3, 4, 5]
+print filter(pair, maListe) # Affiche [2, 4]</code></pre>
+
+  <h4>Les compréhensions de liste</h4>
+
+  <p>Les compréhensions de liste permettent de modifier les éléments d'une liste selon une structure très particulière.
+    Elles produisent des résultats semblables à ceux produits par le package Numpy mais dans le cas plus général que celui
+    des nombres. Par exemple pour mettre les éléments au carré, on procède ainsi :</p>
   <pre><code class="language-python">nouvelleListe = [elt**2 for elt in maListe]</code></pre>
 
   <p>Les compréhensions de liste permettent également de filtrer les éléments d'une liste suivant une condition particulière. Par exemple pour rechercher les éléments pairs, on procède ainsi :</p>
   <pre><code class="language-python">nouvelleListe = [elt for elt in maListe if elt%2==0]</code></pre>
+
+<p>Les compréhensions de liste sont préférables aux fonctions map et filter.</p>
+
+  <h4>Conversion d'une liste en chaîne</h4>
+
+  <p>La conversion d'une liste en chaîne et inversement est nécessaire pour effectuer certains traitements sur lse chaînes
+    de caractères. En effet, les chaînes sont censées être de taille fixe et il n'existe pas de type Stringbuffer comme em Java par exemple.</p>
+
+  <p>Pour convertir maListe en maChaine avec le séparateur "," :</p>
+
+  <pre><code class="language-python">maListe = ["h", "e", "l", "l", "o"]
+maChaine = "-".join(maListe)
+print(maChaine # affiche h-e-l-l-o</code></pre>
+
+  <p>Pour convertir maListe en maChaine sans séparateur :</p>
+
+  <pre><code class="language-python">maListe = ["h", "e", "l", "l", "o"]
+maChaine = "".join(maListe)
+print(maChaine # affiche hello</code></pre>
+
+  <p>Pour convertir maChaine en maListe :</p>
+
+  <pre><code class="language-python">maListe = maChaine.split(", ")</code></pre>
+
+  <p>L'utilisation de join avec des listes de compréhension permet l'affichage de plusieurs lignes dans une même chaìne.</p>
+
+  <pre><code class="language-python">annuaire = [
+  (1, "antoine"),
+  (5, "celine"),
+  (6, "herve")
+]
+
+print("\n".join(["%d pour %s" % (nbre, nom) for nbre, nom in annuaire]))</code></pre>
+
+  <p>ce qui affiche : 1 pour antoine <br/>5 pour celine <br/>6 pour herve</p>
 
 
 
 
 <!-- ===== LES DICTIONNAIRES ===== -->
 
-<h3>Les dictionnaires</h3>
+<h3 id="py_dictionnaire">Les dictionnaires</h3>
 
   <p>Les dictionnaires sont constitués d'un ensemble de clés-valeurs, dans lequel il n'y a aucun ordre. Ils se construisent avec des accolades à la place des crochets et des virgules entre les éléments.</p>
   <pre><code class="language-python">dico ={
@@ -469,9 +594,11 @@ for cle, valeur in dico.items():
     <tr><td>suppression d'un élément défini par sa clé et renvoi de sa valeur</td><td><pre>dico.pop("key")</pre></td></tr>
   </table>
 
+
+
   <!-- ===== LES FONCTIONS ===== -->
 
-  <h3> Les fonctions </h3>
+  <h3 id="py_fonction"> Les fonctions </h3>
 
   <p>La déclaration d'une fonction se réalise de la manière suivante :</p>
   <pre><code class="language-python">def nomFonction(parametre) :
@@ -532,12 +659,55 @@ for cle, valeur in dico.items():
       <tr><th>Fonctions</th><th>Actions</th></tr>
       <tr><td>Math.min(2, 4)</td><td>donne le minimum des paramètres passés en arguments</td></tr>
       <tr><td>Math.random</td><td>génère un nombre aléatoire entre 0 et 1</td></tr>
-
     </table>
+
+  <h4>Utilisation de la fonction callback en Python</h4>
+
+  <p>Il s'agit d'une fonction qui sert de paramètre à une autre fonction.</p>
+
+  <pre><code class="language-python">def maFonction(x):
+  instruction
+
+def autreFonction(maFonction, val):
+  return maFonction(val)</code></pre>
+
+
+
+
+  <!-- ===== LES EXCEPTIONS ===== -->
+
+  <h3 id="py_exception">Les exceptions</h3>
+
+  <p>Elles se construisent suivant les cas de différentes manières :</p>
+  <pre><code class="language-python">try: # cas général
+  instruction à tester
+except:
+  instruction en cas d'erreur
+finally:
+  instruction dans tous les cas
+
+try: # variable non définie
+  instruction à tester
+except NameError as e:
+  instruction en cas d'erreur
+
+try: # le type de la variable est incompatible avec l'instruction
+  instruction à tester
+except TypeError as e:
+  instruction en cas d'erreur
+
+try: # division par 0
+  instruction à tester
+except ZeroDivisionError:
+  instruction en cas d'erreur</code></pre>
+
+  <p>Pour aller plus loin, la documentation Python officielle <a href="https://docs.python.org/3.5/library/index.html"><em>The Python Standard Library</em></a>.</p>
+
+
 
   <!-- ===== LES OBJETS EN JAVASCRIPT ===== -->
 
-  <h3> Les objets en JavaScript </h3>
+  <h3 id=""py_objet> Les objets en JavaScript </h3>
 
     <p>La création d'une classe requiert les mot-clés <strong>class</strong> et <strong>constructor()</strong>.</p>
     <pre><code class="language-python">class MaClasse{
@@ -566,12 +736,20 @@ let unAutreObjet = Object.create(monObjet);</code></pre>
 
   <p>Dans l'exemple ci-dessus, l'objet <em>unAutreObjet</em> utilise le modèle de <em>monObjet</em> pour se construire qui lui-même est une instanciation de <em>maClasse</em>.</p>
 
+
+
 <!-- ===== RANDOM ===== -->
 
-<h3>Le package random</h3>
+<h3 id="py_random">Le package random</h3>
 
   <pre><code class="language-python">import random as rd</code></pre>
-  <p>La méthode <strong>randint(4, 7)</strong> renvoie un entier compris entre 4 et 7 compris.</p>
+
+  <p>La méthode .random() génère un nombre pseudo-aléatoire compris entre 0 et 1.</p>
+
+  <p>La méthode .randrange(5, 10, 2) génère un nombre pseudo-aléatoire compris entre 5 et 10 exclus, avec un écart de 2
+  entre chaque valeur. Sans le 3ème paramètre, la valeur par défaut est 1.</p>
+
+  <p>La méthode <strong>randint(4, 7)</strong> renvoie un entier compris entre 4 et 7 inclus.</p>
 
   <p>Pour remplir une liste de 10 éléments à l'aide de valeurs comprises entre 0 et 50 prises au hasard :</p>
   <pre><code class="language-python">liste = (rd.randrange(50) for i in range(10))</code></pre>
@@ -579,9 +757,15 @@ let unAutreObjet = Object.create(monObjet);</code></pre>
   <p>Pour remplir un tableau de 10 éléments à l'aide de valeurs comprises entre 0 et 50 prises au hasard :</p>
   <pre><code class="language-python">tableau = [rd.randrange(50) for i in range(10)]</code></pre>
 
+  <p>La méthode choice(["a", "b", "c"]) renvoie un élément choisit au hasard de la liste ["a", "b", "c"].</p>
+
+  <p>La méthode shuffle(liste) mélange les éléments d'une liste en modifiant cette liste. Elle ne renvoie rien.</p>
+
+
+
 <!-- ===== MATH ===== -->
 
-<h3>Le package math</h3>
+<h3 id="py_math">Le package math</h3>
 
   <pre><code class="language-python">from math import *</code></pre>
 
@@ -589,13 +773,15 @@ let unAutreObjet = Object.create(monObjet);</code></pre>
     <tr><th>Instruction</th><th>Effet obtenu</th></tr>
     <tr><td>floor(x)</td><td>plus grand entier inférieur ou égal à x</td></tr>
     <tr><td>ceil(x)</td><td>plus petit entier supérieur ou égal à x</td></tr>
+    <tr><td>trunc(x)</td><td>troncature de x</td></tr>
     <tr><td>fabs(x)</td><td>valeur absolue de x</td></tr>
     <tr><td>factorial(x)</td><td>factorielle de x. Lève une exception ValueError si x n'est pas entier ou si x est négatif</td></tr>
     <tr><td>fsum(maListe)</td><td>valeur exacte de la somme des valeurs d'une liste</td></tr>
     <tr><td>gcd(a, b)</td><td>pgdc de a et b</td></tr>
     <tr><td>exp(x)</td><td>exponentielle de x</td></tr>
     <tr><td>log1p(x)</td><td>logarithme en base e de x</td></tr>
-    <tr><td>pow(x, y)</td><td>x puissance y</td></tr>
+    <tr><td>pow(x, y)</td><td>x puissance y, renvoie un float</td></tr>
+    <tr><td>x**y</td><td>x puissance y, renvoie un int</td></tr>
     <tr><td>sqrt(x)</td><td>racine carrée de x</td></tr>
     <tr><td>acos(x)</td><td>arc cosinus de x en radians</td></tr>
     <tr><td>asin(x)</td><td>arc sinus de x en radians</td></tr>
@@ -615,14 +801,32 @@ let unAutreObjet = Object.create(monObjet);</code></pre>
     <tr><td>e</td><td>e = 2,71</td></tr>
   </table>
 
+  <p>En Python les angles sont exprimés en radian par défaut.</p>
+
+  <p>pi et e sont les deux constantes mathématiques connues du package math.</p>
+
+
+
+  <!-- ===== FRACTION ===== -->
+
+  <h3 id="py_fraction">Le package fractions</h3>
+
+  <pre><code class="language-python">from fractions import Fraction</code></pre>
+
+  <p>Un objet de type Fraction est défini de la façon suivante : Fraction(numérateur, dénominateur). Une fois définie,
+    une fraction est affichée systématiquement sous sa forme simplifiée.</p>
+
+  <p>La classe Fraction accepte les opérations élémentaires +, -, *, / et permet de conserver une excellente précision de calcul.</p>
+
+
 
 <!-- ===== NUMPY ===== -->
 
-  <h3>Le package Numpy</h3>
+  <h3 id="py_numpy">Le package Numpy</h3>
 
   <pre><code class="language-python">import numpy as np</code></pre>
 
-  <p>Numpy est utilisé pour manipuler des séries de nombres. En particulier, il permet des traitements généralisés sur des listes.</p>
+  <p>Numpy est utilisé pour manipuler des séries de nombres. En particulier, il permet de traiter des listes de nombres comme des tableaux de nombres.</p>
 
   <pre><code class="language-python">liste_numpy = np.array([10, 20, 30])
 liste_divisee = liste_numpy/2</code></pre>
@@ -630,9 +834,10 @@ liste_divisee = liste_numpy/2</code></pre>
   <p>Numpy permet notamment de faire la somme des éléments de la liste :</p>
   <pre><code class="language-python">liste_numpy.sum()</code></pre>
 
+
 <!-- ===== JSON ===== -->
 
-<h3>Le package JSON</h3>
+<h3 id="py-json">Le package JSON</h3>
 
   <p>JSON est un format de stockage de données dans un fichier. JSON signifie JavaScript Object Notation.</p>
   <p>JSON ne se trouve pas nativement dans l'environnement de travail. Il est donc nécessaire de l'importer.</p>
@@ -682,40 +887,12 @@ with open("monFichier.json", "r") as file:
 with open("monFichier.json", "w", encoding="utf-8") as file:
 json.dump(data, file, indent=4)</code></pre>
 
-<!-- ===== LES EXCEPTIONS ===== -->
-
-<h3>Les exceptions</h3>
-
-  <p>Elles se construisent suivant les cas de différentes manières :</p>
-  <pre><code class="language-python">try: # cas général
-  instruction à tester
-except:
-  instruction en cas d'erreur
-finally:
-  instruction dans tous les cas
-
-try: # variable non définie
-  instruction à tester
-except NameError as e:
-  instruction en cas d'erreur
-
-try: # le type de la variable est incompatible avec l'instruction
-  instruction à tester
-except TypeError as e:
-  instruction en cas d'erreur
-
-try: # division par 0
-  instruction à tester
-except ZeroDivisionError:
-  instruction en cas d'erreur</code></pre>
-
-  <p>Pour aller plus loin, la documentation Python officielle <a href="https://docs.python.org/3.5/library/index.html"><em>The Python Standard Library</em></a>.</p>
 
 
 
-  <!-- CREER UN PACKAGE -->
+  <!-- ==== CREER UN PACKAGE ===== -->
 
-  <h3>Créer un package</h3>
+  <h3 id="py_creer_package">Créer un package</h3>
 
   <p>Un package Python est organisé en fichiers ou classes, qui sont regroupées dans des modules. Les noms des packages et des modules seront écrits en minuscule et peuvent contenir des underscore. La structure à adopter est la suivante :</p>
 <pre>librairie // racine du package
@@ -760,7 +937,7 @@ setup(name = "librairie",
 
 <!-- ===== PEP8 ===== -->
 
-  <h3>Respect du PEP8</h3>
+  <h3 id="py-pep">Respect du PEP8</h3>
 
   <p>Python Enhancement Proposal 8 requiert le respect des règles suivantes:</p>
   <ul>
