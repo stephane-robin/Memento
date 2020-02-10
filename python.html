@@ -71,6 +71,7 @@ function affichageConditionnel(bouton, id) {
     <li> <a href="#py_math">Le package math</a> </li>
     <li> <a href="#py_fraction">Le package fractions</a> </li>
     <li> <a href="#py_numpy">Le package Numpy</a> </li>
+    <li> <a href="#py_matplotlib">Le package MatPlotlib</a> </li>
     <li> <a href="#py_json">Le package JSON</a> </li>
     <li> <a href="#py_creer_package">Créer un package</a> </li>
     <li> <a href="#py_pep">Respect du PEP8</a> </li>
@@ -147,19 +148,27 @@ print("Dans deux ans vous aurez ", age+2)</code></pre>
 
 <h3 id="py_import_package">Importer un package</h3>
 
-  <pre><code class="language-python">import nomPackage as np</code></pre>
-
-<p>Chaque fonction du package sera ensuite appelée avec le préfixe <em>np</em>.</p>
-  <pre><code class="language-python">np.maFonction(5)</code></pre>
-
-<p>On peut également importer un package sans le renommer à l'aide d'un préfixe, lorsqu'il n'y a aucun risque de confusion entre les fonctions.</p>
+  <p>Pour importer un package, on peut utiliser l'instruction :</p>
   <pre><code class="language-python">import nomPackage</code></pre>
 
-<p>Dans ce cas, il faudra appeler chaque fonction en utilisant <em>nomPackage</em> comme préfixe.</p>
+  <p>Dans ce cas, il faudra appeler chaque fonction en utilisant <em>nomPackage</em> comme préfixe.</p>
   <pre><code class="language-python">nomPackage.maFonction(5)</code></pre>
 
-<p>Pour le package math, on préfère utiliser l'instruction suivante pour éviter d'ajouter un préfixe à chaque calcul :</p>
-  <pre><code class="language-python">from math import *</code></pre>
+  <p>Pour éviter cela, On peut importer un package en précisant un préfixe :</p>
+  <pre><code class="language-python">import nomPackage as np</code></pre>
+
+<p>Chaque fonction du package sera ensuite appelée avec ce même préfixe <em>np</em>.</p>
+  <pre><code class="language-python">np.maFonction(5)</code></pre>
+
+<p>Lorsqu'il n'y a aucun risque de confusion entre les fonctions de différents packages, on peut utiliser l'instruction
+  suivante qui évite d'ajouter un préfixe à chaque instruction. C'est pratique dans un script, mais déconseillé dans un
+  code complexe pour réduire les erreurs et accroître la scalabilité du code.</p>
+
+  <pre><code class="language-python">from nomPackage import *</code></pre>
+
+  <p>Pour importer uniquement un module d'un package, par exemple :</p>
+
+  <pre><code class="language-python">import matplotlib.pyplot as plt</code></pre>
 
   <h4>Particularité Python pour l'importation d'un package</h4>
 
@@ -274,6 +283,7 @@ a, b = b, a</code></pre>
   <p>L'utilisation d'un indice qui n'existe pas dans la chaîne lève une exception de type <em>IndexError</em>.</p>
   <p>Il n'est pas possible de modifier un caractère d'une chaîne de la façon suivante <em>chaine[4] = "Antoine"</em>. Il s'agit en fait d'une protection des chaînes qui pourront être modifiées par instruction explicite du développeur.</p>
 
+  <p>Python utilise indistinctement " ou ' pour encadre une chaîne de caractères, et ne distingue pas les caractères isolés comme Java.</p>
   <h4>Parcourir une chaîne de caractères élément par élément</h4>
 
   <pre><code class="language-python">for(let i=0; i&ltchaine.length; i++){
@@ -546,10 +556,11 @@ print("\n".join(["%d pour %s" % (nbre, nom) for nbre, nom in annuaire]))</code><
 
 <h3 id="py_dictionnaire">Les dictionnaires</h3>
 
-  <p>Les dictionnaires sont constitués d'un ensemble de clés-valeurs, dans lequel il n'y a aucun ordre. Ils se construisent avec des accolades à la place des crochets et des virgules entre les éléments.</p>
+  <p>Les dictionnaires sont constitués d'un ensemble de clés-valeurs, dans lequel il n'y a aucun ordre. Ils se construisent avec des accolades à la place des crochets et des virgules entre les éléments.
+  Leur structure est donc similaire à celle d'un format JSON.</p>
   <pre><code class="language-python">dico ={
   "nom" : "Antoine",
-  "prenom" : "Hervé";
+  "prenom" : "Hervé"
 }</code></pre>
 
   <p>Pour créer un dictionnaire vide :</p>
@@ -557,17 +568,10 @@ print("\n".join(["%d pour %s" % (nbre, nom) for nbre, nom in annuaire]))</code><
 
   <p>Pour accéder à un élément du tableau, il ne faut plus appeler son indice qui n'existe pas mais appeler la clé de la façon suivante :</p>
 
-  <pre><code class="language-python">dico.nom</code></pre>
-  <p>On remarque donc qu'un tableau associatif n'est autre qu'un objet dans lequel les clés sont des propriétés qui possèdent des valeurs.</p>
-
-  <p>Dans certains cas, on préfèrera appeler l'élément du tableau de la manière suivante :</p>
   <pre><code class="language-python">dico["nom"]</code></pre>
 
-  <p>Pour ajouter un élément à la fin d'un tableau associatif, il suffit de créer cet élément :</p>
-  <pre><code class="language-python">tabAsso["lieuNaissance"] = "Lausanne";</code></pre>
-
-  <p>ou encore</p>
-  <pre><code class="language-python">tabAsso.lieuNaissance = "Lausanne";</code></pre>
+  <p>Pour ajouter un élément à la fin d'un dictionnaire, il suffit de créer cet élément :</p>
+  <pre><code class="language-python">dico["lieuNaissance"] = "Lausanne";</code></pre>
 
   <h4>Parcourir un dictionnaire</h4>
 
@@ -584,15 +588,22 @@ for cle, valeur in dico.items():
 
   <table>
     <tr><th>Propriétés</th><th>Codes</th></tr>
-    <tr><td>taille</td><td><pre>len(liste)</pre></td></tr>
-    <tr><td>élément d'indice i</td><td><pre>liste[i]</pre></td></tr>
-    <tr><td>dernier élément d'une liste</td><td><pre>liste[-1]</pre></td></tr>
+    <tr><td>taille</td><td><pre>len(dico)</pre></td></tr>
+    <tr><td>affichage de tous les éléments sans format spécifique</td><td><pre>dico.items()</pre></td></tr>
     <tr><td>modifier l'élément de clé key</td><td><pre>dico["key"] = "value"</pre></td></tr>
-    <tr><td>indice d'un élément</td><td><pre>liste.index(element)</pre></td></tr>
     <tr><td>ajout d'un élément</td><td><pre>dico["key"] = "value"</pre></td></tr>
     <tr><td>suppression d'un élément défini par sa clé sans renvoi de sa valeur</td><td><pre>del dico["key"]</pre></td></tr>
     <tr><td>suppression d'un élément défini par sa clé et renvoi de sa valeur</td><td><pre>dico.pop("key")</pre></td></tr>
   </table>
+
+  <h4>Définir les attributs d'un objet à partir d'un dictionnaire</h4>
+
+  <p>Dans le constructeur d'une classe, pour instancier des objets dont les attributs portent le même nom que les clés d'un dictionnaire :</p>
+
+  <pre><code class="language-python">def __init__(self, dico):
+  for attr_name, attr_value in dico.items():
+    setattr(self, attr_name, attr_value)</code></pre>
+
 
 
 
@@ -705,36 +716,43 @@ except ZeroDivisionError:
 
 
 
-  <!-- ===== LES OBJETS EN JAVASCRIPT ===== -->
+  <!-- ===== LES OBJETS EN PYTHON ===== -->
 
-  <h3 id=""py_objet> Les objets en JavaScript </h3>
+  <h3 id="py_objet"> Les objets en Python</h3>
 
-    <p>La création d'une classe requiert les mot-clés <strong>class</strong> et <strong>constructor()</strong>.</p>
-    <pre><code class="language-python">class MaClasse{
-  let nom;
-  let prenom;
+    <p>La création d'une classe en Python :</p>
+    <pre><code class="language-python">class MaClasse:
+  MON_ATTRIBUT  # attribut de classe
 
-  constructor(nom, prenom){
-    this.nom = nom;
-    this.prenom = prenom;
-  }
+  __init__(self, nom, prenom):
+    self.nom = nom
+    self.prenom = prenom
 
-  uneMethode(parametre){
-    instructions;
-  }
+  def uneMethode(parametre):
+    instructions
+
 }</code></pre>
 
-  <p>L'instanciation d'un objet se fait de façon classique :</p>
-  <pre><code class="language-python">let monObjet = new MaClasse("Charles", "Hervé");</code></pre>
+  <p>On remarque que la signature d'une méthode ne comprend pas le type renvoyé par la méthode. Notons également que le
+  constructeur d'une classe en Python est __init__(self). Le mot-clé self doit obligatoirement apparaître parmi les paramètres
+  du constructeur contrairement à d'autres langages. En revanche, il n'est pas nécessaire de définir les attributs, comme nom
+    et prenom dans l'exemple ci-dessus, avant la définition des méthodes. Seuls les attributs de classe s'écrivent en majuscule
+    avec éventuellement des underscores. Ils n'utilisent pas de mot-clé spécifique. En Python les attributs de classe sont en fait
+  vus comme des constantes propres à une classe.</p>
 
-  <h4>Particularité de JavaScript</h4>
+  <p>Les méthodes de classes prennent toujours en paramètre le mot-clé self.</p>
 
-  <p>JavaScript utilise des prototypes qui sont des liens vers d'autres objets pris en référence.</p>
-  <pre><code class="language-python">let monObjet = new MaClasse(nom, prenom);
+  <p>L'instanciation d'un objet se fait sans recours au mot-clé traditionnel new des autres langages :</p>
+  <pre><code class="language-python">monObjet = MaClasse("Charles", "Hervé")</code></pre>
 
-let unAutreObjet = Object.create(monObjet);</code></pre>
+  <p>On peut accéder aux attributs de classe à partir d'un objet mais également directement à partir de la classe de la façon suivante :</p>
+  <pre><code class="language-python">MaClasse.MON_ATTRIBUT</code></pre>
 
-  <p>Dans l'exemple ci-dessus, l'objet <em>unAutreObjet</em> utilise le modèle de <em>monObjet</em> pour se construire qui lui-même est une instanciation de <em>maClasse</em>.</p>
+  <p>Par défaut toutes les méthodes sont publiques. Pour les rendre protégées il faut ajouter un underscore devant la méthode
+  et pour les rendre privées il faut rajouter deux underscores</p>
+
+  <pre><code class="language-python">def _maMethodeProtegee:
+def __maMethodePrivee</code></pre>
 
 
 
@@ -833,6 +851,16 @@ liste_divisee = liste_numpy/2</code></pre>
 
   <p>Numpy permet notamment de faire la somme des éléments de la liste :</p>
   <pre><code class="language-python">liste_numpy.sum()</code></pre>
+
+
+
+
+  <!-- ===== MATPLOTLIB ===== -->
+
+  <h3>Le package MatPlotLib</h3>
+
+  <p>MatPlotLib est utilisé pour représenter des données en deux dimensions, i.e. pour créer des schémas, des graphiques
+  et des spectres. Ce package comprend notamment le module Pyplot qui permet de créer des graphiques en couleur.</p>
 
 
 <!-- ===== JSON ===== -->
