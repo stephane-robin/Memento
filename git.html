@@ -251,11 +251,22 @@ sudo apt-get auroremove</pre></td></tr>
 
   <p>Attention, pour ouvrir un fichier du répertoire courant, l'appel direct de monFichier est insuffisant. Il faut d'abord rajouter le chemin local, qui force la connexion.</p>
 
+  <h4>Installation d'un logiciel en utilisant la commande bash</h4>
+
+  <p>Un fichier au format .sh est un fichier d'installation qui s'ouvre avec une commande bash. Pour cela, dans le répertoire courant, il faut d'abord
+  vérifier l'intégrité de l'installer en utilisant :</p>
+
+  <pre><code>sha256sum nomInstaller.sh</code></pre>
+
+  <p>puis lancer l'installation à l'aide de :</p>
+
+  <pre><code>bash nomInstaller.sh</code></pre>
+
   <h4>Installation d'un logiciel à partir d'un fichier .tar.gz</h4>
 
   <p>Un fichier .tar est une archive non compressée. En revanche, un fichier .gz est une compression de fichier.</p>
   <p>Il faut d'abord déplacer le fichier .tar.gz vers /usr/local. Pour cela :</p>
-  <pre>mv /home/stephane/Téléchargements/nom_fichier.tar.gz /usr/local</pre>
+  <pre>sudo mv /home/stephane/Téléchargements/nom_fichier.tar.gz /usr/local</pre>
   <p>Il faut ensuite se placer dans le répertoire /usr/local</p>
   <pre>cd /usr/local</pre>
   <p>Puis il faut décompresser le fichier .gz :</p>
