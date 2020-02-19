@@ -104,10 +104,28 @@ function affichageConditionnel(bouton, id) {
   <pre><code class="language-python">#!/usr/bin/python3.7
 # -*-coding:Utf-8 -*</code></pre>
 
+  <p>Pour télécharger l'environnement de travail Anaconda, il faut d'abord télécharger Anaconda pour Linux, vérifier le sha avec la commande :</p>
+  <pre><code>sha256sum [nom_fichier_telecharge]</code></pre>
+
+  <p>puis exécuter le fichier d'installation :</p>
+  <pre><code>bash Anaconda-[version]-Linux-x86_64.sh</code></pre>
+
+  <p>Finalement, il est possible de tester l'installation en utilisant :</p>
+  <pre><code>conda list</code></pre>
+
   <p>Lors de la création d'un projet, il faut spécifier l'environnement dans lequel on travaille, comme par exemple virtualenv ou conda.</p>
 
   <p>L'installation de l'éditeur JetBrains PyCharm-community se fait sur Linux grâce à l'instruction au Terminal :</p>
   <pre><code>sudo snap install pycharm-community --classic</code></pre>
+
+  <p>Une fois qu'on a installé Anaconda, l'exécution se fait grâce à l'instruction :</p>
+  <pre><code>anaconda-navigator</code></pre>
+
+  <p>Pour mettre à jour Anaconda :</p>
+  <pre><code>conda update conda</code></pre>
+
+  <p>Pour connaître l'emplacement de conda :</p>
+  <pre><code>which conda</code></pre>
 
   <h4>Particularité du système Windows</h4>
 
