@@ -101,7 +101,7 @@ function affichageConditionnel(bouton, id) {
   <pre><code>which python</code></pre>
 
   <p>Il est souvent nécessaire de placer en début de code le chemin absolu de l'interpréteur (ici 3.7 représente la version de Python), et de préciser l'encodage UTF-8 :</p>
-  <pre><code class="language-python">#!/usr/bin/python3.7
+  <pre><code class="language-python">#!/usr/bin/env python3
 # -*-coding:Utf-8 -*</code></pre>
 
   <p>Pour télécharger l'environnement de travail Anaconda, il faut d'abord télécharger Anaconda pour Linux, vérifier le sha avec la commande :</p>
@@ -149,6 +149,33 @@ pour aller à la ligne. Pour éviter un retour à la ligne, on utilise l'instruc
 
 
 
+  <!-- ======== AFFICHER UN STRING ========= -->
+
+  <h3 id=""py_affichage">Afficher une valeur</h3>
+
+  <p>La fonction print() permet d'afficher une chaîne de caractères et accepte les paramètres suivants :</p>
+    <ul>
+  <li>end='-' pour préciser ce qu'il faut afficher à la fin de la chaine ou pour afficher sur une même ligne avec end=''</li>
+  <li>sep='-' pour préciser le séparateur entre plusieurs chaînes.</li>
+</ul>
+
+  <p>Python accepte les template litteral, suivant trois formats du plus ancien au plus moderne :</p>
+
+  <pre><code class="language-python">name = "Bob"
+"Hello %s" % name</code></pre>
+
+  <pre><code class="language-python">name = "Bob"
+"Hello {}".format(name)</code></pre>
+
+  <pre><code class="language-python">name = "Bob"
+f"Hello {name}"</code></pre>
+
+  <p>L'intérêt du template litteral, outre sa structure simple, est qu'il n'est pas nécessaire de transformer name en
+  string dans le cas où il s'agit d'un float pour pouvoir le concaténer avant de l'afficher. Cela simplifie donc la
+  compréhension du code.</p>
+
+
+
   <!-- ===== SAISIE D'UNE VALEUR PAR L'UTILISATEUR ===== -->
 
   <h3 id="py_saisie">Saisie d'une valeur par l'utilisateur</h3>
@@ -165,23 +192,33 @@ print("Bonjour ",nom);</code></pre>
   <pre><code class="language-python">age = int(input("Quel est votre âge ?"))
 print("Dans deux ans vous aurez ", age+2)</code></pre>
 
+env -p /home/stephane/3.6.5
+
 
 
 <!-- ===== IMPORTER UN PACKAGE ===== -->
 
-<h3 id="py_import_package">Importer un package</h3>
+<h3 id="py_import_package">Installer et importer un package</h3>
 
-  <p>Pour importer un package, on peut utiliser l'instruction :</p>
+  <p>Pour installer un package, si la version de Python par défaut est Python3, on utilise l'instruction pip en ligne de
+    commande, si la version de Python par défaut est Python2, on utilise l'instruction pip3 en ligne de commande pour forcer
+    l'ordinateur à pointer vers Python3 :</p>
+  <pre><code class="language-python">pip install nom_package</code></pre>
+
+  <p>De la même façon, pour désinstaller un package :</p>
+  <pre><code class="language-python">pip uninstall nom_package</code></pre>
+
+  <p>Ensuite, pour importer un package dans le code, on peut utiliser l'instruction :</p>
   <pre><code class="language-python">import nomPackage</code></pre>
 
   <p>Dans ce cas, il faudra appeler chaque fonction en utilisant <em>nomPackage</em> comme préfixe.</p>
   <pre><code class="language-python">nomPackage.maFonction(5)</code></pre>
 
   <p>Pour éviter cela, On peut importer un package en précisant un préfixe :</p>
-  <pre><code class="language-python">import nomPackage as np</code></pre>
+  <pre><code class="language-python">import nomPackage as p</code></pre>
 
 <p>Chaque fonction du package sera ensuite appelée avec ce même préfixe <em>np</em>.</p>
-  <pre><code class="language-python">np.maFonction(5)</code></pre>
+  <pre><code class="language-python">p.maFonction(5)</code></pre>
 
 <p>Lorsqu'il n'y a aucun risque de confusion entre les fonctions de différents packages, on peut utiliser l'instruction
   suivante qui évite d'ajouter un préfixe à chaque instruction. C'est pratique dans un script, mais déconseillé dans un
@@ -392,12 +429,13 @@ else :
 
 <h3 id="py_tableau">Les tableaux</h3>
 
-  <p>Les tableaux contiennent des éléments dont le nombre de bouge pas. On peut toutefois changer ces éléments. Un tableau est considéré comme un type élémentaire en Python.</p>
+  <p>Les tableaux (appelés tuples en Python) contiennent des éléments dont le nombre de bouge pas. On peut toutefois changer ces éléments. Un tableau est considéré comme un type élémentaire en Python.</p>
 
   <p>On peut créer un tableau de la manière suivante :</p>
   <pre><code class="language-python">tab = (element1, element2)</code></pre>
 
-  <p>L'indice du 1er élément d'un tableau est 0.</p>
+  <p>L'indice du 1er élément d'un tableau est 0. Attention, on ne modifie pas les éléments d'un tuple, qui sont par
+  définition immuables.</p>
 
   <h4>Propriétés d'un tableau</h4>
 
@@ -406,7 +444,6 @@ else :
     <tr><td>taille</td><td><pre>len(tab)</pre></td></tr>
     <tr><td>élément d'indice i</td><td><pre>tab[i]</pre></td></tr>
     <tr><td>dernier élément d'une liste</td><td><pre>tab[-1]</pre></td></tr>
-    <tr><td>modifier l'élément d'indice i</td><td><pre>tab[i] = nouvelleValeur</pre></td></tr>
     <tr><td>indice d'un élément</td><td><pre>tab.index(element)</pre></td></tr>
   </table>
 
@@ -941,12 +978,111 @@ json.dump(data, file, indent=4)</code></pre>
 
 
 
+
+  <!-- ===== CHANGER LES VERSIONS DE PYTHON ===== -->
+
+  <h3 id="py_version">Gérer les versions de Python avec pyenv</h3>
+
+  <p>Pour connaître la version active de Python :</p>
+  <p>python --version</p>
+
+  <p>Pour connaître toutes les versions disponibles au téléchargement de Python3.6 à 3.8 :</p>
+  <pre><code class="language-svg">pyenv install --list | grep " 3\.[678]"</code></pre>
+
+  <p> Toutes les versions s'installent dans un fichier .pyenv/versions/, qui vient s'insérer dans le PATH au coeur du
+    système, et non pas directement dans un  environnement de développement. Ainsi, un environnement peut utiliser une
+    version particulière de Python en pointant vers l'adresse de stockage de la version, sans qu'elle soit incorporée à
+    cet environnement. Pour installer la version 3.7.2 en particulier :</p>
+  <pre><code class="language-svg">pyenv install -v 3.7.2</code></pre>
+
+  <p>Pour supprimer la version 2.7.15 de l'ordinateur :</p>
+  <pre><code class="language-svg">pyenv uninstall 2.7.15</code></pre>
+  <p>Attention de travailler avec une version 3 de Python et de ne pas supprimer la version 2 système de Python livrée
+  d'usine et servant au fonctionnement de l'ordinateur.</p>
+
+  <p>Il est important de bien connaître la version de Python utilisée avant de procéder à tout changement dans un
+  environnement de développement, car chaque version accepte des dépendances différentes.</p>
+
+  <p>Pour connaître toutes les versions disponibles sur l'ordinateur (la version active est précédée d'une *) :</p>
+<pre><code class="language-svg>">pyenv versions</code></pre>
+
+  <p>Pour connaître l'adresse de la version de Python utilisée :</p>
+  <pre><code class="language-svg">which python # ou encore
+pyenv which python</code></pre>
+
+  <p>Pour changer la version de Python en local dans l'environnement de développement :</p>
+  <pre><code class="language-svg">pyenv local 3.7.1</code></pre>
+
+  <p>Pour changer la version de Python pour tout l'ordinateur :</p>
+  <pre><code class="language-svg">pyenv global 2.7.15</code></pre>
+
+  <p>Pour revenir à la version système :</p>
+  <pre><code class="language-svg">pyenv global system</code></pre>
+
+
+
+
+  <!-- ===== CREER DES ENVIRONNEMENTS DE TRAVAIL ===== -->
+
+  <h3 id="py_env">Créer des environnements de travail avec venv</h3>
+
+  <p>Il est nécessaire de travailler dans des environnements virtuels pour isoler les dépendances de chaque projet Python.
+  Pour cela, on utilise le module venv compris dans la librairie standard de Python3. Il est également possible d'utiliser
+  virtualenv à la place de venv, mais ce dernier est déjà compris dans les versions de Python supérieures à 3.5 et ne
+  nécessite donc pas d'installer virtualenv comme une dépendance.</p>
+
+  <p>Au terminal, on crée tout d'abord le dossier qui va contenir mes environnements virtuels, puis on se place dedans :</p>
+
+  <pre><code class="language-svg">mkdir environnements
+cd environnements</code></pre>
+
+  <p>On crée maintenant un nouvel environnement au sein du dossier environnements :</p>
+
+  <pre><code class="language-svg">python3 -m venv mon_env</code></pre>
+
+  <p>Pour visualier la structure de mon_env il suffit de taper tree dans le dossier courant.</p>
+
+  <img src="venv.png">
+
+<p>bin contient les fichiers qui interagissent avec l'environnement virtuel, include contient les en-têtes C qui compilent
+les packages Python, lib contient une copie de la version Python avec un dossier de packages dans lequel sont installées
+toutes les dépendances.</p>
+
+  <p>Il est maintenant nécessaire d'activer l'environnement virtuel comme environnement de travail. Pour cela, il faut se
+  placer dans le dossier environnements et taper au Terminal :</p>
+
+  <pre><code class="language-svg">source mon_env/bin/activate</code></pre>
+
+  <p>A partir de maintenant, les commandes saisies ont une action dans l'environnement. On remarque que l'environnement
+  est actif, car devant le prompt du Terminal apparaît (mon_env)$.</p>
+
+  <p>Pour désactiver cet environnemnt virtuel, il suffit de taper :</p>
+
+  <pre><code class="language-svg">deactivate</code></pre>
+
+  <p>Pour installer un module dans l'environnement, il faut d'abord se rendre dans l'environnement puis :</p>
+  <pre><code class="language-svg">cd mon_env
+pip3 install nom_package</code></pre>
+
+  <p>Pour voir la liste de tous les modules installés :</p>
+  <pre><code class="language-svg">pip3 freeze</code></pre>
+
+  <p>Pour utiliser une version particulière de Python dans l'environnement, il faut d'abord installer cette version sur
+    l'ordinateur, puis se rendre dans l'environnement et définir cette version comme la version locale :</p>
+  <pre><code class="language-svg">pyenv install 3.8.0
+cd mon_env
+pyenv local 3.8.0</code></pre>
+
+
+
+
+
   <!-- ==== CREER UN PACKAGE ===== -->
 
   <h3 id="py_creer_package">Créer un package</h3>
 
   <p>Un package Python est organisé en fichiers ou classes, qui sont regroupées dans des modules. Les noms des packages et des modules seront écrits en minuscule et peuvent contenir des underscore. La structure à adopter est la suivante :</p>
-<pre>librairie // racine du package
+  <pre>librairie // racine du package
   librairie/  // module Python
     __init__.py
     fichier.py
@@ -981,12 +1117,44 @@ setup(name = "librairie",
   ],
   zip_safe = False)</code></pre>
 
- <p>L'installation d'un package en local sur Linux se fait avec la commande pip install librairie.</p>
+  <p>L'installation d'un package en local sur Linux se fait avec la commande pip install librairie.</p>
 
-<p>Pour publier un package sur PyPI, il faut utiliser la commande python setup.py register</p>
+  <p>Pour publier un package sur PyPI, il faut utiliser la commande python setup.py register</p>
+
+  <!-- ===== CREER UN PACKAGE ===== -->
+
+  <h3 id="py_package">Créer un package avec Poetry</h3>
+
+  <p>Il est possible de créer manuellement les fichiers build, manifestes et dépendances en utilisant pip ou conda.
+  Toutefois, la gestion des compatibilités des dépendances n'est pas toujours assurée et la publication sur PyPI peut
+  s'avérer impossible. Poetry est un outil complet ... Pour installer Poetry il faut écrire le script en ligne de commande :</p>
+
+  <pre><code class="language-python">curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3</code></pre>
+
+  <p>Ce script installe Poetry et il est nécessaire de relancer le Terminal pour modifier automatiquement le system PATH. On peut vérifier la bonne installation avec la
+  commande :</p>
+
+  <pre><code class="language-python">poetry --version</code></pre>
+
+  <p>Pour générer un package, il ne faut pas créer de répertoire vide mais écrire directement :</p>
+
+  <pre><code class="language-python">poetry new mon_package</code></pre>
+
+  <p>qui crée le package dans un répertoire du même nom.</p>
+
+  <p>La structure du package ressemble ainsi à ceci :</p>
+
+  <img src="poetry.png" alt="poetry"/>
+
+  <p>Il faut ensuite ajouter des dépendances au fichier .toml dont la version sera enregistrée dans un fichier .lock. Bien
+  qu'il soit possible de les ajouter manuellement, il est préférable d'utiliser la commande suivante qui gère la compatibilité
+  des dépendances :</p>
+
+  <pre><code class="language-python">poetry add un_module</code></pre>
 
 
-<!-- ===== PEP8 ===== -->
+
+  <!-- ===== PEP8 ===== -->
 
   <h3 id="py-pep">Respect du PEP8</h3>
 
@@ -1011,15 +1179,10 @@ setup(name = "librairie",
     <li>les constantes s'écrivent en majuscules, avec underscore si besoin</li>
   </ul>
 
-<p>PyLint est un logiciel en ligne de commande permettant d'analyser le code en fonction des standards de PEP8.</p>
+  <p>PyLint est un logiciel en ligne de commande permettant d'analyser le code en fonction des standards de PEP8.</p>
 
   <pre>pip install pylint
 pylint fichier.py // lance l'analyse de fichier.py</pre>
-
-
-
-
-  <p></p>
 
 </section>
 
