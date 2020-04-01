@@ -664,6 +664,17 @@ for cle, valeur in dico.items():
   for attr_name, attr_value in dico.items():
     setattr(self, attr_name, attr_value)</code></pre>
 
+<h4>Conversion d'un dictionnaire en chaìne</h4>
+
+  <p>De la même façon qu'avec des listes, on peut transformer un
+    dictionnaire en chaìne en spécifiant un séparateur de valeurs
+    (attention, seules les clés seront utilisées) :</p>
+
+  <pre><code class="language-python">dico = {'name' : 'daniel', 'age'
+    : '30'}
+chaine = '#'.join(dico)</code></pre>
+
+  <p>On obtiendra alors comme résultat : name#age</p>
 
 
 
@@ -742,6 +753,28 @@ for cle, valeur in dico.items():
 def autreFonction(maFonction, val):
   return maFonction(val)</code></pre>
 
+
+
+
+  <!-- ===== LES DOCTRINGS ===== -->
+
+  <h3 id="py_doc">Les docstrings</h3>
+
+  <p>Les conventions pour la doctring sont les suivantes :</p>
+<pre><code class="language-svg">def ma_fonction(nom):
+  """description generale
+
+  Parameters :
+  nom (str): description de nom
+
+  Returns :
+  nouveau_nom (str): description de nouveau_nom
+
+
+  description en details"""</code></pre>
+
+  <p>Pour appeler une doctring, il faut taper dans le shell :</p>
+<pre><code class="language-svg">help(ma_fonction)</code></pre>
 
 
 
@@ -1075,6 +1108,20 @@ pyenv local 3.8.0</code></pre>
 
 
 
+  <!-- ===== UTILISATION DE PYCHARM DANS UN ENVIRONNEMENT ===== -->
+
+  <h3 id="py_pycharm">Utilisation de PyCharm dans un environnement particulier</h3>
+
+  <p>PyCharm crée automatiquement un dossier PyCharmProjects dans lequel il va ranger les différents projets. On peut
+    alors choisir l'interpréteur parmi ceux proposés, et en fonction de ce qui a été installé (conda, virtualenv, une version
+    particulière de Python ...). Pour cela, après avoir ouvert PyCharm, sélectionné le projet, puis File -> Settings ->
+    Project Interpreter.</p>
+
+  <p>On peut également utiliser un environnement lié à un projet déjà existant. Pour cela, on commence par créer un dossier
+  dans lequel on crée l'environnement de développement avec venv, puis on ouvre PyCharm, on ouvre le projet existant,
+    File -> Settings -> Project Interpreter. PyCharm devrait avoir reconnu l'environnement de travail et pointer directement
+  vers la bonne version de Python, avoir les bons packages déjà installés. Si ces packages font défaut lors de l'exécution,
+  l'erreur liée au package donne lieu à un signal rouge et un menu qui permet de confirmer l'installation du package.</p>
 
 
   <!-- ==== CREER UN PACKAGE ===== -->
@@ -1120,6 +1167,10 @@ setup(name = "librairie",
   <p>L'installation d'un package en local sur Linux se fait avec la commande pip install librairie.</p>
 
   <p>Pour publier un package sur PyPI, il faut utiliser la commande python setup.py register</p>
+
+
+
+
 
   <!-- ===== CREER UN PACKAGE ===== -->
 

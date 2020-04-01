@@ -106,6 +106,9 @@ git push origin master</pre>
 <pre>git pull origin master</pre>
 <p>Dans ce cas, origin correspond au remote repository.</p>
 
+
+
+
 <!-- L'HISTORIQUE -->
 
 <h3>L'historique</h3>
@@ -164,6 +167,9 @@ git push --tags</pre>
 <p>On obtient ainsi toutes les modifications faites sur un fichier ligne par ligne avec le début du <em>sha</em> du commit correspondant. Il faut alors utiliser l'instruction suivante pour consulter les détail du commit recherché :</p>
 <pre>git show nrmCommit</pre>
 
+
+
+
 <!-- LA GESTION DES BRANCHES -->
 
 <h3>La gestion des branches</h3>
@@ -198,9 +204,12 @@ git merge nomBranche</pre>
 <p>Pour supprimer une branche dont les modifications n'ont pas été incorporées au master, parce que par exemple le travail réalisé n'est pas concluant :</p>
 <pre>git branch -D nomBranche</pre>
 
+
+
+
 <!-- IGNORER DES FICHIERS -->
 
-<h3>Ignorer des fichiers</h3>
+<h3>Ignorer des fichiers avec gitignore</h3>
 
 <p>Il ne faut jamais versionner une variable de configuration, comme par exemple un mot de passe ou une clé secrète. Si le code a déjà été envoyé sur <em>GitHub</em>, il convient de changer de mot de passe ou générer une nouvelle clé secrète.</p>
 
@@ -220,6 +229,8 @@ git merge nomBranche</pre>
 
 <p>Pour sortir de <em>vim</em> :</p>
 <pre>:q</pre>
+
+
 
   <!-- LIGNES DE COMMANDE -->
 
@@ -293,12 +304,12 @@ sudo apt-get auroremove</pre></td></tr>
   <p>Un fichier .deb est un package permettant d'installer une application sous les systèmes Linux Debian.</p>
 
   <p>Il faut d'abord déplacer le fichier .tar.bz2 vers /usr/local. Pour cela :</p>
-  <pre>mv /home/stephane/Téléchargements/nom_fichier.tar.bz2 /usr/local</pre>
+  <pre><code class="language-svg">sudo mv /home/stephane/Téléchargements/nom_fichier.tar.bz2 /usr/local</code></pre>
   <p>Il faut ensuite se placer dans le répertoire /usr/local</p>
   <pre>cd /usr/local</pre>
 
   <p>Puis il faut exécuter le fichier .deb</p>
-  <pre>dpkg -i nom_fichier.deb</pre>
+  <pre><code class="language-svg">sudo dpkg -i nom_fichier.deb</code></pre>
 
   <h4>Mise à niveau système</h4>
 
