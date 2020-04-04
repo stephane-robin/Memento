@@ -53,27 +53,26 @@ function affichageConditionnel(bouton, id) {
 <p style="font-weight:bold"> Table des matières :</p>
   <ul>
     <li> <a href="#py_generalites">Généralités</a> </li>
-    <li> <a href="#py_hello">Hello world</a> </li>
-    <li> <a href="#py_saisie">Saisie d'une valeur par l'utilisateur</a> </li>
+    <li> <a href="#py_saisie">Les méthodes de communication</a> </li>
     <li> <a href="#py_import_package">Importer un package</a> </li>
-    <li> <a href="#py_variable">Les variables</a> </li>
-    <li> <a href="#py_chaine">Manipuler des chaînes de caractères</a> </li>
+    <li> <a href="#py_random">Les packages et modules essentiels</a> </li>
+    <li> <a href="#py_creer_package">Créer un package avec Poetry</a> </li>
+    <li> <a href="#py_pyenv">Gérer les versions de Python avec pyenv</a></li>
+    <li> <a href="#py_venv">Créer des environnements de développement avec
+      venv</a></li>
+    <li> <a href="#py_pycharm">Utilisation de PyCharm dans un environnement
+        particulier</a></li>
+    <li> <a href="#py_variable">Les types de variables</a> </li>
     <li> <a href="#py_condition">Branchement conditionnel</a> </li>
     <li> <a href="#py_boucle">Les boucles</a> </li>
+    <li> <a href="#py_chaine">Manipuler des chaînes de caractères</a> </li>
     <li> <a href="#py_tableau">Les tableaux</a> </li>
     <li> <a href="#py_liste">Les listes</a> </li>
     <li> <a href="#py_liste_avance">Utilisation avancée des listes</a> </li>
     <li> <a href="#py_dictionnaire">Les dictionnaires</a> </li>
     <li> <a href="#py_fonction">Les fonctions</a> </li>
-    <li> <a href="#py_exception">Les exceptions</a> </li>
+    <li> <a href="#py_exception">La gestion des exceptions</a> </li>
     <li> <a href="#py_objet">La programmation objet</a> </li>
-    <li> <a href="#py_random">Le package random</a> </li>
-    <li> <a href="#py_math">Le package math</a> </li>
-    <li> <a href="#py_fraction">Le package fractions</a> </li>
-    <li> <a href="#py_numpy">Le package Numpy</a> </li>
-    <li> <a href="#py_matplotlib">Le package MatPlotlib</a> </li>
-    <li> <a href="#py_json">Le package JSON</a> </li>
-    <li> <a href="#py_creer_package">Créer un package</a> </li>
     <li> <a href="#py_pep">Respect du PEP8</a> </li>
   </ul>
 
@@ -135,11 +134,7 @@ import os
 # le programme se trouve ici
 os.system("pause")</code></pre>
 
-
-
-  <!-- ===== HELLO WORLD ===== -->
-
-<h3 id="py_hello">Hello world</h3>
+<h4>Hello world</h4>
 
 <p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, Python n'utilise pas de <strong>;</strong> à la fin de chaque instruction. Il le remplace par un retour à la ligne. Notons que les accolades symbolisant un bloc sont remplacées par une indentation.</p>
   <pre><code class="language-javascript">print("Hello World");</code></pre>
@@ -149,9 +144,128 @@ pour aller à la ligne. Pour éviter un retour à la ligne, on utilise l'instruc
 
 
 
-  <!-- ======== AFFICHER UN STRING ========= -->
 
-  <h3 id=""py_affichage">Afficher une valeur</h3>
+
+  <!-- ===== CHANGER LES VERSIONS DE PYTHON ===== -->
+
+  <h3 id="py_version">Gérer les versions de Python avec pyenv</h3>
+
+  <p>Pour connaître la version active de Python :</p>
+  <p>python --version</p>
+
+  <p>Pour connaître toutes les versions disponibles au téléchargement de Python3.6 à 3.8 :</p>
+  <pre><code class="language-svg">pyenv install --list | grep " 3\.[678]"</code></pre>
+
+  <p> Toutes les versions s'installent dans un fichier .pyenv/versions/, qui vient s'insérer dans le PATH au coeur du
+    système, et non pas directement dans un  environnement de développement. Ainsi, un environnement peut utiliser une
+    version particulière de Python en pointant vers l'adresse de stockage de la version, sans qu'elle soit incorporée à
+    cet environnement. Pour installer la version 3.7.2 en particulier :</p>
+  <pre><code class="language-svg">pyenv install -v 3.7.2</code></pre>
+
+  <p>Pour supprimer la version 2.7.15 de l'ordinateur :</p>
+  <pre><code class="language-svg">pyenv uninstall 2.7.15</code></pre>
+  <p>Attention de travailler avec une version 3 de Python et de ne pas supprimer la version 2 système de Python livrée
+    d'usine et servant au fonctionnement de l'ordinateur.</p>
+
+  <p>Il est important de bien connaître la version de Python utilisée avant de procéder à tout changement dans un
+    environnement de développement, car chaque version accepte des dépendances différentes.</p>
+
+  <p>Pour connaître toutes les versions disponibles sur l'ordinateur (la version active est précédée d'une *) :</p>
+  <pre><code class="language-svg>">pyenv versions</code></pre>
+
+  <p>Pour connaître l'adresse de la version de Python utilisée :</p>
+  <pre><code class="language-svg">which python # ou encore
+pyenv which python</code></pre>
+
+  <p>Pour changer la version de Python en local dans l'environnement de développement :</p>
+  <pre><code class="language-svg">pyenv local 3.7.1</code></pre>
+
+  <p>Pour changer la version de Python pour tout l'ordinateur :</p>
+  <pre><code class="language-svg">pyenv global 2.7.15</code></pre>
+
+  <p>Pour revenir à la version système :</p>
+  <pre><code class="language-svg">pyenv global system</code></pre>
+
+
+
+
+  <!-- ===== CREER DES ENVIRONNEMENTS DE TRAVAIL ===== -->
+
+  <h3 id="py_env">Créer des environnements de développement avec venv</h3>
+
+  <p>Il est nécessaire de travailler dans des environnements virtuels pour isoler les dépendances de chaque projet Python.
+    Pour cela, on utilise le module venv compris dans la librairie standard de Python3. Il est également possible d'utiliser
+    virtualenv à la place de venv, mais ce dernier est déjà compris dans les versions de Python supérieures à 3.5 et ne
+    nécessite donc pas d'installer virtualenv comme une dépendance.</p>
+
+  <p>Au terminal, on crée tout d'abord le dossier qui va contenir mes environnements virtuels, puis on se place dedans :</p>
+
+  <pre><code class="language-svg">mkdir environnements
+cd environnements</code></pre>
+
+  <p>On crée maintenant un nouvel environnement au sein du dossier environnements :</p>
+
+  <pre><code class="language-svg">python3 -m venv mon_env</code></pre>
+
+  <p>Pour visualier la structure de mon_env il suffit de taper tree dans le dossier courant.</p>
+
+  <img src="venv.png">
+
+  <p>bin contient les fichiers qui interagissent avec l'environnement virtuel, include contient les en-têtes C qui compilent
+    les packages Python, lib contient une copie de la version Python avec un dossier de packages dans lequel sont installées
+    toutes les dépendances.</p>
+
+  <p>Il est maintenant nécessaire d'activer l'environnement virtuel comme environnement de travail. Pour cela, il faut se
+    placer dans le dossier environnements et taper au Terminal :</p>
+
+  <pre><code class="language-svg">source mon_env/bin/activate</code></pre>
+
+  <p>A partir de maintenant, les commandes saisies ont une action dans l'environnement. On remarque que l'environnement
+    est actif, car devant le prompt du Terminal apparaît (mon_env)$.</p>
+
+  <p>Pour désactiver cet environnemnt virtuel, il suffit de taper :</p>
+
+  <pre><code class="language-svg">deactivate</code></pre>
+
+  <p>Pour installer un module dans l'environnement, il faut d'abord se rendre dans l'environnement puis :</p>
+  <pre><code class="language-svg">cd mon_env
+pip3 install nom_package</code></pre>
+
+  <p>Pour voir la liste de tous les modules installés :</p>
+  <pre><code class="language-svg">pip3 freeze</code></pre>
+
+  <p>Pour utiliser une version particulière de Python dans l'environnement, il faut d'abord installer cette version sur
+    l'ordinateur, puis se rendre dans l'environnement et définir cette version comme la version locale :</p>
+  <pre><code class="language-svg">pyenv install 3.8.0
+cd mon_env
+pyenv local 3.8.0</code></pre>
+
+
+
+  <!-- ===== UTILISATION DE PYCHARM DANS UN ENVIRONNEMENT ===== -->
+
+  <h3 id="py_pycharm">Utilisation de PyCharm dans un environnement particulier</h3>
+
+  <p>PyCharm crée automatiquement un dossier PyCharmProjects dans lequel il va ranger les différents projets. On peut
+    alors choisir l'interpréteur parmi ceux proposés, et en fonction de ce qui a été installé (conda, virtualenv, une version
+    particulière de Python ...). Pour cela, après avoir ouvert PyCharm, sélectionné le projet, puis File -> Settings ->
+    Project Interpreter.</p>
+
+  <p>On peut également utiliser un environnement lié à un projet déjà existant. Pour cela, on commence par créer un dossier
+    dans lequel on crée l'environnement de développement avec venv, puis on ouvre PyCharm, on ouvre le projet existant,
+    File -> Settings -> Project Interpreter. PyCharm devrait avoir reconnu l'environnement de travail et pointer directement
+    vers la bonne version de Python, avoir les bons packages déjà installés. Si ces packages font défaut lors de l'exécution,
+    l'erreur liée au package donne lieu à un signal rouge et un menu qui permet de confirmer l'installation du package.</p>
+
+
+
+
+
+  <!-- ======== LES METHODES DE COMMUNICATION ========= -->
+
+  <h3 id="py_communication">Les méthodes de communication</h3>
+
+  <h4>Afficher une valeur</h4>
 
   <p>La fonction print() permet d'afficher une chaîne de caractères et accepte les paramètres suivants :</p>
     <ul>
@@ -175,10 +289,7 @@ f"Hello {name}"</code></pre>
   compréhension du code.</p>
 
 
-
-  <!-- ===== SAISIE D'UNE VALEUR PAR L'UTILISATEUR ===== -->
-
-  <h3 id="py_saisie">Saisie d'une valeur par l'utilisateur</h3>
+  <h4>Saisie d'une valeur par l'utilisateur</h4>
 
   <pre><code class="language-python">nom = input("Quel est votre nom ?");
 print("Bonjour ",nom);</code></pre>
@@ -241,11 +352,273 @@ env -p /home/stephane/3.6.5
 
 
 
-<!-- ===== LES VARIABLES ===== -->
+    <!-- ===== LES MODULES ESSENTIELS  ===== -->
 
-<h3 id="py_variable">Les variables</h3>
+    <h4>Les packages et modules essentiels</h4>
 
-  <h4> Types </h4>
+    <p>Python étant parcitulièrement utilisé dans le milieu scientifique et
+      mathématique, le module math ainsi que le module numpy sont essentiels</p>
+
+    <h4>Le module random</h4>
+
+    <pre><code class="language-python">import random as rd</code></pre>
+
+    <p>La méthode .random() génère un nombre pseudo-aléatoire compris entre 0 et 1.</p>
+
+    <p>La méthode .randrange(5, 10, 2) génère un nombre pseudo-aléatoire compris entre 5 et 10 exclus, avec un écart de 2
+      entre chaque valeur. Sans le 3ème paramètre, la valeur par défaut est 1.</p>
+
+    <p>La méthode <strong>randint(4, 7)</strong> renvoie un entier compris entre 4 et 7 inclus.</p>
+
+    <p>Pour remplir une liste de 10 éléments à l'aide de valeurs comprises entre 0 et 50 prises au hasard :</p>
+    <pre><code class="language-python">liste = (rd.randrange(50) for i in range(10))</code></pre>
+
+    <p>Pour remplir un tableau de 10 éléments à l'aide de valeurs comprises entre 0 et 50 prises au hasard :</p>
+    <pre><code class="language-python">tableau = [rd.randrange(50) for i in range(10)]</code></pre>
+
+    <p>La méthode choice(["a", "b", "c"]) renvoie un élément choisit au hasard de la liste ["a", "b", "c"].</p>
+
+    <p>La méthode shuffle(liste) mélange les éléments d'une liste en modifiant cette liste. Elle ne renvoie rien.</p>
+
+
+    <h4>Le module math</h4>
+
+    <pre><code class="language-python">from math import *</code></pre>
+
+    <table>
+      <tr><th>Instruction</th><th>Effet obtenu</th></tr>
+      <tr><td>floor(x)</td><td>plus grand entier inférieur ou égal à x</td></tr>
+      <tr><td>ceil(x)</td><td>plus petit entier supérieur ou égal à x</td></tr>
+      <tr><td>trunc(x)</td><td>troncature de x</td></tr>
+      <tr><td>fabs(x)</td><td>valeur absolue de x</td></tr>
+      <tr><td>factorial(x)</td><td>factorielle de x. Lève une exception ValueError si x n'est pas entier ou si x est négatif</td></tr>
+      <tr><td>fsum(maListe)</td><td>valeur exacte de la somme des valeurs d'une liste</td></tr>
+      <tr><td>gcd(a, b)</td><td>pgdc de a et b</td></tr>
+      <tr><td>exp(x)</td><td>exponentielle de x</td></tr>
+      <tr><td>log1p(x)</td><td>logarithme en base e de x</td></tr>
+      <tr><td>pow(x, y)</td><td>x puissance y, renvoie un float</td></tr>
+      <tr><td>x**y</td><td>x puissance y, renvoie un int</td></tr>
+      <tr><td>sqrt(x)</td><td>racine carrée de x</td></tr>
+      <tr><td>acos(x)</td><td>arc cosinus de x en radians</td></tr>
+      <tr><td>asin(x)</td><td>arc sinus de x en radians</td></tr>
+      <tr><td>atan(x)</td><td>arc tangente de x en radians</td></tr>
+      <tr><td>cos(x)</td><td>cosinus de x pour x en radians</td></tr>
+      <tr><td>sin(x)</td><td>sinus de x pour x en radians</td></tr>
+      <tr><td>tan(x)</td><td>tangente de x pour x en radians</td></tr>
+      <tr><td>degrees(x)</td><td>convertit l'angle x de radians en degrés</td></tr>
+      <tr><td>radians(x)</td><td>convertit l'angle x de degrés en radians</td></tr>
+      <tr><td>acosh(x)</td><td>arc cosinus hyperbolique de x</td></tr>
+      <tr><td>asinh(x)</td><td>arc sinus hyperbolique de x</td></tr>
+      <tr><td>atanh(x)</td><td>arc tangente hyperbolique de x</td></tr>
+      <tr><td>cosh(x)</td><td>cosinus hyperbolique de x</td></tr>
+      <tr><td>sinh(x)</td><td>sinus hyperbolique de x</td></tr>
+      <tr><td>tanh(x)</td><td>tangente hyperbolique de x</td></tr>
+      <tr><td>pi</td><td>pi = 3,14</td></tr>
+      <tr><td>e</td><td>e = 2,71</td></tr>
+    </table>
+
+    <p>En Python les angles sont exprimés en radian par défaut.</p>
+
+    <p>pi et e sont les deux constantes mathématiques connues du package math.</p>
+
+
+    <h4>Le module fractions</h4>
+
+    <pre><code class="language-python">from fractions import Fraction</code></pre>
+
+    <p>Un objet de type Fraction est défini de la façon suivante : Fraction(numérateur, dénominateur). Une fois définie,
+      une fraction est affichée systématiquement sous sa forme simplifiée.</p>
+
+    <p>La classe Fraction accepte les opérations élémentaires +, -, *, / et permet de conserver une excellente précision de calcul.</p>
+
+
+    <h3>Le module Numpy</h3>
+
+    <pre><code class="language-python">import numpy as np</code></pre>
+
+    <p>Numpy est utilisé pour manipuler des séries de nombres. En particulier, il permet de traiter des listes de nombres comme des tableaux de nombres.</p>
+
+    <pre><code class="language-python">liste_numpy = np.array([10, 20, 30])
+liste_divisee = liste_numpy/2</code></pre>
+
+    <p>Numpy permet notamment de faire la somme des éléments de la liste :</p>
+    <pre><code class="language-python">liste_numpy.sum()</code></pre>
+
+
+    <h4>Le package MatPlotLib</h4>
+
+    <p>MatPlotLib est utilisé pour représenter des données en deux dimensions, i.e. pour créer des schémas, des graphiques
+      et des spectres. Ce package comprend notamment le module Pyplot qui permet de créer des graphiques en couleur.</p>
+
+    <h4>Le package JSON</h4>
+
+    <p>JSON est un format de stockage de données dans un fichier. JSON signifie JavaScript Object Notation.</p>
+    <p>JSON ne se trouve pas nativement dans l'environnement de travail. Il est donc nécessaire de l'importer.</p>
+    <pre>import json</pre>
+
+    <p>Les données seront stockées suivant le format clé-valeur d'un dictionnaire. On peut par exemple avoir la structure suivante :</p>
+    <pre><code class="language-svg">{
+'collège_St_André' :
+    [
+      {
+        'nom' : 'Fremon',
+        'prenom' : 'Antoine',
+        'pseudo' : 'toto',
+        'moyennes' :
+          {
+            '6ème' : 14,
+            '5ème' : 14,
+            '4ème' : 13,
+            '3ème' : 11.5
+          }
+      },
+      {
+        'nom' : 'Sabert',
+        'prenom' : 'CLementine',
+        'pseudo' : 'clea'
+        'moyennes' :
+          {
+            '6ème' : 12,
+            '5ème' : 13,
+            '4ème' : 12,
+            '3ème' : 11
+          }
+      }
+    ],
+#
+'collège_bernard':
+    [
+      {
+        'nom' : 'Carmeni',
+        'prenom' : 'Loui',
+        'pseudo' : 'lolo',
+        'moyennes' :
+          {
+            '6ème' : 19,
+            '5ème' : 16,
+            '4ème' : 16,
+            '3ème' : 14
+          }
+      },
+      {
+        'nom' : 'Florimar',
+        'prenom' : 'Capucine',
+        'pseudo' : 'cap'
+        'moyennes' :
+          {
+            '6ème' : 18,
+            '5ème' : 18,
+            '4ème' : 17,
+            '3ème' : 18
+          }
+      }
+    ]
+}</code></pre>
+
+    <p>Pour afficher ce fichier JSON, il faut d'abord le parcourir et le placer dans un dictionnaire qu'on pourra ensuite afficher :</p>
+    <pre><code class="language-python"># on crée un dictionnaire local vide
+data = dict()
+
+# on ouvre le fichier json en lecture seule
+with open("monFichier.json", "r") as file:
+  # on transforme le fichier json en objet Python
+  data = json.load(file)</code></pre>
+
+    <p>Pour écrire sur un fichier JSON, il faut remplacer le fichier de destination par un dictionnaire <em>data</em>. <em>Attention</em>, il faut prendre soin de recopier dans le dictionnaire les valeurs inchangées du fichier JSON, car l'écriture dans le fichier JSON écrase les données présentes dans ce fichier.</p>
+    <pre><code class="language-python">data = dict()
+with open("monFichier.json", "w", encoding="utf-8") as file:
+json.dump(data, file, indent=4)</code></pre>
+
+
+
+
+    <!-- ==== CREER UN PACKAGE ===== -->
+
+    <h3 id="py_creer_package">Créer un package</h3>
+
+    <p>Un package Python est organisé en fichiers ou classes, qui sont regroupées dans des modules. Les noms des packages et des modules seront écrits en minuscule et peuvent contenir des underscore. La structure à adopter est la suivante :</p>
+    <pre>librairie // racine du package
+  librairie/  // module Python
+    __init__.py
+    fichier.py
+    main.py
+    .gitignore
+  setup.py</pre>
+
+    <p>Le fichier .gitignore devra contenir :</p>
+    <pre># compiled python modules
+*.pyc
+
+# setup tools distribution folder
+/dist/
+
+#python egg metadata, regenerated from source files by setuptools
+/*.egg-info</pre>
+
+    <p>Le fichier setup.py contient les commandes suivantes :</p>
+
+    <pre><code class="language-python">from setuptools import setup
+
+setup(name = "librairie",
+  version = "1.0",
+  description = "ma librairie",
+  url = "http://github/librairie",
+  author = "bob",
+  author_email = "bob@gmail.com",
+  licence = "xxx",
+  packages = ['librairie'],
+  install_requires = [ # list of dependancies
+    'nomPakage',
+  ],
+  zip_safe = False)</code></pre>
+
+    <p>L'installation d'un package en local sur Linux se fait avec la commande pip install librairie.</p>
+
+    <p>Pour publier un package sur PyPI, il faut utiliser la commande python setup.py register</p>
+
+
+
+
+
+    <!-- ===== CREER UN PACKAGE ===== -->
+
+    <h3 id="py_package">Créer un package avec Poetry</h3>
+
+    <p>Il est possible de créer manuellement les fichiers build, manifestes et dépendances en utilisant pip ou conda.
+      Toutefois, la gestion des compatibilités des dépendances n'est pas toujours assurée et la publication sur PyPI peut
+      s'avérer impossible. Poetry est un outil complet ... Pour installer Poetry il faut écrire le script en ligne de commande :</p>
+
+    <pre><code class="language-python">curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3</code></pre>
+
+    <p>Ce script installe Poetry et il est nécessaire de relancer le Terminal pour modifier automatiquement le system PATH. On peut vérifier la bonne installation avec la
+      commande :</p>
+
+    <pre><code class="language-python">poetry --version</code></pre>
+
+    <p>Pour générer un package, il ne faut pas créer de répertoire vide mais écrire directement :</p>
+
+    <pre><code class="language-python">poetry new mon_package</code></pre>
+
+    <p>qui crée le package dans un répertoire du même nom.</p>
+
+    <p>La structure du package ressemble ainsi à ceci :</p>
+
+    <img src="poetry.png" alt="poetry"/>
+
+    <p>Il faut ensuite ajouter des dépendances au fichier .toml dont la version sera enregistrée dans un fichier .lock. Bien
+      qu'il soit possible de les ajouter manuellement, il est préférable d'utiliser la commande suivante qui gère la compatibilité
+      des dépendances :</p>
+
+    <pre><code class="language-python">poetry add un_module</code></pre>
+
+
+
+
+
+
+    <!-- ===== LES VARIABLES ===== -->
+
+<h3 id="py_variable">Les types de variables</h3>
 
   <p>Python est un langage à typage dynamique, i.e. qu'il identifie lui-même les types de variables et autorise les changements de type. La déclaration des variables n'est donc pas nécessaire. L'instruction <strong>int(chaine)</strong> permet de transformer un <em>String</em> en nombre <em>si cela est possible</em> alors que l'instruction <strong>str(nombre)</strong> permet de transformer un nombre en <em>String</em>.</p>
   <p>Par ailleurs, Python est un langage fortement typé, i.e. qu'il ne convertit pas automatiquement les types de variables, mais requiert une instruction spécifique. Ainsi, la concaténation d'un <em>String</em> avec un entier lève une exception et ne transforme pas l'entier en <em>String</em>.</p>
@@ -309,62 +682,6 @@ a, b = b, a</code></pre>
 
 
 
-<!-- ===== MANIPULER DES CHAINES DE CARACTERES ===== -->
-
-<h3 id="py_chaine">Manipuler des chaînes de caractères</h3>
-
-  <p>L'indice du 1er caractère d'une chaîne est 0. Pour échapper une apostrophe ou un guillemet, on utilise le signe <strong>\</strong>.<p>
-
-  <table>
-    <tr><th>Propriétés</th><th>Codes</th></tr>
-    <tr><td>taille</td><td><pre>len(chaine)</pre></td></tr>
-    <tr><td>élément d'indice i</td><td><pre>chaine[i]</pre></td></tr>
-    <tr><td>dernier élément</td><td><pre>chaine[-1]</pre></td></tr>
-    <tr><td>convertir en minuscules</td><td><pre>chaine.lower()</pre></td></tr>
-    <tr><td>convertir en majuscules</td><td><pre>chaine.upper()</pre></td></tr>
-    <tr><td>mettre en majuscule le 1er caractère d'une chaîne</td><td><pre>chaine.capitalize()</pre></td></tr>
-    <tr><td>nombre de "d" dans la chaîne</td><td><pre>chaine.count("d")</pre></td></tr>
-    <tr><td>remplacement de "d" par "a"</td><td><pre>chaine.replace("d", "a")</pre></td></tr>
-    <tr><td>enlever les espaces au début et à la fin d'une chaine</td><td><pre>chaine.strip()</pre></td></tr>
-    <tr><td>extrait une sous-chaîne, comprenant la lettre d'indice 3 jusqu'à la lettre d'indice 5 incluse</td><td><pre>chaine[3:6]</pre></td></tr>
-    <tr><td>extrait une sous-chaîne, comprenant la lettre d'indice 3 jusqu'à la lettre d'indice 5 incluse</td><td><pre>chaine[3:6]</pre></td></tr>
-    <tr><td>comparaison</td><td>===</td></tr>
-    <tr><td>concaténation</td><td>+</td></tr>
-    <tr><td>retour à la ligne</td><td>\n</td></tr>
-    <tr><td>tabulation</td><td>\t</td></tr>
-    <tr><td>transformer une chaîne en liste élément par élément</td><td><pre>liste = chaine.split()</pre></td></tr>
-    <tr><td>transformer une chaîne avec le séparateur - en liste</td><td><pre>liste = chaine.split("-");</pre></td></tr>
-    <tr><td>transformer une liste en chaîne contenant le séparateur - </td><td><pre>chaine = "-".join(maListe)</pre></td></tr>
-    <tr><td>recherche de "non" dans une chaine. Renvoie -1  si le caractère recherché ne se trouve pas dans la chaîne</td><td><pre>chaine.indexOf("non")</pre></td></tr>
-    <tr><td>retour à la ligne</td><td>\n</td></tr>
-    <tr><td>test si le contenu de la chaîne est numérique. Renvoie un booléen</td><td><pre>chaine.isnumeric()</pre></td></tr>
-  </table>
-
-  <p>L'utilisation d'un indice qui n'existe pas dans la chaîne lève une exception de type <em>IndexError</em>.</p>
-  <p>Il n'est pas possible de modifier un caractère d'une chaîne de la façon suivante <em>chaine[4] = "Antoine"</em>. Il s'agit en fait d'une protection des chaînes qui pourront être modifiées par instruction explicite du développeur.</p>
-
-  <p>Python utilise indistinctement " ou ' pour encadre une chaîne de caractères, et ne distingue pas les caractères isolés comme Java.</p>
-  <h4>Parcourir une chaîne de caractères élément par élément</h4>
-
-  <pre><code class="language-python">for(let i=0; i&ltchaine.length; i++){
-  chaine[i];
-}</code></pre>
-
-  <h4>Template literal</h4>
-
-  <p>Python permet d'inclure des expressions dans une chaîne de caractères appelées <em>template literal</em>. Pour cela, il faut définir les emplacement avec <strong>{}</strong> et utiliser la méthode <strong>format()</strong>.</p>
-  <pre><code class="language-python">{} est le fils de {}.format("Antoine", "Albert")</code></pre>
-
-  <h4>Caster une chaîne de caractères</h4>
-
-  <p>Il est possible de caster une chaîne de caractères lorsque ceux-ci s'apparentent à des nombres. Pour cela, on utilise
-  les méthodes int() et float(). Cela s'avère utile lorsqu'on demande à un utilisateur de saisir un nombre. Ce dernier est
-  nativement enregistré au format d'une chaîne de caractères qu'il faut caster pour pouvoir appliquer des opérations numériques.</p>
-
-  <pre><code class="language-python">chaine = "12"
-nombre = int(chaine)</code></pre>
-
-
 
   <!-- ===== BRANCHEMENT CONDITIONNEL ===== -->
 
@@ -422,6 +739,66 @@ else :
   instructions</code></pre>
 
   <p>Le mot clé <strong>break</strong> permet d'interrompre une boucle et d'exécuter le code qui suit la boucle. Le mot clé <strong>continue</strong> permet de sauter le tour de boucle courant puis de continuer à exécuter la boucle.</p>
+
+
+
+
+
+    <!-- ===== MANIPULER DES CHAINES DE CARACTERES ===== -->
+
+    <h3 id="py_chaine">Manipuler des chaînes de caractères</h3>
+
+    <p>L'indice du 1er caractère d'une chaîne est 0. Pour échapper une apostrophe ou un guillemet, on utilise le signe <strong>\</strong>.<p>
+
+    <table>
+      <tr><th>Propriétés</th><th>Codes</th></tr>
+      <tr><td>taille</td><td><pre>len(chaine)</pre></td></tr>
+      <tr><td>élément d'indice i</td><td><pre>chaine[i]</pre></td></tr>
+      <tr><td>dernier élément</td><td><pre>chaine[-1]</pre></td></tr>
+      <tr><td>convertir en minuscules</td><td><pre>chaine.lower()</pre></td></tr>
+      <tr><td>convertir en majuscules</td><td><pre>chaine.upper()</pre></td></tr>
+      <tr><td>mettre en majuscule le 1er caractère d'une chaîne</td><td><pre>chaine.capitalize()</pre></td></tr>
+      <tr><td>nombre de "d" dans la chaîne</td><td><pre>chaine.count("d")</pre></td></tr>
+      <tr><td>remplacement de "d" par "a"</td><td><pre>chaine.replace("d", "a")</pre></td></tr>
+      <tr><td>enlever les espaces au début et à la fin d'une chaine</td><td><pre>chaine.strip()</pre></td></tr>
+      <tr><td>extrait une sous-chaîne, comprenant la lettre d'indice 3 jusqu'à la lettre d'indice 5 incluse</td><td><pre>chaine[3:6]</pre></td></tr>
+      <tr><td>extrait une sous-chaîne, comprenant la lettre d'indice 3 jusqu'à la lettre d'indice 5 incluse</td><td><pre>chaine[3:6]</pre></td></tr>
+      <tr><td>comparaison</td><td>===</td></tr>
+      <tr><td>concaténation</td><td>+</td></tr>
+      <tr><td>retour à la ligne</td><td>\n</td></tr>
+      <tr><td>tabulation</td><td>\t</td></tr>
+      <tr><td>transformer une chaîne en liste élément par élément</td><td><pre>liste = chaine.split()</pre></td></tr>
+      <tr><td>transformer une chaîne avec le séparateur - en liste</td><td><pre>liste = chaine.split("-");</pre></td></tr>
+      <tr><td>transformer une liste en chaîne contenant le séparateur - </td><td><pre>chaine = "-".join(maListe)</pre></td></tr>
+      <tr><td>recherche de "non" dans une chaine. Renvoie -1  si le caractère recherché ne se trouve pas dans la chaîne</td><td><pre>chaine.indexOf("non")</pre></td></tr>
+      <tr><td>retour à la ligne</td><td>\n</td></tr>
+      <tr><td>test si le contenu de la chaîne est numérique. Renvoie un booléen</td><td><pre>chaine.isnumeric()</pre></td></tr>
+    </table>
+
+    <p>L'utilisation d'un indice qui n'existe pas dans la chaîne lève une exception de type <em>IndexError</em>.</p>
+    <p>Il n'est pas possible de modifier un caractère d'une chaîne de la façon suivante <em>chaine[4] = "Antoine"</em>. Il s'agit en fait d'une protection des chaînes qui pourront être modifiées par instruction explicite du développeur.</p>
+
+    <p>Python utilise indistinctement " ou ' pour encadre une chaîne de caractères, et ne distingue pas les caractères isolés comme Java.</p>
+    <h4>Parcourir une chaîne de caractères élément par élément</h4>
+
+    <pre><code class="language-python">for(let i=0; i&ltchaine.length; i++){
+  chaine[i];
+}</code></pre>
+
+    <h4>Template literal</h4>
+
+    <p>Python permet d'inclure des expressions dans une chaîne de caractères appelées <em>template literal</em>. Pour cela, il faut définir les emplacement avec <strong>{}</strong> et utiliser la méthode <strong>format()</strong>.</p>
+    <pre><code class="language-python">{} est le fils de {}.format("Antoine", "Albert")</code></pre>
+
+    <h4>Caster une chaîne de caractères</h4>
+
+    <p>Il est possible de caster une chaîne de caractères lorsque ceux-ci s'apparentent à des nombres. Pour cela, on utilise
+      les méthodes int() et float(). Cela s'avère utile lorsqu'on demande à un utilisateur de saisir un nombre. Ce dernier est
+      nativement enregistré au format d'une chaîne de caractères qu'il faut caster pour pouvoir appliquer des opérations numériques.</p>
+
+    <pre><code class="language-python">chaine = "12"
+nombre = int(chaine)</code></pre>
+
 
 
 
@@ -780,7 +1157,7 @@ def autreFonction(maFonction, val):
 
   <!-- ===== LES EXCEPTIONS ===== -->
 
-  <h3 id="py_exception">Les exceptions</h3>
+  <h3 id="py_exception">La gestion des exceptions</h3>
 
   <p>Elles se construisent suivant les cas de différentes manières :</p>
   <pre><code class="language-python">try: # cas général
@@ -811,7 +1188,7 @@ except ZeroDivisionError:
 
   <!-- ===== LES OBJETS EN PYTHON ===== -->
 
-  <h3 id="py_objet"> Les objets en Python</h3>
+  <h3 id="py_objet"> La programmation objet</h3>
 
     <p>La création d'une classe en Python :</p>
     <pre><code class="language-python">class MaClasse:
@@ -849,359 +1226,10 @@ def __maMethodePrivee</code></pre>
 
 
 
-<!-- ===== RANDOM ===== -->
 
-<h3 id="py_random">Le package random</h3>
 
-  <pre><code class="language-python">import random as rd</code></pre>
 
-  <p>La méthode .random() génère un nombre pseudo-aléatoire compris entre 0 et 1.</p>
 
-  <p>La méthode .randrange(5, 10, 2) génère un nombre pseudo-aléatoire compris entre 5 et 10 exclus, avec un écart de 2
-  entre chaque valeur. Sans le 3ème paramètre, la valeur par défaut est 1.</p>
-
-  <p>La méthode <strong>randint(4, 7)</strong> renvoie un entier compris entre 4 et 7 inclus.</p>
-
-  <p>Pour remplir une liste de 10 éléments à l'aide de valeurs comprises entre 0 et 50 prises au hasard :</p>
-  <pre><code class="language-python">liste = (rd.randrange(50) for i in range(10))</code></pre>
-
-  <p>Pour remplir un tableau de 10 éléments à l'aide de valeurs comprises entre 0 et 50 prises au hasard :</p>
-  <pre><code class="language-python">tableau = [rd.randrange(50) for i in range(10)]</code></pre>
-
-  <p>La méthode choice(["a", "b", "c"]) renvoie un élément choisit au hasard de la liste ["a", "b", "c"].</p>
-
-  <p>La méthode shuffle(liste) mélange les éléments d'une liste en modifiant cette liste. Elle ne renvoie rien.</p>
-
-
-
-<!-- ===== MATH ===== -->
-
-<h3 id="py_math">Le package math</h3>
-
-  <pre><code class="language-python">from math import *</code></pre>
-
-  <table>
-    <tr><th>Instruction</th><th>Effet obtenu</th></tr>
-    <tr><td>floor(x)</td><td>plus grand entier inférieur ou égal à x</td></tr>
-    <tr><td>ceil(x)</td><td>plus petit entier supérieur ou égal à x</td></tr>
-    <tr><td>trunc(x)</td><td>troncature de x</td></tr>
-    <tr><td>fabs(x)</td><td>valeur absolue de x</td></tr>
-    <tr><td>factorial(x)</td><td>factorielle de x. Lève une exception ValueError si x n'est pas entier ou si x est négatif</td></tr>
-    <tr><td>fsum(maListe)</td><td>valeur exacte de la somme des valeurs d'une liste</td></tr>
-    <tr><td>gcd(a, b)</td><td>pgdc de a et b</td></tr>
-    <tr><td>exp(x)</td><td>exponentielle de x</td></tr>
-    <tr><td>log1p(x)</td><td>logarithme en base e de x</td></tr>
-    <tr><td>pow(x, y)</td><td>x puissance y, renvoie un float</td></tr>
-    <tr><td>x**y</td><td>x puissance y, renvoie un int</td></tr>
-    <tr><td>sqrt(x)</td><td>racine carrée de x</td></tr>
-    <tr><td>acos(x)</td><td>arc cosinus de x en radians</td></tr>
-    <tr><td>asin(x)</td><td>arc sinus de x en radians</td></tr>
-    <tr><td>atan(x)</td><td>arc tangente de x en radians</td></tr>
-    <tr><td>cos(x)</td><td>cosinus de x pour x en radians</td></tr>
-    <tr><td>sin(x)</td><td>sinus de x pour x en radians</td></tr>
-    <tr><td>tan(x)</td><td>tangente de x pour x en radians</td></tr>
-    <tr><td>degrees(x)</td><td>convertit l'angle x de radians en degrés</td></tr>
-    <tr><td>radians(x)</td><td>convertit l'angle x de degrés en radians</td></tr>
-    <tr><td>acosh(x)</td><td>arc cosinus hyperbolique de x</td></tr>
-    <tr><td>asinh(x)</td><td>arc sinus hyperbolique de x</td></tr>
-    <tr><td>atanh(x)</td><td>arc tangente hyperbolique de x</td></tr>
-    <tr><td>cosh(x)</td><td>cosinus hyperbolique de x</td></tr>
-    <tr><td>sinh(x)</td><td>sinus hyperbolique de x</td></tr>
-    <tr><td>tanh(x)</td><td>tangente hyperbolique de x</td></tr>
-    <tr><td>pi</td><td>pi = 3,14</td></tr>
-    <tr><td>e</td><td>e = 2,71</td></tr>
-  </table>
-
-  <p>En Python les angles sont exprimés en radian par défaut.</p>
-
-  <p>pi et e sont les deux constantes mathématiques connues du package math.</p>
-
-
-
-  <!-- ===== FRACTION ===== -->
-
-  <h3 id="py_fraction">Le package fractions</h3>
-
-  <pre><code class="language-python">from fractions import Fraction</code></pre>
-
-  <p>Un objet de type Fraction est défini de la façon suivante : Fraction(numérateur, dénominateur). Une fois définie,
-    une fraction est affichée systématiquement sous sa forme simplifiée.</p>
-
-  <p>La classe Fraction accepte les opérations élémentaires +, -, *, / et permet de conserver une excellente précision de calcul.</p>
-
-
-
-<!-- ===== NUMPY ===== -->
-
-  <h3 id="py_numpy">Le package Numpy</h3>
-
-  <pre><code class="language-python">import numpy as np</code></pre>
-
-  <p>Numpy est utilisé pour manipuler des séries de nombres. En particulier, il permet de traiter des listes de nombres comme des tableaux de nombres.</p>
-
-  <pre><code class="language-python">liste_numpy = np.array([10, 20, 30])
-liste_divisee = liste_numpy/2</code></pre>
-
-  <p>Numpy permet notamment de faire la somme des éléments de la liste :</p>
-  <pre><code class="language-python">liste_numpy.sum()</code></pre>
-
-
-
-
-  <!-- ===== MATPLOTLIB ===== -->
-
-  <h3>Le package MatPlotLib</h3>
-
-  <p>MatPlotLib est utilisé pour représenter des données en deux dimensions, i.e. pour créer des schémas, des graphiques
-  et des spectres. Ce package comprend notamment le module Pyplot qui permet de créer des graphiques en couleur.</p>
-
-
-<!-- ===== JSON ===== -->
-
-<h3 id="py-json">Le package JSON</h3>
-
-  <p>JSON est un format de stockage de données dans un fichier. JSON signifie JavaScript Object Notation.</p>
-  <p>JSON ne se trouve pas nativement dans l'environnement de travail. Il est donc nécessaire de l'importer.</p>
-  <pre>import json</pre>
-
-  <p>Les données seront stockées suivant le format clé-valeur d'un dictionnaire. On peut par exemple avoir la structure suivante :</p>
-  <pre><code class="language-python">{
-cle:
-    [
-      {
-        cle: valeur,
-        cle: valeur,
-        cle: valeur
-      },
-      {
-        cle: valeur,
-        cle: valeur,
-        cle: valeur
-      }
-    ],
-cle:
-    [
-      {
-        cle: valeur,
-        cle: valeur,
-        cle: valeur
-      },
-      {
-        cle: valeur,
-        cle: valeur,
-        cle: valeur
-      }
-    ]
-}</code></pre>
-
-  <p>Pour afficher ce fichier JSON, il faut d'abord le parcourir et le placer dans un dictionnaire qu'on pourra ensuite afficher :</p>
-  <pre><code class="language-python"># on crée un dictionnaire local vide
-data = dict()
-
-# on ouvre le fichier json en lecture seule
-with open("monFichier.json", "r") as file:
-  # on transforme le fichier json en objet Python
-  data = json.load(file)</code></pre>
-
-  <p>Pour écrire sur un fichier JSON, il faut remplacer le fichier de destination par un dictionnaire <em>data</em>. <em>Attention</em>, il faut prendre soin de recopier dans le dictionnaire les valeurs inchangées du fichier JSON, car l'écriture dans le fichier JSON écrase les données présentes dans ce fichier.</p>
-  <pre><code class="language-python">data = dict()
-with open("monFichier.json", "w", encoding="utf-8") as file:
-json.dump(data, file, indent=4)</code></pre>
-
-
-
-
-
-  <!-- ===== CHANGER LES VERSIONS DE PYTHON ===== -->
-
-  <h3 id="py_version">Gérer les versions de Python avec pyenv</h3>
-
-  <p>Pour connaître la version active de Python :</p>
-  <p>python --version</p>
-
-  <p>Pour connaître toutes les versions disponibles au téléchargement de Python3.6 à 3.8 :</p>
-  <pre><code class="language-svg">pyenv install --list | grep " 3\.[678]"</code></pre>
-
-  <p> Toutes les versions s'installent dans un fichier .pyenv/versions/, qui vient s'insérer dans le PATH au coeur du
-    système, et non pas directement dans un  environnement de développement. Ainsi, un environnement peut utiliser une
-    version particulière de Python en pointant vers l'adresse de stockage de la version, sans qu'elle soit incorporée à
-    cet environnement. Pour installer la version 3.7.2 en particulier :</p>
-  <pre><code class="language-svg">pyenv install -v 3.7.2</code></pre>
-
-  <p>Pour supprimer la version 2.7.15 de l'ordinateur :</p>
-  <pre><code class="language-svg">pyenv uninstall 2.7.15</code></pre>
-  <p>Attention de travailler avec une version 3 de Python et de ne pas supprimer la version 2 système de Python livrée
-  d'usine et servant au fonctionnement de l'ordinateur.</p>
-
-  <p>Il est important de bien connaître la version de Python utilisée avant de procéder à tout changement dans un
-  environnement de développement, car chaque version accepte des dépendances différentes.</p>
-
-  <p>Pour connaître toutes les versions disponibles sur l'ordinateur (la version active est précédée d'une *) :</p>
-<pre><code class="language-svg>">pyenv versions</code></pre>
-
-  <p>Pour connaître l'adresse de la version de Python utilisée :</p>
-  <pre><code class="language-svg">which python # ou encore
-pyenv which python</code></pre>
-
-  <p>Pour changer la version de Python en local dans l'environnement de développement :</p>
-  <pre><code class="language-svg">pyenv local 3.7.1</code></pre>
-
-  <p>Pour changer la version de Python pour tout l'ordinateur :</p>
-  <pre><code class="language-svg">pyenv global 2.7.15</code></pre>
-
-  <p>Pour revenir à la version système :</p>
-  <pre><code class="language-svg">pyenv global system</code></pre>
-
-
-
-
-  <!-- ===== CREER DES ENVIRONNEMENTS DE TRAVAIL ===== -->
-
-  <h3 id="py_env">Créer des environnements de travail avec venv</h3>
-
-  <p>Il est nécessaire de travailler dans des environnements virtuels pour isoler les dépendances de chaque projet Python.
-  Pour cela, on utilise le module venv compris dans la librairie standard de Python3. Il est également possible d'utiliser
-  virtualenv à la place de venv, mais ce dernier est déjà compris dans les versions de Python supérieures à 3.5 et ne
-  nécessite donc pas d'installer virtualenv comme une dépendance.</p>
-
-  <p>Au terminal, on crée tout d'abord le dossier qui va contenir mes environnements virtuels, puis on se place dedans :</p>
-
-  <pre><code class="language-svg">mkdir environnements
-cd environnements</code></pre>
-
-  <p>On crée maintenant un nouvel environnement au sein du dossier environnements :</p>
-
-  <pre><code class="language-svg">python3 -m venv mon_env</code></pre>
-
-  <p>Pour visualier la structure de mon_env il suffit de taper tree dans le dossier courant.</p>
-
-  <img src="venv.png">
-
-<p>bin contient les fichiers qui interagissent avec l'environnement virtuel, include contient les en-têtes C qui compilent
-les packages Python, lib contient une copie de la version Python avec un dossier de packages dans lequel sont installées
-toutes les dépendances.</p>
-
-  <p>Il est maintenant nécessaire d'activer l'environnement virtuel comme environnement de travail. Pour cela, il faut se
-  placer dans le dossier environnements et taper au Terminal :</p>
-
-  <pre><code class="language-svg">source mon_env/bin/activate</code></pre>
-
-  <p>A partir de maintenant, les commandes saisies ont une action dans l'environnement. On remarque que l'environnement
-  est actif, car devant le prompt du Terminal apparaît (mon_env)$.</p>
-
-  <p>Pour désactiver cet environnemnt virtuel, il suffit de taper :</p>
-
-  <pre><code class="language-svg">deactivate</code></pre>
-
-  <p>Pour installer un module dans l'environnement, il faut d'abord se rendre dans l'environnement puis :</p>
-  <pre><code class="language-svg">cd mon_env
-pip3 install nom_package</code></pre>
-
-  <p>Pour voir la liste de tous les modules installés :</p>
-  <pre><code class="language-svg">pip3 freeze</code></pre>
-
-  <p>Pour utiliser une version particulière de Python dans l'environnement, il faut d'abord installer cette version sur
-    l'ordinateur, puis se rendre dans l'environnement et définir cette version comme la version locale :</p>
-  <pre><code class="language-svg">pyenv install 3.8.0
-cd mon_env
-pyenv local 3.8.0</code></pre>
-
-
-
-  <!-- ===== UTILISATION DE PYCHARM DANS UN ENVIRONNEMENT ===== -->
-
-  <h3 id="py_pycharm">Utilisation de PyCharm dans un environnement particulier</h3>
-
-  <p>PyCharm crée automatiquement un dossier PyCharmProjects dans lequel il va ranger les différents projets. On peut
-    alors choisir l'interpréteur parmi ceux proposés, et en fonction de ce qui a été installé (conda, virtualenv, une version
-    particulière de Python ...). Pour cela, après avoir ouvert PyCharm, sélectionné le projet, puis File -> Settings ->
-    Project Interpreter.</p>
-
-  <p>On peut également utiliser un environnement lié à un projet déjà existant. Pour cela, on commence par créer un dossier
-  dans lequel on crée l'environnement de développement avec venv, puis on ouvre PyCharm, on ouvre le projet existant,
-    File -> Settings -> Project Interpreter. PyCharm devrait avoir reconnu l'environnement de travail et pointer directement
-  vers la bonne version de Python, avoir les bons packages déjà installés. Si ces packages font défaut lors de l'exécution,
-  l'erreur liée au package donne lieu à un signal rouge et un menu qui permet de confirmer l'installation du package.</p>
-
-
-  <!-- ==== CREER UN PACKAGE ===== -->
-
-  <h3 id="py_creer_package">Créer un package</h3>
-
-  <p>Un package Python est organisé en fichiers ou classes, qui sont regroupées dans des modules. Les noms des packages et des modules seront écrits en minuscule et peuvent contenir des underscore. La structure à adopter est la suivante :</p>
-  <pre>librairie // racine du package
-  librairie/  // module Python
-    __init__.py
-    fichier.py
-    main.py
-    .gitignore
-  setup.py</pre>
-
-  <p>Le fichier .gitignore devra contenir :</p>
-  <pre># compiled python modules
-*.pyc
-
-# setup tools distribution folder
-/dist/
-
-#python egg metadata, regenerated from source files by setuptools
-/*.egg-info</pre>
-
-  <p>Le fichier setup.py contient les commandes suivantes :</p>
-
-  <pre><code class="language-python">from setuptools import setup
-
-setup(name = "librairie",
-  version = "1.0",
-  description = "ma librairie",
-  url = "http://github/librairie",
-  author = "bob",
-  author_email = "bob@gmail.com",
-  licence = "xxx",
-  packages = ['librairie'],
-  install_requires = [ # list of dependancies
-    'nomPakage',
-  ],
-  zip_safe = False)</code></pre>
-
-  <p>L'installation d'un package en local sur Linux se fait avec la commande pip install librairie.</p>
-
-  <p>Pour publier un package sur PyPI, il faut utiliser la commande python setup.py register</p>
-
-
-
-
-
-  <!-- ===== CREER UN PACKAGE ===== -->
-
-  <h3 id="py_package">Créer un package avec Poetry</h3>
-
-  <p>Il est possible de créer manuellement les fichiers build, manifestes et dépendances en utilisant pip ou conda.
-  Toutefois, la gestion des compatibilités des dépendances n'est pas toujours assurée et la publication sur PyPI peut
-  s'avérer impossible. Poetry est un outil complet ... Pour installer Poetry il faut écrire le script en ligne de commande :</p>
-
-  <pre><code class="language-python">curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3</code></pre>
-
-  <p>Ce script installe Poetry et il est nécessaire de relancer le Terminal pour modifier automatiquement le system PATH. On peut vérifier la bonne installation avec la
-  commande :</p>
-
-  <pre><code class="language-python">poetry --version</code></pre>
-
-  <p>Pour générer un package, il ne faut pas créer de répertoire vide mais écrire directement :</p>
-
-  <pre><code class="language-python">poetry new mon_package</code></pre>
-
-  <p>qui crée le package dans un répertoire du même nom.</p>
-
-  <p>La structure du package ressemble ainsi à ceci :</p>
-
-  <img src="poetry.png" alt="poetry"/>
-
-  <p>Il faut ensuite ajouter des dépendances au fichier .toml dont la version sera enregistrée dans un fichier .lock. Bien
-  qu'il soit possible de les ajouter manuellement, il est préférable d'utiliser la commande suivante qui gère la compatibilité
-  des dépendances :</p>
-
-  <pre><code class="language-python">poetry add un_module</code></pre>
 
 
 
