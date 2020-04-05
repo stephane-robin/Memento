@@ -457,62 +457,62 @@ liste_divisee = liste_numpy/2</code></pre>
     <pre>import json</pre>
 
     <p>Les données seront stockées suivant le format clé-valeur d'un dictionnaire. On peut par exemple avoir la structure suivante :</p>
-    <pre><code class="language-svg">{
-'collège_St_André' :
-    [
-      {
-        'nom' : 'Fremon',
-        'prenom' : 'Antoine',
-        'pseudo' : 'toto',
-        'moyennes' :
-          {
-            '6ème' : 14,
-            '5ème' : 14,
-            '4ème' : 13,
-            '3ème' : 11.5
-          }
-      },
-      {
-        'nom' : 'Sabert',
-        'prenom' : 'CLementine',
-        'pseudo' : 'clea'
-        'moyennes' :
-          {
-            '6ème' : 12,
-            '5ème' : 13,
-            '4ème' : 12,
-            '3ème' : 11
-          }
-      }
-    ],
-#
-'collège_bernard':
-    [
-      {
-        'nom' : 'Carmeni',
-        'prenom' : 'Loui',
-        'pseudo' : 'lolo',
-        'moyennes' :
-          {
-            '6ème' : 19,
-            '5ème' : 16,
-            '4ème' : 16,
-            '3ème' : 14
-          }
-      },
-      {
-        'nom' : 'Florimar',
-        'prenom' : 'Capucine',
-        'pseudo' : 'cap'
-        'moyennes' :
-          {
-            '6ème' : 18,
-            '5ème' : 18,
-            '4ème' : 17,
-            '3ème' : 18
-          }
-      }
-    ]
+    <pre><code class="language-svg">dico = {
+    'collège_St_André':
+        [
+            {
+                'nom': 'Fremon',
+                'prenom': 'Antoine',
+                'pseudo': 'toto',
+                'moyennes':
+                    {
+                        '6ème': 14,
+                        '5ème': 14,
+                        '4ème': 13,
+                        '3ème': 11.5
+                    }
+            },
+            {
+                'nom': 'Sabert',
+                'prenom': 'CLementine',
+                'pseudo': 'clea'
+                'moyennes':
+                    {
+                        '6ème': 12,
+                        '5ème': 13,
+                        '4ème': 12,
+                        '3ème': 11
+                    }
+            }
+        ],
+        #
+        'collège_bernard':
+        [
+            {
+                'nom': 'Carmeni',
+                'prenom': 'Loui',
+                'pseudo': 'lolo',
+                'moyennes':
+                    {
+                        '6ème': 19,
+                        '5ème': 16,
+                        '4ème': 16,
+                        '3ème': 14
+                    }
+            },
+            {
+                'nom': 'Florimar',
+                'prenom': 'Capucine',
+                'pseudo': 'cap'
+                'moyennes':
+                    {
+                        '6ème': 18,
+                        '5ème': 18,
+                        '4ème': 17,
+                        '3ème': 18
+                    }
+            }
+        ]
 }</code></pre>
 
     <p>Pour afficher ce fichier JSON, il faut d'abord le parcourir et le placer dans un dictionnaire qu'on pourra ensuite afficher :</p>
@@ -830,7 +830,10 @@ nombre = int(chaine)</code></pre>
 
 <h3 id="py_liste">Les listes</h3>
 
-  <p>Les listes sont des objets complexes en Python. Elles contiennent des éléments dont le nombre peut varier, mais l'indice du 1er élément est 0.</p>
+  <p>Les listes contiennent des éléments dont le nombre peut varier, mais
+    l'indice du 1er élément est 0. Les listes sont compatibles avec les
+    dictionnaires en ce sens qu'une liste peut contenir des dictionnaires et
+  vice versa.</p>
 
   <p>On peut créer une liste de la manière suivante :</p>
   <pre><code class="language-python">liste = [element1, element2, element3]</code></pre>
@@ -993,8 +996,8 @@ print("\n".join(["%d pour %s" % (nbre, nom) for nbre, nom in annuaire]))</code><
 
 <h3 id="py_dictionnaire">Les dictionnaires</h3>
 
-  <p>Les dictionnaires sont constitués d'un ensemble de clés-valeurs, dans lequel il n'y a aucun ordre. Ils se construisent avec des accolades à la place des crochets et des virgules entre les éléments.
-  Leur structure est donc similaire à celle d'un format JSON.</p>
+  <p>Les dictionnaires sont constitués d'un ensemble de clés-valeurs, dans lequel il n'y a aucun ordre.
+  Leur structure est similaire à celle d'un format JSON.</p>
   <pre><code class="language-python">dico ={
   "nom" : "Antoine",
   "prenom" : "Hervé"
@@ -1003,7 +1006,8 @@ print("\n".join(["%d pour %s" % (nbre, nom) for nbre, nom in annuaire]))</code><
   <p>Pour créer un dictionnaire vide :</p>
   <pre><code class="language-python">dico = dict()</code></pre>
 
-  <p>Pour accéder à un élément du tableau, il ne faut plus appeler son indice qui n'existe pas mais appeler la clé de la façon suivante :</p>
+  <p>Pour accéder à un élément du dictionnaire, il ne faut plus appeler son
+    indice qui n'existe pas mais appeler la clé de la façon suivante :</p>
 
   <pre><code class="language-python">dico["nom"]</code></pre>
 
@@ -1019,7 +1023,7 @@ for valeur in dico.values():
   print(valeur)
 
 for cle, valeur in dico.items():
-    print("Clé {} -> Valeur {}".format(cle, valeur))</code></pre>
+    print(f"Clé {cle} - Valeur {valeur}")</code></pre>
 
   <h4>Propriétés d'un dictionnaire</h4>
 
@@ -1052,6 +1056,25 @@ for cle, valeur in dico.items():
 chaine = '#'.join(dico)</code></pre>
 
   <p>On obtiendra alors comme résultat : name#age</p>
+
+  <h4>Utiliser la méthode setdefault pour afficher la valeur d'une clé</h4>
+
+  <p>La méthode setdefault permet d'éviter de lever une exception dans le
+    cas où la clé consultée n'existe pas dans le dictionnaire. Dans ce
+    cas la clé est créée et l'élément en 2ème position est la valeur
+    attribuée à cette clé. Cette méthode est donc à privilégier
+    systématiquement lors de l'appel d'une valeur. Dans l'exemple ci-dessous
+    le code affiche Ford lorsqu'on demande la marque et affiche blanche
+    lorsqu'on demande la couleur qui n'existait pas auparavant. Notons que le
+    dictionnaire a bien été complété d'un élément.</p>
+
+  <pre><code class="language-python">dico = {
+  'marque': 'Ford',
+  'modele': 'Fiesta'
+}
+
+print(dico.setdefaut('marque', 'Citroen')
+print(dico.setdefault('couleur', 'blanche')</code></pre>
 
 
 
