@@ -53,15 +53,15 @@ function affichageConditionnel(bouton, id) {
 <p style="font-weight:bold"> Table des matières :</p>
   <ul>
     <li> <a href="#py_generalites">Généralités</a> </li>
-    <li> <a href="#py_saisie">Les méthodes de communication</a> </li>
-    <li> <a href="#py_import_package">Importer un package</a> </li>
-    <li> <a href="#py_random">Les packages et modules essentiels</a> </li>
-    <li> <a href="#py_creer_package">Créer un package avec Poetry</a> </li>
     <li> <a href="#py_pyenv">Gérer les versions de Python avec pyenv</a></li>
     <li> <a href="#py_venv">Créer des environnements de développement avec
       venv</a></li>
     <li> <a href="#py_pycharm">Utilisation de PyCharm dans un environnement
-        particulier</a></li>
+      particulier</a></li>
+    <li> <a href="#py_saisie">Communication avec l'utilisateur</a> </li>
+    <li> <a href="#py_import_package">Importer un package</a> </li>
+    <li> <a href="#py_random">Les packages et modules essentiels</a> </li>
+    <li> <a href="#py_creer_package">Créer un package avec Poetry</a> </li>
     <li> <a href="#py_variable">Les types de variables</a> </li>
     <li> <a href="#py_condition">Branchement conditionnel</a> </li>
     <li> <a href="#py_boucle">Les boucles</a> </li>
@@ -78,7 +78,7 @@ function affichageConditionnel(bouton, id) {
 
 
 
-  <!-- ===== GENERALITES ===== -->
+  <!-- GENERALITES ======================================================== -->
 
   <h3 id="py_generalites"> Généralités </h3>
 
@@ -90,6 +90,8 @@ function affichageConditionnel(bouton, id) {
 
   <p>En Python, les mots clés à ne pas utiliser comme nom de variable ou de fonction sont les suivants:<br>
     <strong>and, or, del, from, none, as, global, nonlocal, try, assert, else, if, elif, not, while, for, except, import, with, class, true, false, in, pass, yield, continue, break, finally, is, raise, def, lambda, return</strong>.</p>
+
+
 
   <h4>Particularité d'une exécution de code au Terminal sous Linux et Mac</h4>
 
@@ -103,6 +105,14 @@ function affichageConditionnel(bouton, id) {
   <pre><code class="language-python">#!/usr/bin/env python3
 # -*-coding:Utf-8 -*</code></pre>
 
+  <p>L'installation de l'éditeur JetBrains PyCharm-community se fait sur Linux grâce à l'instruction au Terminal :</p>
+  <pre><code>sudo snap install pycharm-community --classic</code></pre>
+  <p>Lors de la création d'un projet, il faut spécifier l'environnement dans lequel on travaille, comme par exemple virtualenv ou conda.</p>
+
+
+
+  <h4>Particularité de l'utilisation de Anaconda</h4>
+
   <p>Pour télécharger l'environnement de travail Anaconda, il faut d'abord télécharger Anaconda pour Linux, vérifier le sha avec la commande :</p>
   <pre><code>sha256sum [nom_fichier_telecharge]</code></pre>
 
@@ -111,11 +121,6 @@ function affichageConditionnel(bouton, id) {
 
   <p>Finalement, il est possible de tester l'installation en utilisant :</p>
   <pre><code>conda list</code></pre>
-
-  <p>Lors de la création d'un projet, il faut spécifier l'environnement dans lequel on travaille, comme par exemple virtualenv ou conda.</p>
-
-  <p>L'installation de l'éditeur JetBrains PyCharm-community se fait sur Linux grâce à l'instruction au Terminal :</p>
-  <pre><code>sudo snap install pycharm-community --classic</code></pre>
 
   <p>Une fois qu'on a installé Anaconda, l'exécution se fait grâce à l'instruction :</p>
   <pre><code>anaconda-navigator</code></pre>
@@ -126,6 +131,8 @@ function affichageConditionnel(bouton, id) {
   <p>Pour connaître l'emplacement de conda :</p>
   <pre><code>which conda</code></pre>
 
+
+
   <h4>Particularité du système Windows</h4>
 
   <p>Il est nécessaire de mettre en pause le programme en fin d'exécution afin de pouvoir lire le résultat. Préciser l'encodage peut s'avérer nécessaire sous Windows.</p>
@@ -134,19 +141,11 @@ import os
 # le programme se trouve ici
 os.system("pause")</code></pre>
 
-<h4>Hello world</h4>
-
-<p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, Python n'utilise pas de <strong>;</strong> à la fin de chaque instruction. Il le remplace par un retour à la ligne. Notons que les accolades symbolisant un bloc sont remplacées par une indentation.</p>
-  <pre><code class="language-javascript">print("Hello World");</code></pre>
-
-<p>A noter que <em>print</em> entraîne systématiquement un retour à la ligne, contrairement à certains autres langages où il faut rajouter ln
-pour aller à la ligne. Pour éviter un retour à la ligne, on utilise l'instruction print("hello", end = "")</p>
 
 
 
 
-
-  <!-- ===== CHANGER LES VERSIONS DE PYTHON ===== -->
+  <!-- ===== CHANGER LES VERSIONS DE PYTHON ============================== -->
 
   <h3 id="py_version">Gérer les versions de Python avec pyenv</h3>
 
@@ -189,7 +188,7 @@ pyenv which python</code></pre>
 
 
 
-  <!-- ===== CREER DES ENVIRONNEMENTS DE TRAVAIL ===== -->
+  <!-- CREER DES ENVIRONNEMENTS DE TRAVAIL --------------------------->
 
   <h3 id="py_env">Créer des environnements de développement avec venv</h3>
 
@@ -264,6 +263,15 @@ pyenv local 3.8.0</code></pre>
   <!-- ======== LES METHODES DE COMMUNICATION ========= -->
 
   <h3 id="py_communication">Les méthodes de communication</h3>
+
+  <h4>Hello world</h4>
+
+  <p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, Python n'utilise pas de <strong>;</strong> à la fin de chaque instruction. Il le remplace par un retour à la ligne. Notons que les accolades symbolisant un bloc sont remplacées par une indentation.</p>
+  <pre><code class="language-javascript">print("Hello World");</code></pre>
+
+  <p>A noter que <em>print</em> entraîne systématiquement un retour à la ligne, contrairement à certains autres langages où il faut rajouter ln
+    pour aller à la ligne. Pour éviter un retour à la ligne, on utilise l'instruction print("hello", end = "")</p>
+
 
   <h4>Afficher une valeur</h4>
 
@@ -1251,9 +1259,145 @@ def __maMethodePrivee</code></pre>
 
 
 
+  <!-- Input/Ouput ------------------------------------------------------>
+
+  <h3 id="py_in_out">Input / Output</h3>
+
+  <p>Pour intégrer un fichier physique dans un code, il faut créer un objet
+    à l'aide de l'instruction open(). On peut employer with open() au lieu de
+    open() afin de fermer cet objet à la fin de son utilisation. On évite
+    ainsi d'utiliser l'instruction close().</p>
+
+  <p>Il est souvent nécessaire de gérer des exceptions du type OSError.</p>
+
+  <p>Le mode d'ouverture d'un fichier peut prendre les paramètres suivants :</p>
+
+  <table>
+    <tr><th>objectif</th><th>code</th></tr>
+    <tr><td>lecture (read)</td><td>r</td></tr>
+    <tr><td>lecture/écriture</td><td>r+</td></tr>
+    <tr><td>écriture (write)</td><td>w</td></tr>
+    <tr><td>écriture/lecture</td><td>w+</td></tr>
+    <tr><td>ajout en fin de fichier (append)</td><td>a</td></tr>
+    <tr><td>ajout en fin de fichier et lecture</td><td>a+</td></tr>
+    <tr><td>lecture au format binaire</td><td>rb</td></tr>
+    <tr><td>lecture/écriture au format binaire</td><td>rb+</td></tr>
+    <tr><td>écriture au format binaire </td><td>wb</td></tr>
+    <tr><td>écriture/lecture au format binaire </td><td>wb+</td></tr>
+    <tr><td>ajout en fin de fichier au format binaire</td><td>ab</td></tr>
+    <tr><td>ajout en fin de fichier et lecture en binaire</td><td>ab+
+    </td></tr>
+  </table>
+
+<p>ATTENTION, certains modes semblent similaires mais possèdent en fait
+  quelques subtilités : w EFFACE SYSTEMATIQUEMENT LE CONTENU DU FICHIER AU
+  MOMENT DU CHARGEMENT DU FICHIER, r+ et w+ fournissent les mêmes
+  fonctionnalités mais w+ commence par effacer le contenu du fichier alors
+  que r+ conserve le contenu du fichier. L'écriture écrasera le début du
+  fichier si un emplacement spécifique n'est pas précisé pour le pointeur.</p>
+
+  <p>A l'ouverture du fichier le pointeur se trouve au début du fichier.
+    Une fois les instructions effectuées, il se trouve à la fin du fichier.
+    Toute instruction supplémentaire partira au niveau courant du pointeur,
+    donc ici la fin du fichier. Ainsi, si on demande l'affichage du fichier à
+    ce moment-là, cet affichage sera vide alors qu'il ne l'est pas forcéemnt. </p>
+
+  <p>Pour lire le contenu d'un fichier ou écrire à un emplacement qui ne
+    correspond pas à celui du pointeur, il faut repositionner ce pointeur grâce à
+    l'instruction seek(position, from). Le paramètre position compte le
+    nombre de bytes en partant du paramètre from. Le paramètre from vaut
+    0 si on part du début, 1 si on part de la position courante et 2 si on
+    part de la fin du texte. Le code suivant place le pointeur à la fin du
+    7ème  byte (caractère d'indice 7 dans le cas d'un texte) après le point de
+    départ, puis remplace la valeur à cet emplacement par 'x' :</p>
+
+  <pre><code class="language-python">with open('./test.txt', 'r+) as f:
+    f.seek(0, 7)
+    f.write('x')</code></pre>
+
+  <p>Considérons le fichier suivant appelé page.txt :</p>
+  <pre><code class="language-svg">voici ma 1ère ligne
+voici ma 2ème ligne</code></pre>
+
+  <p>Le mode w considère toujours que le fichier ouvert est nouveau et
+    EFFACE AUTOMATIQUEMENT SON CONTENU A L'OUVERTURE.</p>
+<pre><code class="language-python">with open('page.txt', 'w') as f:
+    f.write('texte à rajouter')</code></pre>
+
+  <p>Attention, pour écrire un terme qui n'est pas un string dans un fichier
+    texte, il est nécessaire de le caster en string auparavant. De même,
+    tout élément lu d'un fichier texte est de type string même si il s'agit
+    d'un nombre. En d'autres termes, write() prend un string comme paramètre
+    et read() renvoie un string.</p>
+
+  <p>readline() renvoie un string et n'affiche que la ligne où se trouve le
+    pointeur, dans l'exemple ci-dessous uniquement la 1ère ligne :</p>
+  <pre><code class="language-python">with open('page.txt', 'r') as f:
+    ma_chaine = f.readline()
+    print(ma_chaine)</code></pre>
+
+  <p>read() renvoie un string et affiche tout le texte :</p>
+  <pre><code class="language-python">with open('page.txt', 'r') as f:
+    ma_chaine = f.read()
+    print(ma_chaine)</code></pre>
+
+  <p>A noter que f.read(11) ne valire que les 11 premiers bytes à partir de
+    l'emplacement du pointeur.</p>
+
+  <p>readlines() renvoie une liste et affiche tout le texte dans cette liste
+    en utilisant des \n pour chaque saut de ligne :</p>
+  <pre><code class="language-python">with open('page.txt', 'r') as f:
+    ma_liste = f.readlines()
+    print(ma_liste)</code></pre>
+
+  <p>Le mode a permet de rajouter un élément en fin de fichier :</p>
+  <pre><code class="language-python">with open('page.txt', 'a') as f:
+    f.write('voici ma 3ème ligne')</code></pre>
+
+<p>Attention, le mode a+ permet de rajouter un élément au fichier et de lire
+  son contenu. Toutefois, le code suivant n'affiche rien car après avoir
+  rajouté du texte au fichier, le pointeur se situe en fin de fichier et
+  affiche donc la fin du fichier, i.e. rien :</p>
+
+  <pre><code class="language-python">with open('page.txt', 'a+') as f:
+    f.write('voici ma 3ème ligne')
+    ma_liste = f.read()
+    print(ma_liste)</code></pre>
+
+<p>ce qu'on peut corriger par le code suivant :</p>
+
+  <pre><code class="language-python">with open('page.txt', 'a+') as f:
+    f.write('voici ma 3ème ligne')
+    f.seek(0, 0)
+    ma_liste = f.read()
+    print(ma_liste)</code></pre>
 
 
 
+  <h4>Sérialiser / désérialiser</h4>
+
+  <p>Sérialiser consiste à transformer un objet en représentation de string
+    comme par exemple le format JSON. Désérialiser consiste à transformer
+    une représentation de string en objet. Le format JSON est donc utilisé
+    dans le cadre d'échanges de données, et peut être interpété par de
+    nombreux langages.</p>
+
+  <pre><code class="language-python">import json</code></pre>
+
+  <p>La sérialisation s'effectue avec l'instruction dumps() :</p>
+  <pre><code class="language-python">json.dumps(mon_objet)</code></pre>
+
+<p>L'instruction dump() permet de sérialiser vers un fichier texte :</p>
+  <pre><code class="language-python">with open('page.txt', 'w') as f:
+    json.dump(mon_objet, f)</code></pre>
+
+  <p>Pour désérialiser à partir d'un fichier texte :</p>
+  <pre><code class="language-python">with open('page.txt', 'r') as f:
+    mon_objet = json.load(f)</code></pre>
+
+<p>Le module pickle permet la sérialisation/désérialisation d'objets Python
+  complexes, mais il est spécifique à Python et ne peut donc pas servir pour
+  communiquer avec des applications écrites dans un autre langage.</p>
 
 
   <!-- ===== PEP8 ===== -->
