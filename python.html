@@ -458,85 +458,6 @@ liste_divisee = liste_numpy/2</code></pre>
     <p>MatPlotLib est utilisé pour représenter des données en deux dimensions, i.e. pour créer des schémas, des graphiques
       et des spectres. Ce package comprend notamment le module Pyplot qui permet de créer des graphiques en couleur.</p>
 
-    <h4>Le package JSON</h4>
-
-    <p>JSON est un format de stockage de données dans un fichier. JSON signifie JavaScript Object Notation.</p>
-    <p>JSON ne se trouve pas nativement dans l'environnement de travail. Il est donc nécessaire de l'importer.</p>
-    <pre>import json</pre>
-
-    <p>Les données seront stockées suivant le format clé-valeur d'un dictionnaire. On peut par exemple avoir la structure suivante :</p>
-    <pre><code class="language-svg">dico = {
-    'collège_St_André':
-        [
-            {
-                'nom': 'Fremon',
-                'prenom': 'Antoine',
-                'pseudo': 'toto',
-                'moyennes':
-                    {
-                        '6ème': 14,
-                        '5ème': 14,
-                        '4ème': 13,
-                        '3ème': 11.5
-                    }
-            },
-            {
-                'nom': 'Sabert',
-                'prenom': 'CLementine',
-                'pseudo': 'clea'
-                'moyennes':
-                    {
-                        '6ème': 12,
-                        '5ème': 13,
-                        '4ème': 12,
-                        '3ème': 11
-                    }
-            }
-        ],
-        #
-        'collège_bernard':
-        [
-            {
-                'nom': 'Carmeni',
-                'prenom': 'Loui',
-                'pseudo': 'lolo',
-                'moyennes':
-                    {
-                        '6ème': 19,
-                        '5ème': 16,
-                        '4ème': 16,
-                        '3ème': 14
-                    }
-            },
-            {
-                'nom': 'Florimar',
-                'prenom': 'Capucine',
-                'pseudo': 'cap'
-                'moyennes':
-                    {
-                        '6ème': 18,
-                        '5ème': 18,
-                        '4ème': 17,
-                        '3ème': 18
-                    }
-            }
-        ]
-}</code></pre>
-
-    <p>Pour afficher ce fichier JSON, il faut d'abord le parcourir et le placer dans un dictionnaire qu'on pourra ensuite afficher :</p>
-    <pre><code class="language-python"># on crée un dictionnaire local vide
-data = dict()
-
-# on ouvre le fichier json en lecture seule
-with open("monFichier.json", "r") as file:
-  # on transforme le fichier json en objet Python
-  data = json.load(file)</code></pre>
-
-    <p>Pour écrire sur un fichier JSON, il faut remplacer le fichier de destination par un dictionnaire <em>data</em>. <em>Attention</em>, il faut prendre soin de recopier dans le dictionnaire les valeurs inchangées du fichier JSON, car l'écriture dans le fichier JSON écrase les données présentes dans ce fichier.</p>
-    <pre><code class="language-python">data = dict()
-with open("monFichier.json", "w", encoding="utf-8") as file:
-json.dump(data, file, indent=4)</code></pre>
-
 
 
 
@@ -1014,6 +935,9 @@ print("\n".join(["%d pour %s" % (nbre, nom) for nbre, nom in annuaire]))</code><
   <p>Pour créer un dictionnaire vide :</p>
   <pre><code class="language-python">dico = dict()</code></pre>
 
+  <p>ou également :</p>
+  <pre><code class="language-python">dico = {}</code></pre>
+
   <p>Pour accéder à un élément du dictionnaire, il ne faut plus appeler son
     indice qui n'existe pas mais appeler la clé de la façon suivante :</p>
 
@@ -1376,11 +1300,17 @@ voici ma 2ème ligne</code></pre>
 
   <h4>Sérialiser / désérialiser</h4>
 
-  <p>Sérialiser consiste à transformer un objet en représentation de string
-    comme par exemple le format JSON. Désérialiser consiste à transformer
-    une représentation de string en objet. Le format JSON est donc utilisé
-    dans le cadre d'échanges de données, et peut être interpété par de
-    nombreux langages.</p>
+  <p>Sérialiser consiste à transformer un objet en une structure lisible et
+    capable d'être stockée comme une série de bytes. Par exemple, convertir un
+    objet en un fichier au format JSON. On utilise dans ce cas l'instruction
+    dump(). Désérialiser consiste à transformer une série de bytes en objet.</p>
+
+  <p>Parser consiste à analyser une suite de données afin d'en composer un
+    objet structuré. Compiler du code source est un exemple de parsing. La
+    désérialisation est un cas particulier de parsing. </p>
+
+  <p>Le Marshalling consiste à transformer une structure de données en un
+    format différent.</p>
 
   <pre><code class="language-python">import json</code></pre>
 
@@ -1392,12 +1322,112 @@ voici ma 2ème ligne</code></pre>
     json.dump(mon_objet, f)</code></pre>
 
   <p>Pour désérialiser à partir d'un fichier texte :</p>
-  <pre><code class="language-python">with open('page.txt', 'r') as f:
-    mon_objet = json.load(f)</code></pre>
+  <pre><code class="language-python">with open('./page.json', 'r') as f:
+    dico = f.read()
+    y = json.loads(dico)
+    print(y['bonjour'])</code></pre>
 
 <p>Le module pickle permet la sérialisation/désérialisation d'objets Python
   complexes, mais il est spécifique à Python et ne peut donc pas servir pour
   communiquer avec des applications écrites dans un autre langage.</p>
+
+  <h4>Le module JSON</h4>
+
+  <p>JSON est un format de stockage de données dans un fichier. JSON
+    est du texte écrit en notation objet et signifie JavaScript Object
+    Notation.  Le format JSON est particulièrement utilisé dans le cadre
+    d'échanges de données, et peut être interpété par de nombreux langages.</p>
+
+  <p>JSON ne se trouve pas nativement dans l'environnement de travail. Il est donc nécessaire de l'importer.</p>
+  <pre>import json</pre>
+
+  <p>Les données seront stockées suivant le format clé-valeur d'un
+    dictionnaire. Mais attention, un dictionnaire accepte indifféremment les
+    ' ou les " alors que le format JSON n'accepte que les ". On
+    peut par exemple avoir la structure suivante :</p>
+  <pre><code class="language-svg">{
+    "collège_St_André":
+        [
+            {
+                "nom": "Fremon",
+                "prenom": "Antoine",
+                "pseudo": "toto",
+                "moyennes":
+                    {
+                        "6ème": 14,
+                        "5ème": 14,
+                        "4ème": 13,
+                        "3ème": 11.5
+                    }
+            },
+            {
+                "nom": "Sabert",
+                "prenom": "CLementine",
+                "pseudo": "clea"
+                "moyennes":
+                    {
+                        "6ème": 12,
+                        "5ème": 13,
+                        "4ème": 12,
+                        "3ème": 11
+                    }
+            }
+        ],
+        #
+        "collège_bernard":
+        [
+            {
+                "nom": "Carmeni",
+                "prenom": "Louis",
+                "pseudo": "lolo",
+                "moyennes":
+                    {
+                        "6ème": 19,
+                        "5ème": 16,
+                        "4ème": 16,
+                        "3ème": 14
+                    }
+            },
+            {
+                "nom": "Florimar",
+                "prenom": "Capucine",
+                "pseudo": "cap"
+                "moyennes":
+                    {
+                        "6ème": 18,
+                        "5ème": 18,
+                        "4ème": 17,
+                        "3ème": 18
+                    }
+            }
+        ]
+}</code></pre>
+
+  <p>Pour afficher ce fichier JSON, il faut d'abord le lire sous forme de
+    string et le placer dans un dictionnaire qui est un objet Python :</p>
+  <pre><code class="language-python">with open('./page.json', 'r') as f:
+    chaine = f.read()  # on lit le fichier JSON sous forme de string
+    dico = json.loads(chaine)  # on transforme le string en
+    dictionnaire
+    print(dico['ma_cle'])</code></pre>
+
+  <p>Pour écrire sur un fichier JSON, il faut remplacer le fichier de destination par un dictionnaire <em>data</em>. <em>Attention</em>, il faut prendre soin de recopier dans le dictionnaire les valeurs inchangées du fichier JSON, car l'écriture dans le fichier JSON écrase les données présentes dans ce fichier.</p>
+  <pre><code class="language-python">data = dict()
+with open("monFichier.json", "w", encoding="utf-8") as f:
+    json.dump(data, f, indent=4)</code></pre>
+
+  <h4>Décodage des bytes en string</h4>
+
+  <p>Pour décoder des bytes en string unicode utf8, on utilise :</p>
+  <pre><code class="language-python">bb = b'\xc2\xa9 abc'
+u = bb.decode('utf-8)</code></pre>
+
+  <p>Pour encoder un string utf8 en bytes, on utilise :</p>
+  <pre><code class="language-python">chaine = 'hello'
+bb = chaine.encode('utf-8)</code></pre>
+
+
+
 
 
   <!-- ===== PEP8 ===== -->
