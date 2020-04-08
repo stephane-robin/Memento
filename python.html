@@ -1213,29 +1213,43 @@ def __maMethodePrivee</code></pre>
     </td></tr>
   </table>
 
-<p>ATTENTION, certains modes semblent similaires mais possèdent en fait
-  quelques subtilités : w EFFACE SYSTEMATIQUEMENT LE CONTENU DU FICHIER AU
-  MOMENT DU CHARGEMENT DU FICHIER, r+ et w+ fournissent les mêmes
-  fonctionnalités mais w+ commence par effacer le contenu du fichier alors
-  que r+ conserve le contenu du fichier. L'écriture écrasera le début du
-  fichier si un emplacement spécifique n'est pas précisé pour le pointeur.</p>
+<p>ATTENTION, chaque mode possède ses particularités : </p>
+  <ul>
+    <li>w EFFACE SYSTEMATIQUEMENT LE CONTENU DU FICHIER AU
+      MOMENT DU CHARGEMENT DU FICHIER. w est donc réservé à l'ouverture d'un
+    fichier vide ou à la remise à zéro d'un fichier.</li>
+    <li>r+ et w+ fournissent les mêmes fonctionnalités mais w+ commence par effacer
+      le contenu du fichier alors que r+ conserve le contenu du fichier. w+ est
+      donc réservé à l'ouverture d'un fichier vide ou à la remise à zéro d'un
+      fichier. Dans le mode r+, le pointeur se place au début du fichier au
+      démarrage et l'écriture écrasera donc le début du fichier si un emplacement
+      spécifique n'est pas précisé pour le pointeur.</li>
+    <li>a et a+ ne permettent pas de rajouter un élément dans un fichier JSON car
+    l'ajout en dernière ligne ne tient pas compte de la structure du document.
+    Il faut donc dans ce cas procéder autrement en intégrant l'ajout à l'ensemble
+    des données.</li>
+  </ul>
 
   <p>A l'ouverture du fichier le pointeur se trouve au début du fichier.
     Une fois les instructions effectuées, il se trouve à la fin du fichier.
     Toute instruction supplémentaire partira au niveau courant du pointeur,
     donc ici la fin du fichier. Ainsi, si on demande l'affichage du fichier à
-    ce moment-là, cet affichage sera vide alors qu'il ne l'est pas forcéemnt. </p>
+    ce moment-là, cet affichage sera vide alors qu'il ne l'est pas forcément.
+  </p>
 
   <p>Pour lire le contenu d'un fichier ou écrire à un emplacement qui ne
     correspond pas à celui du pointeur, il faut repositionner ce pointeur grâce à
     l'instruction seek(position, from). Le paramètre position compte le
     nombre de bytes en partant du paramètre from. Le paramètre from vaut
     0 si on part du début, 1 si on part de la position courante et 2 si on
-    part de la fin du texte. Le code suivant place le pointeur à la fin du
+    part de la fin du texte. Attention, il est possible de placer le pointeur
+    devant l'emplacement précis d'un byte, mais il n'est pas possible de le
+    placer devant l'emplacement précis d'un caractère car celui-ci peut être
+    représenté par plusieurs bytes. Le code suivant place le pointeur à la fin du
     7ème  byte (caractère d'indice 7 dans le cas d'un texte) après le point de
     départ, puis remplace la valeur à cet emplacement par 'x' :</p>
 
-  <pre><code class="language-python">with open('./test.txt', 'r+) as f:
+  <pre><code class="language-python">with open('page.txt', 'r+) as f:
     f.seek(0, 7)
     f.write('x')</code></pre>
 
@@ -1298,48 +1312,56 @@ voici ma 2ème ligne</code></pre>
 
 
 
-  <h4>Sérialiser / désérialiser</h4>
+
+  <h4>Décodage des bytes en string</h4>
+
+  <p>Pour décoder des bytes en string unicode utf8, on utilise :</p>
+  <pre><code class="language-python">bb = b'\xc2\xa9 abc'
+u = bb.decode('utf-8)</code></pre>
+
+  <p>Pour encoder un string utf8 en bytes, on utilise :</p>
+  <pre><code class="language-python">chaine = 'hello'
+bb = chaine.encode('utf-8)</code></pre>
+
+
+
+
+
+  <h4>Parser du JSON / Sérialiser en JSON</h4>
+
+  <p>Parser consiste à analyser une suite de données afin d'en
+    récupérer la structure et de l'incorporer dans un objet structuré.
+    Transformer un fichier JSON en dictionnaire (objet structuré Python) est un
+    exemple de parsing. Pour cela on utilise les étapes suivantes : ouvrir un fichier JSON,
+  récupérer le contenu sous forme de string JSON, transformer ce contenu en dictionnaire
+  Python.</p>
 
   <p>Sérialiser consiste à transformer un objet en une structure lisible et
     capable d'être stockée comme une série de bytes. Par exemple, convertir un
-    objet en un fichier au format JSON. On utilise dans ce cas l'instruction
-    dump(). Désérialiser consiste à transformer une série de bytes en objet.</p>
-
-  <p>Parser consiste à analyser une suite de données afin d'en composer un
-    objet structuré. Compiler du code source est un exemple de parsing. La
-    désérialisation est un cas particulier de parsing. </p>
+    dictionnaire en un fichier au format JSON. Pour cela on utilise les étapes
+  suivantes : transformer un dictionnaire Python en string, </p>
 
   <p>Le Marshalling consiste à transformer une structure de données en un
     format différent.</p>
 
-  <pre><code class="language-python">import json</code></pre>
-
-  <p>La sérialisation s'effectue avec l'instruction dumps() :</p>
-  <pre><code class="language-python">json.dumps(mon_objet)</code></pre>
-
-<p>L'instruction dump() permet de sérialiser vers un fichier texte :</p>
-  <pre><code class="language-python">with open('page.txt', 'w') as f:
-    json.dump(mon_objet, f)</code></pre>
-
-  <p>Pour désérialiser à partir d'un fichier texte :</p>
-  <pre><code class="language-python">with open('./page.json', 'r') as f:
-    dico = f.read()
-    y = json.loads(dico)
-    print(y['bonjour'])</code></pre>
-
-<p>Le module pickle permet la sérialisation/désérialisation d'objets Python
-  complexes, mais il est spécifique à Python et ne peut donc pas servir pour
-  communiquer avec des applications écrites dans un autre langage.</p>
-
-  <h4>Le module JSON</h4>
-
-  <p>JSON est un format de stockage de données dans un fichier. JSON
-    est du texte écrit en notation objet et signifie JavaScript Object
-    Notation.  Le format JSON est particulièrement utilisé dans le cadre
-    d'échanges de données, et peut être interpété par de nombreux langages.</p>
+  <p>Voici un tableau de conversion des objets Python en équivalents JSON :</p>
+  <table>
+    <tr><th>Python</th><th>JSON</th></tr>
+    <tr><td>dict</td><td>Object</td></tr>
+    <tr><td>list, tuple</td><td>Array</td></tr>
+    <tr><td>str</td><td>String</td></tr>
+    <tr><td>int, float</td><td>Number</td></tr>
+    <tr><td>True, False</td><td>true, false</td></tr>
+    <tr><td>None</td><td>Null</td></tr>
+  </table>
 
   <p>JSON ne se trouve pas nativement dans l'environnement de travail. Il est donc nécessaire de l'importer.</p>
-  <pre>import json</pre>
+  <pre><code class="language-python">import json</code></pre>
+
+  <p>JSON JavaScript Object Notation est un format de stockage de données
+    (littéralement du texte écrit en notation objet). Le format JSON est
+    particulièrement utilisé dans le cadre d'échanges de données, et peut être
+    interpété par de nombreux langages, facilitant ainsi l'interopérabilité.</p>
 
   <p>Les données seront stockées suivant le format clé-valeur d'un
     dictionnaire. Mais attention, un dictionnaire accepte indifféremment les
@@ -1403,28 +1425,45 @@ voici ma 2ème ligne</code></pre>
         ]
 }</code></pre>
 
-  <p>Pour afficher ce fichier JSON, il faut d'abord le lire sous forme de
-    string et le placer dans un dictionnaire qui est un objet Python :</p>
-  <pre><code class="language-python">with open('./page.json', 'r') as f:
-    chaine = f.read()  # on lit le fichier JSON sous forme de string
-    dico = json.loads(chaine)  # on transforme le string en
-    dictionnaire
+  <p>Pour utiliser ce fichier JSON, il faut d'abord l'ouvrir sous forme de
+    string puis le parser sous forme de dictionnaire afin d'en récupérer la
+    structure :</p>
+  <pre><code class="language-python">with open('page.json', 'r') as f:
+    # transforming page.json into a JSON string
+    chaine = f.read()
+    # parsing the JSON string into a dictionary
+    dico = json.loads(chaine)
     print(dico['ma_cle'])</code></pre>
 
-  <p>Pour écrire sur un fichier JSON, il faut remplacer le fichier de destination par un dictionnaire <em>data</em>. <em>Attention</em>, il faut prendre soin de recopier dans le dictionnaire les valeurs inchangées du fichier JSON, car l'écriture dans le fichier JSON écrase les données présentes dans ce fichier.</p>
-  <pre><code class="language-python">data = dict()
-with open("monFichier.json", "w", encoding="utf-8") as f:
-    json.dump(data, f, indent=4)</code></pre>
+  <p>Pour écrire sur un fichier JSON (sérialiser un dictionnaire pour le
+    transformer en format JSON), on ne peut pas se contenter de rajouter des éléments
+    à la fin, car ces éléments doivent s'intégrer à une structure de données. Il
+  faut reprendre ce qui reste inchangé, intégrer les nouvelles données et transformer
+  tout l'ensemble. Cela est coûteux en espace mémoire et temps de travail.</p>
 
-  <h4>Décodage des bytes en string</h4>
+  <pre><code class="language-python">with open('page.json', 'r+') as f:
+    # transforming page.json into JSON string
+    js = f.read()
+    # transforming JSON string into dictionary using the initial JSON structure
+    dico = json.loads(js)
+    # adding a key/value
+    dico.update({"lundi": "Monday"}) # or dico["lundi"] = "Monday"
+    # setting the pointer on 1st position
+    f.seek(0,0)
+    # transforming dictionary into JSON string and writing on page.json
+    f.write(json.dumps(dico, indent=4)) # JSON string</code></pre>
 
-  <p>Pour décoder des bytes en string unicode utf8, on utilise :</p>
-  <pre><code class="language-python">bb = b'\xc2\xa9 abc'
-u = bb.decode('utf-8)</code></pre>
+  <p>Il est possible de sérialiser suivant un format plus facilement lisible
+  :</p>
+  <pre><code class="language-python">json.dumps(dico, indent=4, separators=(",", ":"))</code></pre>
 
-  <p>Pour encoder un string utf8 en bytes, on utilise :</p>
-  <pre><code class="language-python">chaine = 'hello'
-bb = chaine.encode('utf-8)</code></pre>
+  <p>En résumé, json.loads(json_str) transforme un string JSON en dictionnaire Python, et
+  json.dumps(object) transforme un dictionnaire Python en string JSON.</p>
+
+<p>Le module pickle permet la sérialisation/parsing d'objets Python
+  complexes, mais il est spécifique à Python et ne peut donc pas servir pour
+  communiquer avec des applications écrites dans un autre langage.</p>
+
 
 
 
