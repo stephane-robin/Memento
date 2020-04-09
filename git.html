@@ -236,6 +236,9 @@ git merge nomBranche</pre>
 
   <h3>Lignes de commande standard pour Ubuntu</h3>
 
+  <p>Pour déplacer monfichier de Téléchargements dans Documents</p>
+  <pre><code class="language-svg">sudo mv /home/stephane/Téléchargements/monfichier /home/stephane/Documents</code></pre>
+
   <p>Toutes les lignes de commande s'exécutent à partir du dossier courant dans lequel se trouve le fichier cible.</p>
   <table>
     <tr> <th> Objectif</th> <th> Instruction</th> </tr>
@@ -264,6 +267,17 @@ sudo apt-get auroremove</pre></td></tr>
   </table>
 
   <p>Attention, pour ouvrir un fichier du répertoire courant, l'appel direct de monFichier est insuffisant. Il faut d'abord rajouter le chemin local, qui force la connexion.</p>
+
+  <h4>Zipper/dézipper un dossier</h4>
+
+  <p>Pour zipper le dossier mon_dossier en l'appelant mon_archive.zip :</p>
+  <pre><code class="language-svg">zip -r mon_archive.zip mon_dossier</code></pre>
+
+  <p>Pour dézipper l'archive mon_archive.zip en l'appelant mon_dossier :</p>
+  <pre><code class="language-svg">unzip mon_archive.zip -d mon_dossier</code></pre>
+
+
+
 
   <h4>Installation d'un logiciel en utilisant la commande bash</h4>
 
