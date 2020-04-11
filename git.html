@@ -268,7 +268,10 @@ sudo apt-get auroremove</pre></td></tr>
 
   <p>Attention, pour ouvrir un fichier du répertoire courant, l'appel direct de monFichier est insuffisant. Il faut d'abord rajouter le chemin local, qui force la connexion.</p>
 
-  <h4>Zipper/dézipper un dossier</h4>
+
+
+
+  <h4>Zipper/dézipper un dossier .zip</h4>
 
   <p>Pour zipper le dossier mon_dossier en l'appelant mon_archive.zip :</p>
   <pre><code class="language-svg">zip -r mon_archive.zip mon_dossier</code></pre>
@@ -277,6 +280,14 @@ sudo apt-get auroremove</pre></td></tr>
   <pre><code class="language-svg">unzip mon_archive.zip -d mon_dossier</code></pre>
 
 
+
+
+
+  <h4>Dézipper un dossier .gz</h4>
+
+  <p>Il faut se placer dans le dossier contenant mondossier.gz et l'instruction
+  suivante va le décompresser à ce même emplacement :</p>
+  <pre><code class="language-svg">gunzip mondossier.gz</code></pre>
 
 
   <h4>Installation d'un logiciel en utilisant la commande bash</h4>
@@ -302,6 +313,10 @@ sudo apt-get auroremove</pre></td></tr>
 
   <p>Finalement, il faut suivre les instructions d'installation dans le ficier README.txt ou le INSTALL</p>
 
+
+
+
+
   <h4>Installation d'un logiciel à partir d'un fichier .tar.bz2</h4>
 
   <p>Il faut d'abord déplacer le fichier .tar.bz2 vers /usr/local. Pour cela :</p>
@@ -312,6 +327,10 @@ sudo apt-get auroremove</pre></td></tr>
   <pre>tar xfvj nom_fichier.tar.bz2</pre>
 
   <p>Finalement, il faut suivre les instructions d'installation dans le ficier README.txt ou le INSTALL</p>
+
+
+
+
 
   <h4>Installation d'un logiciel à partir d'un fichier .deb</h4>
 
