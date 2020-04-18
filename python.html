@@ -74,6 +74,7 @@ function affichageConditionnel(bouton, id) {
     <li> <a href="#py_exception">La gestion des exceptions</a> </li>
     <li> <a href="#py_objet">La programmation objet</a> </li>
     <li> <a href="#py_input">Input/Output</a> </li>
+    <li> <a href=""#py.sub">Agir en ligne de commande à partir d'un script avec subprocess</a></li>
     <li> <a href="#py_pep">Respect du PEP8</a> </li>
   </ul>
 
@@ -230,6 +231,9 @@ cd environnements</code></pre>
   <p>Pour installer un module dans l'environnement, il faut d'abord se rendre dans l'environnement puis :</p>
   <pre><code class="language-svg">cd mon_env
 pip3 install nom_package</code></pre>
+
+  <p>Pour désinstaller un module dans l'environnement :</p>
+  <pre>pip3 uninstall nom_package</pre>
 
   <p>Pour voir la liste de tous les modules installés :</p>
   <pre><code class="language-svg">pip3 freeze</code></pre>
@@ -1481,6 +1485,37 @@ for item in listdir('/home/user/monDossier'):
 
 
 
+<!-------------------------------------
+AGIR SUR LE TERMINAL A PARTIR DE PYTHON
+--------------------------------------->
+  <h3>Agir en ligne de commande à partir d'un script avec subprocess</h3>
+
+  <p>On peut exécuter un script Python qui interprète une ligne de commande à
+    l'emplacement du dossier courant où se trouve le script, en utilisant le
+    module subprocess. Par exemple pour afficher tous les dossiers et fichiers
+    se trouvant dans le répertoire courant :</p>
+
+  <pre><code class="language-python">import subprocess
+subprocess.run('ls')</code></pre>
+
+
+
+
+
+ <!------------------------------
+ CREATION D'UN CLI AVEC ARGPARSE
+ ------------------------------->
+  <h3>Création d'une CLI avec argparse</h3>
+
+  <p>Le module argparse permet de créer une Command Line Interface. Par exemple :</p>
+<pre><code class="language-python">mp = argparse.ArgumentParser(prog='nom_programme', description="A description that shows up")
+mp.add_argument("nom", type=str, help="requires a string")
+mp.add_argument("--collect", action='store_true', help="description of the --collect option")
+args = mp.parse_args()
+item = args.nom
+
+if args.collect:
+    print(item)</code></pre>
 
 
   <!-- ===== PEP8 ===== -->
