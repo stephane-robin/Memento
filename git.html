@@ -3,8 +3,12 @@
 <head>
   <title> Memento </title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="prism.css">
   <meta charset="utf-8">
 </head>
+
+<!-- script de gestion des couleurs de code -->
+<script defer src="prism.js"></script>
 
 <body>
 
@@ -17,15 +21,15 @@
 </header>
 
 <div id="bandeau">
-  <div id="titre"> <h1> Memento </h1> </div>
+  <div id="titre"> <h1> Terminal </h1> </div>
   <nav>
     <div class="element"> <a href="index.html">HTML</a> </div>
     <div class="element"> <a href="css.html">CSS</a> </div>
     <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
-    <div class="element"> <a href="python.html">PYTHON</a> </div>
     <div class="element"> <a href="java.html">JAVA</a> </div>
+    <div class="element"> <a href="python.html">PYTHON</a> </div>
     <div class="element"> <a href="c.html">C</a> </div>
-    <div class="element"> <a href="git.html">GIT</a> </div>
+    <div class="element"> <a href="git.html">Terminal</a> </div>
   </nav>
 </div>
 
@@ -42,233 +46,55 @@
 </p>
 
 
-<!-- CONFIGURATION -->
-
-<h3> Configuration </h3>
-
-<p>Pour connaître la version du logiciel <em>git</em> : </p>
-<pre>git --version</pre>
-
-<p>Pour configurer les données utilisateur de <em>git</em> :</p>
-<pre>git config --global user.name "monNom"
-git config --global user.email "monEmail"</pre>
-
-<p>Pour activer la couleur dans la console :</p>
-<pre>git config --global color.diff auto
-git config --global color.status auto
-git config --global color.branch auto</pre>
-
-<p>Il faut créer un dossier local qui va héberger les différents repositories, par exemple <em>Git_Local_Repo</em>. Puis se placer dans <em>Git_Local_Repo</em> et importer un remote repository du <em>master</em> :</p>
-<pre>git clone https://github/monAdresse</pre>
-
-<p>ou initialiser le dossier et démarrer de projet en local avec l'instruction :</p>
-<pre>git init</pre>
-
-  <p>Pour vérifier la configuration enregistrée :</p>
-  <pre><code>git config --list</code></pre>
-
-<!-- PRINCIPALES INSTRUCTIONS -->
-
-<h3>Principales instructions</h3>
-
-<p>Pour ajouter un fichier local à l'index : </p>
-<pre>git add monFichier</pre>
-
-<p>Pour supprimer un fichier local de l'index après l'avoir rajouté sans l'avoir commité :</p>
-<pre>git reset HEAD --nomFichier</pre>
-
-<p>Pour ajouter rapidement à l'index sans distinction de fichier : </p>
-<pre>git add .</pre>
-
-<p>On travaille normalement dans le repository local. Pour synchroniser le remote repository <em>master</em> avec le repository local <em>origin</em>, on commence par rajouter dans l'index chaque fichier modifié (add), on ajoute les dernières modifications dans l'historique des modifications (commit) et finalement on insère le fichier validé vers le remote repository (push) :</p>
-<pre>git add .
-git commit -m "monCommentaire"
-git push origin master</pre>
-
-<p>Il n'est pas nécessaire de définir le nom des fichiers concernés car tous les fichiers indexés et non validés vont être pris en compte par le commit. <em>Attention</em>, chaque étape est nécessaire. On peut toutefois regrouper les étapes du rajout à l'index et du commit :</p>
-<pre>git commit -a -m "monCommentaire"
-git push origin master</pre>
-<p>Attention, ici le <strong>-a</strong> ne correspond pas à l'instruction <strong>add</strong>, mais à la prise en compte de tous les fichiers <em>all</em>.</p>
-<p>On remarque qu'un commit avec <em>Git</em> est local jusqu'à ce qu'on push ce commit sur le serveur.</p>
-
-<p><em>Attention</em>, les fichiers modifiés mais non entrés dans l'index ne seront pas synchronisés.</p>
-
-<p>Pour modifier le dernier message du commit (dans le cas par exemple où une erreur s'est glissée) :</p>
-<pre>git commit --amend</pre>
-
-<p>Pour connaître l'état des modifications :</p>
-<pre>git status</pre>
-
-<p>Pour récupérer un fichier de travail :</p>
-<pre>git pull monFichier master</pre>
-
-<p>Ou de façon plus générale :</p>
-<pre>git pull origin master</pre>
-<p>Dans ce cas, origin correspond au remote repository.</p>
-
-
-
-
-<!-- L'HISTORIQUE -->
-
-<h3>L'historique</h3>
-
-<p>Pour consulter l'historique (les <em>logs</em>) :</p>
-<pre>git log</pre>
-
-<p>Pour obtenir l'historique et le détail des lignes retirées et rajoutées :</p>
-<pre>git log -p</pre>
-
-<p>Pour quitter la liste des <em>logs</em>, il faut taper Q.</p>
-
-<p>On peut se positionner à un moment de l'historique en ne tenant compte que des commit enregistrés jusqu'à un commit défini. On utilise alors <strong>git checkout codeCommit</strong> oû <em>codeCommit</em> est le code sha présent dans le log et représentatif d'un unique commit. A partir de cette requête, <strong>git log</strong> n'affiche que les commit enregistrés jusqu'au commit <em>codeCommit</em>. Pour revenir à l'état du dernier commit, on utilise l'instruction <strong>git checkout master</strong>.
-
-<p>Pour consulter les modifications :</p>
-<pre>git diff</pre>
-<p>Les ligness ajoutées sont précédées d'un + et affichées en vert, tandis que les lignes supprimées sont précédées d'un - et affichées en rouge.</p>
-
-<p>Pour consulter les modifications d'un seul fichier :</p>
-<pre>git diff monFichier</pre>
-
-<p>A noter que <em>GitHub</em> propose un affichage des modifications d'un commit plus convivial que le Terminal. Il s'agit dans ce cas des commits envoyés au remote.</p>
-
-<p>Pour annuler les modifications d'un fichier avant un commit, et restaurer le fichier tel qu'il était au dernier commit :</p>
-<pre>git checkout nomFichier</pre>
-
-<p>Pour annuler le dernier commit et revenir à l'avant dernier : </p>
-<pre>git reset HEAD^</pre>
-
-<p>Pour annuler un numéro de commit précis : </p>
-<pre>git reset nrmCommit </pre>
-<p>Dans ce cas seul le commit est retiré de <em>Git</em>, les fichiers restent modifiés.</p>
-
-<p>Pour annuler le dernier commit et les changements effectués dans les fichiers :</p>
-<pre>git reset --hard HEAD^</pre>
-<p>Attention, dans ce cas tous les changements sont perdus sans préavis.</p>
-
-<p>Dans le cas où des commits ont été faits simultanément par plusieurs postes dans un même projet, les modifications sont incorporées automatiquement. Dans le cas où deux changement concernent la même zode de code, un conflit apparaît qui doit être résolu manuellement en travaillant sur la zone de code marquée <<<<<<<<<<<<< . Sur <em>GitHub</em>, la résolution de conflit ne pourra être faite que par la personne déclarée responsable de projet.</p>
-
-<p>Attention, un push est en revanche irréversible. Il est donc recommandé de faire régulièrement des commit, mais de faire un push qu'une fois par jour, sinon on perd la facilité avec laquelle il est possible d'annuler ou de modifier les commit.</p>
-
-<p>Il reste toutefois possible d'annuler un commit déjà pushé en créant un nouveau commit qui effectue l'inverse des modifications. On ne peut en effet pas réellement supprimer un commit.</p>
-<pre>git revert nrmCommit</pre>
-
-<p>Pour donner un tag à un commit afin de le retrouver sous une référence particulière, comme une version par exemple :</p>
-<pre>git tag nomTag nmrCommit
-git push --tags</pre>
-
-<p>Attention, cette instruction spécifique <strong>--tags</strong> est importante car autrement un tag n'est pas envoyé lors d'un push.</p>
-
-<p>Pour supprimer un tag :</p>
-<pre>git tag -d nomTag</pre>
-
-<p>Pour retrouver qui a modifié une ligne précise de code dans un projet :</p>
-<pre>git blame nomFichier</pre>
-<p>On obtient ainsi toutes les modifications faites sur un fichier ligne par ligne avec le début du <em>sha</em> du commit correspondant. Il faut alors utiliser l'instruction suivante pour consulter les détail du commit recherché :</p>
-<pre>git show nrmCommit</pre>
-
-
-
-
-<!-- LA GESTION DES BRANCHES -->
-
-<h3>La gestion des branches</h3>
-
-<p>Pour voir toutes les branches d'un projet : </p>
-<pre>git branch</pre>
-
-<p>L'étoile qui apparaît dans la réponse marque la branche sur laquelle on travaille actuellement.</p>
-
-<p>Pour créer une branche : </p>
-<pre>git branch nomBranche</pre>
-
-<p>Attention, une branche créée est locale.</p>
-
-<p>Pour se rendre sur une branche pour travailler :</p>
-<pre>git checkout nomBranche</pre>
-
-<p>Attention, <strong>checkout</strong> a un double usage avec <em>Git</em>.</p>
-
-<p>On peut également créer une branche et s'y rendre directement avec l'instruction :</p>
-<pre>git checkout -b nomBranche</pre>
-
-<p>Pour fusionner les changements d'une branche avec le master, il faut d'abord se rendre sur le master :</p>
-<pre>git checkout master
-git merge nomBranche</pre>
-
-<p>Pour supprimer une branche : </p>
-<pre>git branch -d nomBranche</pre>
-
-<p>Cette suppression n'est possible que si le travail réalisé sur la branche fille a été incorporé dans le master, sinon <em>Git</em> interdit la suppression.</p>
-
-<p>Pour supprimer une branche dont les modifications n'ont pas été incorporées au master, parce que par exemple le travail réalisé n'est pas concluant :</p>
-<pre>git branch -D nomBranche</pre>
-
-
-
-
-<!-- IGNORER DES FICHIERS -->
-
-<h3>Ignorer des fichiers avec gitignore</h3>
-
-<p>Il ne faut jamais versionner une variable de configuration, comme par exemple un mot de passe ou une clé secrète. Si le code a déjà été envoyé sur <em>GitHub</em>, il convient de changer de mot de passe ou générer une nouvelle clé secrète.</p>
-
-  <p>Il est important d'ignorer certains fichiers dans <em>Git</em>, tels que :</p>
-  <ul>
-    <li>les fichiers de configuration (config.xml, database.yml)</li>
-    <li>les fichiers temporaires (tml, temp)</li>
-    <li>les fichiers créés par l'IDLE ou l'OS (.DS_Store)</li>
-  </ul>
-<p>Ainsi, les variables de configuration devront être déplacées dans un fichier de configuration et ignorées dans <em>Git</em>.</p>
-
-<p>Il faut créer un fichier <em>.gitignore</em> et placer dans ce fichier le nom de tous les fichiers qui devront être ignorés par le versionnement.</p>
-<pre>touch .gitignore</pre>
-
-<p>Pour écrire dans ce fichier <em>.gitignore</em>, il faut ouvrir l'éditeur de terminal <em>vim</em> :</p>
-<pre>vim .gitignore</pre>
-
-<p>Pour sortir de <em>vim</em> :</p>
-<pre>:q</pre>
 
 
 
   <!-- LIGNES DE COMMANDE -->
 
-  <h3>Lignes de commande standard pour Ubuntu</h3>
+  <h3>Linux</h3>
 
-  <p>Pour déplacer monfichier de Téléchargements dans Documents</p>
-  <pre><code class="language-svg">sudo mv /home/stephane/Téléchargements/monfichier /home/stephane/Documents</code></pre>
+  <h4>Les principales lignes de commande</h4>
 
-  <p>Toutes les lignes de commande s'exécutent à partir du dossier courant dans lequel se trouve le fichier cible.</p>
+  <p>L'autocomplétion se réalise avec la touche de tabulation, la navigation dans le terminal se fait à l'aide des flèches haut et bas.</p>
+
+  <p>Toutes les lignes de commande suivantes s'exécutent à partir du dossier courant dans lequel se trouve le fichier cible.</p>
   <table>
     <tr> <th> Objectif</th> <th> Instruction</th> </tr>
-    <tr> <td> se déplacer dans le dossier <em>Documents</em> </td> <td> <pre>cd Documents</pre> </td> </tr>
+    <tr> <td>  </td><td><pre>pwd</pre></td></tr>
+    <tr> <td> se rendre dans le dossier <em>Documents</em> </td> <td> <pre>cd Documents</pre> </td> </tr>
     <tr> <td> revenir au dossier parent </td> <td> <pre>cd ..</pre></td> </tr>
     <tr> <td> revenir à la racine </td> <td> <pre>cd</pre></td> </tr>
     <tr> <td> trouver <em>monFichier</em></td> <td><pre>whereis monFichier</pre></td></tr>
-    <tr> <td> afficher la liste des éléments du dossier local </td> <td> <pre>ls</pre></td> </tr>
-    <tr> <td> afficher la liste détaillée des éléments du dossier local </td> <td> <pre>ls -l</pre></td> </tr>
+    <tr> <td> afficher la liste des éléments du dossier courant </td> <td> <pre>ls</pre></td> </tr>
+    <tr> <td> afficher la liste détaillée des éléments du dossier courant </td> <td> <pre>ls -l</pre></td> </tr>
+    <tr> <td> afficher la liste des éléments du dossier courant avec ceux cachés </td> <td> <pre>ls -a</pre></td> </tr>
+    <tr> <td> afficher la liste détaillée des éléments du dossier courant avec ceux cachés </td> <td> <pre>ls -la</pre></td> </tr>
     <tr> <td> afficher la liste des éléments actifs du dossier local </td> <td> <pre>ps</pre></td> </tr>
     <tr> <td> créer le fichier <em>monFichier</em> </td> <td> <pre>touch monFichier</pre></td> </tr>
     <tr> <td> créer le dossier <em>monDossier</em> </td> <td> <pre>mkdir monDossier</pre></td> </tr>
-    <tr> <td> vider le terminal <em>monFichier</em> </td> <td> <pre>clear</pre></td> </tr>
-    <tr> <td> ouvrir <em>monFichier</em> qui se trouve dans le répertoire courant </td> <td> <pre>./monFichier</pre></td> </tr>
-    <tr> <td> ouvrir <em>monFichier</em> qui se trouve dans le répertoire parent </td> <td> <pre>../monFichier</pre></td> </tr>
-    <tr> <td> adresse absolue </td> <td> <pre>/adresse</pre></td> </tr>
+    <tr> <td> afficher le contenu de <em>monFichier</em> </td> <td> <pre>cat monFichier</pre></td> </tr>
     <tr> <td> supprimer <em>monFichier</em> </td> <td><pre>rm monFichier</pre></td></tr>
     <tr> <td> supprimer <em>monDossier</em></td> <td><pre>rm -r monDossier</pre></td></tr>
-    <tr> <td> déplacer <em>monFichier</em></td> <td><pre>mv chemin_monFichier  chemin _nouvelEmplacement</pre></td></tr>
+    <tr> <td> déplacer <em>monFichier</em></td> <td><pre>mv chemin_monFichier  chemin_nouvelEmplacement</pre></td></tr>
+    <tr> <td>copier monFichier.py dans le répertoire courant</td> <td><pre>cp monFichier.py</pre></td></tr>
+    <tr> <td>copier monFichier.py dans Documents</td> <td><pre>cp monFichier.py ~/Documents</pre></td></tr>
+    <tr> <td> renommer monFichier en nouveauFichier</td> <td><pre>mv monFichier  nouveauFichier</pre></td></tr>
     <tr> <td> stopper l'exécution d'un code ou d'un serveur </td><td><pre>Ctrl+c</pre></td></tr>
+    <tr> <td> quitter une interface exécutée à partir du terminal </td> <td><pre>q</pre></td></tr>
+    <tr> <td> vider le terminal</td> <td> <pre>clear</pre></td> </tr>
+    <tr> <td> lancer l'interpréteur Python </td> <td><pre>python</pre></td></tr>
+    <tr> <td> exécuter monFichier.py </td> <td><pre>python monFichier.py</pre></td></tr>
+    <tr> <td> quitter l'interpréteur Python </td> <td><pre>exit()</pre></td></tr>
+    <tr> <td> installer un package Python </td> <td><pre>pip install monPackage</pre><pre>conda install monPackage</pre></td></tr>
+    <tr> <td> désinstaller un package Python </td> <td><pre>pip uninstall monPackage</pre></td></tr>
+    <tr> <td> exécuter monPackage en Python </td> <td><pre>python -m monPackage</pre></td></tr>
+    <tr> <td> supprimer <em>monApplication</em></td> <td><pre>sudo apt-get remove monApplication</pre></td></tr>
     <tr> <td> nettoyer le disque</td> <td><pre>sudo apt-get autoclean
 sudo apt-get clean
 sudo apt-get auroremove</pre></td></tr>
-    <tr> <td>copier monfichier.py</td> <td>cp /home/stephane/Téléchargements/monfichier.py /home/stephane/Documents/</td></tr>
-    <tr> <td> renommer monfichier en nouveaufichier</td> <td>mv monfichier  nouveaufichier</td></tr>
-    <tr> <td> lancer l'interpréteur Python </td> <td><pre>python3</pre></td></tr>
-    <tr> <td> supprimer <em>monApplication</em></td> <td><pre>sudo apt-get remove monApplication</pre></td></tr>
   </table>
 
-  <p>Attention, pour ouvrir un fichier du répertoire courant, l'appel direct de monFichier est insuffisant. Il faut d'abord rajouter le chemin local, qui force la connexion.</p>
+
 
 
 
@@ -288,30 +114,30 @@ sudo apt-get auroremove</pre></td></tr>
   <h4>Dézipper un dossier .gz</h4>
 
   <p>Il faut se placer dans le dossier contenant mondossier.gz et l'instruction
-  suivante va le décompresser à ce même emplacement :</p>
+    suivante va le décompresser à ce même emplacement :</p>
   <pre><code class="language-svg">gunzip mondossier.gz</code></pre>
 
 
   <h4>Installation d'un logiciel en utilisant la commande bash</h4>
 
   <p>Un fichier au format .sh est un fichier d'installation qui s'ouvre avec une commande bash. Pour cela, dans le répertoire courant, il faut d'abord
-  vérifier l'intégrité de l'installer en utilisant :</p>
+    vérifier l'intégrité de l'installer en utilisant :</p>
 
-  <pre><code>sha256sum nomInstaller.sh</code></pre>
+  <pre><code class="language-svg">sha256sum nomInstaller.sh</code></pre>
 
   <p>puis lancer l'installation à l'aide de :</p>
 
-  <pre><code>bash nomInstaller.sh</code></pre>
+  <pre><code class="language-svg">bash nomInstaller.sh</code></pre>
 
   <h4>Installation d'un logiciel à partir d'un fichier .tar.gz</h4>
 
   <p>Un fichier .tar est une archive non compressée. En revanche, un fichier .gz est une compression de fichier.</p>
   <p>Il faut d'abord déplacer le fichier .tar.gz vers /usr/local. Pour cela :</p>
-  <pre>sudo mv /home/stephane/Téléchargements/nom_fichier.tar.gz /usr/local</pre>
+  <pre><code class="language-svg">sudo mv /home/stephane/Téléchargements/nom_fichier.tar.gz /usr/local</code></pre>
   <p>Il faut ensuite se placer dans le répertoire /usr/local</p>
-  <pre>cd /usr/local</pre>
+  <pre><code class="language-svg">cd /usr/local</code></pre>
   <p>Puis il faut décompresser le fichier .gz :</p>
-  <pre>sudo tar xvzf nom_fichier.tar.gz</pre>
+  <pre><code class="language-svg">sudo tar xvzf nom_fichier.tar.gz</code></pre>
 
   <p>Finalement, il faut suivre les instructions d'installation dans le ficier README.txt ou le INSTALL</p>
 
@@ -322,11 +148,11 @@ sudo apt-get auroremove</pre></td></tr>
   <h4>Installation d'un logiciel à partir d'un fichier .tar.bz2</h4>
 
   <p>Il faut d'abord déplacer le fichier .tar.bz2 vers /usr/local. Pour cela :</p>
-  <pre>mv /home/stephane/Téléchargements/nom_fichier.tar.bz2 /usr/local</pre>
+  <pre><code class="language-svg">mv /home/stephane/Téléchargements/nom_fichier.tar.bz2 /usr/local</code></pre>
   <p>Il faut ensuite se placer dans le répertoire /usr/local</p>
-  <pre>cd /usr/local</pre>
+  <pre><code class="language-svg">cd /usr/local</code></pre>
   <p>Puis il faut décompresser le fichier .bz2 :</p>
-  <pre>tar xfvj nom_fichier.tar.bz2</pre>
+  <pre><code class="language-svg">tar xfvj nom_fichier.tar.bz2</code></pre>
 
   <p>Finalement, il faut suivre les instructions d'installation dans le ficier README.txt ou le INSTALL</p>
 
@@ -348,12 +174,12 @@ sudo apt-get auroremove</pre></td></tr>
 
   <h4>Mise à niveau système</h4>
 
-  <pre>sudo apt-get update
+  <pre><code class="language-svg">sudo apt-get update
 sudo apt-get upgrade
 sudo apt dist-upgrade
 sudo apt-get install update-manager-core
 sudo do-release-upgrade
-sudo apt-get update</pre>
+sudo apt-get update</code></pre>
 
   <h4>Créer une clé bootable</h4>
 
@@ -362,6 +188,206 @@ sudo apt-get update</pre>
     <li>configurer une clé bootable sur le site balena.io. Pour cela, chercher balenaetcher, lancer l'application et choisir une clé USB comme cible. Il est important de ne connecter qu'une seule clé à l'ordinateur</li>
     <li>brancher la clé bootable sur l'ordinateur cible, démarrer l'ordinateur en ouvrant le bios (souvent la touche f12 ou f2), configurer le lancement du système sur clé USB</li>
   </ol>
+
+
+
+
+  <!-- GIT -->
+
+<h3>Git</h3>
+
+<!-- CONFIGURATION -->
+
+<h4> Configuration </h4>
+
+<p>Pour connaître la version du logiciel <em>git</em> : </p>
+  <pre><code class="language-svg">git --version</code></pre>
+
+<p>Pour configurer les données utilisateur de <em>git</em> :</p>
+<pre><code class="language-svg">git config --global user.name "monNom"
+  git config --global user.email "monEmail"</code></pre>
+
+<p>Pour activer la couleur dans la console :</p>
+<pre><code class="language-svg">git config --global color.diff auto
+git config --global color.status auto
+  git config --global color.branch auto</code></pre>
+
+<p>Il faut créer un dossier local qui va héberger les différents repositories, par exemple <em>Git_Local_Repo</em>. Puis se placer dans <em>Git_Local_Repo</em> et importer un remote repository du <em>master</em> :</p>
+  <pre><code class="language-svg">git clone https://github/monAdresse</code></pre>
+
+<p>ou initialiser le dossier et démarrer de projet en local avec l'instruction :</p>
+  <pre><code class="language-svg">git init</code></pre>
+
+  <p>Pour vérifier la configuration enregistrée :</p>
+  <pre><code class="language-svg">git config --list</code></pre>
+
+
+
+<!-- PRINCIPALES INSTRUCTIONS -->
+
+<h4>Principales instructions</h4>
+
+<p>Pour ajouter un fichier local à l'index : </p>
+  <pre><code class="language-svg">git add monFichier</code></pre>
+
+<p>Pour supprimer un fichier local de l'index après l'avoir rajouté sans l'avoir commité :</p>
+  <pre><code class="language-svg">git reset HEAD --nomFichier</code></pre>
+
+<p>Pour ajouter rapidement à l'index sans distinction de fichier : </p>
+  <pre><code class="language-svg">git add .</code></pre>
+
+<p>On travaille normalement dans le repository local. Pour synchroniser le remote repository <em>master</em> avec le repository local <em>origin</em>, on commence par rajouter dans l'index chaque fichier modifié (add), on ajoute les dernières modifications dans l'historique des modifications (commit) et finalement on insère le fichier validé vers le remote repository (push) :</p>
+<pre><code class="language-svg">git add .
+git commit -m "monCommentaire"
+  git push origin master</code></pre>
+
+<p>Il n'est pas nécessaire de définir le nom des fichiers concernés car tous les fichiers indexés et non validés vont être pris en compte par le commit. <em>Attention</em>, chaque étape est nécessaire. On peut toutefois regrouper les étapes du rajout à l'index et du commit :</p>
+<pre><code class="language-svg">git commit -a -m "monCommentaire"
+  git push origin master</code></pre>
+<p>Attention, ici le <strong>-a</strong> ne correspond pas à l'instruction <strong>add</strong>, mais à la prise en compte de tous les fichiers <em>all</em>.</p>
+<p>On remarque qu'un commit avec <em>Git</em> est local jusqu'à ce qu'on push ce commit sur le serveur.</p>
+
+<p><em>Attention</em>, les fichiers modifiés mais non entrés dans l'index ne seront pas synchronisés.</p>
+
+<p>Pour modifier le dernier message du commit (dans le cas par exemple où une erreur s'est glissée) :</p>
+  <pre><code class="language-svg">git commit --amend</code></pre>
+
+<p>Pour connaître l'état des modifications :</p>
+  <pre><code class="language-svg">git status</code></pre>
+
+<p>Pour récupérer un fichier de travail :</p>
+  <pre><code class="language-svg">git pull monFichier master</code></pre>
+
+<p>Ou de façon plus générale :</p>
+  <pre><code class="language-svg">git pull origin master</code></pre>
+<p>Dans ce cas, origin correspond au remote repository.</p>
+
+
+
+
+<!-- L'HISTORIQUE -->
+
+<h4>L'historique</h4>
+
+<p>Pour consulter l'historique (les <em>logs</em>) :</p>
+  <pre><code class="language-svg">git log</code></pre>
+
+<p>Pour obtenir l'historique et le détail des lignes retirées et rajoutées :</p>
+  <pre><code class="language-svg">git log -p</code></pre>
+
+<p>Pour quitter la liste des <em>logs</em>, il faut taper Q.</p>
+
+<p>On peut se positionner à un moment de l'historique en ne tenant compte que des commit enregistrés jusqu'à un commit défini. On utilise alors <strong>git checkout codeCommit</strong> oû <em>codeCommit</em> est le code sha présent dans le log et représentatif d'un unique commit. A partir de cette requête, <strong>git log</strong> n'affiche que les commit enregistrés jusqu'au commit <em>codeCommit</em>. Pour revenir à l'état du dernier commit, on utilise l'instruction <strong>git checkout master</strong>.
+
+<p>Pour consulter les modifications :</p>
+  <pre><code class="language">git diff</code></pre>
+<p>Les ligness ajoutées sont précédées d'un + et affichées en vert, tandis que les lignes supprimées sont précédées d'un - et affichées en rouge.</p>
+
+<p>Pour consulter les modifications d'un seul fichier :</p>
+  <pre><code class="language-svg">git diff monFichier</code></pre>
+
+<p>A noter que <em>GitHub</em> propose un affichage des modifications d'un commit plus convivial que le Terminal. Il s'agit dans ce cas des commits envoyés au remote.</p>
+
+<p>Pour annuler les modifications d'un fichier avant un commit, et restaurer le fichier tel qu'il était au dernier commit :</p>
+  <pre><code class="language-svg">git checkout nomFichier</code></pre>
+
+<p>Pour annuler le dernier commit et revenir à l'avant dernier : </p>
+  <pre><code class="language-svg">git reset HEAD^</code></pre>
+
+<p>Pour annuler un numéro de commit précis : </p>
+  <pre><code class="language-svg">git reset nrmCommit </code></pre>
+<p>Dans ce cas seul le commit est retiré de <em>Git</em>, les fichiers restent modifiés.</p>
+
+<p>Pour annuler le dernier commit et les changements effectués dans les fichiers :</p>
+  <pre><code class="language-svg">git reset --hard HEAD^</code></pre>
+<p>Attention, dans ce cas tous les changements sont perdus sans préavis.</p>
+
+<p>Dans le cas où des commits ont été faits simultanément par plusieurs postes dans un même projet, les modifications sont incorporées automatiquement. Dans le cas où deux changement concernent la même zode de code, un conflit apparaît qui doit être résolu manuellement en travaillant sur la zone de code marquée <<<<<<<<<<<<< . Sur <em>GitHub</em>, la résolution de conflit ne pourra être faite que par la personne déclarée responsable de projet.</p>
+
+<p>Attention, un push est en revanche irréversible. Il est donc recommandé de faire régulièrement des commit, mais de faire un push qu'une fois par jour, sinon on perd la facilité avec laquelle il est possible d'annuler ou de modifier les commit.</p>
+
+<p>Il reste toutefois possible d'annuler un commit déjà pushé en créant un nouveau commit qui effectue l'inverse des modifications. On ne peut en effet pas réellement supprimer un commit.</p>
+  <pre><code class="language-svg">git revert nrmCommit</code></pre>
+
+<p>Pour donner un tag à un commit afin de le retrouver sous une référence particulière, comme une version par exemple :</p>
+<pre><code class="language-svg">git tag nomTag nmrCommit
+  git push --tags</code></pre>
+
+<p>Attention, cette instruction spécifique <strong>--tags</strong> est importante car autrement un tag n'est pas envoyé lors d'un push.</p>
+
+<p>Pour supprimer un tag :</p>
+  <pre><code class="language-svg">git tag -d nomTag</code></pre>
+
+<p>Pour retrouver qui a modifié une ligne précise de code dans un projet :</p>
+  <pre><code class="language-svg">git blame nomFichier</code></pre>
+<p>On obtient ainsi toutes les modifications faites sur un fichier ligne par ligne avec le début du <em>sha</em> du commit correspondant. Il faut alors utiliser l'instruction suivante pour consulter les détail du commit recherché :</p>
+  <pre><code class="language-svg">git show nrmCommit</code></pre>
+
+
+
+
+<!-- LA GESTION DES BRANCHES -->
+
+<h4>La gestion des branches</h4>
+
+<p>Pour voir toutes les branches d'un projet : </p>
+  <pre><code class="language-svg">git branch</code></pre>
+
+<p>L'étoile qui apparaît dans la réponse marque la branche sur laquelle on travaille actuellement.</p>
+
+<p>Pour créer une branche : </p>
+  <pre><code class="language-svg">git branch nomBranche</code></pre>
+
+<p>Attention, une branche créée est locale.</p>
+
+<p>Pour se rendre sur une branche pour travailler :</p>
+  <pre><code class="language-svg">git checkout nomBranche</code></pre>
+
+<p>Attention, <strong>checkout</strong> a un double usage avec <em>Git</em>.</p>
+
+<p>On peut également créer une branche et s'y rendre directement avec l'instruction :</p>
+  <pre><code class="language-svg">git checkout -b nomBranche</code></pre>
+
+<p>Pour fusionner les changements d'une branche avec le master, il faut d'abord se rendre sur le master :</p>
+<pre><code class="language-svg">git checkout master
+  git merge nomBranche</code></pre>
+
+<p>Pour supprimer une branche : </p>
+  <pre><code class="language-svg">git branch -d nomBranche</code></pre>
+
+<p>Cette suppression n'est possible que si le travail réalisé sur la branche fille a été incorporé dans le master, sinon <em>Git</em> interdit la suppression.</p>
+
+<p>Pour supprimer une branche dont les modifications n'ont pas été incorporées au master, parce que par exemple le travail réalisé n'est pas concluant :</p>
+  <pre><code class="language-svg">git branch -D nomBranche</code></pre>
+
+
+
+
+<!-- IGNORER DES FICHIERS -->
+
+<h4>Ignorer des fichiers avec gitignore</h4>
+
+<p>Il ne faut jamais versionner une variable de configuration, comme par exemple un mot de passe ou une clé secrète. Si le code a déjà été envoyé sur <em>GitHub</em>, il convient de changer de mot de passe ou générer une nouvelle clé secrète.</p>
+
+  <p>Il est important d'ignorer certains fichiers dans <em>Git</em>, tels que :</p>
+  <ul>
+    <li>les fichiers de configuration (config.xml, database.yml)</li>
+    <li>les fichiers temporaires (tml, temp)</li>
+    <li>les fichiers créés par l'IDLE ou l'OS (.DS_Store)</li>
+  </ul>
+<p>Ainsi, les variables de configuration devront être déplacées dans un fichier de configuration et ignorées dans <em>Git</em>.</p>
+
+<p>Il faut créer un fichier <em>.gitignore</em> et placer dans ce fichier le nom de tous les fichiers qui devront être ignorés par le versionnement.</p>
+  <pre><code class="language-svg">touch .gitignore</code></pre>
+
+<p>Pour écrire dans ce fichier <em>.gitignore</em>, il faut ouvrir l'éditeur de terminal <em>vim</em> :</p>
+  <pre><code class="language-svg">vim .gitignore</code></pre>
+
+<p>Pour sortir de <em>vim</em> :</p>
+  <pre><code class="language-svg">:q</code></pre>
+
+
+
 
 </section>
 <footer>

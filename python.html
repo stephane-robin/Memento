@@ -36,7 +36,7 @@ function affichageConditionnel(bouton, id) {
 
 <!-- Bandeau et menu -->
 <div id="bandeau">
-  <div id="titre"> <h1> Memento </h1> </div>
+  <div id="titre"> <h1> Python </h1> </div>
   <nav>
     <div class="element"> <a href="html.html">HTML</a> </div>
     <div class="element"> <a href="css.html">CSS</a> </div>
@@ -74,7 +74,7 @@ function affichageConditionnel(bouton, id) {
     <li> <a href="#py_exception">La gestion des exceptions</a> </li>
     <li> <a href="#py_objet">La programmation objet</a> </li>
     <li> <a href="#py_input">Input/Output</a> </li>
-    <li> <a href=""#py.sub">Agir en ligne de commande à partir d'un script avec subprocess</a></li>
+    <li> <a href="#py.sub">Agir en ligne de commande à partir d'un script avec subprocess</a></li>
     <li> <a href="#py_pep">Respect du PEP8</a> </li>
   </ul>
 
@@ -82,63 +82,69 @@ function affichageConditionnel(bouton, id) {
 
   <!-- GENERALITES ======================================================== -->
 
-  <h3 id="py_generalites"> Généralités </h3>
+  <h3 id="py_generalites"> Structure du code Python </h3>
 
   <p>Les fichiers Python ont pour extension <em>.py</em></p>
 
-  <p>Les commentaires sont indiqués à l'aide de <strong>#</strong> pour une seule ligne ou <strong>"""   """</strong> pour plusieurs lignes.</p>
+  <p>Les commentaires sont indiqués à l'aide de <strong>#</strong> pour une seule ligne ou <strong>"""   """</strong> pour plusieurs lignes en début de fonction ou de module.</p>
 
   <p>En Python, les blocs ne sont pas encadrés par des <strong>{}</strong> comme dans la plupart des langages, ce sont les indentations qui indiquent à l'interpréteur le début et la fin d'un bloc. En conséquence, il est important de respecter toujours la même procédure d'indentation. On utilisera 4 espaces plutôt qu'une tabulation pour exprimer une indentation, ceci afin d'assurer une bonne portabilité du code.</p>
 
-  <p>En Python, les mots clés à ne pas utiliser comme nom de variable ou de fonction sont les suivants:<br>
-    <strong>and, or, del, from, none, as, global, nonlocal, try, assert, else, if, elif, not, while, for, except, import, with, class, true, false, in, pass, yield, continue, break, finally, is, raise, def, lambda, return</strong>.</p>
+  <p>Les mots clés Python réservés, donc à ne pas utiliser comme nom de variable ou de fonction sont les suivants: <em>and, or, del, from, none, as, global, nonlocal, try, assert, else, if, elif, not, while, for, except, import, with, class, true, false, in, pass, yield, continue, break, finally, is, raise, def, lambda, return</em>.</p>
+
+<p>Les projets Python peuvent se structurer en modules ou en classes dans le cas de la programmation objet.</p>
+
+  <h4>Exécution d'un module à partir du terminal</h4>
 
 
+    <p>L'exécution d'un module Python en utilisant le bash s'effectue de la façon suivante à partir du dossier contenant le module :</p>
+    <pre><code class="language-svg">python [nom_module.py]</code></pre>
 
-  <h4>Particularité d'une exécution de code au Terminal sous Linux et Mac</h4>
+    <p>L'exécution d'un package en utilisant le bash s'effectue de la façon suivante à partir du dossier courant :</p>
+    <pre><code class="language-svg">python -m [nom_package]</code></pre>
 
   <p>Pour connaître la version de Python utilisée : </p>
-  <pre><code>python --version</code></pre>
+  <pre><code class="language-svg">python --version</code></pre>
 
   <p>Pour connaître le chemin vers le dossier Python :</p>
-  <pre><code>which python</code></pre>
+  <pre><code class="language-svg">which python</code></pre>
 
   <p>Il est souvent nécessaire de placer en début de code le chemin absolu de l'interpréteur (ici 3.7 représente la version de Python), et de préciser l'encodage UTF-8 :</p>
-  <pre><code class="language-python">#!/usr/bin/env python3
+  <pre><code class="language-svg">#!/usr/bin/env python3
 # -*-coding:Utf-8 -*</code></pre>
 
-  <p>L'installation de l'éditeur JetBrains PyCharm-community se fait sur Linux grâce à l'instruction au Terminal :</p>
-  <pre><code>sudo snap install pycharm-community --classic</code></pre>
-  <p>Lors de la création d'un projet, il faut spécifier l'environnement dans lequel on travaille, comme par exemple virtualenv ou conda.</p>
+  <p>L'installation de l'éditeur JetBrains PyCharm-community se fait sur Linux grâce à l'instruction bash :</p>
+  <pre><code class="language-svg">sudo snap install pycharm-community --classic</code></pre>
+  <p>Lors de la création d'un projet dans PyCharm, il faut spécifier l'environnement dans lequel on travaille (par exemple virtualenv ou conda) et définir le chemin de l'interpréteur Python lié à cet environnement.</p>
 
 
 
   <h4>Particularité de l'utilisation de Anaconda</h4>
 
   <p>Pour télécharger l'environnement de travail Anaconda, il faut d'abord télécharger Anaconda pour Linux, vérifier le sha avec la commande :</p>
-  <pre><code>sha256sum [nom_fichier_telecharge]</code></pre>
+  <pre><code class="language-svg">sha256sum [nom_fichier_telecharge]</code></pre>
 
   <p>puis exécuter le fichier d'installation :</p>
-  <pre><code>bash Anaconda-[version]-Linux-x86_64.sh</code></pre>
+  <pre><code class="language-svg">bash Anaconda-[version]-Linux-x86_64.sh</code></pre>
 
   <p>Finalement, il est possible de tester l'installation en utilisant :</p>
-  <pre><code>conda list</code></pre>
+  <pre><code class="language-svg">conda list</code></pre>
 
   <p>Une fois qu'on a installé Anaconda, l'exécution se fait grâce à l'instruction :</p>
-  <pre><code>anaconda-navigator</code></pre>
+  <pre><code class="language-svg">anaconda-navigator</code></pre>
 
   <p>Pour mettre à jour Anaconda :</p>
-  <pre><code>conda update conda</code></pre>
+  <pre><code class="language-svg">conda update conda</code></pre>
 
   <p>Pour connaître l'emplacement de conda :</p>
-  <pre><code>which conda</code></pre>
+  <pre><code class="language-svg">which conda</code></pre>
 
 
 
   <h4>Particularité du système Windows</h4>
 
-  <p>Il est nécessaire de mettre en pause le programme en fin d'exécution afin de pouvoir lire le résultat. Préciser l'encodage peut s'avérer nécessaire sous Windows.</p>
-  <pre><code class="language-python"># -*-coding:Latin-1 -*
+  <p>Préciser l'encodage peut s'avérer nécessaire sous Windows. Par ailleurs, il faut mettre en pause le programme en fin d'exécution afin de pouvoir lire le résultat.</p>
+  <pre><code class="language-svg"># -*-coding:Latin-1 -*
 import os
 # le programme se trouve ici
 os.system("pause")</code></pre>
@@ -152,12 +158,12 @@ os.system("pause")</code></pre>
   <h3 id="py_version">Gérer les versions de Python avec pyenv</h3>
 
   <p>Pour connaître la version active de Python :</p>
-  <p>python --version</p>
+    <pre><code class="language-svg">python --version</code></pre>
 
-  <p>Pour connaître toutes les versions disponibles au téléchargement de Python3.6 à 3.8 :</p>
+  <p>Pour connaître toutes les versions disponibles au téléchargement de Python 3.6 à 3.8 :</p>
   <pre><code class="language-svg">pyenv install --list | grep " 3\.[678]"</code></pre>
 
-  <p> Toutes les versions s'installent dans un fichier .pyenv/versions/, qui vient s'insérer dans le PATH au coeur du
+    <p> Toutes les versions s'installent dans un fichier <em>.pyenv/versions/</em>, qui vient s'insérer dans le PATH au coeur du
     système, et non pas directement dans un  environnement de développement. Ainsi, un environnement peut utiliser une
     version particulière de Python en pointant vers l'adresse de stockage de la version, sans qu'elle soit incorporée à
     cet environnement. Pour installer la version 3.7.2 en particulier :</p>
@@ -166,7 +172,8 @@ os.system("pause")</code></pre>
   <p>Pour supprimer la version 2.7.15 de l'ordinateur :</p>
   <pre><code class="language-svg">pyenv uninstall 2.7.15</code></pre>
   <p>Attention de travailler avec une version 3 de Python et de ne pas supprimer la version 2 système de Python livrée
-    d'usine et servant au fonctionnement de l'ordinateur.</p>
+    d'usine et qui peut servir au fonctionnement de l'ordinateur. Ce n'est plus le cas pour Ubuntu 20.04 LTS qui fonctionne
+  avec Python 3.8</p>
 
   <p>Il est important de bien connaître la version de Python utilisée avant de procéder à tout changement dans un
     environnement de développement, car chaque version accepte des dépendances différentes.</p>

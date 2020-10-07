@@ -3,21 +3,25 @@
 <head>
   <title> Memento </title>
   <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="prism.css">
   <meta charset="utf-8">
 </head>
 
+<!-- script de gestion des couleurs de code -->
+<script defer src="prism.js"></script>
+
 <body>
 
-<header>
+<!--<header>
   <div class="heroImage">
     <div class="heroTexte">
       <h2> HTML </h2>
     </div>
   </div>
-</header>
+</header>-->
 
 <div id="bandeau">
-  <div id="titre"> <h1> Memento </h1> </div>
+  <div id="titre"> <h1> HTML </h1> </div>
   <nav id="menu">
     <div class="element"> <a href="index.html">HTML</a> </div>
     <div class="element"> <a href="css.html">CSS</a> </div>
@@ -29,7 +33,30 @@
   </nav>
 </div>
 
+<aside>
+    <nav id="table_matiere">
+        <a href="#">Généralités sur le Web</a>
+        <a href="">Hello world</a>
+        <a href="#structure">Structure d'une page HTML</a>
+        <a href="#balise">Les balises</a>
+        <a href="#bloc">Gestion des blocs avec Flexbox</a>
+        <a href="#liste">Les listes</a>
+        <a href="#lien">Les liens</a>
+        <a href="#menus">Les menus</a>
+        <a href="#image">Insérer une image</a>
+        <a href="#figure">Insérer une figure</a>
+        <a href="#imageTexte">Insérer une image contenant un texte centré</a>
+        <a href="#video">Insérer une vidéo</a>
+        <a href="#citation">Insérer une citation</a>
+        <a href="#tableau">Insérer un tableau</a>
+        <a href="#formulaire">Créer un formulaire</a>
+        <a href="#verification">Vérifier la validité HTML5 du site</a>
+        <a href="#queries">Responsive design et media queries</a>
+    </nav>
+</aside>
 <section id="principal">
+
+    <div class="heroImage"></div>
 
 <p style="font-weight:bold"> Table des matières :
   <ul>
@@ -57,9 +84,9 @@
 
 <h3 id="structure"> Structure d'une page HTML </h3>
 
-<p> HTML signifie HyperText Markup Language. Ce langage sert à gérer et organiser le contenu des pages Web. C'est donc en HTML qu'on écrit le texte, les liens hypertexte, les images et vidéos. L'information apparaît de manière brute sans mise en forme autre que structurelle.</p>
+    <p> HTML signifie <em>HyperText Markup Language</em>. Ce langage sert à gérer et organiser le contenu des pages Web. C'est donc en HTML qu'on écrit le texte, les liens hypertexte, les images et vidéos. L'information apparaît de manière brute sans mise en forme autre que structurelle.</p>
 
-  <pre>&lt!DOCTYPE HTML&gt
+  <pre><code class="language-html">&lt!DOCTYPE HTML&gt
 &lthtml&gt
 &lthead&gt
   &lttitle&gt Titre qui apparaît dans l'onglet &lt/title&gt
@@ -78,7 +105,7 @@
     &lt!-- pied de page --&gt
   &lt/footer&gt
 &lt/body&gt
-&lt/html&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/html&gt</code></pre><footer class="legendeCode">HTML</footer>
 
   <p>Le <strong>doctype</strong> indique qu'il s'agit d'une page Web écrite en HTML.</p>
   <p>La balise <strong>&lthtml&gt</strong> englobe tout le contenu de la page Web. </p>
@@ -86,31 +113,28 @@
   <p>La balise <strong>&ltbody&gt</strong> encadre le corps d'une page Web, qui est généralement structuré en sections, articles indépendants, informations latérales ainsi qu'un menu. Chacune de ces parties est elle-même composée de blocs séparés ou imbriqués qui auront des attributs différents.</p>
   <p>Les commentaires en HTML sont entourés des symboles <strong>&lt!--</strong> et <strong>--&gt</strong>. Cela signifie que ce qui se trouve à l'intérieur de ces symboles ne sera pas interprété. Ces commentaires peuvent être écrits sur une ou plusieurs lignes.</p>
 
-  <fieldset><legend><img src="target.png" width="40" height="40"> </legend>
+  <fieldset><legend><img src="bonSavoir.png" width="40" height="80"> </legend>
     <p> Les commentaires sont visibles par tout utilisateur qui fait apparaître le code source HTML de la page qu'il consulte. Il ne faut donc en aucun cas faire apparaître de mot de passe dans les commentaires. </p>
   </fieldset>
 
-<!-- ===== HELLO WORLD ===== -->
-
-<h3>Hello world</h3>
-
   <p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, HTML n'utilise pas de <strong>;</strong> à la fin des instructions, car celles-ci sont regroupées à l'intérieur de balises.</p>
-  <pre>&lt!DOCTYPE HTML&gt
+  <pre><code class="language-html">&lt!DOCTYPE HTML&gt
 &lthtml&gt
 &ltbody&gt
   &ltp&gt Hello world &lt/p&gt
 &lt/body&gt
-&lt/html&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/html&gt</code></pre><footer class="legendeCode">HTML</footer>
   
-<hr>
+
 
 <!-- ===== LES BALISES ===== -->
 
 <h3 id="balise"> Les balises </h3>
 
   <p> Les balises permettent de donner des instructions à l'ordinateur, pour différencier langage et texte. Elles sont entourées de chevrons <strong><</strong> et <strong>></strong>. On distingue au niveau de la sémantique les balises en paires qui sont constituées d'une balise ouvrante et d'une balise fermante entourant du texte, et les balises isolées. Par exemple, <strong>&lth1&gt mon titre &lt/h1&gt</strong> est une balise en paires et <strong>&ltbr/&gt</strong> est une balise isolée.</p>
-  <p> On distingue également au niveau du comportement les balises de type bloc qui créent automatiquement un retour à la ligne avant et après le bloc, des balises de type <em>inline</em> qui restent à l'intérieur d'un bloc sans créer de retour à la ligne.
-  <p> Les principales balises sont les suivantes (en italique les balises <em>inline</em>):</p>
+    <p> On peut définir l'affichage spécifique de chacune de ses balises dans un script CSS.</p>
+    <p> On distingue également au niveau du comportement les balises de type bloc qui créent automatiquement un retour à la ligne avant et après le bloc, des balises de type <em>inline</em> qui restent à l'intérieur d'un bloc sans créer de retour à la ligne.
+  <p> Les principales balises sont les suivantes :</p>
   <table>
     <tr> <th> Objectif </th> <th> Balises </th> </tr>
     <tr> <td> section </td> <td> <pre>&ltsection&gt section &lt/section&gt</pre></td> </tr>
@@ -140,21 +164,19 @@
 
   <p> Notons que par défaut la balise <strong>&ltem&gt</strong> affiche le texte concerné en italique et la balise <strong>&ltstrong&gt</strong> affiche le texte concerné en gras.</p>
 
-  <fieldset><legend><img src="target.png" width="40" height="40"> </legend>
     <p> Il est important de ne pas croiser les balises. En HTML les erreurs sont d'autant plus difficiles à détecter que le compilateur en autorise énormément avant de bloquer. Il part du principe que ce qu'il ne comprend pas, il ne l'affiche pas, mais n'interrompt pas pour autant l'exécution du code. Par exemple le code suivant est incohérent :</p>
-    <pre>&lth1&gt mon titre &ltp&gt ici se trouve un paragraphe &lt/h1&gt &lt/p&gt</pre>
-    <p></p>
-  </fieldset>
+    <pre><code class="language-html">&lth1&gt mon titre &ltp&gt ici se trouve un paragraphe &lt/h1&gt &lt/p&gt</code></pre>
 
-  <p> On peut définir l'affichage spécifique de chacune de ses balises dans un script CSS.</p>
+
 
   <!-- Les attributs -->
   <h4> Les attributs </h4>
 
     <p>Il s'agit des options des balises qui fournissent des informations supplémentaires et peuvent localement décrire comment une partie de la page doit s'afficher. Par exemple, l'attribut <strong>id</strong> sert à donner un nom unique à une balise afin de lui appliquer un traitement particulier.</p>
-    <pre>&lth2 id="titreSpecial"&gt Mon titre &lt/h2&gt</pre><footer class="legendeCode">HTML</footer>
+    <pre><code class="language-html">&lth2 id="titreSpecial"&gt mon titre &lt/h2&gt</code></pre><footer class="legendeCode">HTML</footer>
 
-<hr>
+    <p>L'attribut <strong>class</strong> fonctionne suivant le même principe, mais place une balise dans une classe particulière.</p>
+    <pre><code class="language-html">&ltpre&gt &ltcode class="language-python"&gt mon code &lt/code&gt &lt/pre&gt</code></pre>
 
 <!-- ===== GESTION DES BLOCS AVEC FLEXBOX ===== -->
 
@@ -169,13 +191,13 @@
   <div class="bloc">
 
     <div class="gauche">
-      <pre>&ltdiv&gt
+      <pre><code class="language-html">&ltdiv&gt
   &ltspan&gt Span 1 &lt/span&gt &ltspan&gt Span 2 &lt/span&gt
   &ltdiv&gt
     Bloc indépendant
   &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
-    </div>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
+</div>
 
     <div class="droite">
       <div>
@@ -189,8 +211,8 @@
   </div>
 
   <p>Il est nécessaire d'identifier chacun de ces blocs par un nom unique ou une classe afin de pouvoir en modifier la valeur des attributs dans la feuille CSS. Ainsi, lorsqu'on retrouve plusieurs fois le même type de bloc on utilise l'attribut <strong>class</strong> comme identifiant de la classe, et lorsqu'un bloc est unique on utilise l'attribut <strong>id</strong> comme identifiant unique.</p>
-  <pre>&ltdiv class="nomBloc"&gt
-&ltdiv id="principal"&gt</pre><footer class="legendeCode">HTML</footer>
+  <pre><code class="language-html">&ltdiv class="nomBloc"&gt
+      &ltdiv id="principal"&gt</code></pre><footer class="legendeCode">HTML</footer>
 
   <!-- La mise en page avec Flexbox -->
   <h4> La mise en page avec Flexbox</h4>
@@ -204,18 +226,18 @@
     <div class="bloc">
 
       <div class="gauche">
-        <pre>&ltdiv id="conteneur"&gt
+        <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
       </div>
 
       <div class="droite">
-        <pre>#conteneur{
+        <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: row;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
       </div>
 
     </div>
@@ -234,19 +256,19 @@
     <div class="bloc">
 
       <div class="gauche">
-        <pre>&ltdiv id="conteneur"&gt
+        <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
       </div>
 
       <div class="droite">
-        <pre>#conteneur{
+        <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
       </div>
 
     </div>
@@ -264,19 +286,19 @@
     <div class="bloc">
 
       <div class="gauche">
-        <pre>&ltdiv id="conteneur"&gt
+        <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
       </div>
 
       <div class="droite">
-        <pre>#conteneur{
+        <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: row;
   justify-content: center;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
       </div>
     </div>
 
@@ -293,19 +315,19 @@
     <div class="bloc">
 
       <div class="gauche">
-        <pre>&ltdiv id="conteneur"&gt
+        <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
       </div>
 
       <div class="droite">
-        <pre>#conteneur{
+        <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
       </div>
 
       </div>
@@ -656,7 +678,7 @@
         </div>
         <footer class="legendeCode">Affichage</footer>
 
-<hr>
+
 
 <!-- ===== LES LISTES ===== -->
 
@@ -687,7 +709,7 @@
 
   <p>Les listes ordonnées se définissent à l'aide de la balise <strong>&ltol&gt</strong> à la place de la balise <strong>&ltul&gt</strong></p>
 
-<hr>
+
 
 <!-- ===== LES LIENS ===== -->
 
@@ -740,7 +762,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
     <p> Pour télécharger automatiquement un fichier en cliquant sur un lien, il faut indiquer le nom du fichier à télécharger. Cela suppose que ce fichier se trouve dans le répertoire courant.</p>
 
-<hr>
+
 
 <!-- ===== LES MENUS ===== -->
 
@@ -753,7 +775,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
   &ltdiv class="element"&gt &lta href="contact.html"&gt CONTACT &lt/a&gt &lt/div&gt
 &lt/nav&gt</pre><footer class="legendeCode">HTML</footer>
 
-<hr>
+
 
 <!-- ===== INSERER UNE IMAGE ===== -->
 
@@ -771,7 +793,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
   <p><strong>src</strong> permet de définir le chemin pour accéder à l'image et <strong>alt</strong> permet de définir un descriptif au cas où l'image ne s'afficherait pas.</p>
 
-<hr>
+
 
 <!-- ===== INSERER UNE FIGURE ===== -->
 
@@ -783,7 +805,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
   &ltfigcaption&gt Légende de maFigure &lt/figcaption&gt
 &lt/figure&gt</pre><footer class="legendeCode">HTML</footer>
 
-<hr>
+
 
 <!-- ===== INSERER UNE IMAGE TEXTE CENTRE ===== -->
 
@@ -826,7 +848,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
   </div>
 
-<hr>
+
 
 <!-- ===== INSERER UNE VIDEO ===== -->
 
@@ -869,7 +891,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
     <p>On ne peut pas forcer le préchargement des vidéos, c'est le navigateur qui décide pour économiser la bande passante.</p>
   </fieldset>
 
-<hr>
+
 
 <!-- ===== INSERER UNE CITATION ===== -->
 
@@ -894,7 +916,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
   </div>
 
-<hr>
+
 
 <!-- ===== CREATION D'UN TABLEAU ===== -->
 
@@ -933,7 +955,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
     <tr><td> colonne texte </td> <td> <pre>&ltth&gt texte &lt/th&gt</pre> </td></tr>
   </table>
 
-<hr>
+
 
 <!-- ===== CREATION D'UN FORMULAIRE ===== -->
 
@@ -942,47 +964,43 @@ nom de la page &lt/a&gt</pre></td> </tr>
   <p> Un formulaire est une zone interactive dans laquelle les utilisateurs peuvent saisir des informations. Il s'agit donc d'un élément fondamental constituant une page HTML. </p>
   <p>Dans le cas d'un champ acceptant une réponse sur une seule ligne :</p>
 
-  <div class="bloc">
 
-    <div class="gauche">
-      <pre>&ltform method="post" action="pageDestination.py"&gt
-  &ltp&gt description &lt/p&gt
+
+
+      <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
+  &ltp&gt Veuillez remplir les informations suivantes : &lt/p&gt
   &ltlabel for="identifiant"&gtidentifiant&lt/label&gt :
   &ltinput type="text" name="identifiant" id="identifiant"/&gt
-&lt/form&gt</pre><footer class="legendeCode">HTML</footer>
-    </div>
+&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
 
-    <div class="droite">
+      <p>qui affiche le résultat suivant :</p>
+
       <form method="post" action="">
-        <p> description </p>
-        <label for="identifiant">identifiant</label> : <input type="text" name="identifiant" id="identifiant"/>
+        <p> Veuillez remplir les informations suivantes : </p>
+        <label for="identifiant">identifiant</label> : <input type="text" name="identifiant" class="identifiant"/>
       </form><footer class="legendeCode">Affichage</footer>
-    </div>
 
-  </div>
 
   <p> Dans le cas d'un champ acceptant une réponse sur plusieurs lignes :</p>
 
-  <div class="bloc">
 
-    <div class="gauche">
-      <pre>&ltform method="post" action="pageDestination.py"&gt
-  &ltp&gt description &lt/p&gt
-  &ltlabel for="identifiant"&gtidentifiant&lt/label&gt :
+
+
+      <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
+  &ltp&gt Veuillez remplir le formulaire ci-dessous : &lt/p&gt
+  &ltlabel for="identifiant"&gtVos commentaires&lt/label&gt :
   &lttextarea name="identifiant" id="identifiant"
   rows="6" cols="30"&gt&lt/textarea&gt
-&lt/form&gt</pre><footer class="legendeCode">HTML</footer>
-    </div>
+&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
 
-    <div class="droite">
+
+
       <form method="post" action="">
-        <p> description </p>
-        <label for="identifiant">identifiant</label> :
-        <textarea name="identifiant" id="identifiant" rows="6" cols="30"></textarea>
+        <p> Veuillez remplir le formulaire ci-dessous : </p>
+        <label for="identifiant">Vos commentaires</label> :
+        <textarea name="identifiant" class="identifiant" rows="6" cols="30"></textarea>
       </form><footer class="legendeCode">Affichage</footer>
-    </div>
 
-  </div>
 
   <p> Les différents attributs d'un formulaire sont les suivants :</p>
   <table>
@@ -1120,7 +1138,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
     <div class="bloc">
 
       <div class="gauche">
-        <pre>&ltform method="post" action="pageDestination.py"&gt
+        <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
   &ltfieldset&gt
     &ltlegend&gt sujet &lt/legend&gt
       &ltp&gt Question&lt/p&gt
@@ -1130,7 +1148,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
         &ltoption value="bleu"&gtbleu&lt/option&gt
       &lt/select&gt
   &lt/fieldset&gt
-&lt/form&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
       </div>
 
       <div class="droite">
@@ -1156,7 +1174,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
     <div class="bloc">
 
       <div class="gauche">
-        <pre>&ltinput type="submit" value="Valider"/&gt</pre><footer class="legendeCode">HTML</footer>
+          <pre><code class="language-html">&ltinput type="submit" value="Valider"/&gt</code></pre><footer class="legendeCode">HTML</footer>
       </div>
 
       <div class="droite">
@@ -1168,7 +1186,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
     <div class="bloc">
 
       <div class="gauche">
-        <pre>&ltinput type="reset" value="Remise à zéro"/&gt</pre><footer class="legendeCode">HTML</footer>
+          <pre><code class="language-html">&ltinput type="reset" value="Remise à zéro"/&gt</code></pre><footer class="legendeCode">HTML</footer>
       </div>
 
       <div class="droite">
@@ -1177,7 +1195,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
     </div>
 
-<hr>
+
 
 <!-- ======= VERIFIER LA VALIDITE HTML DU SITE ======= -->
 
@@ -1193,13 +1211,13 @@ nom de la page &lt/a&gt</pre></td> </tr>
     </ul>
   </p>
 
-<hr>
+
 
 <!-- ===== LES MEDIA QUERIES ===== -->
 
 <h3 id="queries"> Responsive design et media queries </h3>
 
-  <p>A venir</p>
+  
   
 </section>
 
