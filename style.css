@@ -9,7 +9,7 @@
 
 /* conteneur bandeau de menu */
 #bandeau{
-  background-image:linear-gradient(40deg,rgb(204,229,255,0.9),rgba(255,204,204,0.9));/* couleur
+  background-image:linear-gradient(40deg,rgb(153,204,255,0.9),rgba(255,204,204,0.9));/* couleur
   de font dégradée avec opacité */
   top: 0%; /* positionne le menu par rapport au haut de page */
   width: 100%; /* force le background a occuper toute la largeur et pas uniquement
@@ -29,7 +29,7 @@ nav a{
   font-family: Arial, Verdana, "Trebuchet MS";
   font-size:1.3em;
   text-decoration: none; /* enleve le soulignement des liens du menu */
-  color: rgb(153,102,102);
+  color: rgb(51,153,255);
 }
 
 aside nav{
@@ -37,6 +37,7 @@ aside nav{
     font-size: 0.9em;
     text-align: justify;
     text-decoration: none; /* enleve le soulignement des liens du menu */
+
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -45,9 +46,13 @@ aside nav{
     margin-right: 70%;
 }
 
+aside nav a{
+    color: rgb(153,102,102);
+}
+
 nav a:hover{ /* liens du menu au survol */
   font-weight: bold;
-  color: white;
+  color: rgb(153,102,102);
 }
 
 .element{ /* classe élément de menu */
@@ -61,7 +66,7 @@ nav a:hover{ /* liens du menu au survol */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  
+
   position: relative;
   height: 300px;
 }
@@ -83,7 +88,7 @@ h1{ /* titre principal */
 
 h2{ /* titre document */
   font-family: Arial, Verdana, "Trebuchet MS";
-  color: rgb(153,102,102);
+  color: rgb(51,153,255);
   font-size: 3em;
 }
 
@@ -91,7 +96,7 @@ h3{/* titres paragraphes */
   font-size: 1.7em;
   margin-top: 40px;
   font-family: Arial, Verdana, "Trebuchet MS";
-  color: rgb(0,153,153);
+  color: rgb(51,153,255);
   border-bottom: 1px solid rgb(0,153,153);
 }
 
@@ -105,7 +110,7 @@ h4{ /* sous-titres paragraphes */
   font-style: italic;
   margin-top: 40px;
   font-family: Arial, Verdana, "Trebuchet MS";
-  color: rgb(0,153,153);
+  color: rgb(51,153,255);
 }
 
 /* ===== PRINCIPALES BALISES ===== */
@@ -162,12 +167,7 @@ fieldset{ /* cadre avec titre */
   margin-bottom:30px;
 }
 
-/*pre{ /* lignes de codes */
-  /*color: rgb(153,102,102);
-  font-family: Courier;
-  padding-left: 5px;
-  margin-bottom:0px;
-}*/
+
 
 ul{ /* Listes */
   font-family: Arial, Verdana, "Trebuchet MS";
@@ -183,6 +183,7 @@ ol{ /* Listes */
 
 #principal{ /* le corps du document sans le menu et le header */
   /*width: 70%;*/
+  margin-top:8%;
   margin-right: 10%;
   margin-left: 30%;
   /*margin: auto; /* pour centrer le document */
