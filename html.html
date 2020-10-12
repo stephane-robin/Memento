@@ -14,7 +14,9 @@
 <body>
 
 <div id="bandeau">
-  <div id="titre"> <h1> HTML </h1> </div>
+    <h1> Memento </h1>
+    <h1> HTML </h1>
+
   <nav>
     <div class="element"> <a href="index.html">HTML</a> </div>
     <div class="element"> <a href="css.html">CSS</a> </div>
@@ -22,40 +24,193 @@
     <div class="element"> <a href="python.html">PYTHON</a> </div>
     <div class="element"> <a href="java.html">JAVA</a> </div>
     <div class="element"> <a href="c.html">C</a> </div>
-    <div class="element"> <a href="git.html">GIT</a> </div>
+    <div class="element"> <a href="git.html">Linux</a> </div>
   </nav>
 </div>
 
 <aside>
     <nav id="table_matiere">
-        <a href="#">Généralités sur le Web</a>
-        <a href="">Hello world</a>
+        <a href="#web">Le Web</a>
         <a href="#structure">Structure d'une page HTML</a>
+        <a href="#hello">Hello world</a>
         <a href="#balise">Les balises</a>
-        <a href="#bloc">Gestion des blocs avec Flexbox</a>
+        <a href="#flexbox">Flexbox</a>
         <a href="#liste">Les listes</a>
         <a href="#lien">Les liens</a>
-        <a href="#menus">Les menus</a>
-        <a href="#image">Insérer une image</a>
-        <a href="#figure">Insérer une figure</a>
-        <a href="#imageTexte">Insérer une image contenant un texte centré</a>
-        <a href="#video">Insérer une vidéo</a>
-        <a href="#citation">Insérer une citation</a>
-        <a href="#tableau">Insérer un tableau</a>
-        <a href="#formulaire">Créer un formulaire</a>
-        <a href="#verification">Vérifier la validité HTML5 du site</a>
-        <a href="#queries">Responsive design et media queries</a>
+        <a href="#menu">Les menus</a>
+        <a href="#image">Les images</a>
+        <a href="#figure">Les figures</a>
+        <a href="#imageTexte">Image avec un texte centré</a>
+        <a href="#video">Les vidéos</a>
+        <a href="#citation">Les citations</a>
+        <a href="#tableau">Les tableaux</a>
+        <a href="#formulaire">Les formulaires</a>
+        <a href="#velidite">Validité HTML5 d'un site</a>
+        <a href="#responsive">Responsive design</a>
+        <a href="">Media queries</a>
     </nav>
 </aside>
+
 <section id="principal">
 
-    <!--<div class="heroImage"></div>-->
-    <img src="fondTitre.jpg" alt="coding picture" height="200px" width="100%" margin-top="30%">
+    <!--image en tete-->
+
+    <img src="images/fondTitre.jpg" alt="coding picture" height="200px" width="100%" margin-top="30%">
 
 
-<!-- ===== STRUCTURE D'UNE PAGE HTML ===== -->
 
-<h3 id="structure"> Structure d'une page HTML </h3>
+    <!-- COMPRENDRE LE WEB -->
+
+    <h2>Comprendre le Web</h2>
+
+    <p>Internet est un réseau informatique mondial distribué, composé de millions de sous-réseaux publics ou privés. De ce fait, il n'existe pas de terminal qui centralise les informations. Internet utilise des applications de messagerie instantanée, de courrier électronique, de partage peer-to-peer, ainsi que le Web.</p>
+
+    <p>Le World Wide Web symbolisé par www. est un service particulier d'Internet. On utilise un navigateur ou <em>browser</em> (Chrome, Firefox, Edge, Opera, Safari,...) pour y accéder et pouvoir lire les différentes pages. Le navigateur fait office de traducteur de code HTML, CSS et JavaScript sous forme de page lisible par l'utilisateur.</p>
+
+    <p>Pour construire un site Web, on utilise plusieurs types de langages : des langages de description tels que HTML et CSS qui sont au coeur du fonctionnement du Web et définissent la structure de chaque page visitée, des langages de programmation tels que JavaScript, PHP, Java, Python,... et un langage de traitement des bases de données tel que SQL.</p>
+
+    <div class="bloc">
+        <div class="gauche">
+            <p>HTML signifie HyperText Markup Language. Il s'agit d'un langage de description permettant d'écrire de l'hypertexte et construit à partir de balises pour représenter les pages Web. Il s'insprire en ce sens du XML.</p>
+        </div>
+
+        <div class="droite">
+            <img src="images/html.png" width="80" height="80">
+        </div>
+    </div>
+
+    <div class="bloc">
+        <div class="gauche">
+            <p> CSS signifie Cascading Style Sheets. Ce langage gère l'apparence des pages Web en arrangeant le contenu (couleur, marges, taille du texte). Comme il travaille le contenu d'une page Web, CSS utilise le code HTML pour fonctionner. Sans aucun code CSS, la page Web ressemble à du texte regroupé par bloc et tapé "au kilomètre".</p>
+        </div>
+
+        <div class="droite">
+            <a href="css.html"><img src="images/css.png" width="80" height="80"></a>
+        </div>
+    </div>
+
+    <div class="bloc">
+        <div class="gauche">
+            <p>JavaScript est un langage interprété qui se veut simple et dont le but initial était de rendre dynamiques et interactives les pages Web.</p>
+        </div>
+
+        <div class="droite">
+            <a href="javascript.html"><img src="images/javascript.png" width="80" height="80"></a>
+        </div>
+    </div>
+
+    <div class="bloc">
+        <div class="gauche">
+            <p>Java est un langage orienté objet qui utilise un compilateur (javac) puis une machine virtuelle
+                compatible toutes plateformes JVM Java Virtual Machine pour interpréter le Byte code. De ce fait,
+                c'est un langage offrant une grande portabilité.
+                C’est un langage à la fois compilé et interprété. Il est donc plus rapide que Python (interprété) mais
+                plus lent que C++ (compilé).</p>
+        </div>
+
+        <div class="droite">
+            <a href="java.html"><img src="images/java.png" width="60" height="100"></a>
+        </div>
+    </div>
+
+    <div class="bloc">
+        <div class="gauche">
+            <p>Python est un langage de programmation interprété dont la philosophie repose sur la simplicité du code et l'implémentation de bonnes pratiques. Rien n'est fait pour empêcher le programmeur de mener une action, même si elle semble inappropriée. Python est particulièrement utilisé dans les environnements scientifiques et pour la manipulation de données.</p>
+        </div>
+
+        <div class="droite">
+            <a href="python.html"><img src="images/python.jpg" width="80" height="80"></a>
+        </div>
+    </div>
+
+    <div class="bloc">
+        <div class="gauche">
+            <p>Initialement conçu pour créer le système d'exploitation Unix, le langage C est rapidement devenu un standard grâce à sa puissance, sa rapidité d'exécution et sa portabilité. Il est actuellement principalement utilisé dans l'écriture de systèmes d'exploitation, de machines virtuelles, de logiciels de calcul scientifique, d'applications en réseau.</p>
+        </div>
+
+        <div class="droite">
+            <a href="c.html"><img src="images/c.png" width="80" height="80"></a>
+        </div>
+    </div>
+
+    <div class="bloc">
+        <div class="gauche">
+            <p> <em>Git</em> est un logiciel de versionnement de code qui fonctionne avec un système d'arborescence à partir d'une branche master. <em>Git</em> fait constamment le lien entre un repository local et un repository hébergé par <em>GitHub</em>. Un repository est un dossier qui est configuré pour travailler avec <em>git</em>.</p>
+            <p>Une des particularités de <em>Git</em>, c'est l'existence de sites web collaboratifs basés sur <em>Git</em> comme <em>GitHub</em>. Il s'agit d'une sorte de réseau social pour développeurs qui permet de suivre l'évolution de projets et de décider de participer à ces projets. <em>GitHub</em> fournit le serveur qui permet de créer et stocker des repositories en utilisant les fonctionnalités de <em>git</em>.</p>
+        </div>
+
+        <div class="droite">
+            <a href="git.html"><img src="images/git.png" width="80" height="80"></a>
+        </div>
+    </div>
+
+
+    <!-- Clients-serveurs-->
+
+    <h3>Clients-serveurs</h3>
+    <p>Les clients sont les ordinateurs qui servent à consulter les sites Web.</p>
+        <p>Les serveurs sont des ordinateurs qui offrent des services. Ils peuvent par exemple stocker des sites Web et des bases de données.
+        Le fonctionnement du Web est basé sur une structure client-serveur.</p>
+    <p>On distingue les types de langages suivants :
+    <ul>
+        <li>les langages interprétés par les clients (<em>langages frontend</em>) tels que HTML, CSS et JavaScript qui décrivent comment le site Web doit s'afficher. Ils peuvent par exemple afficher un menu clignotant dans la page Web</li>
+        <li>les langages interprétés par les serveurs (<em>langages backend</em>) tels que PHP, Java, Python, C# qui décrivent comment le site Web doit se comporter en appliquant des régles définies par une application. Ils peuvent par exemple n'afficher la page Web que si l'utilisateur s'est identifié. Ils réalisent l'interface avec le langage de requête de bases de données</li>
+        <li>les langages de communication avec une base de données tel que SQL</li>
+    </ul>
+    </p>
+
+    <p><em>Attention</em>, JavaScript est une particularité car il peut également interagir côté serveur.</p>
+    <p>Plutôt que de commencer avec une page blanche pour construire un site Web, on préfère utiliser des <em>frameworks</em>, qui sont des boîtes à outil pratiques, permettant de faciliter le travail. Les principaux <em>frameworks</em> pour le Web sont les suivants :
+    <ul>
+        <li>Symfony et Zend pour PHP</li>
+        <li>NodeJS et Angular pour JavaScript</li>
+        <li>Java EE pour Java</li>
+        <li>Django pour Python</li>
+        <li>ASP.NET pour C#</li>
+        <li>Ruby on Rails pour Ruby</li>
+    </ul>
+    </p>
+
+    <p>On peut également utiliser un CMS Content Management System, qui est un site prêt à être modifié. Le CMS le plus populaire est actuellement WordPress,</p>
+
+    <h3 id="bdd"> Les bases de données </h3>
+
+    <p> Les bases de données permettent d'enregistrer des informations afin de les ré-utiliser lors d'une prochaine session sur le site. Elles fonctionnent avec un autre serveur appelé serveur de base de données.
+        Les bases de données sont en fait des logiciels dédiés au stockage de données, qui utilisent principalement le langage SQL.</p>
+    <p> Les principaux systèmes de gestion de base de données SQL sont les suivants :
+    <ul>
+        <li>MySQL</li>
+        <li>PostgreSQL</li>
+        <li>SQL Serveur</li>
+        <li>Oracle</li>
+        <li>SQLite</li>
+    </ul>
+    </p>
+
+    <fieldset><legend><img src="images/bonSavoir.png" width="80" height="80"> </legend>
+        <p> Il existe des bases de données non relationnelles qui n'utilisent pas le langage SQL. Par exemple MongoDB ou Cassandra. </p>
+    </fieldset>
+
+    <!-- Architecture 3 tiers -->
+
+    <h3 id="archi3t"> Une architecture 3 tiers pour générer une page Web </h3>
+
+    <p> L'interaction entre un client et un serveur est la suivante :
+    <ul>
+        <li>le client demande une page au serveur</li>
+        <li>le serveur effectue une requête auprès de la base de données pour obtenir certains résultats qui ont été conservés en mémoire</li>
+        <li>le serveur génère la page en fonction des conditions requises par l'application en transformant le code source (par exemple PHP) en HTML et envoie la page créée au client</li>
+        <li>le client lit la page à l'aide du navigateur et utilise éventuellement JavaScript si une interaction dynamique est nécessaire</li>
+    </ul>
+    </p>
+
+    <img src="images/architecture3tiers.png" alt="architecture 3 tiers" width="70%">
+
+
+
+    <!-- ===== STRUCTURE D'UNE PAGE HTML ===== -->
+
+<h2 id="structure"> Structure d'une page HTML </h2>
 
     <p> HTML signifie <em>HyperText Markup Language</em>. Ce langage sert à gérer et organiser le contenu des pages Web. C'est donc en HTML qu'on écrit le texte, les liens hypertexte, les images et vidéos. L'information apparaît de manière brute sans mise en forme autre que structurelle.</p>
 
@@ -86,9 +241,15 @@
   <p>La balise <strong>&ltbody&gt</strong> encadre le corps d'une page Web, qui est généralement structuré en sections, articles indépendants, informations latérales ainsi qu'un menu. Chacune de ces parties est elle-même composée de blocs séparés ou imbriqués qui auront des attributs différents.</p>
   <p>Les commentaires en HTML sont entourés des symboles <strong>&lt!--</strong> et <strong>--&gt</strong>. Cela signifie que ce qui se trouve à l'intérieur de ces symboles ne sera pas interprété. Ces commentaires peuvent être écrits sur une ou plusieurs lignes.</p>
 
-  <fieldset><legend><img src="bonSavoir.png" width="40" height="80"> </legend>
+  <fieldset><legend><img src="images/bonSavoir.png" width="80" height="80"> </legend>
     <p> Les commentaires sont visibles par tout utilisateur qui fait apparaître le code source HTML de la page qu'il consulte. Il ne faut donc en aucun cas faire apparaître de mot de passe dans les commentaires. </p>
   </fieldset>
+
+
+
+
+    <!-- HELLO WORLD -->
+    <h2>Hello World</h2>
 
   <p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, HTML n'utilise pas de <strong>;</strong> à la fin des instructions, car celles-ci sont regroupées à l'intérieur de balises.</p>
   <pre><code class="language-html">&lt!DOCTYPE HTML&gt
@@ -102,7 +263,7 @@
 
 <!-- ===== LES BALISES ===== -->
 
-<h3 id="balise"> Les balises </h3>
+<h2 id="balise"> Les balises </h2>
 
   <p> Les balises permettent de donner des instructions à l'ordinateur, pour différencier langage et texte. Elles sont entourées de chevrons <strong><</strong> et <strong>></strong>. On distingue au niveau de la sémantique les balises en paires qui sont constituées d'une balise ouvrante et d'une balise fermante entourant du texte, et les balises isolées. Par exemple, <strong>&lth1&gt mon titre &lt/h1&gt</strong> est une balise en paires et <strong>&ltbr/&gt</strong> est une balise isolée.</p>
     <p> On peut définir l'affichage spécifique de chacune de ses balises dans un script CSS.</p>
@@ -140,10 +301,9 @@
     <p> Il est important de ne pas croiser les balises. En HTML les erreurs sont d'autant plus difficiles à détecter que le compilateur en autorise énormément avant de bloquer. Il part du principe que ce qu'il ne comprend pas, il ne l'affiche pas, mais n'interrompt pas pour autant l'exécution du code. Par exemple le code suivant est incohérent :</p>
     <pre><code class="language-html">&lth1&gt mon titre &ltp&gt ici se trouve un paragraphe &lt/h1&gt &lt/p&gt</code></pre>
 
-
-
   <!-- Les attributs -->
-  <h4> Les attributs </h4>
+
+  <h3> Les attributs </h3>
 
     <p>Il s'agit des options des balises qui fournissent des informations supplémentaires et peuvent localement décrire comment une partie de la page doit s'afficher. Par exemple, l'attribut <strong>id</strong> sert à donner un nom unique à une balise afin de lui appliquer un traitement particulier.</p>
     <pre><code class="language-html">&lth2 id="titreSpecial"&gt mon titre &lt/h2&gt</code></pre><footer class="legendeCode">HTML</footer>
@@ -151,12 +311,15 @@
     <p>L'attribut <strong>class</strong> fonctionne suivant le même principe, mais place une balise dans une classe particulière.</p>
     <pre><code class="language-html">&ltpre&gt &ltcode class="language-python"&gt mon code &lt/code&gt &lt/pre&gt</code></pre>
 
+
+
+
 <!-- ===== GESTION DES BLOCS AVEC FLEXBOX ===== -->
 
-<h3 id="bloc"> Gestion des blocs avec Flexbox </h3>
+<h2 id="bloc"> Gestion des blocs avec Flexbox </h2>
 
   <!-- La notion de bloc -->
-  <h4>La notion de bloc </h4>
+  <h3>La notion de bloc </h3>
 
   <p> Chaque élément de code HTML est inclus dans une balise, qui est incluse dans un bloc auquel on attribue certaines propriétés que l'on définit.</p>
   <p>Ces blocs sont construits grâce à la balise <strong>&ltdiv&gt</strong> lorsqu'il s'agit de blocs indépendants (qui entraînent un saut à la ligne), ou avec la balise <strong>&ltspan&gt</strong> lorsqu'il s'agit de blocs <em>inline</em>.</p>
@@ -188,13 +351,13 @@
       &ltdiv id="principal"&gt</code></pre><footer class="legendeCode">HTML</footer>
 
   <!-- La mise en page avec Flexbox -->
-  <h4> La mise en page avec Flexbox</h4>
+
+  <h3> La mise en page avec Flexbox</h3>
 
     <p> Flexbox permet de structurer un document en utilisant principalement la balise <strong>div</strong> à laquelle on attribut certaines propriétés d'alignement. Ceci permet notamment d'aligner horizontalement des blocs indépendants et donc de se passer de la balise <strong>span</strong>. Toutefois, dans certains cas particuliers, le recours à la balise <strong>span</strong> peut s'avérer utile car plus simple.</p>
     <p> Pour mettre en page un document avec Flexbox, il faut définir en HTML un conteneur sous forme de balise et placer des blocs à l'intérieur de ce conteneur, puis définir en CSS l'alignement souhaité. Ainsi l'attribut <strong>flex-direction</strong> permet de définir la direction principale dans laquelle sera effectué le premier alignement. Notons que par défaut sans Flexbox, les blocs indépendants s'affichent les uns en dessous des autres.</p>
 
-    <!-- flex-direction row -->
-    <p><em> Blocs en ligne : </em></p>
+    <p><em> Pour obtenir des blocs en ligne : </em></p>
 
     <div class="bloc">
 
@@ -215,15 +378,16 @@
 
     </div>
 
+    <p>qui produit l'affichage suivant</p>
+
     <div id="exempleConteneur1">
       <div class="exempleBloc">Bloc 1</div>
       <div class="exempleBloc">Bloc 2</div>
       <div class="exempleBloc">Bloc 3</div>
     </div>
-    <footer class="legendeCode">Affichage</footer>
+<br/>
 
-    <!-- flex-direction row justify-content flex-end-->
-    <p><em> Blocs en ligne, justifiés en fin de ligne : </em></p>
+    <p><em> Pour obtenir des blocs en ligne, justifiés en fin de ligne : </em></p>
     <p>L'ajout de l'attribut <strong>justify-content</strong> permet de justifier les blocs dans le conteneur par rapport à la direction principale choisie.</p>
 
     <div class="bloc">
@@ -246,15 +410,15 @@
 
     </div>
 
+    <p>qui produit l'affichage suivant</p>
     <div id="exempleConteneur2">
       <div class="exempleBloc">Bloc 1</div>
       <div class="exempleBloc">Bloc 2</div>
       <div class="exempleBloc">Bloc 3</div>
     </div>
-    <footer class="legendeCode">Affichage</footer>
+<br/>
 
-    <!-- flex-direction row justify-content center-->
-    <p><em> Blocs en ligne, centrés sur la ligne : </em></p>
+    <p><em> Pour obtenir des blocs en ligne, centrés sur la ligne : </em></p>
 
     <div class="bloc">
 
@@ -274,16 +438,16 @@
 }</code></pre><footer class="legendeCode">CSS</footer>
       </div>
     </div>
+<p>qui produit l'affichage suivant</p>
 
     <div id="exempleConteneur3">
       <div class="exempleBloc">Bloc 1</div>
       <div class="exempleBloc">Bloc 2</div>
       <div class="exempleBloc">Bloc 3</div>
     </div>
-    <footer class="legendeCode">Affichage</footer>
+    <br/>
 
-    <!-- flex-direction row justify-content space-between-->
-    <p><em> Blocs en ligne, avec un espace automatique entre eux : </em></p>
+    <p><em> Pour obtenir des blocs en ligne, avec un espace automatique entre eux : </em></p>
 
     <div class="bloc">
 
@@ -304,215 +468,216 @@
       </div>
 
       </div>
+<p>qui produit l'affichage suivant</p>
 
       <div id="exempleConteneur4">
         <div class="exempleBloc">Bloc 1</div>
         <div class="exempleBloc">Bloc 2</div>
         <div class="exempleBloc">Bloc 3</div>
       </div>
-      <footer class="legendeCode">Affichage</footer>
+     <br/>
 
-      <!-- flex-direction row justify-content space-around-->
-      <p><em> Blocs en ligne avec un espace automatique autour : </em></p>
+      <p><em> Pour obtenir des blocs en ligne avec un espace automatique autour : </em></p>
 
       <div class="bloc">
 
         <div class="gauche">
-          <pre>&ltdiv id="conteneur"&gt
+          <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
         </div>
 
         <div class="droite">
-          <pre>#conteneur{
+          <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
         </div>
 
       </div>
+<p>qui produit l'affichage suivant</p>
 
       <div id="exempleConteneur5">
         <div class="exempleBloc">Bloc 1</div>
         <div class="exempleBloc">Bloc 2</div>
         <div class="exempleBloc">Bloc 3</div>
       </div>
-      <footer class="legendeCode">Affichage</footer>
+     <br/>
 
       <p>On peut forcer les blocs à rester sur une même ligne avec l'attribut <strong>flex-wrap: wrap</strong>. Dans ce cas les blocs se reserrent pour épouser la largeur de la page. On peut a contrario forcer le saut à la ligne avec l'attribut <strong>flex-wrap: wrap</strong>.</p>
+<br/>
 
-      <!-- flex-direction row-reverse -->
-      <p><em> Blocs en ligne inversée : </em></p>
+      <p><em> Pour obtenir des blocs en ligne inversée : </em></p>
       <p>Il est possible d'inverser les blocs. Dans ce cas, l'attribut <strong>justify-content</strong> permet également d'obtenir les mêmes effets de justification que précédemment.</p>
 
       <div class="bloc">
 
         <div class="gauche">
-          <pre>&ltdiv id="conteneur"&gt
+          <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
         </div>
 
         <div class="droite">
-          <pre>#conteneur{
+          <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: row-reverse;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
         </div>
 
       </div>
-
+<p>qui produit l'affichage suivant</p>
       <div id="exempleConteneur6">
         <div class="exempleBloc">Bloc 1</div>
         <div class="exempleBloc">Bloc 2</div>
         <div class="exempleBloc">Bloc 3</div>
       </div>
-      <footer class="legendeCode">Affichage</footer>
+      <br/>
 
-      <!-- flex-direction column-->
-      <p><em> Blocs en colonne : </em></p>
+      <p><em> Pour obtenir des blocs en colonne : </em></p>
       <p>Si on définit la direction principale comme étant les colonnes, on peut reproduire les résultats précédents et justifier verticalement l'alignement des blocs. Il faut dans ce cas rajouter l'attribut <strong>height</strong> pour laisser de l'espace aux blocs.</p>
 
       <div class="bloc">
 
         <div class="gauche">
-          <pre>&ltdiv id="conteneur"&gt
+          <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
         </div>
 
         <div class="droite">
-          <pre>#conteneur{
+          <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: column;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
         </div>
       </div>
-
+<p>qui produit l'affichage suivant</p>
       <div id="exempleConteneur7">
         <div class="exempleBloc">Bloc 1</div>
         <div class="exempleBloc">Bloc 2</div>
         <div class="exempleBloc">Bloc 3</div>
       </div>
-      <footer class="legendeCode">Affichage</footer>
+      <br/>
 
-      <!-- flex-direction column justify-content space-between -->
-      <p><em> Blocs en colonne, avec un espace automatique entre eux : </em></p>
+
+      <p><em> Pour obtenir des blocs en colonne, avec un espace automatique entre eux : </em></p>
 
       <div class="bloc">
 
         <div class="gauche">
-          <pre>&ltdiv id="conteneur"&gt
+          <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
         </div>
 
         <div class="droite">
-          <pre>#conteneur{
+          <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100px;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
         </div>
 
       </div>
-
+<p>qui produit l'affichage suivant</p>
       <div id="exempleConteneur8">
         <div class="exempleBloc">Bloc 1</div>
         <div class="exempleBloc">Bloc 2</div>
         <div class="exempleBloc">Bloc 3</div>
       </div>
-      <footer class="legendeCode">Affichage</footer>
+      <br/>
 
-      <!-- flex-direction column-reverse -->
-      <p><em> Blocs en colonne inversée : </em></p>
+
+      <p><em> Pour obtenir des blocs en colonne inversée : </em></p>
 
       <div class="bloc">
 
         <div class="gauche">
-          <pre>&ltdiv id="conteneur"&gt
+          <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
         </div>
 
         <div class="droite">
-          <pre>#conteneur{
+          <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: column-reverse;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
         </div>
 
       </div>
+<p>qui produit l'affichage suivant</p>
 
       <div id="exempleConteneur9">
         <div class="exempleBloc">Bloc 1</div>
         <div class="exempleBloc">Bloc 2</div>
         <div class="exempleBloc">Bloc 3</div>
       </div>
-      <footer class="legendeCode">Affichage</footer>
+      <br/>
 
-      <!-- alignement centré verticalement et horizontalement -->
-      <p><em> Blocs centrés horizontalement et verticalement : </em></p>
+
+      <p><em> pour obtenir des blocs centrés horizontalement et verticalement : </em></p>
       <p>Il est possible de justifier verticalement et horizontalement à la fois en rajoutant l'attribut <strong>align-items</strong>. Dans ce cas <strong>flex-direction: row</strong> définit comme direction principale les lignes. En conséquence, <strong>justify-content: space-around</strong> justifie le contenu par rapport à la direction principale (les lignes) et <strong>align-items: center</strong> justifie le contenu par rapport à la direction secondaire (les colonnes). On pourrait bien évidemment choisir comme direction principale les colonnes.</p>
 
       <div class="bloc">
 
         <div class="gauche">
-          <pre>&ltdiv id="conteneur"&gt
+          <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
         </div>
 
         <div class="droite">
-          <pre>#conteneur{
+          <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   height: 100px;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
         </div>
 
       </div>
-
-      <div id="exempleConteneur10">
+<p>qui produit l'affichage suivant</p>
+      <div class="exempleConteneur10">
         <div class="exempleBloc">Bloc 1</div>
         <div class="exempleBloc">Bloc 2</div>
         <div class="exempleBloc">Bloc 3</div>
       </div>
-      <footer class="legendeCode">Affichage</footer>
+      <br/>
 
-      <!-- alignement personnalisé -->
-      <p><em> Blocs centrés horizontalement et verticalement sauf le dernier bloc : </em></p>
+
+      <p><em> Pour obtenir des blocs centrés horizontalement et verticalement sauf le dernier bloc : </em></p>
       <p> Il est possible d'aligner tous les blocs sauf un bloc qu'on choisit avec l'attribut <strong>nth-child(?)</strong> qui compte le ?-ième bloc dans l'ordre d'apparition dans le code. On peut ensuite utiliser l'attribut <strong>align-self</strong> qui permet de choisir l'alignement personnalisé. On peut en fait entièrement personnaliser le bloc choisi.</p>
       <p><em>Attention</em> il est important d'écrire <strong>.bloc:nth-child(?)</strong> sans espace avant et aprés les <strong>:</strong>, sinon l'interpréteur se trompe et comprend que <strong>nth-child(?)</strong> est la valeur de l'attribut <strong>.bloc</strong>.</p>
 
       <div class="bloc">
 
         <div class="gauche">
-          <pre>&ltdiv id="conteneur"&gt
+          <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
         </div>
 
         <div class="droite">
-          <pre>#conteneur{
+          <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -522,33 +687,33 @@
 
 .bloc:nth-child(4){
     align-self: flex-end;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
         </div>
 
       </div>
-
-      <div id="exempleConteneur10">
+<p>qui produit l'affichage suivant</p>
+      <div class="exempleConteneur10">
         <div id="exempleBloc10-1">Bloc 1</div>
         <div id="exempleBloc10-2">Bloc 2</div>
         <div id="exempleBloc10-3">Bloc 3</div>
       </div>
-      <footer class="legendeCode">Affichage</footer>
+      <br/>
 
       <p>Dans l'exemple ci-dessus <strong>flex-direction: row</strong> définit comme direction principale la ligne, <strong>justify-content</strong> aligne donc les blocs naturellement par rapport aux lignes, et en conséquence <strong>align-items: center</strong> aligne les blocs par rapport aux colonnes qui représentent la direction secondaire.</p>
       <p>Notons que si on avait choisi pour direction principale un alignement en colonne (<strong>flex-direction: column</strong>), alors <strong>align-self: flex-end</strong> aurait pour effet d'aligner le Bloc 3 par rapport à la fin de ligne.</p>
+<br/>
 
-      <!-- blocs alignés suivant un ordre donné-->
-      <p><em>Blocs alignés suivant un ordre donné :</em></p>
+      <p><em>Pour obtenir des Blocs alignés suivant un ordre donné :</em></p>
       <p>On peut modifier l'ordre des blocs à l'intérieur du code CSS sans changer le code HTML.</p>
 
       <div class="bloc">
 
         <div class="gauche">
-          <pre>&ltdiv id="conteneur"&gt
+          <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
         </div>
 
         <div class="droite">
@@ -571,47 +736,47 @@
         </div>
 
       </div>
-
-      <div id="exempleConteneur12">
+<p>qui produit l'affichage suivant</p>
+      <div class="exempleConteneur12">
         <div id="exempleBloc11-1">Bloc 1</div>
         <div id="exempleBloc11-2">Bloc 2</div>
         <div id="exempleBloc11-3">Bloc 3</div>
       </div>
-      <footer class="legendeCode">Affichage</footer>
+      <br/>
 
-      <!-- agrandir certains blocs -->
-      <p><em>Agrandir certains blocs :</em></p>
+
+      <p><em>Pour agrandir certains blocs :</em></p>
       <p>On peut agrandir certains blocs pour occuper tout l'espace défini par le conteneur.</p>
 
       <div class="bloc">
 
         <div class="gauche">
-          <pre>&ltdiv id="conteneur"&gt
+          <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
         </div>
 
         <div class="droite">
-          <pre>#conteneur{
+          <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: row;
 }
 
 .bloc:nth-child(1){
   flex: 1;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
         </div>
 
       </div>
-
-      <div id="exempleConteneur12">
+<p>qui produit l'affichage suivant</p>
+      <div class="exempleConteneur12">
         <div id="exempleBloc12-1">Bloc 1</div>
         <div id="exempleBloc12-2">Bloc 2</div>
         <div id="exempleBloc12-3">Bloc 3</div>
       </div>
-      <footer class="legendeCode">Affichage</footer>
+      <br/>
 
       <!-- doubler la taille d'un bloc par rapport à un autre -->
       <p><em>Agrandir certains blocs :</em></p>
@@ -620,15 +785,15 @@
         <div class="bloc">
 
           <div class="gauche">
-            <pre>&ltdiv id="conteneur"&gt
+            <pre><code class="language-html">&ltdiv id="conteneur"&gt
   &ltdiv class="bloc"&gt Bloc 1 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 2 &lt/div&gt
   &ltdiv class="bloc"&gt Bloc 3 &lt/div&gt
-&lt/div&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/div&gt</code></pre><footer class="legendeCode">HTML</footer>
           </div>
 
           <div class="droite">
-            <pre>#conteneur{
+            <pre><code class="language-css">#conteneur{
   display: flex;
   flex-direction: row;
 }
@@ -639,12 +804,12 @@
 
 .bloc:nth-child(2){
   flex: 1;
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
           </div>
 
         </div>
 
-        <div id="exempleConteneur12">
+        <div class="exempleConteneur12">
           <div id="exempleBloc13-1">Bloc 1</div>
           <div id="exempleBloc13-2">Bloc 2</div>
           <div id="exempleBloc13-3">Bloc 3</div>
@@ -655,17 +820,17 @@
 
 <!-- ===== LES LISTES ===== -->
 
-<h3 id="liste"> Les listes </h3>
+<h2 id="liste"> Les listes </h2>
 
   <p> Les listes non ordonnées se définissent grâce aux balises :</P>
 
   <div class="bloc">
 
     <div class="gauche">
-      <pre>&ltul&gt
+      <pre><code class="language-html">&ltul&gt
   &ltli&gt un élément de la liste &lt/li&gt
   &ltli&gt un autre élément de la liste &lt/li&gt
-&lt/ul&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/ul&gt</code></pre><footer class="legendeCode">HTML</footer>
     </div>
 
     <div class="droite">
@@ -686,7 +851,7 @@
 
 <!-- ===== LES LIENS ===== -->
 
-<h3 id="lien"> Les liens </h3>
+<h2 id="lien"> Les liens </h2>
 
   <p>Les liens hypertextes ont grandement participé au succès du Web. Il existe plusieurs types de liens, qui possèdent une structure commune. Les principaux types de liens sont les suivants :</p>
 
@@ -705,11 +870,11 @@ nom de la page &lt/a&gt</pre></td> </tr>
   </table>
 
   <!-- Lien vers une page -->
-  <h4> Lien vers une page </h4>
+  <h3> Lien vers une page </h3>
 
     <p>Le nom de la page apparaît souligné dans le texte et, lorsqu'on clique dessus, on accède à la page dont l'adresse a été enregistrée dans l'attribut <strong>href</strong>.</p>
 
-    <fieldset><legend><img src="bonSavoir.png" width="80" height="80"> </legend>
+    <fieldset><legend><img src="images/bonSavoir.png" width="80" height="80"> </legend>
       <p>Lorsque vous copiez l'adresse d'une page contenant le caractère <strong>&amp</strong>, il faut remplacer ce dernier par <strong>&ampamp</strong> pour assurer une bonne construction de la page.</p>
     </fieldset>
 
@@ -721,17 +886,17 @@ nom de la page &lt/a&gt</pre></td> </tr>
     </p>
 
   <!-- Lien vers une ancre -->
-  <h4> Lien vers une ancre </h4>
+  <h3> Lien vers une ancre </h3>
 
     <p>Une ancre est un point de repère qu'on peut positionner dans une page HTML afin que l'utilisateur accède plus rapide à cet emplacement. Le lien se développe en deux étapes. On commence par créer une ancre à l'emplacement souhaité, puis on crée ensuite un lien contenant le caractère <strong>#</strong> dans l'attribut <strong>href</strong>.</p>
 
   <!-- Lien d'envoi d'un email -->
-  <h4> Lien d'envoi d'un e-mail </h4>
+  <h3> Lien d'envoi d'un e-mail </h3>
 
     <p> Pour ouvrir automatiquement un gestionnaire d'e-mails en cliquant sur un lien, il faut définir l'adresse de destination du mail dans l'attribut <strong>href</strong>.</p>
 
   <!-- Lien pour télécharger un fichier -->
-  <h4> Lien pour télécharger un fichier </h4>
+  <h3> Lien pour télécharger un fichier </h3>
 
     <p> Pour télécharger automatiquement un fichier en cliquant sur un lien, il faut indiquer le nom du fichier à télécharger. Cela suppose que ce fichier se trouve dans le répertoire courant.</p>
 
@@ -739,20 +904,20 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 <!-- ===== LES MENUS ===== -->
 
-<h3 id="menus"> Les menus </h3>
+<h2 id="menus"> Les menus </h2>
 
   <p> On crée un menu à l'aide de la balise <strong>&ltnav&gt</strong>.</p>
-  <pre>&ltnav id="menu"&gt
+  <pre><code class="language-html">&ltnav id="menu"&gt
   &ltdiv class="element"&gt &lta href="index.html"&gt NOTRE ETABLISSEMENT &lt/a&gt &lt/div&gt
   &ltdiv class="element"&gt &lta href="lieu.html"&gt NOUS TROUVER &lt/a&gt &lt/div&gt
   &ltdiv class="element"&gt &lta href="contact.html"&gt CONTACT &lt/a&gt &lt/div&gt
-&lt/nav&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/nav&gt</code></pre><footer class="legendeCode">HTML</footer>
 
 
 
 <!-- ===== INSERER UNE IMAGE ===== -->
 
-<h3 id="image"> Insérer une image </h3>
+<h2 id="image"> Insérer une image </h2>
 
   <p>Le format d'une image (png, jpg, tif, gif, bmp,...) définit à la fois son poids et sa qualité. Il convient de choisir ce format au moment de l'enregistrement avec discernement car il peut fortement influencer le temps de chargement de cette image lors de la consultation du site Web.
     <ul>
@@ -762,7 +927,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
     </ul>
   </p>
   <p> Pour insérer une image, celle-ci doit se trouver dans le répertoire courant et il faut alors utiliser les instructions :</p>
-  <pre>&ltimg src="monImage.png" alt="description de l'image"&gt</pre><footer class="legendeCode">HTML</footer>
+    <pre><code class="language-html">&ltimg src="images/monImage.png" alt="description de l'image"&gt</code></pre><footer class="legendeCode">HTML</footer>
 
   <p><strong>src</strong> permet de définir le chemin pour accéder à l'image et <strong>alt</strong> permet de définir un descriptif au cas où l'image ne s'afficherait pas.</p>
 
@@ -770,19 +935,19 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 <!-- ===== INSERER UNE FIGURE ===== -->
 
-<h3 id="figure"> Insérer une figure </h3>
+<h2 id="figure"> Insérer une figure </h2>
 
   <p> Les figures jouent un rôle similaire aux images, à ceci près qu'elle disposent d'une légende.</p>
-  <pre>&ltfigure&gt
+  <pre><code class="language-html">&ltfigure&gt
   &ltimg src="maFigure.png" alt="descriptif"/&gt
   &ltfigcaption&gt Légende de maFigure &lt/figcaption&gt
-&lt/figure&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/figure&gt</code></pre><footer class="legendeCode">HTML</footer>
 
 
 
 <!-- ===== INSERER UNE IMAGE TEXTE CENTRE ===== -->
 
-<h3 id="imageTexte"> Insérer une image contenant un texte centré </h3>
+<h2 id="imageTexte"> Insérer une image contenant un texte centré </h2>
 
   <p>On peut utiliser deux blocs heroImage et heroTexte auquel on attribue la forme suivante dans le fichier style.css associé :</p>
 
@@ -797,7 +962,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
     </div>
 
     <div class="droite">
-      <pre>.heroImage{
+      <pre><code class="language-html">.heroImage{
   /* image dans laquelle on veut insérer des
   propriétés de texte */
   background-image: url("fondTitre.jpg");
@@ -816,7 +981,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}</pre><footer class="legendeCode">CSS</footer>
+}</code></pre><footer class="legendeCode">CSS</footer>
     </div>
 
   </div>
@@ -825,7 +990,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 <!-- ===== INSERER UNE VIDEO ===== -->
 
-<h3 id="video"> Insérer une video </h3>
+<h2 id="video"> Insérer une video </h2>
 
   <p> Le format d'une vidéo (h.264, webm, ogg,...) définit à la fois son poids et sa qualité.
     <ul>
@@ -835,21 +1000,21 @@ nom de la page &lt/a&gt</pre></td> </tr>
     </ul>
   </p>
   <p> Lorsque la vidéo est hébergée en dehors du site : </p>
-  <pre>&ltcenter&gt
+  <pre><code class="language-html">&ltcenter&gt
   &ltfigure&gt
     &ltiframe width="560" height="315" src="https://www.adresseVideo"
     frameborder="0" allow="accelerometer; autoplay; encrypted-media;
     gyroscope; picture-in-picture" allowfullscreen&gt &lt/iframe&gt
     &ltfigcaption&gt Titre de la vidéo, &ltem&gt source YouTube &lt/em&gt &lt/figcaption&gt
   &lt/figure&gt
-&lt/center&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/center&gt</code></pre><footer class="legendeCode">HTML</footer>
 
   <p> Lorsque la vidéo se trouve dans le répertoire courant, il faut la convertir en différents formats qu'on place également dans le répertoire courant afin que chaque navigateur puisse lire un format qu'il reconnaît. </p>
-  <pre>&ltvideo controls poster="sintel.jpg" width="600"&gt
+  <pre><code class="language-html">&ltvideo controls poster="sintel.jpg" width="600"&gt
   &ltsource src="nomVideo.mp4"&gt
   &ltsource src="nomVideo.webm"&gt
   &ltsource src="nomVideo.ogv"&gt
-&lt/video&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/video&gt</code></pre><footer class="legendeCode">HTML</footer>
 
   <p> Les différents attributs qu'il est possible d'utiliser sont les suivants : </p>
   <table>
@@ -860,7 +1025,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
     <tr><td> height </td> <td> hauteur de la vidéo en pixels </td></tr>
   </table>
 
-  <fieldset><legend><img src="bonSavoir.png" width="80" height="80"> </legend>
+  <fieldset><legend><img src="images/bonSavoir.png" width="80" height="80"> </legend>
     <p>On ne peut pas forcer le préchargement des vidéos, c'est le navigateur qui décide pour économiser la bande passante.</p>
   </fieldset>
 
@@ -868,17 +1033,17 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 <!-- ===== INSERER UNE CITATION ===== -->
 
-<h3 id="citation"> Insérer une citation </h3>
+<h2 id="citation"> Insérer une citation </h2>
 
   <div class="bloc">
 
     <div class="gauche">
-      <pre>&ltq&gt "La vérité pour l'homme,
+      <pre><code class="language-html">&ltq&gt "La vérité pour l'homme,
   c'est ce qui fait de lui un homme."
   &ltfooter&gt Terre des hommes
     &ltcite&gt A. de Saint Exupéry &lt/cite&gt
   &lt/footer&gt
-&lt/q&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/q&gt</code></pre><footer class="legendeCode">HTML</footer>
     </div>
 
     <div class="droite">
@@ -893,18 +1058,18 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 <!-- ===== CREATION D'UN TABLEAU ===== -->
 
-<h3 id="tableau"> Insérer un tableau </h3>
+<h2 id="tableau"> Insérer un tableau </h2>
 
   <div class="bloc">
 
     <div class="gauche">
-      <pre>&lttable&gt
+      <pre><code class="language-html">&lttable&gt
   &lttr&gt &ltth&gt TitreColonne1 &lt/th&gt
   &ltth&gt TitreColonne2 &lt/th&gt &lt/tr&gt
   &lttr&gt &lttd&gt texte &lt/td&gt &lttd&gt texte &lt/td&gt &lt/tr&gt
   &lttr&gt &lttd&gt texte &lt/td&gt &lttd&gt texte &lt/td&gt &lt/tr&gt
   &lttr&gt &lttd&gt texte &lt/td&gt &lttd&gt texte &lt/td&gt &lt/tr&gt
-&lt/table&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/table&gt</code></pre><footer class="legendeCode">HTML</footer>
     </div>
 
     <div class="droite">
@@ -932,7 +1097,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 <!-- ===== CREATION D'UN FORMULAIRE ===== -->
 
-<h3 id="formulaire"> Créer un formulaire </h3>
+<h2 id="formulaire"> Créer un formulaire </h2>
 
   <p> Un formulaire est une zone interactive dans laquelle les utilisateurs peuvent saisir des informations. Il s'agit donc d'un élément fondamental constituant une page HTML. </p>
   <p>Dans le cas d'un champ acceptant une réponse sur une seule ligne :</p>
@@ -1005,14 +1170,14 @@ nom de la page &lt/a&gt</pre></td> </tr>
   </table>
 
   <!-- Les zones d'option -->
-  <h4> Les zones d'option </h4>
+  <h3> Les zones d'option </h3>
 
     <p> En particulier, dans le cas d'une zone d'option, l'attribut <strong>name</strong> doit être identique pour toute la zone d'option, seul l'attribut <strong>id</strong> varie pour chaque champ :</p>
 
     <div class="bloc">
 
       <div class="gauche">
-        <pre>&ltform method="post" action="pageDestination.py"&gt
+        <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
   &ltp&gt Question &ltp/&gt
   &ltinput type="radio" name="identite" id="nom"/&gt &ltlabel for="nom"&gt
   nom &lt/label&gt &ltbr/&gt
@@ -1024,7 +1189,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
   contrat &lt/label&gt &ltbr/&gt
   &ltinput type="radio" name="adherent" id="type"/&gt &ltlabel for="type"&gt
   type &lt/label&gt
-&lt/form&gt</pre><footer class="legendeCode"> HTML </footer>
+&lt/form&gt</code></pre><footer class="legendeCode"> HTML </footer>
       </div>
 
       <div class="droite">
@@ -1042,21 +1207,21 @@ nom de la page &lt/a&gt</pre></td> </tr>
     </div>
 
   <!-- Les listes déroulantes -->
-  <h4> Les listes déroulantes </h4>
+  <h3> Les listes déroulantes </h3>
 
     <p> Les listes déroulantes sont construites différemment :</p>
 
     <div class="bloc">
 
       <div class="gauche">
-        <pre>&ltform method="post" action="pageDestination.py"&gt
+        <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
   &ltp&gt Question&lt/p&gt
   &ltselect name="choix" id="choix">
     &ltoption value="rouge"&gtrouge&lt/option&gt
     &ltoption value="vert"&gtvert&lt/option&gt
     &ltoption value="bleu"&gtbleu&lt/option&gt
   &lt/select&gt
-&lt/form&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
       </div>
 
       <div class="droite">
@@ -1077,7 +1242,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
     <div class="bloc">
 
       <div class="gauche">
-        <pre>&ltform method="post" action="pageDestination.py"&gt
+        <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
   &ltp&gt Question&lt/p&gt
   &ltselect name="choix" id="choix">
     &ltoptgroup label="couleurs"&gt
@@ -1086,7 +1251,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
       &ltoption value="bleu"&gtbleu&lt/option&gt
     &lt/optgroup&gt
   &lt/select&gt
-&lt/form&gt</pre><footer class="legendeCode">HTML</footer>
+&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
       </div>
 
       <div class="droite">
@@ -1104,7 +1269,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
       </div>
 
-  <h4> Regrouper les champs d'un formulaire </h4>
+  <h3> Regrouper les champs d'un formulaire </h3>
 
     <p> Il est possible de grouper les questions affichées en utilisant les balises <strong>&ltfieldset&gt</strong> pour délimiter l'encadrement et <strong>&ltlegend&gt</strong> pour donner un titre au cadre.</p>
 
@@ -1140,7 +1305,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
     </div>
 
-  <h4> Le bouton de validation </h4>
+  <h3> Le bouton de validation </h3>
 
     <p> A la fin d'un formulaire, on doit utiliser un bouton de validation pour récupérer les réponses saisies par l'utilisateur afin de les exploiter et se rendre sur la page indiquée dans l'attribut <strong> action </strong>. On atteint ici les limites du langage HTML car ce traitement de l'information est réalisé par un autre langage, par exemple PHP, JavaScript, Java, Python, ...</p>
 
@@ -1172,7 +1337,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 <!-- ======= VERIFIER LA VALIDITE HTML DU SITE ======= -->
 
-<h3 id="verification"> Vérifier la validité HTML5 du site </h3>
+<h2 id="verification"> Vérifier la validité HTML5 du site </h2>
 
   <p> W3C propose sur son <a href="https://validator.w3.org/">site</a> un outil appelé <em>Validator</em> permettant de valider en ligne des codes sources afin de s'assurer qu'ils sont conformes au standard HTML5. Les erreurs de structure ainsi que les bugs les plus classiques sont systématiquement signalés. Notons que contrairement à beaucoup de langages, HTML ne va pas arrêter son exécution si il rencontre une erreur, mais va tout simplement l'ignorer. Si cela est pratique pour pouvoir continuer d'avancer dans la rédaction du programme, cette approche cache les bugs et les rend plus difficiles à détecter.</p>
   <p> Les erreurs les plus classiques sont les suivantes :
@@ -1188,13 +1353,14 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 <!-- ===== LES MEDIA QUERIES ===== -->
 
-<h3 id="queries"> Responsive design et media queries </h3>
+<h2 id="queries"> Responsive design et media queries </h2>
 
   
   
 </section>
 
 <footer>
+    <p>Stephane Robin</p>
 </footer>
 
 </body>
