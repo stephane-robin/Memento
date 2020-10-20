@@ -11,21 +11,36 @@
 <!-- JavaScript de gestion des couleurs de code -->
 <script defer src="prism.js"></script>
 
+<!-- script de gestion de l'apparition du contenu d'une section -->
+<script type="text/javascript">
+function affichageConditionnel(bouton, id) {
+    var div = document.getElementById(id);
+    if(div.style.display=="none") { // si le div est masqué, on l'affiche et on change le contenu du bouton
+        div.style.display = "block";
+        bouton.innerHTML = "-";
+    } else { // s'il est visible, on le masque et on change le contenu du bouton
+        div.style.display = "none";
+        bouton.innerHTML = "+";
+    }
+}</script>
+
 <body>
 
 <div id="bandeau">
     <h1> Memento </h1>
-    <h1> HTML </h1>
+    <h1> Html </h1>
 
   <nav>
-    <div class="element"> <a href="index.html">HTML</a> </div>
+    <div class="element"> <a href="html.html">HTML</a> </div>
     <div class="element"> <a href="css.html">CSS</a> </div>
     <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
     <div class="element"> <a href="java.html">JAVA</a> </div>
+    <div class="element"> <a href="kotlin.html">KOTLIN</a> </div>
+    <div class="element"> <a href="android.html">ANDROID</a> </div>
     <div class="element"> <a href="php.html">PHP</a> </div>
     <div class="element"> <a href="python.html">PYTHON</a> </div>
     <div class="element"> <a href="c.html">C</a> </div>
-    <div class="element"> <a href="git.html">Linux</a> </div>
+    <div class="element"> <a href="git.html">LINUX</a> </div>
   </nav>
 </div>
 
@@ -36,28 +51,24 @@
         <a href="#hello">Hello world</a>
         <a href="#balise">Les balises</a>
         <a href="#flexbox">Flexbox</a>
-        <a href="#menu">Les menus</a>
         <a href="#lien">Les liens</a>
-        <a href="#liste">Les listes</a>
+        <a href="#menu">Les menus</a>
         <a href="#image">Les images</a>
-        <a href="#figure">Les figures</a>
         <a href="#imageTexte">Image avec un texte centré</a>
         <a href="#video">Les vidéos</a>
-        <a href="#citation">Les citations</a>
-        <a href="#tableau">Les tableaux</a>
         <a href="#formulaire">Les formulaires</a>
+        <a href="#liste">Les listes</a>
+        <a href="#tableau">Les tableaux</a>
+        <a href="#cachee">Sections cachées</a>
         <a href="#verification">Validité HTML5 d'un site</a>
+        <a href="#citation">Les citations</a>
         <a href="#responsive">Responsive design</a>
         <a href="#querie">Media queries</a>
-        <a href="#cachees">Sections cachées</a>
+
     </nav>
 </aside>
 
 <section id="principal">
-
-    <!--image en tete-->
-
-    <img src="images/fondTitre.jpg" alt="coding picture" height="200px" width="100%" margin-top="30%">
 
 
 
@@ -186,6 +197,8 @@
 
     <p>On peut également utiliser un CMS Content Management System, qui est un site prêt à être modifié. Le CMS le plus populaire est actuellement WordPress,</p>
 
+    <!-- les bases de données -->
+
     <h3 id="bdd"> Les bases de données </h3>
 
     <p> Les bases de données permettent d'enregistrer des informations afin de les ré-utiliser lors d'une prochaine session sur le site. Elles fonctionnent avec un autre serveur appelé serveur de base de données.
@@ -221,7 +234,9 @@
 
 
 
-    <!-- ===== STRUCTURE D'UNE PAGE HTML ===== -->
+    <!-- ====================
+    STRUCTURE D'UNE PAGE HTML
+    ========================= -->
 
 <h2 id="structure"> Structure d'une page HTML </h2>
 
@@ -261,7 +276,10 @@
 
 
 
-    <!-- HELLO WORLD -->
+    <!-- ======
+    HELLO WORLD
+    ======= -->
+
     <h2 id="hello">Hello World</h2>
 
   <p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, HTML n'utilise pas de <strong>;</strong> à la fin des instructions, car celles-ci sont regroupées à l'intérieur de balises.</p>
@@ -274,7 +292,9 @@
   
 
 
-<!-- ===== LES BALISES ===== -->
+<!-- ======
+LES BALISES
+======= -->
 
 <h2 id="balise"> Les balises </h2>
 
@@ -328,11 +348,14 @@
 
 
 
-<!-- ===== GESTION DES BLOCS AVEC FLEXBOX ===== -->
+<!-- =========================
+GESTION DES BLOCS AVEC FLEXBOX
+========================== -->
 
-<h2 id="bloc"> Gestion des blocs avec Flexbox </h2>
+<h2 id="flexbox"> Gestion des blocs avec Flexbox </h2>
 
   <!-- La notion de bloc -->
+
   <h3>La notion de bloc </h3>
 
   <p> Chaque élément de code HTML est inclus dans une balise, qui est incluse dans un bloc auquel on attribue certaines propriétés que l'on définit.</p>
@@ -831,28 +854,6 @@
 
 
 
-<!-- ===== LES LISTES ===== -->
-
-<h2 id="liste"> Les listes </h2>
-
-  <p> Les listes non ordonnées se définissent grâce aux balises :</P>
-
-      <pre><code class="language-html">&ltul&gt
-  &ltli&gt un élément de la liste &lt/li&gt
-  &ltli&gt un autre élément de la liste &lt/li&gt
-&lt/ul&gt</code></pre><footer class="legendeCode">HTML</footer>
-
-
-    <p>qui affiche le résultat suivant</p>
-      <p>
-        <ul class="ulExemple">
-          <li>un élément de la liste</li>
-          <li>un autre élément de la liste</li>
-        </ul>
-      </p>
-
-  <p>Les listes ordonnées se définissent à l'aide de la balise <strong>&ltol&gt</strong> à la place de la balise <strong>&ltul&gt</strong></p>
-
 
 
 <!-- ===== LES LIENS ===== -->
@@ -912,7 +913,9 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 
 
-<!-- ===== LES MENUS ===== -->
+<!-- ====
+LES MENUS
+===== -->
 
 <h2 id="menu"> Les menus </h2>
 
@@ -925,7 +928,9 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 
 
-<!-- ===== INSERER UNE IMAGE ===== -->
+<!-- ============
+INSERER UNE IMAGE
+============= -->
 
 <h2 id="image"> Insérer une image </h2>
 
@@ -941,21 +946,21 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
   <p><strong>src</strong> permet de définir le chemin pour accéder à l'image et <strong>alt</strong> permet de définir un descriptif au cas où l'image ne s'afficherait pas.</p>
 
+    <!-- Insérer une figure -->
 
+    <h3 id="figure"> Insérer une figure </h3>
 
-<!-- ===== INSERER UNE FIGURE ===== -->
-
-<h2 id="figure"> Insérer une figure </h2>
-
-  <p> Les figures jouent un rôle similaire aux images, à ceci près qu'elle disposent d'une légende.</p>
-  <pre><code class="language-html">&ltfigure&gt
+    <p> Les figures jouent un rôle similaire aux images, à ceci près qu'elle disposent d'une légende.</p>
+    <pre><code class="language-html">&ltfigure&gt
   &ltimg src="maFigure.png" alt="descriptif"/&gt
   &ltfigcaption&gt Légende de maFigure &lt/figcaption&gt
 &lt/figure&gt</code></pre><footer class="legendeCode">HTML</footer>
 
 
 
-<!-- ===== INSERER UNE IMAGE TEXTE CENTRE ===== -->
+<!-- =========================
+INSERER UNE IMAGE TEXTE CENTRE
+========================== -->
 
 <h2 id="imageTexte"> Insérer une image contenant un texte centré </h2>
 
@@ -998,7 +1003,9 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 
 
-<!-- ===== INSERER UNE VIDEO ===== -->
+<!-- ============
+INSERER UNE VIDEO
+============= -->
 
 <h2 id="video"> Insérer une video </h2>
 
@@ -1041,32 +1048,247 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 
 
-<!-- ===== INSERER UNE CITATION ===== -->
+    <!-- ===== CREATION D'UN FORMULAIRE ===== -->
 
-<h2 id="citation"> Insérer une citation </h2>
+    <h2 id="formulaire"> Créer un formulaire </h2>
 
-  <div class="bloc">
+    <p> Un formulaire est une zone interactive dans laquelle les utilisateurs peuvent saisir des informations. Il s'agit donc d'un élément fondamental constituant une page HTML. </p>
+    <p>Dans le cas d'un champ acceptant une réponse sur une seule ligne :</p>
 
-    <div class="gauche">
-      <pre><code class="language-html">&ltq&gt "La vérité pour l'homme,
-  c'est ce qui fait de lui un homme."
-  &ltfooter&gt Terre des hommes
-    &ltcite&gt A. de Saint Exupéry &lt/cite&gt
-  &lt/footer&gt
-&lt/q&gt</code></pre><footer class="legendeCode">HTML</footer>
-    </div>
+    <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
+  &ltp&gt Veuillez remplir les informations suivantes : &lt/p&gt
+  &ltlabel for="identifiant"&gtidentifiant&lt/label&gt :
+  &ltinput type="text" name="identifiant" id="identifiant"/&gt
+&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
 
-    <div class="droite">
-      <q> La vérité pour l'homme, c'est ce qui fait de lui un homme.
-      </q><footer> Terre des hommes <cite> A. de Saint Exupéry</cite></footer>
-      <footer class="legendeCode">Affichage</footer>
-    </div>
+    <p>qui affiche le résultat suivant :</p>
 
-  </div>
+    <form method="post" action="">
+        <p> Veuillez remplir les informations suivantes : </p>
+        <label for="">identifiant</label> : <input type="text" name="identifiant" class="identifiant"/>
+    </form>
 
 
+    <p> Dans le cas d'un champ acceptant une réponse sur plusieurs lignes :</p>
 
-<!-- ===== CREATION D'UN TABLEAU ===== -->
+
+    <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
+  &ltp&gt Veuillez remplir le formulaire ci-dessous : &lt/p&gt
+  &ltlabel for="identifiant"&gtVos commentaires&lt/label&gt :
+  &lttextarea name="identifiant" id="identifiant"
+  rows="6" cols="30"&gt&lt/textarea&gt
+&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
+
+    <p>qui affiche le résultat suivant</p>
+
+    <form method="post" action="">
+        <p> Veuillez remplir le formulaire ci-dessous : </p>
+        <label for="">Vos commentaires</label> :
+        <textarea name="identifiant" class="identifiant" rows="6" cols="30"></textarea>
+    </form>
+
+
+    <p> Les différents attributs d'un formulaire sont les suivants :</p>
+    <table>
+        <tr><th> Objectif </th> <th> Balises </th></tr>
+        <tr><td> champ texte </td> <td> <pre>type="text"</pre> </td></tr>
+        <tr><td> champ email </td> <td> <pre>type="email"</pre> </td></tr>
+        <tr><td> champ url </td> <td> <pre>type="url"</pre> </td></tr>
+        <tr><td> champ nombre entier </td> <td> <pre>type="number" min="0" max="10" step="1"</pre> </td></tr>
+        <tr><td> champ nombre sous forme de curseur </td> <td> <pre>type="range" min="0" max="10" step="1"</pre> </td></tr>
+        <tr><td> champ couleur </td> <td> <pre>type="color"</pre> </td></tr>
+        <tr><td> champ date </td> <td> <pre>type="date"</pre> </td></tr>
+        <tr><td> champ heure </td> <td> <pre>type="time"</pre> </td></tr>
+        <tr><td> champ mois </td> <td> <pre>type="month"</pre> </td></tr>
+        <tr><td> champ semaine </td> <td> <pre>type="week"</pre> </td></tr>
+        <tr><td> champ date-heure </td> <td> <pre>type="datetime"</pre> </td></tr>
+        <tr><td> champ numéro de téléphone </td> <td> <pre>type="tel"</pre> </td></tr>
+        <tr><td> champ pour mot de passe où les caractères tapés restent invisibles </td> <td> <pre>type="password"</pre> </td></tr>
+        <tr><td> modifier la taille du champ monoligne</td> <td> <pre>size="30"</pre> </td></tr>
+        <tr><td> contrôler la taille d'un champ multilignes</td> <td> <pre>rows="10" cols="60"</pre> </td></tr>
+        <tr><td> limiter le nombre de caractères à saisir </td><td> <pre>maxlength="12"</pre> </td></tr>
+        <tr><td> préremplir avec une valeur par défaut pour un champ sur une ligne</td><td> <pre>value="identifiant"</pre> </td></tr>
+        <tr><td> préremplir avec une valeur par défaut pour un champ sur plusieurs lignes</td><td> <pre>&lttextarea name="identifiant" id="identifiant"&gt
+       identifiant &lt/textarea&gt</pre> </td></tr>
+        <tr><td> donner une indication sur le contenu du champ </td> <td> <pre>placeholder="que des caractères"</pre> </td></tr>
+        <tr><td> champ case à cocher (plusieurs choix possibles)</td> <td> <pre>type="checkbox"</pre> </td></tr>
+        <tr><td> champ case à cocher avec case cochée par défaut </td> <td> <pre>type="checkbox" name="identifiant" checked</pre> </td></tr>
+        <tr><td> champ zone d'option (une seule case possible) </td> <td> <pre>type="radio"</pre> </td></tr>
+        <tr><td> rendre un champ obligatoire </td> <td> <pre> &ltinput type="text" name="nom" id="nom" required/&gt</pre> </td></tr>
+    </table>
+
+    <!-- Les zones d'option -->
+
+    <h3> Les zones d'option </h3>
+
+    <p> En particulier, dans le cas d'une zone d'option, l'attribut <strong>name</strong> doit être identique pour toute la zone d'option, seul l'attribut <strong>id</strong> varie pour chaque champ :</p>
+
+
+    <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
+  &ltp&gt Question &ltp/&gt
+  &ltinput type="radio" name="identite" id="nom"/&gt &ltlabel for="nom"&gt
+  nom &lt/label&gt &ltbr/&gt
+  &ltinput type="radio" name="identite" id="prenom"/&gt &ltlabel for="prenom"&gt
+  prenom &lt/label&gt
+
+  &ltp&gt Question &ltp/&gt
+  &ltinput type="radio" name="adherent" id="contrat"/&gt &ltlabel for="contrat"&gt
+  contrat &lt/label&gt &ltbr/&gt
+  &ltinput type="radio" name="adherent" id="type"/&gt &ltlabel for="type"&gt
+  type &lt/label&gt
+&lt/form&gt</code></pre><footer class="legendeCode"> HTML </footer>
+
+    <p>qui affiche le résultat suivant</p>
+    <form method="post" action="pageDestination.py">
+        <p> Question </p>
+        <input type="radio" name="identite" id="nom"/> <label for="nom"> nom </label><br/>
+        <input type="radio" name="identite" id="prenom"/> <label for="prenom"> prenom </label>
+
+        <p> Question </p>
+        <input type="radio" name="adherent" id="contrat"/> <label for="contrat"> contrat </label><br/>
+        <input type="radio" name="adherent" id="type"/> <label for="type"> type </label>
+    </form>
+
+    <!-- Les listes déroulantes -->
+
+    <h3> Les listes déroulantes </h3>
+
+    <p> Les listes déroulantes sont construites différemment :</p>
+
+
+    <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
+  &ltp&gt Question&lt/p&gt
+  &ltselect name="choix" id="choix">
+    &ltoption value="rouge"&gtrouge&lt/option&gt
+    &ltoption value="vert"&gtvert&lt/option&gt
+    &ltoption value="bleu"&gtbleu&lt/option&gt
+  &lt/select&gt
+&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
+
+
+    <p>qui produit l'affichage suivant</p>
+    <form method="post" action="">
+        <p> Question </p>
+        <select name="choix">
+            <option value="rouge">rouge</option>
+            <option value="vert">vert</option>
+            <option value="bleu">bleu</option>
+        </select>
+    </form>
+
+    <p> Il est possible de grouper les options affichées en utilisant la balise <strong>&ltoptgroup&gt</strong>. Dans ce cas, les noms de groupes offrent une indication mais ne peuvent pas être sélectionnés : </p>
+
+
+    <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
+  &ltp&gt Question&lt/p&gt
+  &ltselect name="choix" id="choix">
+    &ltoptgroup label="couleurs"&gt
+      &ltoption value="rouge"&gtrouge&lt/option&gt
+      &ltoption value="vert"&gtvert&lt/option&gt
+      &ltoption value="bleu"&gtbleu&lt/option&gt
+    &lt/optgroup&gt
+  &lt/select&gt
+&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
+
+    <p>qui produit l'affichage suivant</p>
+
+    <form method="post" action="">
+        <p> Question </p>
+        <select name="choix" id="">
+            <optgroup label="couleurs">
+                <option value="rouge">rouge</option>
+                <option value="vert">vert</option>
+                <option value="bleu">bleu</option>
+            </optgroup>
+        </select>
+    </form>
+
+    <!-- Regrouper les champs d'un formulaire -->
+
+    <h3> Regrouper les champs d'un formulaire </h3>
+
+    <p> Il est possible de grouper les questions affichées en utilisant les balises <strong>&ltfieldset&gt</strong> pour délimiter l'encadrement et <strong>&ltlegend&gt</strong> pour donner un titre au cadre.</p>
+
+
+    <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
+  &ltfieldset&gt
+    &ltlegend&gt sujet &lt/legend&gt
+      &ltp&gt Question&lt/p&gt
+      &ltselect name="choix" id="choix">
+        &ltoption value="rouge"&gtrouge&lt/option&gt
+        &ltoption value="vert"&gtvert&lt/option&gt
+        &ltoption value="bleu"&gtbleu&lt/option&gt
+      &lt/select&gt
+  &lt/fieldset&gt
+&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
+    <p>qui produit l'affichage suivant</p>
+
+
+    <form method="post" action="">
+        <fieldset>
+            <legend> sujet </legend>
+            <p> Question </p>
+            <select name="choix" id="choix">
+                <option value="rouge">rouge</option>
+                <option value="vert">vert</option>
+                <option value="bleu">bleu</option>
+            </select>
+        </fieldset>
+    </form>
+
+    <!-- bouton validation -->
+
+    <h3> Le bouton de validation </h3>
+
+    <p> A la fin d'un formulaire, on doit utiliser un bouton de validation pour récupérer les réponses saisies par l'utilisateur afin de les exploiter et se rendre sur la page indiquée dans l'attribut <strong> action </strong>. On atteint ici les limites du langage HTML car ce traitement de l'information est réalisé par un autre langage, par exemple PHP, JavaScript, Java, Python, ...</p>
+
+
+    <pre><code class="language-html">&ltinput type="submit" value="Valider"/&gt</code></pre><footer class="legendeCode">HTML</footer>
+
+    <p>qui produit l'affichage suivant</p>
+
+    <input type="submit" value="Valider"/>
+
+    <p>Il existe également un bouton de remise à zéro :</p>
+
+    <pre><code class="language-html">&ltinput type="reset" value="Remise à zéro"/&gt</code></pre><footer class="legendeCode">HTML</footer>
+
+    <p>qui produit l'affichage suivant</p>
+
+    <input type="reset" value="Remise à zéro"/>
+
+
+
+
+    <!-- =====
+    LES LISTES
+    ====== -->
+
+    <h2 id="liste"> Les listes </h2>
+
+    <p> Les listes non ordonnées se définissent grâce aux balises :</P>
+
+    <pre><code class="language-html">&ltul&gt
+  &ltli&gt un élément de la liste &lt/li&gt
+  &ltli&gt un autre élément de la liste &lt/li&gt
+&lt/ul&gt</code></pre><footer class="legendeCode">HTML</footer>
+
+
+    <p>qui affiche le résultat suivant</p>
+    <p>
+    <ul class="ulExemple">
+        <li>un élément de la liste</li>
+        <li>un autre élément de la liste</li>
+    </ul>
+    </p>
+
+    <p>Les listes ordonnées se définissent à l'aide de la balise <strong>&ltol&gt</strong> à la place de la balise <strong>&ltul&gt</strong></p>
+
+
+
+
+
+    <!-- ===== CREATION D'UN TABLEAU ===== -->
 
 <h2 id="tableau"> Insérer un tableau </h2>
 
@@ -1101,214 +1323,47 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 
 
-<!-- ===== CREATION D'UN FORMULAIRE ===== -->
-
-<h2 id="formulaire"> Créer un formulaire </h2>
-
-  <p> Un formulaire est une zone interactive dans laquelle les utilisateurs peuvent saisir des informations. Il s'agit donc d'un élément fondamental constituant une page HTML. </p>
-  <p>Dans le cas d'un champ acceptant une réponse sur une seule ligne :</p>
-
-      <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
-  &ltp&gt Veuillez remplir les informations suivantes : &lt/p&gt
-  &ltlabel for="identifiant"&gtidentifiant&lt/label&gt :
-  &ltinput type="text" name="identifiant" id="identifiant"/&gt
-&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
-
-      <p>qui affiche le résultat suivant :</p>
-
-      <form method="post" action="">
-        <p> Veuillez remplir les informations suivantes : </p>
-        <label for="">identifiant</label> : <input type="text" name="identifiant" class="identifiant"/>
-      </form>
 
 
-  <p> Dans le cas d'un champ acceptant une réponse sur plusieurs lignes :</p>
+    <!-- ===== LES SECTIONS CACHEES ====== -->
 
+    <h2 id="cachee">Les sections cachées</h2>
 
-      <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
-  &ltp&gt Veuillez remplir le formulaire ci-dessous : &lt/p&gt
-  &ltlabel for="identifiant"&gtVos commentaires&lt/label&gt :
-  &lttextarea name="identifiant" id="identifiant"
-  rows="6" cols="30"&gt&lt/textarea&gt
-&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
+    <p>Dans le code HTML, entre les sections <em>head</em> et <em>body</em>, il faut rajouter le script suivant</p>
 
-<p>qui affiche le résultat suivant</p>
+    <pre><code class="language-html">&lt!-- script de gestion de l'apparition du contenu d'une section --&gt
+&ltscript type="text/javascript"&gt
+    function affichageConditionnel(bouton, id) {
+        var div = document.getElementById(id);
+        // si le div est masqué, on l'affiche et on change le contenu du bouton
+        if(div.style.display=="none") {
+            div.style.display = "block";
+            bouton.innerHTML = "-";
+        // s'il est visible, on le masque et on change le contenu du bouton
+        } else {
+            div.style.display = "none";
+            bouton.innerHTML = "+";
+        }
+}&lt/script&gt</code></pre>
 
-      <form method="post" action="">
-        <p> Veuillez remplir le formulaire ci-dessous : </p>
-        <label for="">Vos commentaires</label> :
-        <textarea name="identifiant" class="identifiant" rows="6" cols="30"></textarea>
-      </form>
+    <p>Il faut ensuite rajouter dans le code HTML au début de la section à cacher le contenu suivant </p>
 
+    <pre><code class="language-html">&lth2 id="nomIdentite"&gtTitre de ma section&ltbutton type="submit" onclick="affichageConditionnel(this,'nomIdentite_cache');"&gt + &lt/button&gt&lt/h2&gt
 
-  <p> Les différents attributs d'un formulaire sont les suivants :</p>
-  <table>
-    <tr><th> Objectif </th> <th> Balises </th></tr>
-    <tr><td> champ texte </td> <td> <pre>type="text"</pre> </td></tr>
-    <tr><td> champ email </td> <td> <pre>type="email"</pre> </td></tr>
-    <tr><td> champ url </td> <td> <pre>type="url"</pre> </td></tr>
-    <tr><td> champ nombre entier </td> <td> <pre>type="number" min="0" max="10" step="1"</pre> </td></tr>
-    <tr><td> champ nombre sous forme de curseur </td> <td> <pre>type="range" min="0" max="10" step="1"</pre> </td></tr>
-    <tr><td> champ couleur </td> <td> <pre>type="color"</pre> </td></tr>
-    <tr><td> champ date </td> <td> <pre>type="date"</pre> </td></tr>
-    <tr><td> champ heure </td> <td> <pre>type="time"</pre> </td></tr>
-    <tr><td> champ mois </td> <td> <pre>type="month"</pre> </td></tr>
-    <tr><td> champ semaine </td> <td> <pre>type="week"</pre> </td></tr>
-    <tr><td> champ date-heure </td> <td> <pre>type="datetime"</pre> </td></tr>
-    <tr><td> champ numéro de téléphone </td> <td> <pre>type="tel"</pre> </td></tr>
-    <tr><td> champ pour mot de passe où les caractères tapés restent invisibles </td> <td> <pre>type="password"</pre> </td></tr>
-    <tr><td> modifier la taille du champ monoligne</td> <td> <pre>size="30"</pre> </td></tr>
-    <tr><td> contrôler la taille d'un champ multilignes</td> <td> <pre>rows="10" cols="60"</pre> </td></tr>
-    <tr><td> limiter le nombre de caractères à saisir </td><td> <pre>maxlength="12"</pre> </td></tr>
-    <tr><td> préremplir avec une valeur par défaut pour un champ sur une ligne</td><td> <pre>value="identifiant"</pre> </td></tr>
-    <tr><td> préremplir avec une valeur par défaut pour un champ sur plusieurs lignes</td><td> <pre>&lttextarea name="identifiant" id="identifiant"&gt
-       identifiant &lt/textarea&gt</pre> </td></tr>
-    <tr><td> donner une indication sur le contenu du champ </td> <td> <pre>placeholder="que des caractères"</pre> </td></tr>
-    <tr><td> champ case à cocher (plusieurs choix possibles)</td> <td> <pre>type="checkbox"</pre> </td></tr>
-    <tr><td> champ case à cocher avec case cochée par défaut </td> <td> <pre>type="checkbox" name="identifiant" checked</pre> </td></tr>
-    <tr><td> champ zone d'option (une seule case possible) </td> <td> <pre>type="radio"</pre> </td></tr>
-    <tr><td> rendre un champ obligatoire </td> <td> <pre> &ltinput type="text" name="nom" id="nom" required/&gt</pre> </td></tr>
-  </table>
+    &ltdiv id="nomIdentite_cache" style="display:none;"&gt
+        &ltp&gtle contenu de la section cachée se trouve ici.&lt/p&gt
+    &lt/div&gt
+    </code></pre>
 
-  <!-- Les zones d'option -->
+    <p>La section apparaît lorsque l'utilisateur clique sur le bouton <strong>+</strong></p>
 
-  <h3> Les zones d'option </h3>
+    <p>L'affichage produit est le suivant :</p>
 
-    <p> En particulier, dans le cas d'une zone d'option, l'attribut <strong>name</strong> doit être identique pour toute la zone d'option, seul l'attribut <strong>id</strong> varie pour chaque champ :</p>
+    <h3 id="nomIdentite">Titre de ma section<button type="submit" onclick="affichageConditionnel(this,'nomIdentite_cache');"> + </button></h3>
 
-
-        <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
-  &ltp&gt Question &ltp/&gt
-  &ltinput type="radio" name="identite" id="nom"/&gt &ltlabel for="nom"&gt
-  nom &lt/label&gt &ltbr/&gt
-  &ltinput type="radio" name="identite" id="prenom"/&gt &ltlabel for="prenom"&gt
-  prenom &lt/label&gt
-
-  &ltp&gt Question &ltp/&gt
-  &ltinput type="radio" name="adherent" id="contrat"/&gt &ltlabel for="contrat"&gt
-  contrat &lt/label&gt &ltbr/&gt
-  &ltinput type="radio" name="adherent" id="type"/&gt &ltlabel for="type"&gt
-  type &lt/label&gt
-&lt/form&gt</code></pre><footer class="legendeCode"> HTML </footer>
-
-          <p>qui affiche le résultat suivant</p>
-        <form method="post" action="pageDestination.py">
-          <p> Question </p>
-          <input type="radio" name="identite" id="nom"/> <label for="nom"> nom </label><br/>
-          <input type="radio" name="identite" id="prenom"/> <label for="prenom"> prenom </label>
-
-          <p> Question </p>
-          <input type="radio" name="adherent" id="contrat"/> <label for="contrat"> contrat </label><br/>
-          <input type="radio" name="adherent" id="type"/> <label for="type"> type </label>
-        </form>
-
-  <!-- Les listes déroulantes -->
-
-  <h3> Les listes déroulantes </h3>
-
-    <p> Les listes déroulantes sont construites différemment :</p>
-
-
-        <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
-  &ltp&gt Question&lt/p&gt
-  &ltselect name="choix" id="choix">
-    &ltoption value="rouge"&gtrouge&lt/option&gt
-    &ltoption value="vert"&gtvert&lt/option&gt
-    &ltoption value="bleu"&gtbleu&lt/option&gt
-  &lt/select&gt
-&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
-
-
-      <p>qui produit l'affichage suivant</p>
-        <form method="post" action="">
-          <p> Question </p>
-          <select name="choix">
-            <option value="rouge">rouge</option>
-            <option value="vert">vert</option>
-            <option value="bleu">bleu</option>
-          </select>
-        </form>
-
-    <p> Il est possible de grouper les options affichées en utilisant la balise <strong>&ltoptgroup&gt</strong>. Dans ce cas, les noms de groupes offrent une indication mais ne peuvent pas être sélectionnés : </p>
-
-
-        <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
-  &ltp&gt Question&lt/p&gt
-  &ltselect name="choix" id="choix">
-    &ltoptgroup label="couleurs"&gt
-      &ltoption value="rouge"&gtrouge&lt/option&gt
-      &ltoption value="vert"&gtvert&lt/option&gt
-      &ltoption value="bleu"&gtbleu&lt/option&gt
-    &lt/optgroup&gt
-  &lt/select&gt
-&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
-
-<p>qui produit l'affichage suivant</p>
-
-        <form method="post" action="">
-          <p> Question </p>
-          <select name="choix" id="">
-          <optgroup label="couleurs">
-            <option value="rouge">rouge</option>
-            <option value="vert">vert</option>
-            <option value="bleu">bleu</option>
-          </optgroup>
-          </select>
-        </form>
-
-    <!-- Regrouper les champs d'un formulaire -->
-
-  <h3> Regrouper les champs d'un formulaire </h3>
-
-    <p> Il est possible de grouper les questions affichées en utilisant les balises <strong>&ltfieldset&gt</strong> pour délimiter l'encadrement et <strong>&ltlegend&gt</strong> pour donner un titre au cadre.</p>
-
-
-        <pre><code class="language-html">&ltform method="post" action="pageDestination.py"&gt
-  &ltfieldset&gt
-    &ltlegend&gt sujet &lt/legend&gt
-      &ltp&gt Question&lt/p&gt
-      &ltselect name="choix" id="choix">
-        &ltoption value="rouge"&gtrouge&lt/option&gt
-        &ltoption value="vert"&gtvert&lt/option&gt
-        &ltoption value="bleu"&gtbleu&lt/option&gt
-      &lt/select&gt
-  &lt/fieldset&gt
-&lt/form&gt</code></pre><footer class="legendeCode">HTML</footer>
-    <p>qui produit l'affichage suivant</p>
-
-
-        <form method="post" action="">
-          <fieldset>
-            <legend> sujet </legend>
-            <p> Question </p>
-            <select name="choix" id="choix">
-              <option value="rouge">rouge</option>
-              <option value="vert">vert</option>
-              <option value="bleu">bleu</option>
-            </select>
-          </fieldset>
-        </form>
-
-  <h3> Le bouton de validation </h3>
-
-    <p> A la fin d'un formulaire, on doit utiliser un bouton de validation pour récupérer les réponses saisies par l'utilisateur afin de les exploiter et se rendre sur la page indiquée dans l'attribut <strong> action </strong>. On atteint ici les limites du langage HTML car ce traitement de l'information est réalisé par un autre langage, par exemple PHP, JavaScript, Java, Python, ...</p>
-
-
-          <pre><code class="language-html">&ltinput type="submit" value="Valider"/&gt</code></pre><footer class="legendeCode">HTML</footer>
-
-<p>qui produit l'affichage suivant</p>
-
-        <input type="submit" value="Valider"/>
-
-<p>Il existe également un bouton de remise à zéro :</p>
-
-          <pre><code class="language-html">&ltinput type="reset" value="Remise à zéro"/&gt</code></pre><footer class="legendeCode">HTML</footer>
-
-<p>qui produit l'affichage suivant</p>
-
-        <input type="reset" value="Remise à zéro"/>
-
-
+    <div id="nomIdentite_cache" style="display:none;">
+        <p>Voici le contenu de la section cachée.</p>
+    </div>
 
 
 <!-- ======= VERIFIER LA VALIDITE HTML DU SITE ======= -->
@@ -1327,16 +1382,42 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
 
 
-<!-- ===== LES MEDIA QUERIES ===== -->
+    <!-- ===== INSERER UNE CITATION ===== -->
 
-<h2 id="queries"> Responsive design et media queries </h2>
+    <h2 id="citation"> Insérer une citation </h2>
+
+    <div class="bloc">
+
+        <div class="gauche">
+      <pre><code class="language-html">&ltq&gt "La vérité pour l'homme,
+  c'est ce qui fait de lui un homme."
+  &ltfooter&gt Terre des hommes
+    &ltcite&gt A. de Saint Exupéry &lt/cite&gt
+  &lt/footer&gt
+&lt/q&gt</code></pre><footer class="legendeCode">HTML</footer>
+        </div>
+
+        <div class="droite">
+            <q> La vérité pour l'homme, c'est ce qui fait de lui un homme.
+            </q><footer> Terre des hommes <cite> A. de Saint Exupéry</cite></footer>
+            <footer class="legendeCode">Affichage</footer>
+        </div>
+
+    </div>
+
+
+    <!-- ===== RESPONSIVE DESIGN ===== -->
+
+    <h2 id="responsive"> Responsive design </h2>
+
+
+    <!-- ===== LES MEDIA QUERIES ===== -->
+
+<h2 id="queries"> Les media queries </h2>
 
 
 
 
-<!-- ===== LES SECTIONS CACHEES ====== -->
-
-<h2 id="cachees">Les sections cachées</h2>
 
   
   
