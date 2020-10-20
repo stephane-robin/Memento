@@ -1560,7 +1560,15 @@ pylint fichier.py // lance l'analyse de fichier.py</pre>
   pour améliorer l'interface en utilisant le module Jython. Toutefois, le code suivant permet d'obtenir une fenetre pourvue des
   principales fonctionnalités :</p>
 
-  <pre><code class="language-python">couleurFond = "#83C7BC"
+  <pre><code class="language-python"># creates a window
+fenetre = Tk()
+fenetre.title("Bumber")
+fenetre.geometry("800x800")
+fenetre.configure(bg="#83C7BC")
+interfaceAccueil = InterfaceAccueil(fenetre)
+interfaceAccueil.mainloop()
+
+couleurFond = "#83C7BC"
 
 class InterfaceAccueil(Frame):
     """
