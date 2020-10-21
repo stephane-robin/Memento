@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
   <title> Memento </title>
   <link rel="stylesheet" href="style.css">
@@ -12,16 +13,10 @@
 
 <body>
 
-<header>
-  <div class="heroImage">
-    <div class="heroTexte">
-      <h2> Git </h2>
-    </div>
-  </div>
-</header>
-
 <div id="bandeau">
-  <div id="titre"> <h1> Terminal </h1> </div>
+  <h1> Memento </h1>
+  <h1> Linux </h1>
+
   <nav>
     <div class="element"> <a href="html.html">HTML</a> </div>
     <div class="element"> <a href="css.html">CSS</a> </div>
@@ -36,27 +31,36 @@
   </nav>
 </div>
 
+
+<aside>
+  <nav id="table_matiere">
+    <a href="#commande">Lignes de commande Linux</a>
+    <a href="#zip">Archive .zip</a>
+    <a href="#gz">Archive .gz</a>
+    <a href="#bash">Installation avec .sh</a>
+    <a href="#targz">Installation avec .tar.gz</a>
+    <a href="#tarbz2">Installation avec .tar.bz2</a>
+    <a href="#deb">Installation avec .deb</a>
+    <a href="#upgrade">Mise à niveau</a>
+    <a href="#bootable">Clé bootable</a>
+    <a href="#configGit">Configuration Git</a>
+    <a href="#instructionGit">Instructions Git</a>
+    <a href="#historique">L'historique Git'</a>
+    <a href="#branche">Les branches Git</a>
+    <a href="#gitignore">.gitignore</a>
+  </nav>
+</aside>
+
+
 <section id="principal">
 
-<p style="font-weight:bold"> Table des matières :
-  <ul>
-    <li> <a href="#balise">Lignes de commande</a> </li>
-    <li> <a href="">Configuration</a> </li>
-    <li> <a href="#structure">Principales instructions</a> </li>
-    <li> <a href="">L'historique</a> </li>
-    <li> <a href="">La gestion des branches</a> </li>
-  </ul>
-</p>
 
-
-
+<p>Cette section présente les principales commandes et utilisation de Linux. Les instructions Git ont été rajoutées en fin de chapitre.</p>
 
 
   <!-- LIGNES DE COMMANDE -->
 
-  <h3>Linux</h3>
-
-  <h4>Les principales lignes de commande</h4>
+  <h2 id="commande">Les principales lignes de commande Linux</h2>
 
   <p>L'autocomplétion se réalise avec la touche de tabulation, la navigation dans le terminal se fait à l'aide des flèches haut et bas.</p>
 
@@ -94,15 +98,15 @@
     <tr> <td> supprimer <em>monApplication</em></td> <td><pre>sudo apt-get remove monApplication</pre></td></tr>
     <tr> <td> nettoyer le disque</td> <td><pre>sudo apt-get autoclean
 sudo apt-get clean
-sudo apt-get auroremove</pre></td></tr>
+sudo apt-get autoremove</pre></td></tr>
   </table>
 
 
 
 
+<!-- zipper un dossier zip -->
 
-
-  <h4>Zipper/dézipper un dossier .zip</h4>
+  <h2 id="zip">Commandes pour zipper/dézipper un dossier .zip</h2>
 
   <p>Pour zipper le dossier mon_dossier en l'appelant mon_archive.zip :</p>
   <pre><code class="language-svg">zip -r mon_archive.zip mon_dossier</code></pre>
@@ -112,16 +116,18 @@ sudo apt-get auroremove</pre></td></tr>
 
 
 
+<!-- dézipper un dossier .gz-->
 
-
-  <h4>Dézipper un dossier .gz</h4>
+  <h2 id="gz">Commande pour dézipper un dossier .gz</h2>
 
   <p>Il faut se placer dans le dossier contenant mondossier.gz et l'instruction
     suivante va le décompresser à ce même emplacement :</p>
   <pre><code class="language-svg">gunzip mondossier.gz</code></pre>
 
 
-  <h4>Installation d'un logiciel en utilisant la commande bash</h4>
+  <!-- installation d'un logiciel avec sh -->
+
+  <h2 id="bash">Installation d'un logiciel à partir de .sh</h2>
 
   <p>Un fichier au format .sh est un fichier d'installation qui s'ouvre avec une commande bash. Pour cela, dans le répertoire courant, il faut d'abord
     vérifier l'intégrité de l'installer en utilisant :</p>
@@ -132,7 +138,9 @@ sudo apt-get auroremove</pre></td></tr>
 
   <pre><code class="language-svg">bash nomInstaller.sh</code></pre>
 
-  <h4>Installation d'un logiciel à partir d'un fichier .tar.gz</h4>
+  <!-- installation d'un logiciel avec.tar.gz -->
+
+  <h2 id="targz">Installation d'un logiciel à partir de .tar.gz</h2>
 
   <p>Un fichier .tar est une archive non compressée. En revanche, un fichier .gz est une compression de fichier.</p>
   <p>Il faut d'abord déplacer le fichier .tar.gz vers /usr/local. Pour cela :</p>
@@ -146,9 +154,9 @@ sudo apt-get auroremove</pre></td></tr>
 
 
 
+<!-- installation d'un logiciel avec tar.bz2 -->
 
-
-  <h4>Installation d'un logiciel à partir d'un fichier .tar.bz2</h4>
+  <h2 id="tarbz2">Installation d'un logiciel à partir de .tar.bz2</h2>
 
   <p>Il faut d'abord déplacer le fichier .tar.bz2 vers /usr/local. Pour cela :</p>
   <pre><code class="language-svg">mv /home/stephane/Téléchargements/nom_fichier.tar.bz2 /usr/local</code></pre>
@@ -161,9 +169,9 @@ sudo apt-get auroremove</pre></td></tr>
 
 
 
+<!-- installation d'un logiciel à partir de .deb -->
 
-
-  <h4>Installation d'un logiciel à partir d'un fichier .deb</h4>
+  <h2 id="deb">Installation d'un logiciel à partir de .deb</h2>
 
   <p>Un fichier .deb est un package permettant d'installer une application sous les systèmes Linux Debian.</p>
 
@@ -175,7 +183,9 @@ sudo apt-get auroremove</pre></td></tr>
   <p>Puis il faut exécuter le fichier .deb</p>
   <pre><code class="language-svg">sudo dpkg -i nom_fichier.deb</code></pre>
 
-  <h4>Mise à niveau système</h4>
+  <!-- mise à niveau système -->
+
+  <h2 id="upgrade">Comamndes de mise à niveau système</h2>
 
   <pre><code class="language-svg">sudo apt-get update
 sudo apt-get upgrade
@@ -184,7 +194,9 @@ sudo apt-get install update-manager-core
 sudo do-release-upgrade
 sudo apt-get update</code></pre>
 
-  <h4>Créer une clé bootable</h4>
+  <!-- clé bootable -->
+
+  <h2 id="bootable">Créer une clé bootable</h2>
 
   <ol>
     <li>télécharger le fichier iso de la version souhaitée de Ubuntu sur un ordinateur</li>
@@ -195,13 +207,12 @@ sudo apt-get update</code></pre>
 
 
 
-  <!-- GIT -->
 
-<h3>Git</h3>
+
 
 <!-- CONFIGURATION -->
 
-<h4> Configuration </h4>
+<h2 id="configGit"> Configuration de Git</h2>
 
 <p>Pour connaître la version du logiciel <em>git</em> : </p>
   <pre><code class="language-svg">git --version</code></pre>
@@ -228,7 +239,7 @@ git config --global color.status auto
 
 <!-- PRINCIPALES INSTRUCTIONS -->
 
-<h4>Principales instructions</h4>
+<h2 id="instructionGit">Les principales instructions Git</h2>
 
 <p>Pour ajouter un fichier local à l'index : </p>
   <pre><code class="language-svg">git add monFichier</code></pre>
@@ -270,7 +281,7 @@ git commit -m "monCommentaire"
 
 <!-- L'HISTORIQUE -->
 
-<h4>L'historique</h4>
+<h2 id="historique">L'historique Git</h2>
 
 <p>Pour consulter l'historique (les <em>logs</em>) :</p>
   <pre><code class="language-svg">git log</code></pre>
@@ -331,7 +342,7 @@ git commit -m "monCommentaire"
 
 <!-- LA GESTION DES BRANCHES -->
 
-<h4>La gestion des branches</h4>
+<h2 id="branche">La gestion des branches Git</h2>
 
 <p>Pour voir toutes les branches d'un projet : </p>
   <pre><code class="language-svg">git branch</code></pre>
@@ -368,7 +379,7 @@ git commit -m "monCommentaire"
 
 <!-- IGNORER DES FICHIERS -->
 
-<h4>Ignorer des fichiers avec gitignore</h4>
+<h2 id="gitignore">Ignorer des fichiers avec gitignore</h2>
 
 <p>Il ne faut jamais versionner une variable de configuration, comme par exemple un mot de passe ou une clé secrète. Si le code a déjà été envoyé sur <em>GitHub</em>, il convient de changer de mot de passe ou générer une nouvelle clé secrète.</p>
 
@@ -393,6 +404,7 @@ git commit -m "monCommentaire"
 
 
 </section>
+
 <footer>
 </footer>
 
