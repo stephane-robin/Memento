@@ -34,50 +34,28 @@
 
 <aside>
     <nav id="table_matiere">
-        <a href="#web">Le Web</a>
-        <a href="#structure">Structure d'une page HTML</a>
+        <a href="#general">Généralités</a>
         <a href="#hello">Hello world</a>
-        <a href="#balise">Les balises</a>
-        <a href="#flexbox">Flexbox</a>
-        <a href="#lien">Les liens</a>
-        <a href="#menu">Les menus</a>
-        <a href="#image">Les images</a>
-        <a href="#imageTexte">Image avec un texte centré</a>
-        <a href="#video">Les vidéos</a>
-        <a href="#formulaire">Les formulaires</a>
-        <a href="#liste">Les listes</a>
+        <a href="#variable">Les variables</a>
+        <a href="#operation">Principales opérations</a>
         <a href="#tableau">Les tableaux</a>
-        <a href="#cachee">Sections cachées</a>
-        <a href="#verification">Validité HTML5 d'un site</a>
-        <a href="#citation">Les citations</a>
-        <a href="#responsive">Responsive design</a>
-        <a href="#querie">Media queries</a>
+        <a href="#caractere">les chaînes de caractères</a>
+        <a href="#saisie">Saisie utilisateur</a>
+        <a href="#condition">Branchement conditionnel</a>
+        <a href="#boucle">Les boucles</a>
+        <a href="#fonction">Les fonctions</a>
+        <a href="#pointeur">Les pointeurs</a>
+        <a href="#math">Package math.h</a>
     </nav>
 </aside>
 
 <section id="principal">
     
-  <p style="font-weight:bold"> Table des matières :</p>
-  <ul>
-    <li> <a href="#">Généralités</a> </li>
-    <li> <a href="#">Hello world</a> </li>
-    <li> <a href="#">Les variables</a> </li>
-    <li> <a href="#">Les principales opérations</a> </li>
-    <li> <a href="#">Les tableaux</a> </li>
-    <li> <a href="#">Manipuler des chaînes de caractères</a> </li>
-    <li> <a href="#">Saisie par l'utilisateur</a> </li>
-    <li> <a href="#">Branchements conditionnels</a> </li>
-    <li> <a href="#">Les boucles</a> </li>
-    <li> <a href="#">Les fonctions</a> </li>
-    <li> <a href="#">Les pointeurs</a> </li>
-    <li> <a href="#">Le package math.h</a> </li>
-  </ul>
-  
-  <hr>
+
 
   <!-- ===== GENERALITES ===== -->
 
-  <h2> Généralités </h2>
+  <h2 id="general"> Généralités </h2>
 
     <p>Les fichiers C ont pour extension <em>.c</em></p>
     
@@ -109,7 +87,7 @@
 
   <!-- ===== HELLO WORLD ===== -->
 
-  <h2>Hello world</h2>
+  <h2 id="hello">Hello world</h2>
 
   <p>Commençons par le traditionnel "Hello world".</p>
   <pre><code class="language-python">#include &ltstdio.h&gt
@@ -124,7 +102,7 @@ int main(int argc, char* argv[]){
     
 <!--- ===== LES VARIABLES ===== -->
     
-<h2>Les variables</h2>
+<h2 id="variable">Les variables</h2>
     
 <p>C n'est pas un langage dynamique. Il est nécessaire que définir le type de variables avant leur utilisation. Les différents types de variables en C sont les suivants :</p> 
 <p>C est un langage faiblement typé, et ne dispose que de 4 types de variables.</p>
@@ -184,7 +162,7 @@ float y = (float)x;</code></pre>
 
 <!-- ===== LES PRINCIPALES OPERATIONS ===== -->
 
-<h2> Les principales opérations </h2>
+<h2 id="operation"> Les principales opérations </h2>
 
   <table>
     <tr><th>Opérations</th><th>Symboles</th></tr>
@@ -234,7 +212,7 @@ float b = 2.0;</pre></td><td><pre>float resultat = a/b</pre></td><td>2.5</td></t
 
 <!-- ===== LES TABLEAUX ===== -->
 
-<h2>Les tableaux</h2>
+<h2 id="tableau">Les tableaux</h2>
 
 <p>Les tableaux en C sont des objets contenant des variables de même type, et disposant d'une taille fixée.</p>
 <p>Notons que les adresses des variables d'un tableau sont contigues.</p>
@@ -268,7 +246,7 @@ print("%d", tab);</code></pre>
     <tr><td>indice d'un élément</td><td><pre>tab.index(element)</pre></td></tr>
   </table>
 
-<h4>Une initialisation particulière à C</h4>
+<h3>Une initialisation particulière à C</h3>
 
     <pre><code class="language-python">int tableau[5] = {1};</code></pre>
 <p>Cette instruction va en fait affecter la valeur 1 au 1er élément du tableau, puis la valeur 0 aux quatre autres.</p>
@@ -277,7 +255,7 @@ print("%d", tab);</code></pre>
 
 <!-- ===== MANIPULER DES CHAINES DE CARACTERES ===== -->
 
-<h2>Manipuler des chaînes de caractères</h2>
+<h2 id="caractere">Manipuler des chaînes de caractères</h2>
 
 <h3>Les caractères</h3>
 
@@ -294,7 +272,7 @@ printf("%c", lettre);</code></pre>
 <p>affiche bien la lettre <em>a</em>.</p>
 <p>Notons que les caractères sont obligatoirement entourés de <strong>'</strong> alors que les chaînes de caractères sont entourées de <strong>"</strong>.</p>
 
-<h4>Les chaînes de caractères</h4>
+<h3>Les chaînes de caractères</h3>
 
 <p>En C, une chaîne de caractères est un tableau de caractères de type char dont le dernier élément est \0. Il s'agit en fait d'un caractère de contrôle non affichable qui permet d'indiquer la fin de la chaîne. Ainsi une chaîne composée de n éléments sera en fait un tableau de n+1 éléments. La taille d'une chaîne de caractères est immuable une fois initialisée. On peut toutefois n'utiliser que partiellement l'espace alloué en insérant le caractère de fin de chaîne \0 à un emplacement avant la fin du tableau.</p>
 <p>La bibliothèque <em>string.h</em> offre une multitude de fonctions dédiées aux chaînes.</p>
@@ -362,18 +340,18 @@ if (suiteChaine != NULL){
 
 <!-- ===== SAISIE PAR L'UTILISATEUR ===== -->
 
-<h2>Saisie par l'utilisateur</h2>
+<h2 id="saisie">Saisie par l'utilisateur</h2>
 
 <p>Dans le cas d'une valeur numérique, on saisit la variable age sous forme d'adresse :</p>
-<pre>int age = 0;
+<pre><code class="language-python">int age = 0;
 printf("Quel âge avez-vous ?");
 scanf("%d", &age);
-printf("Vous avez %d ans, age);</pre>
+printf("Vous avez %d ans, age);</code></pre>
 
 <p>Dans le cas d'une chaine de caractères :</p>
-<pre>char nom[100];
+<pre><code class="language-python">char nom[100];
 printf("quel est votre nom?");
-scanf("%s", nom);</pre>
+scanf("%s", nom);</code></pre>
 
 <h3>Particularité de C</h3>
 
@@ -383,20 +361,20 @@ scanf("%s", nom);</pre>
 
 <!-- ===== BRANCHEMENT CONDITIONNEL ===== -->
 
-<h2>Branchement conditionnel</h2>
+<h2 id="condition">Branchement conditionnel</h2>
 
     <h3>La condition if</h3>
 
-    <pre>if (condition){
+    <pre><code class="language-python">if (condition){
   instructions;
 }
 else{
   instructions;
-}</pre>
+}</code></pre>
 
     <p>Il est possible d'enchaîner les <strong>else</strong>.</p>
 
-    <pre>if (condition){
+    <pre><code class="language-python">if (condition){
   instructions;
 }
 else if{
@@ -404,11 +382,11 @@ else if{
 }
 else{
   instructions;
-}</pre>
+}</code></pre>
 
     <h3>L'instruction switch</h3>
 
-    <pre>switch(maVariable){
+    <pre><code class="language-python">switch(maVariable){
   case valeur1:
     instruction;
     break;
@@ -420,34 +398,34 @@ else{
     break;
   default:
     instruction;
-}</pre>
+}</code></pre>
 
-<hr>
+
 
 <!-- ===== LES BOUCLES ===== -->
 
-<h2> Les boucles </h2>
+<h2 id="boucle"> Les boucles </h2>
 
    <h3>La boucle while</h3>
 
-    <pre>while (condition){
+    <pre><code class="language-python">while (condition){
   instructions;
- }</pre>
+}</code></pre>
 
-    <h4>La boucle for</h4>
+    <h3>La boucle for</h3>
 
-    <pre>for (int i=0; i<5; i++){
+    <pre><code class="language-python">for (int i=0; i<5; i++){
   instructions;
-}</pre>
+}</code></pre>
 
-    <pre>for elmt in chaine :
-  instructions</pre>
+    <pre><code class="language-python">for elmt in chaine :
+   instructions</code></pre>
 
     <h3>Particularité de Python</h3>
 
-    <pre>for lettre in chaine :
+    <pre><code class="language-python">for lettre in chaine :
   if lettre in "aeiouy" :
-    instructions</pre>
+    instructions</code></pre>
 
       <p>Le mot clé <strong>break</strong> permet d'interrompre une boucle et d'exécuter le code qui suit la boucle. Le mot clé <strong>continue</strong> permet de continuer une boucle en repartant du début du bloc sans exécuter ce qui suit <strong>continue</strong> dans le bloc.</p>
 
@@ -455,25 +433,27 @@ else{
 
 <!-- ===== LES FONCTIONS ===== -->
 
-<h2>Les fonctions</h2>
+<h2 id="fonction">Les fonctions</h2>
 
-<pre>type maFonction(type parametre){
+<pre><code class="language-python">type maFonction(type parametre){
     instructions;
     return resultat
-}</pre>
+}</code></pre>
 
 <p>Pour les fonctions qui ne renvoient pas de valeur (appelées procédures), on remplace le type par <strong>void</strong> et on renvoie <strong>return 0</strong>.</p>
 
 <h3>Particularité de C</h3>
 
 <p>Afin de pouvoir lire des fonctions se trouvant après la méthode main(), il faut d'abord déclarer ces fonctions en début de code derrière les préconditions en rajoutant le prototype des fonctions utilisées :</p>
-<pre>#include &ltstdio.h&gt
+<pre><code class="language-python">#include &ltstdio.h&gt
+#include &ltstdio.h&gt
 #include &ltstlib.h&gt
-type maFonction(type parametre);</pre>
+type maFonction(type parametre);</code></pre>
 <p>En fait, il existe deux types de fichiers, les <em>.c</em> qui sont les codes sources et les <em>.h</em> appelés headers qui contiennent les prototypes des fonctions. Il faut importer ces fichiers <em>.h</em> en tant que préconditions dans les fichiers <em>.c</em> pour éviter d'avoir à rajouter tous les prototypes en début de code.</p>
-<pre>#include &ltstdio.h&gt
+<pre><code class="language-python">#include &ltstdio.h&gt
+#include &ltstdio.h&gt
 #include &ltstlib.h&gt
-#include "monFichier.h"  # en reference a monFichier.c</pre>
+#include "monFichier.h"  # en reference a monFichier.c</code></pre>
 <p>Notons que les fichiers sont importés sans chevron mais avec des guillemets alors que les packages sont importés avec chevrons.</p>
 
 <p>Attention, cette règle d'emploi des prototypes est importante. Lorsqu'on appelle une fonction située dans monFichier.c depuis le fichier main.c il est nécessaire d'inclure le prototype de cette fonction dans les préconditions pour que le compilateur puisse vérifier que l'appel de la fonction est conforme à sa declaration. Il est donc nécessaire d'importer monFichier.h pour utiliser une fonction de monFichier.c</p>
@@ -481,22 +461,22 @@ type maFonction(type parametre);</pre>
 
 <!-- ===== LES POINTEURS ===== -->
 
-<h2>Les pointeurs</h2>
+<h2 id="pointeur">Les pointeurs</h2>
 
 <p>Un pointeur est une variable particulière contenant l'adresse d'une autre variable. Pour créer un pointeur, on rajoute le symbole * au type de variable :</p>
-<pre>int* maVariable;</pre>
+    <pre><code class="language-python">int* maVariable;</code></pre>
 
 <p>Considérons la variable <em>nbre</em> à laquelle on affecte la valeur 12. L'adresse de la variable <em>nbre</em> est notée <em>&nbre</em> et donnée par le pointeur <em>pointeurSur_nbre</em>. L'instruction <em>*pointeurSur_nbre</em> permet d'accéder à la valeur de <em>nbre</em> à partir de son pointeur.</p>
 
-<img src="pointeur.png" alt="pointeur">
+<img src="images/pointeur.png" alt="pointeur">
 
 <p>Le code suivant :</p>
-<pre>int nbre = 12;
+<pre><code class="language-python">int nbre = 12;
 int* pointeur = & nbre;
 printf("%d \n", nbre);
 printf("%p \n", &nbre);
 printf("%p \n", pointeur);
-printf("%d", *pointeur);</pre>
+printf("%d", *pointeur);</code></pre>
 
 <p>affiche le résultat :</p>
 <p>12 <br> 0x7ffedfc1da8c <br> 0x7ffedfc1da8c <br> 12</p>
@@ -506,7 +486,7 @@ printf("%d", *pointeur);</pre>
 <h3>Intérêt des pointeurs</h3>
 
 <p>Le code suivant renvoie bien la valeur 2, mais il peut être avantageusement remplacé par un code utilisant des pointeurs. Rappelons que l'utilisation de variables globales reste à proscrire.</p>
-<pre>int modification(int parametre);
+<pre><code class="language-python">int modification(int parametre);
 
 int main(int argc, char* argv[]) {
     
@@ -520,10 +500,10 @@ int main(int argc, char* argv[]) {
 int modification(int parametre){
     parametre = parametre+2;
     return parametre;
-}</pre>
+}</code></pre>
 
 <p>Si on modifie ce code en utilisant un pointeur, on parvient à changer directement la valeur de maVariable bien qu'elle ne soit pas globale. On obtient dans ce cas 2 :</p>
-<pre>void modification(int* parametre);
+<pre><code class="language-python">void modification(int* parametre);
 
 int main(int argc, char* argv[]) {
     
@@ -536,12 +516,12 @@ int main(int argc, char* argv[]) {
 
 void modification(int* pointeurParametre){
     *parametre = *parametre+2;
-}</pre>
+}</code></pre>
 
 <h3>Utilisation des pointeurs dans les fonctions</h3>
 
 <p>Il est rarement judicieux de déclarer une variable globale. Pourtant C propose de modifier une variable sans la déclarer globale, mais en travaillant sur son adresse à l'aide du pointeur qui lui est associé. L'exemple suivant ne permet pas d'inverser la valeur des variables a et b :</p>
-<pre>void permuter(int a, int b);
+<pre><code class="language-python">void permuter(int a, int b);
 
 int main(int argc, char* argv[]) {
     
@@ -562,11 +542,11 @@ void permuter(int a, int b){
     c = a;
     a = b;
     b = c; 
-}</pre>
+}</code></pre>
 
 <p>En revanche, l'utilisation des pointeurs *a et *b permet d'obtenir le résultat voulu :</p>
 
-<pre>void permuter(int *a, int *b);
+<pre><code class="language-python">void permuter(int *a, int *b);
 
 int main(int argc, char* argv[]) {
     
@@ -587,10 +567,10 @@ void permuter(int *a, int *b){
     c = *a;
     *a = *b;
     *b = c; 
-}</pre>
+}</code></pre>
 
 <p>En fait, l'utilisation d'un tableau pour stocker le résultat de la fonction permuter ne fonctionne pas en C. Ainsi le code suivant lève une exception.</p>
-<pre>int[2] inverse(int a, int b);
+<pre><code class="language-python">int[2] inverse(int a, int b);
 
 int main(int argc, char** argv) {
 
@@ -614,7 +594,7 @@ int[2] inverse(int a, int b){
     tab[0] = a;
     tab[1] = b;
     return tab;
-}</pre>
+}</code></pre>
 
 <p>L'utilisation des pointeurs est donc systématique en C car on ne peut pas comme dans d'autres langages écrire une fonction qui renvoie un tableau. Ainsi, les fonctions ne renvoient qu'un unique élément.</p>
 
@@ -622,9 +602,9 @@ int[2] inverse(int a, int b){
 
 <!-- ===== LE PACKAGE MATH ===== -->
 
-<h2>Le package math.h</h2>
+<h2 id="math">Le package math.h</h2>
 
-<pre>#include &ltmath.h&gt</pre>
+    <pre><code class="language-python">#include &ltmath.h&gt</code></pre>
 <p></p>
 
 <table>

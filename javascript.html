@@ -3,69 +3,67 @@
 <head>
   <title> Memento </title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="prism.css">
   <meta charset="utf-8">
 </head>
 
+<!-- JavaScript de gestion des couleurs de code -->
+<script defer src="prism.js"></script>
+
 <body>
 
-<header>
-  <div class="heroImage">
-    <div class="heroTexte">
-      <h2> JavaScript </h2>
-    </div>
-  </div>
-</header>
-
 <div id="bandeau">
-  <div id="titre"> <h1> Memento </h1> </div>
+  <h1> Memento </h1>
+  <h1> JavaScript </h1>
+
   <nav>
     <div class="element"> <a href="html.html">HTML</a> </div>
     <div class="element"> <a href="css.html">CSS</a> </div>
     <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
-    <div class="element"> <a href="python.html">PYTHON</a> </div>
     <div class="element"> <a href="java.html">JAVA</a> </div>
+    <div class="element"> <a href="kotlin.html">KOTLIN</a> </div>
+    <div class="element"> <a href="android.html">ANDROID</a> </div>
+    <div class="element"> <a href="php.html">PHP</a> </div>
+    <div class="element"> <a href="python.html">PYTHON</a> </div>
     <div class="element"> <a href="c.html">C</a> </div>
-    <div class="element"> <a href="git.html">GIT</a> </div>
+    <div class="element"> <a href="git.html">LINUX</a> </div>
   </nav>
 </div>
 
+<aside>
+  <nav id="table_matiere">
+    <a href="#generalite">Structure du code</a>
+    <a href="#hello">Hello world</a>
+    <a href="#variable">Les variables</a>
+    <a href="#chaine">Chaînes de caractères</a>
+    <a href="">les listes</a>
+    <a href="#tableau">Les tableaux</a>
+    <a href="">Les dictionnaires</a>
+    <a href="#condition">Les conditions</a>
+    <a href="#boucle">Les boucles</a>
+    <a href="#saisie">Saisie utilisateur</a>
+    <a href="">Input/Output</a>
+    <a href="#fonction">Les fonctions</a>
+    <a href="">Gestion des exceptions</a>
+    <a href="#poo">Programmation objet</a>
+  </nav>
+</aside>
 <section id="principal">
 
-<p style="font-weight:bold"> Table des matières :
-  <ul>
-    <li> <a href="#">Hello world</a> </li>
-    <li> <a href="#">Généralités</a> </li>
-    <li> <a href="#">Les variables</a> </li>
-    <li> <a href="#">Manipuler des chaînes de caractères</a> </li>
-    <li> <a href="#">Saisie d'une valeur par l'utilisateur</a> </li>
-    <li> <a href="#">Branchement conditionnel</a> </li>
-    <li> <a href="#">Les boucles</a> </li>
-    <li> <a href="#">Les tableaux</a> </li>
-    <li> <a href="#">Les fonctions</a> </li>
-  </ul>
-</p>
 
-<hr>
 
-<!-- ===== HELLO WORLD ===== -->
 
-<h3>Hello world</h3>
 
-<p>Commençons par le traditionnel "Hello world". Comme beaucoup de langages, JavaScript utilise un <strong>;</strong> à la fin de chaque instruction.</p>
-<pre>alert("Hello world");</pre>
 
-<p>Ici, le message apparaît à l'intérieur d'une fenêtre pop-up.</p>
-
-<hr>
 
 <!-- ===== GENERALITES ===== -->
 
-<h3> Généralités </h3>
+<h2 id="generalite"> Généralités </h2>
 
   <p>Les commentaires sont indiqués à l'aide de <strong>//</strong> ou <strong>/*  */</strong>.</p>
 
   <p>Dans une page HTML, il est préférable d'appeler un fichier JavaScript à la fin d'un document (avant la balise <strong>&lt/body&gt</strong>) plutôt que dans le <strong>&lthead&gt</strong> car cela ne ralentit pas le chargement de la page.</p>
-  <pre>&lt!DOCTYPE html&gt
+  <pre><code class="language-javascript">&lt!DOCTYPE html&gt
 &lthtml&gt
 &lthead&gt
   &ltmeta charset="utf-8"&gt
@@ -79,18 +77,29 @@
   &ltscript src="fichierJavaScript.js"&gt&lt/script&gt
 
 &lt/body&gt
-&lt/html&gt</pre>
+&lt/html&gt</code></pre>
 
-<hr>
+
+  <!-- ===== HELLO WORLD ===== -->
+
+  <h2 id="hello">Hello world</h2>
+
+  <p>Commençons par le traditionnel "Hello world". Comme beaucoup de langages, JavaScript utilise un <strong>;</strong> à la fin de chaque instruction.</p>
+  <pre><code class="language-javascript">alert("Hello world");</code></pre>
+
+  <p>Ici, le message apparaît à l'intérieur d'une fenêtre pop-up.</p>
+
+
+
 
 <!-- ===== LES VARIABLES ===== -->
 
-<h3>Les variables</h3>
+<h2 id="variable">Les variables</h2>
 
-  <h4> Types </h4>
+  <h3> Types </h3>
 
   <p>JavaScrpt est un langage à typage dynamique, i.e. qu'il identifie lui-même les types de variables et autorise les changements de type. La déclaration des variables n'est donc pas nécessaire. L'instruction <strong>parseInt(chaine)</strong> permet de transformer un <em>String</em> en nombre <em>si cela est possible</em> alors que l'instruction <strong>toString(nombre)</strong> permet de transformer un nombre en <em>String</em>.</p>
-  <pre>let maVarible = 12;</pre>
+  <pre><code class="language-javascript">let maVarible = 12;</code></pre>
 
   <p>Par ailleurs, JavaSript est un langage faiblement typé, car il convertit automatiquement les types de variables. Ainsi, la concaténation d'un <em>String</em> avec un nombre transforme implicitement la variable obtenue en <em>String</em>. Pour éviter tout changement intempestif pouvant conduire à une erreur, il faut donc systématiquement tester le type des variables avant de les utiliser.</p>
 
@@ -105,7 +114,7 @@
 
   <p>Les booléens prennent les valeurs <strong>true</strong> et <strong>false</strong>.</p>
 
-  <h4> Les principales opérations </h4>
+  <h3> Les principales opérations </h3>
 
   <table>
     <tr><th>Opérations</th><th>Symboles</th></tr>
@@ -124,7 +133,7 @@
     <tr><td>NON logique</td><td>!</td></tr>
   </table>
 
-  <h4>Les opérateurs de comparaison</h4>
+  <h3>Les opérateurs de comparaison</h3>
 
   <table>
     <tr><th>Signification</th><th>Opérateurs</th></tr>
@@ -137,15 +146,15 @@
     <tr><td>supérieur ou égal</td><td>>=</td></tr>
   </table>
 
-  <h4>Les constantes</h4>
+  <h3>Les constantes</h3>
 
   <p>On définit une constante avec le mot-clé <strong>const</strong> au lieu de <strong>let</strong>.</p>
 
-<hr>
+
 
 <!-- ===== MANIPULER DES CHAINES DE CARACTERES ===== -->
 
-<h3>Manipuler des chaînes de caractères</h3>
+<h2 id="chaine">Manipuler des chaînes de caractères</h2>
 
   <p> Pour échapper une apostrophe ou un guillemet, on utilise le signe <strong>\</strong>.<p>
 
@@ -168,62 +177,62 @@
 
   <p>L'indice du 1er caractère d'une chaîne est 0. Notons que l'instruction <strong>indexOf</strong> renvoie -1  si le caractère recherché ne se trouve pas dans la chaîne.</p>
 
-  <h4>Parcourir une chaîne de caractères élément par élément</h4>
+  <h3>Parcourir une chaîne de caractères élément par élément</h3>
 
-  <pre>for(let i=0; i&ltchaine.length; i++){
+  <pre><code class="language-javascript">for(let i=0; i&lt chaine.length; i++){
   chaine[i];
-}</pre>
+}</code></pre>
 
-  <h4>Template literal</h4>
+  <h3>Template literal</h3>
 
   <p>JavaScript permet d'inclure des expressions dans une chaîne de caractères appelées <em>template literal</em>. Pour cela, il faut délimiter la chaîne avec <strong>`</strong> à la place de <strong>"</strong> et utiliser <strong>${expression}</strong>.</p>
-  <pre>let nom = "Fabien";
-alert(`Je m'appelle ${nom}`);</pre>
+  <pre><code class="language-javascript">let nom = "Fabien";
+alert(`Je m'appelle ${nom}`);</code></pre>
 
-<hr>
+
 
 <!-- ===== SAISIE D'UNE VALEUR PAR L'UTILISATEUR ===== -->
 
-<h3>Saisie d'une valeur par l'utilisateur</h3>
+<h2 id="saisie">Saisie d'une valeur par l'utilisateur</h2>
 
   <p>On peut utiliser indifféremment :</p>
 
-  <pre>let nom = prompt("Quel est votre nom ?");
-alert("Hello world "+nom);</pre>
+  <pre><code class="language-javascript">let nom = prompt("Quel est votre nom ?");
+alert("Hello world "+nom);</code></pre>
 
-  <pre>let nom = prompt("Quel est votre nom ?");
-alert(`Hello world ${nom}`);</pre>
+  <pre><code class="language-javascript">let nom = prompt("Quel est votre nom ?");
+alert(`Hello world ${nom}`);</code></pre>
 
-<p></p>
 
-  <fieldset><legend><img src="target.png" width="40" height="40"> </legend>
+
+  <fieldset><legend><img src="images/bonSavoir.png" width="80" height="80"> </legend>
     <p><em>Attention</em>, la valeur saisie est systématiquement de type <em>String</em>. Il convient donc de la transformer en nombre le cas échéant.</p>
   </fieldset>
 
-  <hr>
+
 
   <!-- ===== BRANCHEMENT CONDITIONNEL ===== -->
 
-  <h3>Branchement conditionnel</h3>
+  <h2 id="condition">Les conditions</h2>
 
-    <h4>La condition if</h4>
+    <h3>La condition if</h3>
 
-    <pre>if(condition){
+    <pre><code class="language-javascript">if(condition){
   instructions;
 }else{
   instructions;
-}</pre>
+}</code></pre>
 
-    <h4>Particularité de JavaScript</h4>
+    <h3>Particularité de JavaScript</h3>
 
     <p>La fonction <strong>confirm()</strong> renvoie <em>true</em> lorsqu'on clique sur <em>Ok</em> dans une fenêtre pop-up et <em>false</em> lorsqu'on clique sur <em>Annuler</em>.</p>
-    <pre>if(confirm("Voulez-vous continuer ?")){
+    <pre><code class="language-javascript">if(confirm("Voulez-vous continuer ?")){
   alert("Vous avez choisi de continuer")
-}</pre>
+}</code></pre>
 
-    <h4>L'instruction switch</h4>
+    <h3>L'instruction switch</h3>
 
-    <pre>switch(maVariable){
+    <pre><code class="language-javascript">switch(maVariable){
   case valeur1:
     instruction;
     break;
@@ -235,39 +244,39 @@ alert(`Hello world ${nom}`);</pre>
     break;
   default:
     instruction;
-}</pre>
+}</code></pre>
 
-  <hr>
+
 
   <!-- ===== LES BOUCLES ===== -->
 
-  <h3> Les boucles </h3>
+  <h2 id="boucle"> Les boucles </h2>
 
-    <h4>La boucle while</h4>
+    <h3>La boucle while</h3>
 
-    <pre>while(condition){
+    <pre><code class="language-javascript">while(condition){
   instructions;
-}</pre>
+}</code></pre>
 
-    <h4>La boucle for</h4>
+    <h3>La boucle for</h3>
 
-    <pre>for(let i=0; i&lt5; i++){
+    <pre><code class="language-javascript">for(let i=0; i&l t5; i++){
   instructions;
-}</pre>
+}</code></pre>
 
-<hr>
+
 
 <!-- ===== LES TABLEAUX ===== -->
 
-<h3>Les tableaux</h3>
+<h2 id="tableau">Les tableaux</h2>
 
   <p>On peut créer un tableau de la manière suivante :</p>
 
-  <pre>let tab = [element1, element2, element3];</pre>
+  <pre><code class="language-javascript">let tab = [element1, element2, element3];</code></pre>
 
   <p>L'indice du 1er élément d'un tableau est 0.</p>
 
-  <h4>Propriétés d'un tableau</h4>
+  <h3>Propriétés d'un tableau</h3>
 
   <table>
     <tr><th>Propriétés</th><th>Codes</th></tr>
@@ -282,113 +291,113 @@ alert(`Hello world ${nom}`);</pre>
 
   <p>Un tableau vide a pour taille 0. </p>
 
-  <h4>Parcourir un tableau</h4>
+  <h3>Parcourir un tableau</h3>
 
   <p>On peut toujours utiliser la technique classique suivante :</p>
 
-  <pre>for(let i=0; i&lttab.length; i++){
+  <pre><code class="language-javascript">for(let i=0; i&l ttab.length; i++){
   alert(tab[i]);
-}</pre>
+}</code></pre>
 
   <p>mais il est inutile de demander à l'interpréteur d'évaluer systématiquement <strong>tab.length</strong>. On préfèrera donc utiliser l'instruction suivante :</p>
-  <pre>for(let i=0, c=tab.length; i&ltc; i++){
+  <pre><code class="language-javascript">for(let i=0, c=tab.length; i&l tc; i++){
   alert(tab[i]);
-}</pre>
+}</code></pre>
 
   <p>On peut également utiliser l'instruction <strong>forEach</strong> comme dans d'autres langages. Dans ce cas, on utilise une fonction anonyme.</p>
 
-  <pre>tab.forEach(function(value){
+  <pre><code class="language-javascript">tab.forEach(function(value){
   alert(value);
-);</pre>
+);</code></pre>
 
-  <pre>tab.forEach(value => {alert(value);});</pre>
+  <pre><code class="language-javascript">tab.forEach(value => {alert(value);});</code></pre>
 
-  <h4>Particularités de JavaScript</h4>
+  <h3>Particularités de JavaScript</h3>
 
   <p>En JavaScript on peut stocker des éléments de différents types dans un tableau.</p>
-  <pre>let tab = ["Antoine", 12, false];</pre>
+  <pre><code class="language-javascript">let tab = ["Antoine", 12, false];</code></pre>
 
-  <p>En JavaScript, l'appel à un indice ne figurant pas dans le tableau ne conduit pas à une exception mais renvoie la valeur <en>undefined</em>.</p>
+  <p>En JavaScript, l'appel à un indice ne figurant pas dans le tableau ne conduit pas à une exception mais renvoie la valeur <em>undefined</em>.</p>
 
   <h4>Les tableaux associatifs</h4>
 
   <p>Ils se construisent avec des accolades à la place des crochets et des virgules entre les éléments.</p>
-  <pre>let tabAsso ={
+  <pre><code class="language-javascript">let tabAsso ={
   nom: "Antoine",
   prenom: "Hervé";
-}</pre>
+}</code></pre>
 
   <p>Pour accéder à un élément du tableau, il ne faut plus appeler son indice qui n'existe pas mais appeler la clé de la façon suivante :</p>
 
-  <pre>tabAsso.nom</pre>
+  <pre><code class="language-javascript">tabAsso.nom</code></pre>
   <p>On remarque donc qu'un tableau associatif n'est autre qu'un objet dans lequel les clés sont des propriétés qui possèdent des valeurs.</p>
 
   <p>Dans certains cas, on préfèrera appeler l'élément du tableau de la manière suivante :</p>
-  <pre>tabAsso["nom"]</pre>
+  <pre><code class="language-javascript">tabAsso["nom"]</code></pre>
 
   <p>Pour ajouter un élément à la fin d'un tableau associatif, il suffit de créer cet élément :</p>
-  <pre>tabAsso["lieuNaissance"] = "Lausanne";</pre>
+  <pre><code class="language-javascript">tabAsso["lieuNaissance"] = "Lausanne";</code></pre>
 
   <p>ou encore</p>
-  <pre>tabAsso.lieuNaissance = "Lausanne";</pre>
+  <pre><code class="language-javascript">tabAsso.lieuNaissance = "Lausanne";</code></pre>
 
-  <h4>Parcourir un tableau associatif</h4>
+  <h3>Parcourir un tableau associatif</h3>
 
-  <pre>for(let cle in tabAsso){
+  <pre><code class="language-javascript">for(let cle in tabAsso){
   alert(tabAsso[cle]);
-}</pre>
+}</code></pre>
 
-  <hr>
+
 
   <!-- ===== LES FONCTIONS ===== -->
 
-  <h3> Les fonctions </h3>
+  <h2 id="fonction"> Les fonctions </h2>
 
   <p>La déclaration d'une fonction se réalise de la manière suivante :</p>
-  <pre>function nomFonction(parametre){
+  <pre><code class="language-javascript">function nomFonction(parametre){
   instructions;
   return valeur;
-}</pre>
+}</code></pre>
 
-<fieldset><legend><img src="target.png" width="40" height="40"> </legend>
+<fieldset><legend><img src="images/bonSavoir.png" width="80" height="80"> </legend>
   <p><em>Attention</em>, en JavaScript le type de retour de la fonction et le type des arguments ne sont pas spécifiés lors de la déclaration. Il est donc impossible de surcharger une fonction en JavaScript.</p>
 </fieldset>
 
   <p>L'appel de la fonction se fait de la façon suivante :</p>
-  <pre>let valeur = nomFonction(12);</pre>
+  <pre><code class="language-javascript">let valeur = nomFonction(12);</code></pre>
 
   <p>Lorsqu'il n'y a pas de valeur de retour, on parle de procédure :</p>
-  <pre>function nomProcedure(parametre){
+  <pre><code class="language-javascript">function nomProcedure(parametre){
   instructions;
-}</pre>
+}</code></pre>
 
   <p>L'appel de la procédure se fait de la façon suivante :</p>
-  <pre>nomProcedure(12);</pre>
+  <pre><code class="language-javascript">nomProcedure(12);</code></pre>
 
-    <h4>Documenter une fonction</h4>
+    <h3>Documenter une fonction</h3>
 
-    <h4>Fonction anonyme</h4>
+    <h3>Fonction anonyme</h3>
 
     <p>Le principe de fonction anonyme utilise toujours le mot-clé <strong>function</strong> mais ne spécifie aucun nom pour la fonction créée.</p>
-    <pre>let maVariable = function(parametre){
+    <pre><code class="language-javascript">let maVariable = function(parametre){
   let message = "Bonjour "+parametre;
   return message;
 }
 
-alert(maVariable("Hervé"));</pre>
+alert(maVariable("Hervé"));</code></pre>
 
   <p>qu'on peut également écrire :</p>
 
-  <pre>let maVariable = (parametre) =>{
+  <pre><code class="language-javascript">let maVariable = (parametre) =>{
   let message = "Bonjour "+parametre;
   return message;
 }
 
-alert(maVariable("Hervé"));</pre>
+alert(maVariable("Hervé"));</code></pre>
 
   <p>On remarque qu'une fonction anonyme utilise une construction particuliére et transforme la variable <em>maVariable</em> en fonction.</p>
 
-    <h4>Fonctions prédéfinies </h4>
+    <h3>Fonctions prédéfinies </h3>
 
     <table>
       <tr><th>Fonctions</th><th>Actions</th></tr>
@@ -399,10 +408,10 @@ alert(maVariable("Hervé"));</pre>
 
   <!-- ===== LES OBJETS EN JAVASCRIPT ===== -->
 
-  <h3> Les objets en JavaScript </h3>
+  <h2 id="poo"> Les objets en JavaScript </h2>
 
     <p>La création d'une classe requiert les mot-clés <strong>class</strong> et <strong>constructor()</strong>.</p>
-    <pre>class MaClasse{
+    <pre><code class="language-javascript">class MaClasse{
   let nom;
   let prenom;
 
@@ -414,17 +423,17 @@ alert(maVariable("Hervé"));</pre>
   uneMethode(parametre){
     instructions;
   }
-}</pre>
+}</code></pre>
 
   <p>L'instanciation d'un objet se fait de façon classique :</p>
-  <pre>let monObjet = new MaClasse("Charles", "Hervé");</pre>
+  <pre><code class="language-javascript">let monObjet = new MaClasse("Charles", "Hervé");</code></pre>
 
-  <h4>Particularité de JavaScript</h4>
+  <h3>Particularité de JavaScript</h3>
 
   <p>JavaScript utilise des prototypes qui sont des liens vers d'autres objets pris en référence.</p>
-  <pre>let monObjet = new MaClasse(nom, prenom);
+  <pre><code class="language-javascript">let monObjet = new MaClasse(nom, prenom);
 
-let unAutreObjet = Object.create(monObjet);</pre>
+let unAutreObjet = Object.create(monObjet);</code></pre>
 
   <p>Dans l'exemple ci-dessus, l'objet <em>unAutreObjet</em> utilise le modèle de <em>monObjet</em> pour se construire qui lui-même est une instanciation de <em>maClasse</em>.</p>
 
