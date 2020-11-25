@@ -34,31 +34,28 @@
 <aside>
   <nav id="table_matiere">
     <a href="#py_generalites">Structure du code</a>
-      <a href="">Hello world</a>
+      <a href="#py_communiquer">Communiquer avec l'utilisateur</a>
       <a href="#py_variable">Les variables</a>
       <a href="#py_chaine">Chaînes de caractères</a>
       <a href="#py_liste">Les listes</a>
-      <a href="#py_liste_avance">Utilisation avancée des listes</a>
       <a href="#py_tableau">Les tableaux</a>
       <a href="#py_dictionnaire">Les dictionnaires</a>
       <a href="#py_condition">Les conditions</a>
       <a href="#py_boucle">Les boucles</a>
-      <a href="#py_saisie">Saisie utilisateur</a>
-      <a href="#py_input">Input/Output</a>
+      <a href="#py_input">Entrées/sorties</a>
       <a href="#py_fonction">Les fonctions</a>
       <a href="#py_exception">Gestion des exceptions</a>
       <a href="#py_objet">Programmation objet</a>
-    <a href="#py_import_package">Importer un package</a>
-      <a href="#py_random">Les principaux modules</a>
-      <a href="#py_venv">Environnement virtuel avec venv</a>
-      <a href="#py_pycharm">PyCharm</a>
-    <a href="#py_argparse">Argparse</a>
-    <a href="#py_tkinter">Tkinter</a>
-      <a href="">unittest</a>
-      <a href="#py_pyenv">pyenv et les versions de Python</a>
-      <a href="#py_pep">Respect du PEP8</a>
-      <a href="#py_creer_package">Créer un package avec Poetry</a>
+      <a href="#py_package">Les packages</a>
+    <a href="#py_interface">Interfaces graphiques</a>
+
+    <a href="#py_environnement">Environnements de travail</a>
+
+
       <a href="#py.sub">subprocess et les lignes de commande</a>
+    <a href="#py_django">Le framework Django</a>
+        <a href="#py_pep">Respect du PEP8</a>
+        <a href="">Tester le code</a>
   </nav>
 </aside>
 
@@ -66,11 +63,14 @@
 
 
 
-  <!-- GENERALITES ======================================================== -->
+  <!-- STRUCTURE ======================================================== -->
 
   <h2 id="py_generalites"> Structure du code Python </h2>
 
-  <p>Les fichiers Python ont pour extension <em>.py</em></p>
+  <p>Les fichiers Python ont pour extension <em>.py</em> et sont appelés des modules. Contrairement à Java, ceux-ci peuvent
+  contenir plusieurs classe (et non pas une seule), ou constituer un script sans aucune classe.</p>
+
+  <p>Les projets Python sont donc organisés en modules, suivant une architecture objet ou procédurale.</p>
 
   <p>Les commentaires sont indiqués à l'aide de <strong>#</strong> pour une seule ligne ou <strong>"""   """</strong> pour plusieurs lignes en début de fonction ou de module.</p>
 
@@ -80,8 +80,9 @@
 
 <p>Les projets Python peuvent se structurer en modules ou en classes dans le cas de la programmation objet.</p>
 
-  <h3>Exécution d'un module à partir du terminal</h3>
 
+
+  <h3>Exécution d'un module à partir du terminal</h3>
 
     <p>L'exécution d'un module Python en utilisant le bash s'effectue de la façon suivante à partir du dossier contenant le module :</p>
     <pre><code class="language-svg">python [nom_module.py]</code></pre>
@@ -105,26 +106,6 @@
 
 
 
-  <h3>Particularité de l'utilisation de Anaconda</h3>
-
-  <p>Pour télécharger l'environnement de travail Anaconda, il faut d'abord télécharger Anaconda pour Linux, vérifier le sha avec la commande :</p>
-  <pre><code class="language-svg">sha256sum [nom_fichier_telecharge]</code></pre>
-
-  <p>puis exécuter le fichier d'installation :</p>
-  <pre><code class="language-svg">bash Anaconda-[version]-Linux-x86_64.sh</code></pre>
-
-  <p>Finalement, il est possible de tester l'installation en utilisant :</p>
-  <pre><code class="language-svg">conda list</code></pre>
-
-  <p>Une fois qu'on a installé Anaconda, l'exécution se fait grâce à l'instruction :</p>
-  <pre><code class="language-svg">anaconda-navigator</code></pre>
-
-  <p>Pour mettre à jour Anaconda :</p>
-  <pre><code class="language-svg">conda update conda</code></pre>
-
-  <p>Pour connaître l'emplacement de conda :</p>
-  <pre><code class="language-svg">which conda</code></pre>
-
 
 
   <h3>Particularité du système Windows</h3>
@@ -139,120 +120,7 @@ os.system("pause")</code></pre>
 
 
 
-  <!-- ===== CHANGER LES VERSIONS DE PYTHON ============================== -->
 
-  <h2 id="py_version">Gérer les versions de Python avec pyenv</h2>
-
-  <p>Pour connaître la version active de Python :</p>
-    <pre><code class="language-svg">python --version</code></pre>
-
-  <p>Pour connaître toutes les versions disponibles au téléchargement de Python 3.6 à 3.8 :</p>
-  <pre><code class="language-svg">pyenv install --list | grep " 3\.[678]"</code></pre>
-
-    <p> Toutes les versions s'installent dans un fichier <em>.pyenv/versions/</em>, qui vient s'insérer dans le PATH au coeur du
-    système, et non pas directement dans un  environnement de développement. Ainsi, un environnement peut utiliser une
-    version particulière de Python en pointant vers l'adresse de stockage de la version, sans qu'elle soit incorporée à
-    cet environnement. Pour installer la version 3.7.2 en particulier :</p>
-  <pre><code class="language-svg">pyenv install -v 3.7.2</code></pre>
-
-  <p>Pour supprimer la version 2.7.15 de l'ordinateur :</p>
-  <pre><code class="language-svg">pyenv uninstall 2.7.15</code></pre>
-  <p>Attention de travailler avec une version 3 de Python et de ne pas supprimer la version 2 système de Python livrée
-    d'usine et qui peut servir au fonctionnement de l'ordinateur. Ce n'est plus le cas pour Ubuntu 20.04 LTS qui fonctionne
-  avec Python 3.8</p>
-
-  <p>Il est important de bien connaître la version de Python utilisée avant de procéder à tout changement dans un
-    environnement de développement, car chaque version accepte des dépendances différentes.</p>
-
-  <p>Pour connaître toutes les versions disponibles sur l'ordinateur (la version active est précédée d'une *) :</p>
-  <pre><code class="language-svg>">pyenv versions</code></pre>
-
-  <p>Pour connaître l'adresse de la version de Python utilisée :</p>
-  <pre><code class="language-svg">which python # ou encore
-pyenv which python</code></pre>
-
-  <p>Pour changer la version de Python en local dans l'environnement de développement :</p>
-  <pre><code class="language-svg">pyenv local 3.7.1</code></pre>
-
-  <p>Pour changer la version de Python pour tout l'ordinateur :</p>
-  <pre><code class="language-svg">pyenv global 2.7.15</code></pre>
-
-  <p>Pour revenir à la version système :</p>
-  <pre><code class="language-svg">pyenv global system</code></pre>
-
-
-
-
-  <!-- CREER DES ENVIRONNEMENTS DE TRAVAIL --------------------------->
-
-  <h2 id="py_env">Créer des environnements de développement avec venv</h2>
-
-  <p>Il est nécessaire de travailler dans des environnements virtuels pour isoler les dépendances de chaque projet Python.
-    Pour cela, on utilise le module venv compris dans la librairie standard de Python3. Il est également possible d'utiliser
-    virtualenv à la place de venv, mais ce dernier est déjà compris dans les versions de Python supérieures à 3.5 et ne
-    nécessite donc pas d'installer virtualenv comme une dépendance.</p>
-
-  <p>Au terminal, on crée tout d'abord le dossier qui va contenir mes environnements virtuels, puis on se place dedans :</p>
-
-  <pre><code class="language-svg">mkdir environnements
-cd environnements</code></pre>
-
-  <p>On crée maintenant un nouvel environnement au sein du dossier environnements :</p>
-
-  <pre><code class="language-svg">python3 -m venv mon_env</code></pre>
-
-  <p>Pour visualier la structure de mon_env il suffit de taper tree dans le dossier courant.</p>
-
-  <img src="venv.png">
-
-  <p>bin contient les fichiers qui interagissent avec l'environnement virtuel, include contient les en-têtes C qui compilent
-    les packages Python, lib contient une copie de la version Python avec un dossier de packages dans lequel sont installées
-    toutes les dépendances.</p>
-
-  <p>Il est maintenant nécessaire d'activer l'environnement virtuel comme environnement de travail. Pour cela, il faut se
-    placer dans le dossier environnements et taper au Terminal :</p>
-
-  <pre><code class="language-svg">source mon_env/bin/activate</code></pre>
-
-  <p>A partir de maintenant, les commandes saisies ont une action dans l'environnement. On remarque que l'environnement
-    est actif, car devant le prompt du Terminal apparaît (mon_env)$.</p>
-
-  <p>Pour désactiver cet environnemnt virtuel, il suffit de taper :</p>
-
-  <pre><code class="language-svg">deactivate</code></pre>
-
-  <p>Pour installer un module dans l'environnement, il faut d'abord se rendre dans l'environnement puis :</p>
-  <pre><code class="language-svg">cd mon_env
-pip3 install nom_package</code></pre>
-
-  <p>Pour désinstaller un module dans l'environnement :</p>
-  <pre>pip3 uninstall nom_package</pre>
-
-  <p>Pour voir la liste de tous les modules installés :</p>
-  <pre><code class="language-svg">pip3 freeze</code></pre>
-
-  <p>Pour utiliser une version particulière de Python dans l'environnement, il faut d'abord installer cette version sur
-    l'ordinateur, puis se rendre dans l'environnement et définir cette version comme la version locale :</p>
-  <pre><code class="language-svg">pyenv install 3.8.0
-cd mon_env
-pyenv local 3.8.0</code></pre>
-
-
-
-  <!-- ===== UTILISATION DE PYCHARM DANS UN ENVIRONNEMENT ===== -->
-
-  <h2 id="py_pycharm">Utilisation de PyCharm dans un environnement particulier</h2>
-
-  <p>PyCharm crée automatiquement un dossier PyCharmProjects dans lequel il va ranger les différents projets. On peut
-    alors choisir l'interpréteur parmi ceux proposés, et en fonction de ce qui a été installé (conda, virtualenv, une version
-    particulière de Python ...). Pour cela, après avoir ouvert PyCharm, sélectionné le projet, puis File -> Settings ->
-    Project Interpreter.</p>
-
-  <p>On peut également utiliser un environnement lié à un projet déjà existant. Pour cela, on commence par créer un dossier
-    dans lequel on crée l'environnement de développement avec venv, puis on ouvre PyCharm, on ouvre le projet existant,
-    File -> Settings -> Project Interpreter. PyCharm devrait avoir reconnu l'environnement de travail et pointer directement
-    vers la bonne version de Python, avoir les bons packages déjà installés. Si ces packages font défaut lors de l'exécution,
-    l'erreur liée au package donne lieu à un signal rouge et un menu qui permet de confirmer l'installation du package.</p>
 
 
 
@@ -260,7 +128,7 @@ pyenv local 3.8.0</code></pre>
 
   <!-- ======== LES METHODES DE COMMUNICATION ========= -->
 
-  <h2 id="py_communication">Communiquer avec l'utilisateur</h2>
+  <h2 id="py_communiquer">Communiquer avec l'utilisateur</h2>
 
   <h3>Hello world</h3>
 
@@ -309,13 +177,16 @@ print("Bonjour ",nom);</code></pre>
   <pre><code class="language-python">age = int(input("Quel est votre âge ?"))
 print("Dans deux ans vous aurez ", age+2)</code></pre>
 
-env -p /home/stephane/3.6.5
 
 
+
+<!------LES PACKAGES------------->
+
+  <h2 id="py_package">Les Packages</h2>
 
 <!-- ===== IMPORTER UN PACKAGE ===== -->
 
-<h2 id="py_import_package">Installer et importer un package</h2>
+<h3 id="py_import_package">Installer et importer un package</h3>
 
   <p>Pour installer un package, si la version de Python par défaut est Python3, on utilise l'instruction pip en ligne de
     commande, si la version de Python par défaut est Python2, on utilise l'instruction pip3 en ligne de commande pour forcer
@@ -347,7 +218,9 @@ env -p /home/stephane/3.6.5
 
   <pre><code class="language-python">import matplotlib.pyplot as plt</code></pre>
 
-  <h3>Particularité Python pour l'importation d'un package</h3>
+
+
+  <h4>Particularité Python pour l'importation d'un package</h4>
 
   <p>Pour éviter qu'une méthode main() ne se lance à l'importation, on peut utiliser une condition qui lance la méthode uniquement si elle est appelée :</p>
 
@@ -365,7 +238,7 @@ env -p /home/stephane/3.6.5
     <p>Python étant parcitulièrement utilisé dans le milieu scientifique et
       mathématique, le module math ainsi que le module numpy sont essentiels</p>
 
-    <h3>Le module random</h3>
+    <h4>Le module random</h4>
 
     <pre><code class="language-python">import random as rd</code></pre>
 
@@ -387,7 +260,7 @@ env -p /home/stephane/3.6.5
     <p>La méthode shuffle(liste) mélange les éléments d'une liste en modifiant cette liste. Elle ne renvoie rien.</p>
 
 
-    <h3>Le module math</h3>
+    <h4>Le module math</h4>
 
     <pre><code class="language-python">from math import *</code></pre>
 
@@ -428,7 +301,7 @@ env -p /home/stephane/3.6.5
     <p>pi et e sont les deux constantes mathématiques connues du package math.</p>
 
 
-    <h3>Le module fractions</h3>
+    <h4>Le module fractions</h4>
 
     <pre><code class="language-python">from fractions import Fraction</code></pre>
 
@@ -438,7 +311,7 @@ env -p /home/stephane/3.6.5
     <p>La classe Fraction accepte les opérations élémentaires +, -, *, / et permet de conserver une excellente précision de calcul.</p>
 
 
-    <h2>Le module Numpy</h2>
+    <h4>Le module Numpy</h4>
 
     <pre><code class="language-python">import numpy as np</code></pre>
 
@@ -451,7 +324,7 @@ liste_divisee = liste_numpy/2</code></pre>
     <pre><code class="language-python">liste_numpy.sum()</code></pre>
 
 
-    <h3>Le package MatPlotLib</h3>
+    <h4>Le package MatPlotLib</h4>
 
     <p>MatPlotLib est utilisé pour représenter des données en deux dimensions, i.e. pour créer des schémas, des graphiques
       et des spectres. Ce package comprend notamment le module Pyplot qui permet de créer des graphiques en couleur.</p>
@@ -461,7 +334,7 @@ liste_divisee = liste_numpy/2</code></pre>
 
     <!-- ==== CREER UN PACKAGE ===== -->
 
-    <h2 id="py_creer_package">Créer un package</h2>
+    <h3 id="py_creer_package">Créer un package</h3>
 
     <p>Un package Python est organisé en fichiers ou classes, qui sont regroupées dans des modules. Les noms des packages et des modules seront écrits en minuscule et peuvent contenir des underscore. La structure à adopter est la suivante :</p>
     <pre>librairie // racine du package
@@ -509,7 +382,7 @@ setup(name = "librairie",
 
     <!-- ===== CREER UN PACKAGE ===== -->
 
-    <h2 id="py_package">Créer un package avec Poetry</h2>
+    <h2 id="py_package2">Créer un package avec Poetry</h2>
 
     <p>Il est possible de créer manuellement les fichiers build, manifestes et dépendances en utilisant pip ou conda.
       Toutefois, la gestion des compatibilités des dépendances n'est pas toujours assurée et la publication sur PyPI peut
@@ -822,9 +695,9 @@ nombre = int(chaine)</code></pre>
 
   <!-- ====== UTILISATION AVANCEE DES LISTES ===== -->
 
-  <h2 id="py_liste_avance">Utilisation avancée des listes</h2>
+  <h3 id="py_liste_avance">Utilisation avancée des listes</h3>
 
-  <h3>Affectation par valeurs, affectation par référence</h3>
+  <h4>Affectation par valeurs, affectation par référence</h4>
 
   <p>Il existe principalement deux manières de copier des listes en Python avec des fonctionnalités différentes. L'affectation
   par référence pointe vers l'adresse d'une liste, et donc tout changement opéré sur la copie affecte l'original. En revanche,
@@ -856,7 +729,7 @@ for i in range(3):
 copie_liste[1] = "hello"
 print(maListe)</code></pre>
 
-  <h3>Les fonctions callback avec map</h3>
+  <h4>Les fonctions callback avec map</h4>
 
   <pre><code class="language-python">def carre(x):
     return x ** 2
@@ -864,7 +737,7 @@ print(maListe)</code></pre>
 maListe = [1, 2, 3, 4, 5]
 print map(carre, maListe) # Affiche [1, 4, 9, 16, 25]</code></pre>
 
-  <h3>Les fonction callback avec filter</h3>
+  <h4>Les fonction callback avec filter</h4>
 
   <pre><code class="language-python">def pair(x):
     return not bool(x % 2)
@@ -872,7 +745,7 @@ print map(carre, maListe) # Affiche [1, 4, 9, 16, 25]</code></pre>
 maListe = [1, 2, 3, 4, 5]
 print filter(pair, maListe) # Affiche [2, 4]</code></pre>
 
-  <h3>Les compréhensions de liste</h3>
+  <h4>Les compréhensions de liste</h4>
 
   <p>Les compréhensions de liste permettent de modifier les éléments d'une liste selon une structure très particulière.
     Elles produisent des résultats semblables à ceux produits par le package Numpy mais dans le cas plus général que celui
@@ -884,7 +757,7 @@ print filter(pair, maListe) # Affiche [2, 4]</code></pre>
 
 <p>Les compréhensions de liste sont préférables aux fonctions map et filter.</p>
 
-  <h3>Conversion d'une liste en chaîne</h3>
+  <h4>Conversion d'une liste en chaîne</h4>
 
   <p>La conversion d'une liste en chaîne et inversement est nécessaire pour effectuer certains traitements sur lse chaînes
     de caractères. En effet, les chaînes sont censées être de taille fixe et il n'existe pas de type Stringbuffer comme em Java par exemple.</p>
@@ -915,7 +788,10 @@ print(maChaine # affiche hello</code></pre>
 
 print("\n".join(["%d pour %s" % (nbre, nom) for nbre, nom in annuaire]))</code></pre>
 
-  <p>ce qui affiche : 1 pour antoine <br/>5 pour celine <br/>6 pour herve</p>
+  <p>ce qui affiche : </p>
+  <pre><code class="language-svg">1 pour antoine
+5 pour celine
+6 pour herve</code></pre>
 
 
 
@@ -1478,32 +1354,173 @@ for item in listdir('/home/user/monDossier'):
   communiquer avec des applications écrites dans un autre langage.</p>
 
 
+<!-----------------------
+ENVIRONNEMENTS DE TRAVAIL
+------------------------>
 
-
-<!-------------------------------------
-AGIR SUR LE TERMINAL A PARTIR DE PYTHON
---------------------------------------->
-  <h2>Agir en ligne de commande à partir d'un script avec subprocess</h2>
-
-  <p>On peut exécuter un script Python qui interprète une ligne de commande à
-    l'emplacement du dossier courant où se trouve le script, en utilisant le
-    module subprocess. Par exemple pour afficher tous les dossiers et fichiers
-    se trouvant dans le répertoire courant :</p>
-
-  <pre><code class="language-python">import subprocess
-subprocess.run('ls')</code></pre>
+  <h2 id="py_environnement">Les environnements de travail</h2>
 
 
 
+  <!-- ===== CHANGER LES VERSIONS DE PYTHON ============================== -->
+
+  <h3 id="py_version">Gérer les versions de Python avec pyenv</h3>
+
+  <p>Pour connaître la version active de Python :</p>
+  <pre><code class="language-svg">python --version</code></pre>
+
+  <p>Pour connaître toutes les versions disponibles au téléchargement de Python 3.6 à 3.8 :</p>
+  <pre><code class="language-svg">pyenv install --list | grep " 3\.[678]"</code></pre>
+
+  <p> Toutes les versions s'installent dans un fichier <em>.pyenv/versions/</em>, qui vient s'insérer dans le PATH au coeur du
+    système, et non pas directement dans un  environnement de développement. Ainsi, un environnement peut utiliser une
+    version particulière de Python en pointant vers l'adresse de stockage de la version, sans qu'elle soit incorporée à
+    cet environnement. Pour installer la version 3.7.2 en particulier :</p>
+  <pre><code class="language-svg">pyenv install -v 3.7.2</code></pre>
+
+  <p>Pour supprimer la version 2.7.15 de l'ordinateur :</p>
+  <pre><code class="language-svg">pyenv uninstall 2.7.15</code></pre>
+  <p>Attention de travailler avec une version 3 de Python et de ne pas supprimer la version 2 système de Python livrée
+    d'usine et qui peut servir au fonctionnement de l'ordinateur. Ce n'est plus le cas pour Ubuntu 20.04 LTS qui fonctionne
+    avec Python 3.8</p>
+
+  <p>Il est important de bien connaître la version de Python utilisée avant de procéder à tout changement dans un
+    environnement de développement, car chaque version accepte des dépendances différentes.</p>
+
+  <p>Pour connaître toutes les versions disponibles sur l'ordinateur (la version active est précédée d'une *) :</p>
+  <pre><code class="language-svg>">pyenv versions</code></pre>
+
+  <p>Pour connaître l'adresse de la version de Python utilisée :</p>
+  <pre><code class="language-svg">which python # ou encore
+pyenv which python</code></pre>
+
+  <p>Pour changer la version de Python en local dans l'environnement de développement :</p>
+  <pre><code class="language-svg">pyenv local 3.7.1</code></pre>
+
+  <p>Pour changer la version de Python pour tout l'ordinateur :</p>
+  <pre><code class="language-svg">pyenv global 2.7.15</code></pre>
+
+  <p>Pour revenir à la version système :</p>
+  <pre><code class="language-svg">pyenv global system</code></pre>
 
 
- <!------------------------------
- CREATION D'UN CLI AVEC ARGPARSE
- ------------------------------->
-  <h2>Création d'une CLI avec argparse</h2>
+
+  <h3>Particularité de l'utilisation de Anaconda</h3>
+
+  <p>Pour télécharger l'environnement de travail Anaconda, il faut d'abord télécharger Anaconda pour Linux, vérifier le sha avec la commande :</p>
+  <pre><code class="language-svg">sha256sum [nom_fichier_telecharge]</code></pre>
+
+  <p>puis exécuter le fichier d'installation :</p>
+  <pre><code class="language-svg">bash Anaconda-[version]-Linux-x86_64.sh</code></pre>
+
+  <p>Finalement, il est possible de tester l'installation en utilisant :</p>
+  <pre><code class="language-svg">conda list</code></pre>
+
+  <p>Une fois qu'on a installé Anaconda, l'exécution se fait grâce à l'instruction :</p>
+  <pre><code class="language-svg">anaconda-navigator</code></pre>
+
+  <p>Pour mettre à jour Anaconda :</p>
+  <pre><code class="language-svg">conda update conda</code></pre>
+
+  <p>Pour connaître l'emplacement de conda :</p>
+  <pre><code class="language-svg">which conda</code></pre>
+
+
+  <!-- CREER DES ENVIRONNEMENTS DE TRAVAIL --------------------------->
+
+  <h2 id="py_env">Créer des environnements de développement avec venv</h2>
+
+  <p>Il est nécessaire de travailler dans des environnements virtuels pour isoler les dépendances de chaque projet Python.
+    Pour cela, on utilise le module venv compris dans la librairie standard de Python3. Il est également possible d'utiliser
+    virtualenv à la place de venv, mais ce dernier est déjà compris dans les versions de Python supérieures à 3.5 et ne
+    nécessite donc pas d'installer virtualenv comme une dépendance.</p>
+
+  <p>Au terminal, on crée tout d'abord le dossier qui va contenir mes environnements virtuels, puis on se place dedans :</p>
+
+  <pre><code class="language-svg">mkdir environnements
+cd environnements</code></pre>
+
+  <p>On crée maintenant un nouvel environnement au sein du dossier environnements :</p>
+
+  <pre><code class="language-svg">python3 -m venv mon_env</code></pre>
+
+  <p>Pour visualier la structure de mon_env il suffit de taper tree dans le dossier courant.</p>
+
+  <img src="venv.png">
+
+  <p>bin contient les fichiers qui interagissent avec l'environnement virtuel, include contient les en-têtes C qui compilent
+    les packages Python, lib contient une copie de la version Python avec un dossier de packages dans lequel sont installées
+    toutes les dépendances.</p>
+
+  <p>Il est maintenant nécessaire d'activer l'environnement virtuel comme environnement de travail. Pour cela, il faut se
+    placer dans le dossier environnements et taper au Terminal :</p>
+
+  <pre><code class="language-svg">source mon_env/bin/activate</code></pre>
+
+  <p>A partir de maintenant, les commandes saisies ont une action dans l'environnement. On remarque que l'environnement
+    est actif, car devant le prompt du Terminal apparaît (mon_env)$.</p>
+
+  <p>Pour désactiver cet environnemnt virtuel, il suffit de taper :</p>
+
+  <pre><code class="language-svg">deactivate</code></pre>
+
+  <p>Pour installer un module dans l'environnement, il faut d'abord se rendre dans l'environnement puis :</p>
+  <pre><code class="language-svg">cd mon_env
+pip3 install nom_package</code></pre>
+
+  <p>Pour désinstaller un module dans l'environnement :</p>
+  <pre>pip3 uninstall nom_package</pre>
+
+  <p>Pour voir la liste de tous les modules installés :</p>
+  <pre><code class="language-svg">pip3 freeze</code></pre>
+
+  <p>Pour utiliser une version particulière de Python dans l'environnement, il faut d'abord installer cette version sur
+    l'ordinateur, puis se rendre dans l'environnement et définir cette version comme la version locale :</p>
+  <pre><code class="language-svg">pyenv install 3.8.0
+cd mon_env
+pyenv local 3.8.0</code></pre>
+
+
+
+  <!-- ===== UTILISATION DE PYCHARM DANS UN ENVIRONNEMENT ===== -->
+
+  <h2 id="py_pycharm">Utilisation de PyCharm dans un environnement particulier</h2>
+
+  <p>PyCharm crée automatiquement un dossier PyCharmProjects dans lequel il va ranger les différents projets. On peut
+    alors choisir l'interpréteur parmi ceux proposés, et en fonction de ce qui a été installé (conda, virtualenv, une version
+    particulière de Python ...). Pour cela, après avoir ouvert PyCharm, sélectionné le projet, puis File -> Settings ->
+    Project Interpreter.</p>
+
+  <p>On peut également utiliser un environnement lié à un projet déjà existant. Pour cela, on commence par créer un dossier
+    dans lequel on crée l'environnement de développement avec venv, puis on ouvre PyCharm, on ouvre le projet existant,
+    File -> Settings -> Project Interpreter. PyCharm devrait avoir reconnu l'environnement de travail et pointer directement
+    vers la bonne version de Python, avoir les bons packages déjà installés. Si ces packages font défaut lors de l'exécution,
+    l'erreur liée au package donne lieu à un signal rouge et un menu qui permet de confirmer l'installation du package.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-------------------
+  INTERFACES GRAPHIQUES
+  -------------------->
+
+  <h2 id="#py_interface">Les interfaces graphiques</h2>
+
+
+  <!------ ARGPARSE ------->
+
+  <h3 id="py_argparse">L'interface en ligne de commande avec argparse</h3>
 
   <p>Le module argparse permet de créer une Command Line Interface. Par exemple :</p>
-<pre><code class="language-python">mp = argparse.ArgumentParser(prog='nom_programme', description="A description that shows up")
+  <pre><code class="language-python">mp = argparse.ArgumentParser(prog='nom_programme', description="A description that shows up")
 mp.add_argument("nom", type=str, help="requires a string")
 mp.add_argument("--collect", action='store_true', help="description of the --collect option")
 args = mp.parse_args()
@@ -1513,50 +1530,11 @@ if args.collect:
     print(item)</code></pre>
 
 
-  <!-- ===== PEP8 ===== -->
-
-  <h2 id="py-pep">Respect du PEP8</h2>
-
-  <p>Python Enhancement Proposal 8 requiert le respect des règles suivantes:</p>
-  <ul>
-    <li>une ligne doit contenir au maximum 80 caractères</li>
-    <li>l'indentation doit contenir 4 espaces</li>
-    <li>2 lignes vides au-dessus d'une classe</li>
-    <li>les docstrings sont obligatoires pour les méthodes, les classes et les modules</li>
-    <li>l'import d'un module ou d'un package doit se faire en début de code</li>
-    <li>pas d'espace avant : mais un espace après</li>
-    <li>un espace autour d'un opérateur</li>
-    <li>un espace autour d'un = pour assigner une valeur à une variable</li>
-    <li>pas d'espace autour d'un = pour assigner une valeur par défaut à un paramètre</li>
-    <li>une instruction par ligne</li>
-    <li>les commentaires sont écrits en anglais</li>
-    <li>les modules s'écrivent en minuscule, avec un underscore si besoin</li>
-    <li>les packets s'écrivent en minuscule sans underscore</li>
-    <li>les classes ont une 1ère lettre en minuscule et peuvent avoir d'autres lettres en majuscule</li>
-    <li>les méthodes s'écrivent en minuscule, avec underscore si besoin</li>
-    <li>les variables s'écrivent en minuscule, avec underscore si besoin</li>
-    <li>les constantes s'écrivent en majuscules, avec underscore si besoin</li>
-  </ul>
-
-  <p>PyLint est un logiciel en ligne de commande permettant d'analyser le code en fonction des standards de PEP8.</p>
-
-  <pre>pip install pylint
-pylint fichier.py // lance l'analyse de fichier.py</pre>
 
 
-  <!------
-  ARGPARSE
-  ------->
+  <!-----TKINTER------>
 
-  <h2 id="py_argparse">L'interface en ligne de commande avec argparse</h2>
-
-
-
-  <!-- ==
-  TKINTER
-  ------>
-
-  <h2 id="py_tkinter">L'interface graphique avec Tkinter</h2>
+  <h3 id="py_tkinter">L'interface graphique avec Tkinter</h3>
 
   <p>L'interface graphique Tkinter est fonctionnelle mais relativement sommaire. Il est possible d'intégrer du code java
   pour améliorer l'interface en utilisant le module Jython. Toutefois, le code suivant permet d'obtenir une fenetre pourvue des
@@ -1622,6 +1600,199 @@ class InterfaceAccueil(Frame):
 
     def cliquerConsult(self):
         self.messageReponse["text"] = self.choixCategorie.get()</code></pre>
+
+
+
+
+  <!-- ===== PEP8 ===== -->
+
+  <h2 id="py-pep">Respect du PEP8</h2>
+
+  <p>Python Enhancement Proposal 8 requiert le respect des règles suivantes:</p>
+  <ul>
+    <li>une ligne doit contenir au maximum 80 caractères</li>
+    <li>l'indentation doit contenir 4 espaces</li>
+    <li>2 lignes vides au-dessus d'une classe</li>
+    <li>les docstrings sont obligatoires pour les méthodes, les classes et les modules</li>
+    <li>l'import d'un module ou d'un package doit se faire en début de code</li>
+    <li>pas d'espace avant : mais un espace après</li>
+    <li>un espace autour d'un opérateur</li>
+    <li>un espace autour d'un = pour assigner une valeur à une variable</li>
+    <li>pas d'espace autour d'un = pour assigner une valeur par défaut à un paramètre</li>
+    <li>une instruction par ligne</li>
+    <li>les commentaires sont écrits en anglais</li>
+    <li>les modules s'écrivent en minuscule, avec un underscore si besoin</li>
+    <li>les packets s'écrivent en minuscule sans underscore</li>
+    <li>les classes ont une 1ère lettre en minuscule et peuvent avoir d'autres lettres en majuscule</li>
+    <li>les méthodes s'écrivent en minuscule, avec underscore si besoin</li>
+    <li>les variables s'écrivent en minuscule, avec underscore si besoin</li>
+    <li>les constantes s'écrivent en majuscules, avec underscore si besoin</li>
+  </ul>
+
+  <p>PyLint est un logiciel en ligne de commande permettant d'analyser le code en fonction des standards de PEP8.</p>
+
+  <pre>pip install pylint
+pylint fichier.py // lance l'analyse de fichier.py</pre>
+
+
+
+
+  <!-- ==
+  DJANGO
+  ------>
+
+  <h2 id="py_django">Le framework Django</h2>
+
+  <p>Django est un framework opensource pour le développement Web Python. Il construit les applications suivant le
+    design pattern MVT, inspiré de la structure classique MVC. Il contient déjà un gestionnaire de BDD sqlite, un serveur et un gestionnaire d'accès à la BDD
+    en ligne de commande. Il n'est donc pas utile de recourir à l'utilisation de LAMP avec ce framework.</p>
+
+    <p>Le design pattern MVT Model View Template est une architecture qui sépare les responsabilités de chaque groupe
+        de code.</p>
+    <ul>
+        <li>Le Model interagit avec la base de données en utilisant un ORM Object Relational Mapping, qui transforme
+    les résultats d'une requête SQL en objets Python et inversement. Par exemple l'instruction SQL suivante
+    SELECT * FROM maTable se traduit de la façon suivante maTable.objects.all()</li>
+        <li>Le Template est un fichier HTML qui peut recevoir les objets Python et qui est lié à une View. Il
+        peut donc interpréter des variables et les afficher. </li>
+        <li>La View reçoit une requête HTTP et interprète cette requête en HTML pour le navigateur.</li>
+    </ul>
+
+  <p>Les différentes étapes pour installer Django dans un environnement de projet sont les suivantes :</p>
+
+  <pre><code class="language-svg">mkdir envDjango
+cd envDjango
+virtualenv env -p python3
+. env/bin/activate
+pip install django</code></pre>
+
+  <p>On peut ensuite vérifier que la librairie Django est bien disponible en écrivant</p>
+
+  <pre><code class="language-svg">python -m django --version</code></pre>
+
+  <p>La création de la structure du projet se fait maintenant de la façon suivante :</p>
+
+  <pre><code class="language-svg">django-admin startproject monProjet</code></pre>
+
+  <p>Le dossier <strong>monProjet</strong> contient les éléments suivants</p>
+
+  <pre><code class="language-svg">manage.py
+monProjet/
+  __init__.py
+  settings.py
+  urls.py
+  wsgi.py</code></pre>
+
+  <ul>
+    <li>le fichier manage.py est un outil d'exécution des commandes utiles au projet, comme par exemple la
+    création de tables dans la BDD</li>
+    <li>le fichier settings.py contient la configuration globale du projet, comme par exemple les identifiants de
+      connexion à la BDD, les chemins des différentes ressources, les différentes applications Django utilisées</li>
+    <li>le fichier urls.py est le contrôleur des requêtes du projet</li>
+    <li>le fichier wsgi.py permet la configuration du serveur</li>
+  </ul>
+
+  <p>On peut créer plusieurs applications au sein d'un même projet. Pour créer une application, on utilise</p>
+
+  <pre><code class="language-svg">django-admin.py startapp monAppli</code></pre>
+
+  <p>Le dossier <strong>monApplication</strong> contient les éléments suivants</p>
+
+  <pre><code class="language-svg">__init__.py
+models.py
+views.py
+tests.py</code></pre>
+
+  <ul>
+    <li>le fichier models.py accueille les modèles de l'application</li>
+    <li>le fichier views.py accueille les controleurs de l'application</li>
+    <li>le fichier tests.py accueille les tests unitaires et d'intégration de l'application</li>
+  </ul>
+
+  <p>Il faut préciser dans le fichier settings.yp la BDD que nous souhaitons utiliser.</p>
+  <pre><code class="language-python">DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'nomBdd',
+    }
+}</code></pre>
+
+  <p>Il faut préciser dans le fichier settings.py que nous allons utiliser monApplication :</p>
+  <pre><code class="language-python">INSTALLED_APPS={
+  # code de fonctionnement déjà présent
+  monApplication
+}</code></pre>
+
+    <p>Une URL est le premier point d'entrée d'une requête. Le fichier urls.py va donc se situer dans le dossier de configuration
+        du projet django_project/django_project. Une bonne pratique consiste à créer un fichier urls.py par application et
+        de l'importer dans les routes du projet.</p>
+
+    <p>On commence par créer un dossier templates</p>
+
+    <pre><code class="language-svg">mkdir monApp/templates</code></pre>
+
+    <p>On crée ensuite un fichier urls.py dans monAppli</p>
+
+    <pre><code class="language-svg">touch monAppli/urls.py</code></pre>
+
+    <p>Il faut maintenant lier le contenu dans monProjet/urls.py</p>
+
+    <pre><code class="language-svg">urlpatterns = [
+    url('monAppli/', include('monAppli.urls')),
+    url('admin/', admin.site.urls)
+]</code></pre>
+
+  <p>Il faut également créer les tables de la BDD, en se plaçant dans monProjet (afin que l'interpréteur trouve le
+  fichier manage.py</p>
+<pre><code class="language-svg">cd monProjet
+python manage.py syncdb</code></pre>
+
+  <p>Pour lancer le serveur, il faut également se placer dans monProjet et taper</p>
+  <pre><code class="language-svg">python manage.py runserver</code></pre>
+
+
+
+
+
+  <p>Il faut maintenant rajouter un gestionnaire de base de données. Choisissons par exemple Postgresql. Pour savoir si
+    il est déjà installé, il suffit de taper psql, ce qui ouvre une console de communication avec le serveur. On peut alors
+    revenir au terminal en tapant \q</p>
+
+  <p>Pour installer Postgresql, il faut donner à un utilisateur le rôle de gestionnaire de la base de données. Il faut donc
+  définir la variable d'environnement en ce sens. Nous choisissons le superuser comme gestionnaire.</p>
+
+  <pre><code class="language-svg">sudo apt-get update
+sudo apt-get install postgresql postgresql-contrib libpq-dev
+sudo -u postgres createuser --superuser $USER
+sudo -u postgres createdb $USER</code></pre>
+
+  <p>Il faut créer un fichier conservant l'historique de travail dans le dossier home.</p>
+
+  <pre><code class="language-svg">touch .psql_history
+mv .psql_history ~/stephane</code></pre>
+
+  <p>On peut maintenant se connecter au serveur en tapant psql, ce qui ouvre une console de commmunication avec
+  Postgresql. Pour revenir au terminal, il faut taper \q afin de quitter la console.</p>
+
+
+
+
+
+
+
+  <!-------------------------------------
+  EXECUTER DU BASH DANS DU CODE PYTHON
+  --------------------------------------->
+  <h2>Exécuter du bash dans du code Python</h2>
+
+  <p>On peut exécuter un script Python qui interprète une ligne de commande à
+    l'emplacement du dossier courant où se trouve le script, en utilisant le
+    module subprocess. Par exemple pour afficher tous les dossiers et fichiers
+    se trouvant dans le répertoire courant :</p>
+
+  <pre><code class="language-python">import subprocess
+subprocess.run('ls')</code></pre>
+
 
 </section>
 
