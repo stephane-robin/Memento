@@ -1696,7 +1696,7 @@ monProjet/
 
   <pre><code class="language-svg">django-admin.py startapp monAppli</code></pre>
 
-  <p>Le dossier <strong>monApplication</strong> contient les éléments suivants</p>
+  <p>Le dossier <strong>monAppli</strong> contient les éléments suivants</p>
 
   <pre><code class="language-svg">__init__.py
 models.py
@@ -1720,7 +1720,7 @@ tests.py</code></pre>
   <p>Il faut préciser dans le fichier settings.py que nous allons utiliser monApplication :</p>
   <pre><code class="language-python">INSTALLED_APPS={
   # code de fonctionnement déjà présent
-  monApplication
+  monAppli
 }</code></pre>
 
     <p>Une URL est le premier point d'entrée d'une requête. Le fichier urls.py va donc se situer dans le dossier de configuration
@@ -1776,7 +1776,19 @@ mv .psql_history ~/stephane</code></pre>
 
 
 
+<h4>Comment redémarrer le framework ?</h4>
 
+    <p>Pour redémarrer le framework, il faut activer l'environnement de travail (afin d'activer Django et les autres packages
+    nécessaires au projet, puis démarrer le server lié au projet.</p>
+
+    <pre><code class="lnaguage-svg">cd Documents/envDjango
+. env/bin/activate
+cd django_project
+python manage.py runserver</code></pre>
+
+    <p>Ensuite, il faut donner au navigateur (dans la barre de navigation) le chemin d'accès local vers les ressources du projet :</p>
+
+    <pre><code class="language-svg">127.0.0.1:8000/monAppli/</code></pre>
 
 
 

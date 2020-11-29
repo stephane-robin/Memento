@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title> Memento </title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="prism.css">
+  <meta charset="utf-8">
+</head>
+
+<!-- script de gestion des couleurs de code -->
+<script defer src="prism.js"></script>
+
+<body>
+
+<div id="bandeau">
+  <h1> Memento </h1>
+  <h1> PHP </h1>
+
+  <nav>
+    <div class="element"> <a href="html.html">HTML</a> </div>
+    <div class="element"> <a href="css.html">CSS</a> </div>
+    <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
+    <div class="element"> <a href="java.html">JAVA</a> </div>
+    <div class="element"> <a href="kotlin.html">KOTLIN</a> </div>
+    <div class="element"> <a href="android.html">ANDROID</a> </div>
+    <div class="element"> <a href="php.html">PHP</a> </div>
+    <div class="element"> <a href="python.html">PYTHON</a> </div>
+    <div class="element"> <a href="c.html">C</a> </div>
+    <div class="element"> <a href="git.html">LINUX</a> </div>
+  </nav>
+</div>
+
+<aside>
+  <nav id="table_matiere">
+    <a href="#py_generalites">Structure du code</a>
+      <a href="#py_communiquer">Communiquer avec l'utilisateur</a>
+      <a href="#py_variable">Les variables</a>
+      <a href="#py_chaine">Chaînes de caractères</a>
+      <a href="#py_liste">Les listes</a>
+      <a href="#py_tableau">Les tableaux</a>
+      <a href="#py_dictionnaire">Les dictionnaires</a>
+      <a href="#py_condition">Les conditions</a>
+      <a href="#py_boucle">Les boucles</a>
+      <a href="#py_input">Entrées/sorties</a>
+      <a href="#py_fonction">Les fonctions</a>
+      <a href="#py_exception">Gestion des exceptions</a>
+      <a href="#py_objet">Programmation objet</a>
+      <a href="#py_package">Les packages</a>
+    <a href="#py_interface">Interfaces graphiques</a>
+
+    <a href="#py_environnement">Environnements de travail</a>
+
+
+      <a href="#py.sub">subprocess et les lignes de commande</a>
+    <a href="#py_django">Le framework Django</a>
+        <a href="#py_pep">Respect du PEP8</a>
+        <a href="">Tester le code</a>
+  </nav>
+</aside>
+
+<section id="principal">
+
+<!-- CONFIGURATION DU SERVEUR -->
+
+  <h2>Configuration du serveur</h2>
+
+  <p>Afin d'utiliser PHP, il faut utiliser un serveur capable de transformer les fichiers .php en .html. Il faut également
+  configurer l'accès à un SGDB tel que MySQL et PostgreSql. Il est possible d'installer ces outils séparément et de les
+   configurer manuellement. Nous préférons installer un package qui se charge de la configuration. Pour cela, il convient
+    d'installer Xampp qui regroupe le pack PHP, Perl, Apache, SQL, MariaDB.</p>
+
+  <p>Une fois le téléchargement de Xampp effectué, il faut se rendre dans le dossier de Téléchargement et exécuter l'installer
+  en mode root. Il faut donc préciser sudo su afin d'obtenir le prompt suivant : root@stephane:</p>
+
+  <pre><code class="language-svg">cd Téléchargements
+sudo su
+chmod 755 xampp-linux-*-installer.run
+./xampp-linux-*-installer.run</code></pre>
+
+  <p>où il faut remplacer * par la version de Xampp valide au moment du téléchargement.</p>
+
+  <p>Rappel : pour entrer en mode root, il faut exécuter sudu su [identifiant], et pour en sortir il faut exécuter exit</p>
+
+  <p>Pour lancer le serveur, il faut s'assurer d'être en mode root. Il faut ensuite préciser l'emplacement de lampp, qui
+    se situe par défaut à /opt/lampp/lampp puis exécuter l'instruction</p>
+
+  <pre><code class="language-svg">sudo su
+/opt/lampp/lampp start</code></pre>
+
+  <p>Il est maintenant possible de tester Xampp en tapant dans la barre du navigateur</p>
+
+  <pre><code class="language-svg">http://localhost</code></pre>
+
+  <p>Remarques importantes:</p>
+  <ul>
+    <li>les fichiers .php doivent être placés dans le répertoire /opt/lampp/htdocs</li>
+    <li>lorsqu'on crée un dossier monProjet dans /op/lampp/htdocs, il est possible pour le navigateur d'y accéder en tapant
+    dans la barre http://localhost/monProjet</li>
+  </ul>
+
+  <p>Pour arrêter le serveur, il faut exécuter</p>
+  <pre><code class="language-svg">/opt/lampp/lampp stop</code></pre>
+
+</section>
+
+<footer>
+  Stephane Robin
+</footer>
+
+</body>
+</html>
