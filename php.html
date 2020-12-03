@@ -347,7 +347,34 @@ $tab[] = "Charlize"; ?&gt</code></pre>
     <tr><td>date("d")</td><td>renvoie le jour actuel</td></tr>
     <tr><td>date("m")</td><td>renvoie le mois actuel</td></tr>
     <tr><td>date("Y")</td><td>renvoie l'année actuelle</td></tr>
+    <tr><td>isset($maVariable)</td><td>renvoie true si $maVariable est définie</td></tr>
   </table>
+
+  <p>A l'instar de PEP pour Python, il existe des standards en PHP notés PSR PHP Standards Recommendations. Par exemple,
+  PSR-1 définit les règles basiques d'une page PHP, et PSR-2 définit le coding style. Le respect des différentes règles du
+  PSR peut être appliqué en utilisant en ligne de commande l'outil PHPCS-Fixer</p>
+
+  <h2>Transtypage vers un entier</h2>
+
+  <p>On utilise le mot clé int</p>
+
+  <pre><code class="language-html">$maVariable = (int) $maVariable;</code></pre>
+
+  <h3>Particularité de PHP</h3>
+
+  <p>Si la valeur de départ est transformable en entier sans modification, cette valeur est transtypée telle quelle. En revanche,
+  si ce n'est pas le cas (parce que cette valeur représente un string par exemple) alors elle est transformée en 0. PHP ne
+  lève donc pas d'exception dans ce cas.</p>
+
+  <h3>Les étapes du traitement d'une valeur</h3>
+
+  <p>On vérifie que la variable est bien définie avec la fonction isset(), on cast la variable en int ou en float si on a besoin de
+  procéder à des calculs, on définit les conditions sur la variable pour qu'elle satisfasse la proposition.</p>
+
+
+  <!-- FORMULAIRES -->
+
+  <h3>Utilisation des formulaires</h3>
 
 </section>
 
