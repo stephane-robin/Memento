@@ -55,6 +55,42 @@
 <section id="principal">
 
 
+  <h2>L'invite de commande</h2>
+
+  <p>Le signe $ symbolise l'utilisateur alors que le signe # symbolise le superutilisateur qui travaille donc
+  en mode root. Le signe ~ symbolise le dossier home.</p>
+
+  <p>Une double tabulation permet d'afficher toutes commandes dont le nom commence par les lettres écrites
+  dans la console. Par exemple lorsqu'on tape da puis deux fois la touche tabulation, on obtient les choix
+  dash et date.</p>
+
+  <p>Lors d'un affichage page par page, la touche Espace permet de passer à la page suivante, la touche Entrée
+  permet de passer à la ligne suivante, la touche q permet de quitter la liste, les flèches du haut et du bas
+  permettent de retrouver une commande déjà passée.</p>
+
+  <p>clean ou Ctrl+l permet d'effacer le contenu de la console.</p>
+
+  <p>exit ou Ctrl+d permet de fermer la console</p>
+
+  <p>La racine est symbolisée par / en Linux.</p>
+
+  <ul>
+    <li>bin contient les fichiers exécutables de la machine,</li>
+    <li>dev contient les périphériques,</li>
+    <li>etc contient les fichiers de configuration,</li>
+    <li>home contient les répertoires personnels de chaque utilisateur (d'où le nom de dossier home/stephane),</li>
+    <li>lib contient les bibliothèques partagées par les programmes,</li>
+    <li>media est un répertoire de montage pour les périphériques amovibles,</li>
+    <li>opt est utilisé pour les extensions de programmes,</li>
+    <li>root est le dossier dédié au superutilisateur,</li>
+    <li>sbin contient les programmes système importants,</li>
+    <li>tmp est utilisé par les programmes pour stocker des fichiers,</li>
+    <li>proc contient les informations du système,</li>
+    <li>usr est le dossier dans lequel seront stockés les programmes installés par l'utilisateur</li>
+    <li>site-packages est le dossier dans lequel seront stockés les packages</li>
+    <li>var contient les logs</li>
+  </ul>
+
 <p>Cette section présente les principales commandes et utilisation de Linux. Les instructions Git ont été rajoutées en fin de chapitre.</p>
 
 
@@ -71,11 +107,13 @@
     <tr> <td> se rendre dans le dossier <em>Documents</em> </td> <td> <pre>cd Documents</pre> </td> </tr>
     <tr> <td> revenir au dossier parent </td> <td> <pre>cd ..</pre></td> </tr>
     <tr> <td> revenir à la racine </td> <td> <pre>cd</pre></td> </tr>
+    <tr> <td> afficher la date </td> <td> <pre>date</pre></td></tr>
     <tr> <td> trouver <em>monFichier</em></td> <td><pre>whereis monFichier</pre></td></tr>
     <tr> <td> afficher la liste des éléments du dossier courant </td> <td> <pre>ls</pre></td> </tr>
     <tr> <td> afficher la liste détaillée des éléments du dossier courant </td> <td> <pre>ls -l</pre></td> </tr>
     <tr> <td> afficher la liste des éléments du dossier courant avec ceux cachés </td> <td> <pre>ls -a</pre></td> </tr>
     <tr> <td> afficher la liste détaillée des éléments du dossier courant avec ceux cachés </td> <td> <pre>ls -la</pre></td> </tr>
+    <tr> <td> afficher la liste des éléments de MonDossier</td> <td>ls ~/Documents/MonDossier</td></tr>
     <tr> <td> afficher la liste des éléments actifs du dossier local </td> <td> <pre>ps</pre></td> </tr>
     <tr> <td> créer le fichier <em>monFichier</em> </td> <td> <pre>touch monFichier</pre></td> </tr>
     <tr> <td> créer le dossier <em>monDossier</em> </td> <td> <pre>mkdir monDossier</pre></td> </tr>
@@ -159,11 +197,11 @@ sudo apt-get autoremove</pre></td></tr>
   <h2 id="tarbz2">Installation d'un logiciel à partir de .tar.bz2</h2>
 
   <p>Il faut d'abord déplacer le fichier .tar.bz2 vers /usr/local. Pour cela :</p>
-  <pre><code class="language-svg">mv /home/stephane/Téléchargements/nom_fichier.tar.bz2 /usr/local</code></pre>
+  <pre><code class="language-svg">sudo mv /home/stephane/Téléchargements/nom_fichier.tar.bz2 /usr/local</code></pre>
   <p>Il faut ensuite se placer dans le répertoire /usr/local</p>
   <pre><code class="language-svg">cd /usr/local</code></pre>
   <p>Puis il faut décompresser le fichier .bz2 :</p>
-  <pre><code class="language-svg">tar xfvj nom_fichier.tar.bz2</code></pre>
+  <pre><code class="language-svg">sudo tar xfvj nom_fichier.tar.bz2</code></pre>
 
   <p>Finalement, il faut suivre les instructions d'installation dans le ficier README.txt ou le INSTALL</p>
 
