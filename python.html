@@ -1805,6 +1805,51 @@ python manage.py runserver</code></pre>
   <pre><code class="language-python">import subprocess
 subprocess.run('ls')</code></pre>
 
+    <h2>Les graphes en Python</h2>
+
+    <p>Une courbe en dimension 2 peut se réaliser en utilisant le code suivant :</p>
+    <pre><code class="language-python">from numpy import *
+from matplotlib.pyplot import *
+
+x=linspace(-3.,1.,50)
+y=x**2+3*x+1
+plot(x,y, linewidth=1, color="r")
+title("Ma première courbe")
+xlabel("abscisses")
+ylabel("ordonnées")
+show()</code></pre>
+
+    <p>Il est possible de modifier la largeur avec le mot-clé linewidth, la couleur avec le mot-clé color parmi les possibilités
+    suivantes :</p>
+
+    <table>
+        <tr><th>couleur</th><th>code</th></tr>
+        <tr><td>blue</td><td>b</td></tr>
+        <tr><td>green</td><td>g</td></tr>
+        <tr><td>red</td><td>r</td></tr>
+        <tr><td>cyan</td><td>c</td></tr>
+        <tr><td>black</td><td>k</td></tr>
+        <tr><td>white</td><td>w</td></tr>
+        <tr><td>yellow</td><td>y</td></tr>
+        <tr><td>magenta</td><td>m</td></tr>
+    </table>
+
+    <p>Le style de tracé peut se modifier en rajoutant un paramètre dans le code suivant :</p>
+
+    <pre><code class="language-python">plot(x, y, "--", linewidth=1, color="r")</code></pre>
+
+    <p>les styles suivants sont les plus classiques :</p>
+
+    <table>
+        <tr><th>style</th><th>code</th></tr>
+        <tr><td>pointillés</td><td>--</td></tr>
+        <tr><td>points</td><td>:</td></tr>
+        <tr><td>points et ronds</td><td>o:</td></tr>
+        <tr><td>ligne continue et ronds</td><td>o-</td></tr>
+        <tr><td>croix</td><td>x</td></tr>
+        <tr><td>ronds</td><td>o</td></tr>
+        <tr><td>points et flèches</td><td>&lt:</td></tr>
+    </table>
 
 </section>
 
