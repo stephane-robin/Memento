@@ -1807,17 +1807,27 @@ subprocess.run('ls')</code></pre>
 
     <h2>Les graphes en Python</h2>
 
-    <p>Une courbe en dimension 2 peut se réaliser en utilisant le code suivant :</p>
-    <pre><code class="language-python">from numpy import *
-from matplotlib.pyplot import *
+  <h3>Courbe 2d</h3>
 
-x=linspace(-3.,1.,50)
-y=x**2+3*x+1
-plot(x,y, linewidth=1, color="r")
-title("Ma première courbe")
-xlabel("abscisses")
-ylabel("ordonnées")
-show()</code></pre>
+    <p>Une courbe en dimension 2 peut se réaliser en utilisant le code suivant :</p>
+    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from math import *
+
+# valeurs de x, y
+x = np.linspace(-3, 2,50)
+y = x**2 + 3*x + 1
+# construction du graphe
+plt.title("Ma première courbe")
+plt.xlabel("abscisses")
+plt.ylabel("ordonnées")
+fig = plt.figure()
+graphe = fig.gca()
+graphe.plot(x, y, linewidth=1, color="r", label="fonction quadratique")
+graphe.legend()
+plt.show()</code></pre>
+
+  <img src="./images/courbe2d.png" alt="courbe 2d" width="400">
 
     <p>Il est possible de modifier la largeur avec le mot-clé linewidth, la couleur avec le mot-clé color parmi les possibilités
     suivantes :</p>
@@ -1833,6 +1843,8 @@ show()</code></pre>
         <tr><td>yellow</td><td>y</td></tr>
         <tr><td>magenta</td><td>m</td></tr>
     </table>
+
+  <p>La couleur peut également prendre en paramètre une valeur hexadécimale comme cplor="#0f0f0f" par exemple</p>
 
     <p>Le style de tracé peut se modifier en rajoutant un paramètre dans le code suivant :</p>
 
@@ -1850,6 +1862,128 @@ show()</code></pre>
         <tr><td>ronds</td><td>o</td></tr>
         <tr><td>points et flèches</td><td>&lt:</td></tr>
     </table>
+
+  <h3>Les points</h3>
+
+  <pre><code class="language-python">import matplotlib.pyplot as plt
+x = [4.51, 4.87, 5.89, 3.45, 4.89]
+y = [56.4, 57.5, 64.2, 57.1, 61.2]
+plt.pyplot(x, y, "ob") # o pour rond et b pour blue
+plt.xlabel("abscisses")
+plt.ylabel("ordonnées")
+pt.show()</code></pre>
+
+  <img src="./images/points.png" alt="points" width="400">
+
+    <h3>Les nuages de points</h3>
+
+    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+nbre_points = 200
+r = 2 * np.random.rand(nbre_points)
+theta = 2 * np.pi * np.random.rand(nbre_points)
+area = 200 * r**2 * np.random.rand(nbre_points)
+c12 = plt.scatter(theta, r, c=theta, s=area, cmap=plt.cm.winter)
+plt.show()</code></pre>
+
+    <img src="./images/nuagePoints.png" alt="nuage de points" width="400">
+
+    <p>La couleur winter peut être modifiée parmi les couleurs de la gamme cmap (Colormap) :</p>
+  <ul>
+    <li>'viridis', 'plasma', 'inferno', 'magma', 'cividis'</li>
+    <li>'Greys', 'Purples', 'Blues', 'Greens', 'Oranges', 'Reds',
+      'YlOrBr', 'YlOrRd', 'OrRd', 'PuRd', 'RdPu', 'BuPu',
+      'GnBu', 'PuBu', 'YlGnBu', 'PuBuGn', 'BuGn', 'YlGn'</li>
+    <li>'binary', 'gist_yarg', 'gist_gray', 'gray', 'bone', 'pink',
+      'spring', 'summer', 'autumn', 'winter', 'cool', 'Wistia',
+      'hot', 'afmhot', 'gist_heat', 'copper'</li>
+    <li>'PiYG', 'PRGn', 'BrBG', 'PuOr', 'RdGy', 'RdBu',
+      'RdYlBu', 'RdYlGn', 'Spectral', 'coolwarm', 'bwr', 'seismic'</li>
+    <li>'twilight', 'twilight_shifted', 'hsv'</li>
+    <li>'Pastel1', 'Pastel2', 'Paired', 'Accent',
+      'Dark2', 'Set1', 'Set2', 'Set3',
+      'tab10', 'tab20', 'tab20b', 'tab20c'</li>
+    <li>'flag', 'prism', 'ocean', 'gist_earth', 'terrain', 'gist_stern',
+      'gnuplot', 'gnuplot2', 'CMRmap', 'cubehelix', 'brg',
+      'gist_rainbow', 'rainbow', 'jet', 'nipy_spectral', 'gist_ncar'</li>
+    <li></li>
+  </ul>
+
+  <h3>Courbe 3d</h3>
+
+  <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm
+import matplotlib as mpl
+from math import *
+from mpl_toolkits.mplot3d import Axes3D
+
+# valeur du pas
+step = 600
+# valeur du paramètre
+theta = np.linspace(-16 * np.pi, 16 * np.pi, step)
+# valeurs de x, y, z
+z = np.linspace(-2, 2, step)
+r = z**2 + 1
+x = r * np.sin(theta)
+y = r * np.cos(theta)
+# construction du graphe
+fig = plt.figure()
+graphe = fig.gca(projection='3d')
+graphe.plot(x, y, z, label='parametric curve')
+graphe.legend()
+
+plt.show()</code></pre>
+
+  <img src="./images/courbe3d.png" alt="courbe 3d" width="400">
+
+  <h3>Surface 3d</h3>
+
+  <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import cm
+import matplotlib as mpl
+from mpl_toolkits.mplot3d import Axes3D
+from math import *
+
+fig = plt.figure()
+
+# construction des axes
+graphe = fig.gca(projection='3d')
+
+# construction de la surface 3D
+x = np.arange(-7, 0, 0.25)
+y = np.arange(-5, 5, 0.25)
+x, y = np.meshgrid(0.3*x, 0.4*y)
+z = 2*np.exp(-(x**2 + y**2))
+surf = graphe.plot_surface(x, y, z, rstride=1, cstride=1, cmap=cm.cividis, linewidth=1, antialiased=True)
+graphe.set_zlim(-0.5, 1.5)
+
+fig.colorbar(surf, shrink=0.5, aspect=10)
+plt.show()</code></pre>
+
+  <img src="./images/surface3d.png" alt="surface 3d" width="400">
+
+    <h3>Contour plot</h3>
+
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+plt.style.use('seaborn-white')
+
+def f(x,y):
+    return np.sin(x)**3 + np.cos(10-y*x) * np.cos(x)**2
+
+x = np.linspace(1.7, 4.6, 500)
+y = np.linspace(0.2, 4.7, 500)
+X, Y = np.meshgrid(x,y)
+Z = f(X, Y)
+
+plt.contourf(X, Y, Z,35, cmap='BrBG')
+plt.show()</code></pre>
+
+    <img src="./images/contour.png" alt="contour plot" width="400">
 
 </section>
 
