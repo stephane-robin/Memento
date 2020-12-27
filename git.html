@@ -54,23 +54,7 @@
 
 <section id="principal">
 
-
-  <h2>L'invite de commande</h2>
-
-  <p>Le signe $ symbolise l'utilisateur alors que le signe # symbolise le superutilisateur qui travaille donc
-  en mode root. Le signe ~ symbolise le dossier home.</p>
-
-  <p>Une double tabulation permet d'afficher toutes commandes dont le nom commence par les lettres écrites
-  dans la console. Par exemple lorsqu'on tape da puis deux fois la touche tabulation, on obtient les choix
-  dash et date.</p>
-
-  <p>Lors d'un affichage page par page, la touche Espace permet de passer à la page suivante, la touche Entrée
-  permet de passer à la ligne suivante, la touche q permet de quitter la liste, les flèches du haut et du bas
-  permettent de retrouver une commande déjà passée.</p>
-
-  <p>clean ou Ctrl+l permet d'effacer le contenu de la console.</p>
-
-  <p>exit ou Ctrl+d permet de fermer la console</p>
+  <h2>Structure du système Linux</h2>
 
   <p>La racine est symbolisée par / en Linux.</p>
 
@@ -91,39 +75,96 @@
     <li>var contient les logs</li>
   </ul>
 
-<p>Cette section présente les principales commandes et utilisation de Linux. Les instructions Git ont été rajoutées en fin de chapitre.</p>
+<p>Un point "." devant un fichier ou dossier indique qu'il est caché lors de l'affichage. Il n'est pas pour autant introuvable,
+Linux a souhaité le cacher pour ne pas encombrer l'affichage. En revanche le point "." représente le dossier courant,
+alors que le double point ".." représente le dossier parent. Le signe ~ symbolise le dossier personnel /home/stephane.</p>
+
+  <h2>L'invite de commande</h2>
+
+  <p>Par défaut, l'invite de commande s'ouvre dans le dossier /home/stephane. Une fois l'invite de commande ouverte, le signe $ symbolise l'utilisateur alors que le signe # symbolise le superutilisateur qui travaille donc
+  en mode root. </p>
+
+  <p>L'autocomplétion se réalise avec la touche de tabulation, la navigation dans le terminal se fait à l'aide des flèches haut et bas.</p>
+
+  <p>Une double tabulation permet d'afficher toutes commandes dont le nom commence par les lettres écrites
+  dans la console. Par exemple lorsqu'on tape da puis deux fois la touche tabulation, on obtient les choix
+  dash et date.</p>
+
+  <p><em>clean</em> ou Ctrl+l permet d'effacer le contenu de la console.</p>
+
+  <p><em>exit</em> ou Ctrl+d permet de fermer la console</p>
+
+
+
+
 
 
   <!-- LIGNES DE COMMANDE -->
 
-  <h2 id="commande">Les principales lignes de commande Linux</h2>
+  <h2 id="commande">Les principales lignes de commande</h2>
 
-  <p>L'autocomplétion se réalise avec la touche de tabulation, la navigation dans le terminal se fait à l'aide des flèches haut et bas.</p>
+  <h3>Se déplacer, connaître l'emplacement</h3>
 
-  <p>Toutes les lignes de commande suivantes s'exécutent à partir du dossier courant dans lequel se trouve le fichier cible.</p>
   <table>
     <tr> <th> Objectif</th> <th> Instruction</th> </tr>
-    <tr> <td>  </td><td><pre>pwd</pre></td></tr>
+    <tr> <td> afficher le dossier courant (print working directory)</td><td><pre>pwd</pre></td></tr>
+    <tr> <td> connaître l'emplacement d'un programme (par exemple Python)</td> <td><pre>which python</pre></td></tr>
     <tr> <td> se rendre dans le dossier <em>Documents</em> </td> <td> <pre>cd Documents</pre> </td> </tr>
     <tr> <td> revenir au dossier parent </td> <td> <pre>cd ..</pre></td> </tr>
-    <tr> <td> revenir à la racine </td> <td> <pre>cd</pre></td> </tr>
+    <tr> <td> revenir à /home/stephane </td> <td> <pre>cd</pre></td> </tr>
     <tr> <td> afficher la date </td> <td> <pre>date</pre></td></tr>
     <tr> <td> trouver <em>monFichier</em></td> <td><pre>whereis monFichier</pre></td></tr>
+  </table>
+
+
+  <h3>Lister, afficher</h3>
+
+  <table>
+    <tr> <th> Objectif</th> <th> Instruction</th> </tr>
     <tr> <td> afficher la liste des éléments du dossier courant </td> <td> <pre>ls</pre></td> </tr>
     <tr> <td> afficher la liste détaillée des éléments du dossier courant </td> <td> <pre>ls -l</pre></td> </tr>
-    <tr> <td> afficher la liste des éléments du dossier courant avec ceux cachés </td> <td> <pre>ls -a</pre></td> </tr>
-    <tr> <td> afficher la liste détaillée des éléments du dossier courant avec ceux cachés </td> <td> <pre>ls -la</pre></td> </tr>
-    <tr> <td> afficher la liste des éléments de MonDossier</td> <td>ls ~/Documents/MonDossier</td></tr>
+    <tr> <td> afficher la liste détaillée des éléments du dossier courant avec une taille facilement lisible pour
+      l'homme</td> <td><pre>ls -lh</pre></td></tr>
+    <tr> <td> afficher la liste des éléments du dossier courant avec les éléments cachés </td> <td> <pre>ls -a</pre></td> </tr>
+    <tr> <td> afficher la liste détaillée des éléments du dossier courant avec les éléments cachés </td> <td> <pre>ls -la</pre></td> </tr>
+    <tr> <td> afficher la liste détaillée des éléments du dossier courant en triant par date de dernière modification au lieu de trier par ordre alphabétique</td> <td><pre>ls -lt</pre></td></tr>
+    <tr> <td> afficher la liste des éléments de MonDossier</td> <td><pre>ls ~/Documents/MonDossier</pre></td></tr>
     <tr> <td> afficher la liste des éléments actifs du dossier local </td> <td> <pre>ps</pre></td> </tr>
+    <tr> <td> afficher le contenu de <em>monFichier</em> (voir détails plus bas)</td> <td> <pre>cat monFichier</pre></td> </tr>
+  </table>
+
+  <h3>Créer, copier, déplacer, supprimer</h3>
+
+  <p>Attention, il n'y a pas de possibilité de récupération d'un dossier ou fichier supprimé à l'aide de la commande rm. Il n'y a
+  donc pas d'équivalent d'une corbeille lorsqu'on utilise les lignes de commande. Il n'y a pas non plus de demande de confirmation, le dossier ou fichier
+  est simplement supprimé au moment oû l'utilisateur presse la touche Entrée, à moins d'utiliser l'option -i. La commande rm est donc à utiliser avec précaution,
+    et il semble important d'utiliser systématiquement l'option -i.</p>
+
+  <table>
+    <tr> <th> Objectif</th> <th> Instruction</th> </tr>
     <tr> <td> créer le fichier <em>monFichier</em> </td> <td> <pre>touch monFichier</pre></td> </tr>
     <tr> <td> créer le dossier <em>monDossier</em> </td> <td> <pre>mkdir monDossier</pre></td> </tr>
-    <tr> <td> afficher le contenu de <em>monFichier</em> </td> <td> <pre>cat monFichier</pre></td> </tr>
+    <tr> <td> creer le dossier <em>monDossier</em> contenant le sous-dossier <em>monSousDossier</em></td> <td><pre>mkdir -p monDossier/monSousDossier</pre></td></tr>
     <tr> <td> supprimer <em>monFichier</em> </td> <td><pre>rm monFichier</pre></td></tr>
-    <tr> <td> supprimer <em>monDossier</em></td> <td><pre>rm -r monDossier</pre></td></tr>
+    <tr> <td> supprimer <em>monFichier</em> en demandant confirmation (-i) et en demandant l'état de ce qui a été fait (-v)</td> <td><pre>rm -vi monFichier</pre></td></tr>
+    <tr> <td> supprimer <em>monDossier</em> et tout ce qu'il contient</td> <td><pre>rm -r monDossier</pre></td></tr>
     <tr> <td> déplacer <em>monFichier</em></td> <td><pre>mv chemin_monFichier  chemin_nouvelEmplacement</pre></td></tr>
-    <tr> <td>copier monFichier.py dans le répertoire courant</td> <td><pre>cp monFichier.py</pre></td></tr>
-    <tr> <td>copier monFichier.py dans Documents</td> <td><pre>cp monFichier.py ~/Documents</pre></td></tr>
-    <tr> <td> renommer monFichier en nouveauFichier</td> <td><pre>mv monFichier  nouveauFichier</pre></td></tr>
+    <tr> <td>copier monFichier dans le répertoire courant</td> <td><pre>cp monFichier monFichierCopie</pre></td></tr>
+    <tr> <td>copier monFichier dans Documents</td> <td><pre>cp monFichier ~/Documents/monFichierCopie</pre></td></tr>
+    <tr> <td>copier monFichier dans Documents sous le même nom</td> <td><pre>cp monFichier ~/Documents/</pre></td></tr>
+    <tr> <td> copier tous les fichiers au format .py dans monDossier</td> <td><pre>cp *.py monDossier/</pre></td></tr>
+    <tr> <td> copier monDossier et tout ce qu'il contient</td> <td><pre>cp -R monDossier monDossierCopie</pre></td></tr>
+    <tr> <td> déplacer monFichier dans monDossier</td> <td><pre>mv monFichier monDossier/</pre></td></tr>
+    <tr> <td> déplacer monDossier et tout ce qu'il contient dans monAutreDossier</td> <td><pre>mv monDossier/ monAutreDossier/</pre></td></tr>
+    <tr> <td> déplacer tous les fichiers au format .py dans monDossier</td> <td><pre>mv *.py monDossier/</pre></td></tr>
+    <tr> <td> renommer monFichier en nouveauNomFichier</td> <td><pre>mv monFichier nouveauNomFichier</pre></td></tr>
+    <tr> <td> déplacer monFichier dans monDossier et le renommer nouveauNomFichier</td> <td><pre>mv monFichier monDossier/nouveauNomFichier</pre></td></tr>
+  </table>
+
+  <h3>Commandes générales</h3>
+
+  <table>
+    <tr> <th> Objectif</th> <th> Instruction</th> </tr>
     <tr> <td> stopper l'exécution d'un code ou d'un serveur </td><td><pre>Ctrl+c</pre></td></tr>
     <tr> <td> quitter une interface exécutée à partir du terminal </td> <td><pre>q</pre></td></tr>
     <tr> <td> vider le terminal</td> <td> <pre>clear</pre></td> </tr>
@@ -137,10 +178,38 @@
     <tr> <td> nettoyer le disque</td> <td><pre>sudo apt-get autoclean
 sudo apt-get clean
 sudo apt-get autoremove</pre></td></tr>
+    <tr> <td> connaître la taille du dossier courant (uniquement) en utilisant une lecture facile pour l'homme</td> <td><pre>du -sh</pre></td></tr>
   </table>
 
+<h2>Affichage d'un fichier dans la console</h2>
+
+  <p>Pour afficher un fichier tout entier dans la console, on se place dans le dossier parent du fichier à lire puis on utilise l'instruction</p>
+  <pre><code class="language-svg">cat nomFichier</code></pre>
+
+  <p>Si l'on souhaite afficher également le numéro de chaque ligne du fichier il faut rajouter</p>
+  <pre><code class="language-svg">cat nomFichier -n</code></pre>
+
+  <p>Si l'on souhaite afficher le fichier page par page, on utilise l'instruction</p>
+  <pre><code class="language-svg">less nomFichier</code></pre>
+
+  <p>Dans ce cas, la console ne fonctionne plus qu'en mode affichage.</p>
+  <ul>
+    <li>pour revenir en mode normal, il faut taper 'q'</li>
+    <li>pour descendre d'une ligne, on peut utiliser la flèche du bas</li>
+    <li>pour monter d'une ligne, on peut utiliser la flèche du haut</li>
+    <li>pour descendre en bas de l'ếcran, on peut utiliser la touche Entrée ou la touche Page Down</li>
+    <li>pour monter en haut de l'écran, on peut utiliser la touche Page Up</li>
+    <li>pour rechercher unMot dans le fichier lu dans la console, on peut utiliser /unMot directement</li>
+  </ul>
+
+  <p>Pour afficher les 5 premières lignes de monFichier</p>
+  <pre><code class="language-svg">head -n 5 monFichier</code></pre>
 
 
+
+  <!-- DROITS UTILISATEUR -->
+
+  <h2>Les droits d'utilisateur</h2>
 
 <!-- zipper un dossier zip -->
 
