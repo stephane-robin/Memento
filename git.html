@@ -34,7 +34,10 @@
 
 <aside>
   <nav id="table_matiere">
+    <a href="#structureLinux">Structure du système Linux</a>
+    <a href="#inviteCommande">L'invite de commande</a>
     <a href="#commande">Lignes de commande Linux</a>
+    <a href="#affichageConsole">Affichage dans la console</a>
     <a href="#zip">Archive .zip</a>
     <a href="#gz">Archive .gz</a>
     <a href="#bash">Installation avec .sh</a>
@@ -54,7 +57,7 @@
 
 <section id="principal">
 
-  <h2>Structure du système Linux</h2>
+  <h2 id="structureLinux">Structure du système Linux</h2>
 
   <p>La racine est symbolisée par / en Linux.</p>
 
@@ -79,7 +82,29 @@
 Linux a souhaité le cacher pour ne pas encombrer l'affichage. En revanche le point "." représente le dossier courant,
 alors que le double point ".." représente le dossier parent. Le signe ~ symbolise le dossier personnel /home/stephane.</p>
 
-  <h2>L'invite de commande</h2>
+  <p>nano est un éditeur de texte léger présent par défaut dans les systèmes Linux. On peut le lancer en tapant simplement nano dans l'invite de commande.
+    L'enregistrement d'un fichier à partir de nano se fait directement dans le dossier personnel /home/stephane. Pour ouvrir
+    monFichier à partir de nano il faut taper nano monFichier dans l'invite de commande lorsqu'on se situe dans le répertoire parent.</p>
+
+  <p>Le .bashrc est un fichier de configuration de la console. Il se situe dans le répertoire personnel /home/stephane/</p>
+
+  <p>L'installation d'applications sous Linux ne nécessite pas de programme d'installation, mais des paquets au format .deb qui
+  contiennent à la fois les instructions d'installation et l'application elle-même. Les fichiers .deb se trouvent dans des dépôts
+  et la gestion des dépendances est automatisée.</p>
+
+  <p>Les fichiers .deb sont des versions compilées de programmes, donc sous forme binaire. Ils se basent sur les codes sources
+  des programmes qui sont écrits dans le langage dans lequel ils ont été créés (Python, C, Java, ...). C'est en général la
+  version compilée des sources qui nous intéresse pour procéder à l'installation d'un programme.</p>
+
+
+
+
+
+
+
+
+
+  <h2 id="inviteComamnde">L'invite de commande</h2>
 
   <p>Par défaut, l'invite de commande s'ouvre dans le dossier /home/stephane. Une fois l'invite de commande ouverte, le signe $ symbolise l'utilisateur alors que le signe # symbolise le superutilisateur qui travaille donc
   en mode root. </p>
@@ -174,14 +199,14 @@ alors que le double point ".." représente le dossier parent. Le signe ~ symboli
     <tr> <td> installer un package Python </td> <td><pre>pip install monPackage</pre><pre>conda install monPackage</pre></td></tr>
     <tr> <td> désinstaller un package Python </td> <td><pre>pip uninstall monPackage</pre></td></tr>
     <tr> <td> exécuter monPackage en Python </td> <td><pre>python -m monPackage</pre></td></tr>
-    <tr> <td> supprimer <em>monApplication</em></td> <td><pre>sudo apt-get remove monApplication</pre></td></tr>
-    <tr> <td> nettoyer le disque</td> <td><pre>sudo apt-get autoclean
-sudo apt-get clean
-sudo apt-get autoremove</pre></td></tr>
     <tr> <td> connaître la taille du dossier courant (uniquement) en utilisant une lecture facile pour l'homme</td> <td><pre>du -sh</pre></td></tr>
   </table>
 
-<h2>Affichage d'un fichier dans la console</h2>
+
+
+
+
+<h2 id="affichageConsole">Affichage d'un fichier dans la console</h2>
 
   <p>Pour afficher un fichier tout entier dans la console, on se place dans le dossier parent du fichier à lire puis on utilise l'instruction</p>
   <pre><code class="language-svg">cat nomFichier</code></pre>
@@ -207,11 +232,136 @@ sudo apt-get autoremove</pre></td></tr>
 
 
 
+
+  <h2>RTFM</h2>
+
+  <p> Pour afficher la documentation relative à la commande mkdir dans la console, on utilise </p>
+  <pre><code class="language-svg">man mkdir</code></pre>
+
+  <p>La documentation contient les éléments suivants :</p>
+  <ul>
+    <li>NAME : le nom de la commande</li>
+    <li>SYNOPSIS : les différentes formes d'utilisation de la commande</li>
+    <li>DESCRIPTION : détail des différentes options possibles et explications des fonctionnalités</li>
+    <li>AUTHOR : auteurs de la documentation et de la commande</li>
+    <li>REPORTING BUGS : adresses pour reporter un bug</li>
+    <li>COPYRIGHT : licence d'utilisation</li>
+    <li>SEE ALSO : autres commandes pouvant être utiles</li>
+  </ul>
+
+
+
+
   <!-- DROITS UTILISATEUR -->
 
   <h2>Les droits d'utilisateur</h2>
 
-<!-- zipper un dossier zip -->
+  <p>La commande <em>sudo</em> permet de passer temporairement en mode root et d'acquérir les droits du super-utilisateur. Elle signifie
+    Substitute User DO. Une fois en mode root, l'invite de commande se termine par le symbole # .</p>
+  <p>Contrairement à Windows, le système Linux n'est pas connecté par défaut en mode root, ce qui limite les risques potentiels.</p>
+
+
+
+  <h3>Changement de mot de passe</h3>
+
+  <p>Pour changer le mot de passe du compte stephane :</p>
+
+  <pre><code class="language-svg">sudo passwd stephane</code></pre>
+
+  <p>Pour changer le mot de passe du compte sur lequel on est connecté, c'est à dire du super-utilisateur et de la connexion à la machine.</p>
+
+  <pre><code class="language-svg">sudo passwd</code></pre>
+
+
+  <h3>Modification des droits d'accès</h3>
+
+  <p>Chaque dossier et chaque fichier possède une liste de droits symbolisés par une lettre :</p>
+  <ul>
+    <li>d pour directory : indique si l'élément est un dossier</li>
+    <li>l pour link : indique si l'élément est un lien ou un raccourci vers un fichier ou dossier</li>
+    <li>r pour read : indique si on peut lire l'élément</li>
+    <li>w pour write : indique si on peut modifier l'élément et donc le supprimer</li>
+    <li>x pour execute : indique si on peut exécuter cet élément lorsque c'est un fichier, indique si on
+      peut voir les sous-dosssiers qu'il contient lorsqu'on a le droit de lecture dessus</li>
+  </ul>
+
+  <p>On peut consulter ces droits avec la commande ls -l. Lorsqu'ils existent les droits sont symbolisés par une lettre,
+    lorsqu'ils n'existent pas les droits sont remplacés par un tiret. Par ailleurs, les droits sont regroupés de la façon suivante et
+    sans espace : (dossier) (utilisateur proprétaire) (groupe) (autres utilisateurs)</p>
+    <p>Par exemple on peut trouver les information suivantes lorsqu'on utilise la commande ls -l</p>
+
+  <pre><code class="language-svg">drwxr-xr-x 1 stephane stephane 4096 2020-11-03 21:37 Desktop</code></pre>
+
+  <p>Lorsqu'un dossier autorise tous les droits, on obtient donc l'information suivante drwxrwxrwx</p>
+
+<p>La commande chmod permet de modifier les droits d'accès d'un fichier ou d'un dossier. Attention de ne pas la confondre
+  avec la commande chown qui permet de gérer quel utilisateur et quel groupe est propriétaire d'un fichier</p>
+
+  <p>Il n'est pas nécessaire d'être super-utilisateur pour modifier un dossier ou fichier. En revanche, il faut être propriétaire de ce dossier ou fichier.</p>
+
+  <p>Pour utiliser la commande chmod, il faut savoir qu'à chaque lettre correspond un chiffre. Ainsi, r correspond à 4,
+  w correspond à 2 et x correspond à 1. On combine maintenant les droits en additionnant les chiffres précédents.</p>
+  <p>Ainsi le tableau suivant récapitule les différents droits sous forme de chiffres :</p>
+
+  <table>
+    <tr><th>droits</th><th>chiffres correspondants</th></tr>
+    <tr><td>---</td><td>0</td></tr>
+    <tr><td>r--</td><td>4</td></tr>
+    <tr><td>-w-</td><td>2</td></tr>
+    <tr><td>--x</td><td>1</td></tr>
+    <tr><td>rw-</td><td>6</td></tr>
+    <tr><td>wx-</td><td>3</td></tr>
+    <tr><td>r-x</td><td>5</td></tr>
+    <tr><td>rwx</td><td>7</td></tr>
+  </table>
+
+<p>Par exemple 640 représente les droits du propriétaire (6 donc lecture, écriture), les droits du groupe (4 donc lecture),
+et les droits des autres utilisateurs (0 donc aucun droit).</p>
+
+  <p>Finalement, pour changer les droits sur le monFichier et être le seul autorisé à le lire et le modifier, il faut exécuter la commande suivante</p>
+  <pre><code class="language-svg">chmod 600 monFichier</code></pre>
+  <p>Cette commande est la même pour un dossier. Il faut penser à se placer dans le répertoire parent ou préciser une adresse absolue.</p>
+
+  <p>Maintenant la commande ls -l fournit le résultat suivant</p>
+  <pre><code class="language-svg">-rw------- 1 stephane stephane 0 2019-09-15 21:12 monFichier</code></pre>
+
+  <p>Pour affecter des droits sur un dossier de manière récursive, c'est à dire en affectant tous les fichiers et sous-dossiers qu'il contient,
+  il faut utiliser la commande</p>
+  <pre><code class="language-svg">chmod -R 600 monFichier</code></pre>
+  <p>Cette commande est la même pour un dossier. Il faut penser à se placer dans le répertoire parent ou préciser une adresse absolue.</p>
+
+
+
+
+  <h2>Installation d'un programme avec apt-get</h2>
+
+  <p>Il faut généralement mettre à jour le cache des paquets (i.e. télécharger la nouvelle liste des paquets proposés par le dépôt) avant de procéder à l'installation :</p>
+  <pre><code class="language-svg">sudo apt-get update
+sudo apt-get install monPaquet</code></pre>
+
+  <p>Pour obtenir la description d'un paquet :</p>
+  <pre><code class="language-svg">sudo apt-cache show nomPaquet</code></pre>
+
+  <p>Pour désinstaller un paquet</p>
+  <pre><code class="language-svg">sudo apt-get remove monPaquet</code></pre>
+
+  <p>Pour désinstaller un paquet et ses dépendances devenues inutiles</p>
+  <pre><code class="language-svg">sudo apt-get autoremove monPaquet</code></pre>
+
+  <p>Pour mettre à jour tous les paquets, il faut d'abord récupérer la liste des nouveaux paquets afin de pouvoir comparer leurs versions
+    à celles présentes dans le système. Cette opération doit être faite régulièrement pour assurer la sécurité du système.</p>
+  <pre><code class="language-svg">sudo apt-get update
+sudo apt-get upgrade</code></pre>
+
+  <p>Pour nettoyer le système, il faut utiliser les instructions suivantes</p>
+  <pre><code class="language-svg">sudo apt-get autoclean
+sudo apt-get clean
+sudo apt-get autoremove</code></pre>
+
+
+
+
+  <!-- zipper un dossier zip -->
 
   <h2 id="zip">Commandes pour zipper/dézipper un dossier .zip</h2>
 
