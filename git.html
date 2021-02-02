@@ -170,9 +170,9 @@ alors que le double point ".." représente le dossier parent. Le signe ~ symboli
     <tr> <td> créer le fichier <em>monFichier</em> </td> <td> <pre>touch monFichier</pre></td> </tr>
     <tr> <td> créer le dossier <em>monDossier</em> </td> <td> <pre>mkdir monDossier</pre></td> </tr>
     <tr> <td> creer le dossier <em>monDossier</em> contenant le sous-dossier <em>monSousDossier</em></td> <td><pre>mkdir -p monDossier/monSousDossier</pre></td></tr>
-    <tr> <td> supprimer <em>monFichier</em> </td> <td><pre>rm monFichier</pre></td></tr>
-    <tr> <td> supprimer <em>monFichier</em> en demandant confirmation (-i) et en demandant l'état de ce qui a été fait (-v)</td> <td><pre>rm -vi monFichier</pre></td></tr>
-    <tr> <td> supprimer <em>monDossier</em> et tout ce qu'il contient</td> <td><pre>rm -r monDossier</pre></td></tr>
+    <tr> <td> supprimer <em>monFichier</em> </td> <td><pre>sudo rm monFichier</pre></td></tr>
+    <tr> <td> supprimer <em>monFichier</em> en demandant confirmation (-i) et en demandant l'état de ce qui a été fait (-v)</td> <td><pre>sudo rm -vi monFichier</pre></td></tr>
+    <tr> <td> supprimer <em>monDossier</em> et tout ce qu'il contient</td> <td><pre>sudo rm -r monDossier</pre></td></tr>
     <tr> <td> déplacer <em>monFichier</em></td> <td><pre>mv chemin_monFichier  chemin_nouvelEmplacement</pre></td></tr>
     <tr> <td>copier monFichier dans le répertoire courant</td> <td><pre>cp monFichier monFichierCopie</pre></td></tr>
     <tr> <td>copier monFichier dans Documents</td> <td><pre>cp monFichier ~/Documents/monFichierCopie</pre></td></tr>
@@ -200,6 +200,7 @@ alors que le double point ".." représente le dossier parent. Le signe ~ symboli
     <tr> <td> désinstaller un package Python </td> <td><pre>pip uninstall monPackage</pre></td></tr>
     <tr> <td> exécuter monPackage en Python </td> <td><pre>python -m monPackage</pre></td></tr>
     <tr> <td> connaître la taille du dossier courant (uniquement) en utilisant une lecture facile pour l'homme</td> <td><pre>du -sh</pre></td></tr>
+    <tr> <td> connaître la version du système Linux</td> <td><pre>lsb_release -a</pre></td></tr>
   </table>
 
 
@@ -451,20 +452,52 @@ sudo apt-get install update-manager-core
 sudo do-release-upgrade
 sudo apt-get update</code></pre>
 
-  <!-- clé bootable -->
-
-  <h2 id="bootable">Créer une clé bootable</h2>
-
-  <ol>
-    <li>télécharger le fichier iso de la version souhaitée de Ubuntu sur un ordinateur</li>
-    <li>configurer une clé bootable sur le site balena.io. Pour cela, chercher balenaetcher, lancer l'application et choisir une clé USB comme cible. Il est important de ne connecter qu'une seule clé à l'ordinateur</li>
-    <li>brancher la clé bootable sur l'ordinateur cible, démarrer l'ordinateur en ouvrant le bios (souvent la touche f12 ou f2), configurer le lancement du système sur clé USB</li>
-  </ol>
 
 
 
 
 
+
+  <!-- ANTIVIRUS -->
+
+  <h2 id="clamav">Antivirus</h2>
+
+  <p>L'antivirus ClamAv est compatible avec Linux et fonctionne en ligne de commande.</p>
+
+  <p>L'installation est détaillée sur la page <a href="https://www.inmotionhosting.com/support/security/install-clamav-on-ubuntu/"> inmotion.hosting</a></p>
+
+  <p>Pour lancer le scan, utiliser les instructions suivantes</p>
+<pre><code class="language-svg">clamscan -r /</code></pre>
+
+<p>Le processus de scan est assez long mais peut s'exécuter en toile de fond.</p>
+
+
+
+
+
+  <!-- CREATION CLE BOOTABLE -->
+
+  <h2 id="bootable">Création d'une clé bootable</h2>
+
+  <p>Il faut d'abord télécharger l'archive .iso de la version souhaitée de Linux à l'aide d'un ordinateur tiers,
+    créer une clé bootable à l'aide de l'application balenaEtcher, et placer cette archive dans la clé.
+  Il est important de ne connecter qu'une seule clé à l'ordinateur.</p>
+
+  <p>Il faut maintenant brancher la clé bootable sur l'ordinateur cible qu'on allume en ouvrant le menu boot (souvent F1 ou F2).
+    Il faut ensuite configurer le démarrage sur clé USB, et on installe Linux en suivant les instructions.</p>
+
+
+<!-- CREATION DEPOT GIT -->
+<h2 id="depotGit">Création d'un dépôt Git</h2>
+
+<p>On peut créer un dépôt Git vide ou clôner un dépôt distant.</p>
+
+<p>Pour créer un dépôt Git vide, il faut créer un répertoire, se placer dans ce répertoire puis exécuter</p>
+  <pre><code class="language-svg">git init</code></pre>
+
+<p>Pour clôner un dépôt distant, il faut importer un remote repository du dépôt distant :</p>
+  <pre><code class="language-svg">git remote add nomProjet https://github.com/monProjet
+git clone https://github.com/monProjet</code></pre>
 
 
 <!-- CONFIGURATION -->
@@ -476,18 +509,18 @@ sudo apt-get update</code></pre>
 
 <p>Pour configurer les données utilisateur de <em>git</em> :</p>
 <pre><code class="language-svg">git config --global user.name "monNom"
-  git config --global user.email "monEmail"</code></pre>
+git config --global user.email "monEmail"</code></pre>
+<p>Il n'est pas recommandé de configurer les données utilisateur, mais préférable
+de fournir les credentials à chaque utilisation pour des raisons de sécurité.</p>
 
 <p>Pour activer la couleur dans la console :</p>
 <pre><code class="language-svg">git config --global color.diff auto
 git config --global color.status auto
-  git config --global color.branch auto</code></pre>
+git config --global color.branch auto</code></pre>
 
-<p>Il faut créer un dossier local qui va héberger les différents repositories, par exemple <em>Git_Local_Repo</em>. Puis se placer dans <em>Git_Local_Repo</em> et importer un remote repository du <em>master</em> :</p>
-  <pre><code class="language-svg">git clone https://github/monAdresse</code></pre>
 
-<p>ou initialiser le dossier et démarrer de projet en local avec l'instruction :</p>
-  <pre><code class="language-svg">git init</code></pre>
+
+
 
   <p>Pour vérifier la configuration enregistrée :</p>
   <pre><code class="language-svg">git config --list</code></pre>
@@ -497,6 +530,26 @@ git config --global color.status auto
 <!-- PRINCIPALES INSTRUCTIONS -->
 
 <h2 id="instructionGit">Les principales instructions Git</h2>
+
+<h3>Travailler avec des branches</h3>
+
+<p>La branche master correspond à celle dans laquelle aboutissent toutes les 
+modifications. Il ne faut pas réaliser les modifications sur cette branche master,
+mais les réaliser sur une autre branche qu'on intègre ultérieurement à la branche master.</p>
+
+<p>Pour connaître les branches présentes dans un projet, il faut exécuter</p>
+<pre><code class="language-svg">git branch</code></pre>
+
+<p>Pour créer la branche maBranche en local (elle ne sera pas dupliquée sur le dépôt distant)</p>
+<pre><code class="language-svg">git branch maBranche</code></pre>
+
+<p>Pour changer de branche et se retrouver dans maBranche</p>
+<pre><code class="language-svg">git checkout maBranche</code></pre>
+
+
+<h3>Réaliser un commit</h3>
+
+<p>Notons que les commit sont réalisés sur la branche courante.</p>
 
 <p>Pour ajouter un fichier local à l'index : </p>
   <pre><code class="language-svg">git add monFichier</code></pre>
