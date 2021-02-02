@@ -527,11 +527,12 @@ git config --global color.branch auto</code></pre>
 
 
 
-<!-- PRINCIPALES INSTRUCTIONS -->
 
-<h2 id="instructionGit">Les principales instructions Git</h2>
 
-<h3>Travailler avec des branches</h3>
+
+<!-- LA GESTION DES BRANCHES -->
+
+<h2 id="branche">La gestion des branches Git</h2>
 
 <p>La branche master correspond à celle dans laquelle aboutissent toutes les 
 modifications. Il ne faut pas réaliser les modifications sur cette branche master,
@@ -540,14 +541,56 @@ mais les réaliser sur une autre branche qu'on intègre ultérieurement à la br
 <p>Pour connaître les branches présentes dans un projet, il faut exécuter</p>
 <pre><code class="language-svg">git branch</code></pre>
 
+<p>L'étoile qui apparaît dans la réponse marque la branche sur laquelle on travaille actuellement.</p>
+
 <p>Pour créer la branche maBranche en local (elle ne sera pas dupliquée sur le dépôt distant)</p>
 <pre><code class="language-svg">git branch maBranche</code></pre>
+
+<p>Attention, une branche créée est toujours locale.</p>
 
 <p>Pour changer de branche et se retrouver dans maBranche</p>
 <pre><code class="language-svg">git checkout maBranche</code></pre>
 
+<p>Attention, <strong>checkout</strong> a un double usage avec <em>Git</em>.</p>
 
-<h3>Réaliser un commit</h3>
+<p>On peut également créer une branche et s'y rendre directement avec l'instruction :</p>
+  <pre><code class="language-svg">git checkout -b nomBranche</code></pre>
+
+<p>Pour fusionner les changements d'une branche avec la branche master, il faut d'abord se rendre sur la branche master :</p>
+<pre><code class="language-svg">git checkout master
+git merge nomBranche</code></pre>
+
+<p>Pour supprimer une branche : </p>
+  <pre><code class="language-svg">git branch -d nomBranche</code></pre>
+
+<p>Cette suppression n'est possible que si le travail réalisé sur la branche fille a été incorporé dans la branche master, sinon <em>Git</em> interdit la suppression.</p>
+
+<p>Pour supprimer une branche dont les modifications n'ont pas été incorporées à la branche master, parce que par exemple le travail réalisé n'est pas concluant :</p>
+  <pre><code class="language-svg">git branch -D nomBranche</code></pre>
+
+
+
+
+
+
+
+<!-- PRINCIPALES INSTRUCTIONS -->
+
+<h2 id="instructionGit">Push / Pull</h2>
+
+<p>La structure Git est composée de 3 zones locales :</p>
+<ul>
+<li>le working directory</li>
+<li>l'index ou stage qui regroupe tous les fichiers modifiés qu'on souhaite 
+voir apparaître dans le prochain commit</li>
+<li>le dépôt local</li>
+</ul>
+
+<p>La commande add permet d'ajouter des fichiers du working directory vers l'index. La commande
+commit permet d'enregistrer les modifications de l'index vers le dépôt local.
+La commande push permet de mettre à jour le dépôt distant grâce au dépôt local, 
+alors que la commande pull permet de récupérer l'état du dépôt distant vers le 
+dépôt local afin de travailler dessus.</p>
 
 <p>Notons que les commit sont réalisés sur la branche courante.</p>
 
@@ -563,7 +606,9 @@ mais les réaliser sur une autre branche qu'on intègre ultérieurement à la br
 <p>On travaille normalement dans le repository local. Pour synchroniser le remote repository <em>master</em> avec le repository local <em>origin</em>, on commence par rajouter dans l'index chaque fichier modifié (add), on ajoute les dernières modifications dans l'historique des modifications (commit) et finalement on insère le fichier validé vers le remote repository (push) :</p>
 <pre><code class="language-svg">git add .
 git commit -m "monCommentaire"
-  git push origin master</code></pre>
+git push origin master</code></pre>
+
+<p>Notons que le -m dans le commit permet d'en modifier le message.</p>
 
 <p>Il n'est pas nécessaire de définir le nom des fichiers concernés car tous les fichiers indexés et non validés vont être pris en compte par le commit. <em>Attention</em>, chaque étape est nécessaire. On peut toutefois regrouper les étapes du rajout à l'index et du commit :</p>
 <pre><code class="language-svg">git commit -a -m "monCommentaire"
@@ -574,10 +619,11 @@ git commit -m "monCommentaire"
 <p><em>Attention</em>, les fichiers modifiés mais non entrés dans l'index ne seront pas synchronisés.</p>
 
 <p>Pour modifier le dernier message du commit (dans le cas par exemple où une erreur s'est glissée) :</p>
-  <pre><code class="language-svg">git commit --amend</code></pre>
+  <pre><code class="language-svg">git commit --amend -m "nouveau message de commit"</code></pre>
 
-<p>Pour connaître l'état des modifications :</p>
-  <pre><code class="language-svg">git status</code></pre>
+<p>Pour rajouter un fichier oublié alors que le commit a déjè été réalisé, sans modifier le message du commit</p>
+<pre><code class="language-svg">git add fichierOublie.txt
+git commit --amend --no-edit</code></pre>
 
 <p>Pour récupérer un fichier de travail :</p>
   <pre><code class="language-svg">git pull monFichier master</code></pre>
@@ -585,6 +631,11 @@ git commit -m "monCommentaire"
 <p>Ou de façon plus générale :</p>
   <pre><code class="language-svg">git pull origin master</code></pre>
 <p>Dans ce cas, origin correspond au remote repository.</p>
+
+<p>Il est possible à tout moment de voir l'état des fichiers (ceux qui ont été modifiés 
+mais pas encore committés par exemple) en exécutant</p>
+<pre><code class="language-svg">git status</code></pre>
+
 
 
 
@@ -650,39 +701,6 @@ git commit -m "monCommentaire"
 
 
 
-<!-- LA GESTION DES BRANCHES -->
-
-<h2 id="branche">La gestion des branches Git</h2>
-
-<p>Pour voir toutes les branches d'un projet : </p>
-  <pre><code class="language-svg">git branch</code></pre>
-
-<p>L'étoile qui apparaît dans la réponse marque la branche sur laquelle on travaille actuellement.</p>
-
-<p>Pour créer une branche : </p>
-  <pre><code class="language-svg">git branch nomBranche</code></pre>
-
-<p>Attention, une branche créée est locale.</p>
-
-<p>Pour se rendre sur une branche pour travailler :</p>
-  <pre><code class="language-svg">git checkout nomBranche</code></pre>
-
-<p>Attention, <strong>checkout</strong> a un double usage avec <em>Git</em>.</p>
-
-<p>On peut également créer une branche et s'y rendre directement avec l'instruction :</p>
-  <pre><code class="language-svg">git checkout -b nomBranche</code></pre>
-
-<p>Pour fusionner les changements d'une branche avec le master, il faut d'abord se rendre sur le master :</p>
-<pre><code class="language-svg">git checkout master
-  git merge nomBranche</code></pre>
-
-<p>Pour supprimer une branche : </p>
-  <pre><code class="language-svg">git branch -d nomBranche</code></pre>
-
-<p>Cette suppression n'est possible que si le travail réalisé sur la branche fille a été incorporé dans le master, sinon <em>Git</em> interdit la suppression.</p>
-
-<p>Pour supprimer une branche dont les modifications n'ont pas été incorporées au master, parce que par exemple le travail réalisé n'est pas concluant :</p>
-  <pre><code class="language-svg">git branch -D nomBranche</code></pre>
 
 
 
