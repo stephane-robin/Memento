@@ -26,32 +26,31 @@
 #bandeau{
   background-image:linear-gradient(40deg,rgb(153,204,255,0.9),rgba(255,204,204,0.9));/* couleur
   de font dégradée avec opacité */
-  top: 0%; /* positionne le menu par rapport au haut de page */
+  /*top: 0%; /* positionne le menu par rapport au haut de page */
   width: 100%; /* force le background a occuper toute la largeur et pas uniquement
   ou se trouve le texte */
   display: flex;
   flex-direction: row; /* crée le menu horizontalement */
-  position: fixed; /* empêche le déroulement du menu avec la souris */
+  justify-content: center;
 }
 
 /* titre de page dans le menu */
 h1{
-  font-family: "Comic Sans MS", Arial, Verdana, "Trebuchet MS";
+  font-family: Cambria, Verdana, Arial;
+  text-align: center;
   color: rgb(153,102,102);
-  transform: rotate(-10deg);
   margin: 15px;
-  margin-right: 20px;
 }
 
 /* conteneur de menu */
 nav{
   display: flex;
-  justify-content: center;
+  flex-direction: row;
 }
 
 /* liens de menu */
 nav a{
-  font-family: Arial, Verdana, "Trebuchet MS";
+  font-family: Cambria, Verdana, Arial;
   font-size:1.3em;
   text-decoration: none; /* enleve le soulignement des liens du menu */
   color: rgb(51,153,255);
@@ -66,23 +65,32 @@ nav a:hover{
 /* classe élément de menu */
 .element{
   margin: 15px;
-  margin-top: 30px;
+  margin-left: 40px;
 }
 
 /* ====== ASIDE ======= */
 
 /* conteneur de menu */
 aside nav{
-    font-family: Arial, Verdana, "Trebuchet MS";
+    font-family: Cambria, Verdana, Arial;
     font-size: 0.9em;
     text-align: justify;
     text-decoration: none; /* enleve le soulignement des liens du menu */
     display: flex;
     flex-direction: column; /* crée le menu verticalement */
     position: fixed; /* empêche le déroulement du menu avec la souris */
+
+}
+
+#table_matieres{
     margin-left: 2%;
     margin-right: 70%;
     padding-right: 2%;
+}
+
+#chapitres{
+    margin-left: 92%;
+    margin-top: 10%;
 }
 
 /* liens du menu */
@@ -94,9 +102,8 @@ aside nav a{
 
 h2{ /* titre de section */
   font-size: 1.7em;
-  margin-top: 40px;
-  padding-top: 70px;
-  font-family: Arial, Verdana, "Trebuchet MS";
+  padding-top: 40px;
+  font-family: Cambria, Verdana, Arial;
   color: rgb(51,153,255);
   border-bottom: 1px solid rgb(51,153,255);
 }
@@ -111,7 +118,7 @@ h2::before{
 h3{
   font-size: 1.2em;
   margin-top: 40px;
-  font-family: Arial, Verdana, "Trebuchet MS";
+  font-family: Cambria, Verdana, Arial;
   color: rgb(51,153,255);
 }
 
@@ -119,7 +126,7 @@ h4{
   font-size: 1.2em;
   font-style: italic;
   margin-top: 40px;
-  font-family: Arial, Verdana, "Trebuchet MS";
+  font-family: Cambria, Verdana, Arial;
   color: rgb(51,153,255);
 }
 
@@ -147,7 +154,7 @@ footer{
 
 /* texte de pied de page */
 footer p{
-    font-family: Arial, Verdana, "Trebuchet MS";
+    font-family: Cambria, Verdana, Arial;
     font-size: 0.9em;
     color: #828786;
     text-align: center;
@@ -155,7 +162,7 @@ footer p{
 
 /* paragraphes */
 p{
-  font-family: Arial, Verdana, "Trebuchet MS";
+  font-family: Cambria, Verdana, Arial;
   font-size: 1.2em;
   text-align: justify;
 }
@@ -197,14 +204,14 @@ fieldset{
 
 /* listes */
 ul{
-  font-family: Arial, Verdana, "Trebuchet MS";
+  font-family: Cambria, Verdana, Arial;
   font-size: 1.2em;
   list-style-image: url('puce.png');
 }
 
 /* élément de listes */
 ol{
-  font-family: Arial, Verdana, "Trebuchet MS";
+  font-family: Cambria, Verdana, Arial;
   font-size: 1.2em;
 }
 
@@ -218,7 +225,7 @@ ol{
 }
 
 .ulExemple{
-  font-family: Arial, Verdana, "Trebuchet MS";
+  font-family: Cambria, Verdana, Arial;
   font-size: 1.2em;
   list-style-type: square;
 }
@@ -259,14 +266,14 @@ a:hover{
 
 /* tableaux */
 table{
-  font-family: Arial, Verdana, "Trebuchet MS";
+  font-family: Cambria, Verdana, Arial;
   font-size: 1.2em;
   border-collapse: collapse; /* colle les cellules du tableau entre elles */
 }
 
 /* colonnes */
 td{
-  font-family: Arial, Verdana, "Trebuchet MS";
+  font-family: Cambria, Verdana, Arial;
   padding-left: 30px;
   border: 1px solid rgb(153,102,102);
 }
@@ -278,7 +285,7 @@ td pre{
 
 /* colonnes dans la 1ère ligne */
 th{
-  font-family: Arial, Verdana, "Trebuchet MS";
+  font-family: Cambria, Verdana, Arial;
   padding-left: 30px;
   border: 1px solid rgb(153,102,102);
 }
@@ -286,6 +293,7 @@ th{
 /* ===== LES MISES EN FORMES POUR EXEMPLES ===== */
 /* Ces mises en forme ne sont pas utilisées pour l'ensemble de la page, mais
 uniquement pour l'affichage de certains exemples */
+
 .exempleBloc:nth-child(1){ /* exemples html "La mise en page avec Flexbox" */
   background-color: #CF6084;
 }
