@@ -3,13 +3,13 @@
 
 <head>
   <title> Memento </title>
-  <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="prism.css">
+  <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/prism.css">
   <meta charset="utf-8">
 </head>
 
 <!-- JavaScript de gestion des couleurs de code -->
-<script defer src="prism.js"></script>
+<script defer src="../style/prism.js"></script>
 
 <!-- script de gestion de l'apparition du contenu d'une section -->
 <script type="text/javascript">
@@ -27,9 +27,6 @@ function affichageConditionnel(bouton, id) {
 <body>
 <h1> HTML </h1>
 <div id="bandeau">
-
-
-
   <nav>
     <div class="element"> <a href="html.html">HTML</a> </div>
     <div class="element"> <a href="css.html">CSS</a> </div>
@@ -63,15 +60,15 @@ function affichageConditionnel(bouton, id) {
 
 <aside>
     <nav id="chapitres">
-        <a href="">Web</a>
-        <a href="">Appli</a>
-        <a href="">Gestion</a>
+        <a href="">Accueil</a>
+        <a href="web.html">Web</a>
+        <a href="../appli/appli.html">Appli</a>
     </nav>
 </aside>
 
 <section id="principal">
 
-
+    <img src="../images/symbole.png" alt="symbole S. Robin" width=30%>
 
 
     <!-- ====================
@@ -109,7 +106,7 @@ function affichageConditionnel(bouton, id) {
   <p>La balise <strong>&ltbody&gt</strong> encadre le corps d'une page Web, qui est généralement structuré en sections, articles indépendants, informations latérales ainsi qu'un menu. Chacune de ces parties est elle-même composée de blocs séparés ou imbriqués qui auront des attributs différents.</p>
   <p>Les commentaires en HTML sont entourés des symboles <strong>&lt!--</strong> et <strong>--&gt</strong>. Cela signifie que ce qui se trouve à l'intérieur de ces symboles ne sera pas interprété. Ces commentaires peuvent être écrits sur une ou plusieurs lignes.</p>
 
-  <fieldset><legend><img src="images/bonSavoir.png" width="80" height="80"> </legend>
+  <fieldset><legend><img src="../images/bonSavoir.png" width="80" height="80"> </legend>
     <p> Les commentaires sont visibles par tout utilisateur qui fait apparaître le code source HTML de la page qu'il consulte. Il ne faut donc en aucun cas faire apparaître de mot de passe dans les commentaires. </p>
   </fieldset>
 
@@ -722,7 +719,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
     <p>Le nom de la page apparaît souligné dans le texte et, lorsqu'on clique dessus, on accède à la page dont l'adresse a été enregistrée dans l'attribut <strong>href</strong>.</p>
 
-    <fieldset><legend><img src="images/bonSavoir.png" width="80" height="80"> </legend>
+    <fieldset><legend><img src="../images/bonSavoir.png" width="80" height="80"> </legend>
       <p>Lorsque vous copiez l'adresse d'une page contenant le caractère <strong>&amp</strong>, il faut remplacer ce dernier par <strong>&ampamp</strong> pour assurer une bonne construction de la page.</p>
     </fieldset>
 
@@ -782,7 +779,7 @@ INSERER UNE IMAGE
     </ul>
   </p>
   <p> Pour insérer une image, celle-ci doit se trouver dans le répertoire courant et il faut alors utiliser les instructions :</p>
-    <pre><code class="language-html">&ltimg src="images/monImage.png" alt="description de l'image"&gt</code></pre><footer class="legendeCode">HTML</footer>
+    <pre><code class="language-html">&ltimg src="images/monImage.png" alt="description de l'image" width=30%&gt</code></pre><footer class="legendeCode">HTML</footer>
 
   <p><strong>src</strong> permet de définir le chemin pour accéder à l'image et <strong>alt</strong> permet de définir un descriptif au cas où l'image ne s'afficherait pas.</p>
 
@@ -882,7 +879,7 @@ INSERER UNE VIDEO
     <tr><td> height </td> <td> hauteur de la vidéo en pixels </td></tr>
   </table>
 
-  <fieldset><legend><img src="images/bonSavoir.png" width="80" height="80"> </legend>
+  <fieldset><legend><img src="../images/bonSavoir.png" width="80" height="80"> </legend>
     <p>On ne peut pas forcer le préchargement des vidéos, c'est le navigateur qui décide pour économiser la bande passante.</p>
   </fieldset>
 

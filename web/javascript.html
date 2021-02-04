@@ -2,36 +2,27 @@
 <html>
 <head>
   <title> Memento </title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="prism.css">
+  <link rel="stylesheet" href="../style/style.css">
+  <link rel="stylesheet" href="../style/prism.css">
   <meta charset="utf-8">
 </head>
 
 <!-- JavaScript de gestion des couleurs de code -->
-<script defer src="prism.js"></script>
+<script defer src="./style/prism.js"></script>
 
 <body>
-
+<h1> JavaScript </h1>
 <div id="bandeau">
-  <h1> Memento </h1>
-  <h1> JavaScript </h1>
-
   <nav>
     <div class="element"> <a href="html.html">HTML</a> </div>
     <div class="element"> <a href="css.html">CSS</a> </div>
     <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
-    <div class="element"> <a href="java.html">JAVA</a> </div>
-    <div class="element"> <a href="kotlin.html">KOTLIN</a> </div>
-    <div class="element"> <a href="android.html">ANDROID</a> </div>
     <div class="element"> <a href="php.html">PHP</a> </div>
-    <div class="element"> <a href="python.html">PYTHON</a> </div>
-    <div class="element"> <a href="c.html">C</a> </div>
-    <div class="element"> <a href="git.html">LINUX</a> </div>
   </nav>
 </div>
 
 <aside>
-  <nav id="table_matiere">
+  <nav id="table_matieres">
     <a href="#generalite">Structure du code</a>
     <a href="#hello">Hello world</a>
     <a href="#variable">Les variables</a>
@@ -48,9 +39,19 @@
     <a href="#poo">Programmation objet</a>
   </nav>
 </aside>
+
+<aside>
+  <nav id="chapitres">
+    <a href="">Accueil</a>
+    <a href="web.html">Web</a>
+    <a href="../appli/appli.html">Appli</a>
+  </nav>
+</aside>
+
+
 <section id="principal">
 
-
+  <img src="../images/symbole.png" alt="symbole S. Robin" width=30%>
 
 
 
@@ -205,7 +206,7 @@ alert(`Hello world ${nom}`);</code></pre>
 
 
 
-  <fieldset><legend><img src="images/bonSavoir.png" width="80" height="80"> </legend>
+  <fieldset><legend><img src="../images/bonSavoir.png" width="80" height="80"> </legend>
     <p><em>Attention</em>, la valeur saisie est systématiquement de type <em>String</em>. Il convient donc de la transformer en nombre le cas échéant.</p>
   </fieldset>
 
@@ -359,7 +360,7 @@ alert(`Hello world ${nom}`);</code></pre>
   return valeur;
 }</code></pre>
 
-<fieldset><legend><img src="images/bonSavoir.png" width="80" height="80"> </legend>
+<fieldset><legend><img src="../images/bonSavoir.png" width="80" height="80"> </legend>
   <p><em>Attention</em>, en JavaScript le type de retour de la fonction et le type des arguments ne sont pas spécifiés lors de la déclaration. Il est donc impossible de surcharger une fonction en JavaScript.</p>
 </fieldset>
 
