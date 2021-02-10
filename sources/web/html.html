@@ -3,13 +3,13 @@
 
 <head>
   <title> Memento </title>
-  <link rel="stylesheet" href="../style/style.css">
-    <link rel="stylesheet" href="../style/prism.css">
+  <link rel="stylesheet" href="../../style/style.css">
+  <link rel="stylesheet" href="../../style/prism.css">
   <meta charset="utf-8">
 </head>
 
 <!-- JavaScript de gestion des couleurs de code -->
-<script defer src="../style/prism.js"></script>
+<script defer src="../../style/prism.js"></script>
 
 <!-- script de gestion de l'apparition du contenu d'une section -->
 <script type="text/javascript">
@@ -25,19 +25,27 @@ function affichageConditionnel(bouton, id) {
 }</script>
 
 <body>
-<h1> HTML </h1>
-<div id="bandeau">
-  <nav>
-    <div class="element"> <a href="html.html">HTML</a> </div>
-    <div class="element"> <a href="css.html">CSS</a> </div>
-    <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
-    <div class="element"> <a href="php.html">PHP</a> </div>
-  </nav>
-</div>
+<header>
+
+    <div id="header_haut">
+        <img id="imageGauche_header" src="../../images/general/symbole.png" alt="symbole S. Robin" width=10%/>
+        <h1> HTML </h1>
+        <img id="imageDroite_header" src="../../images/web/html.png" alt="html" width=6%/>
+    </div>
+
+    <div id="bandeau">
+        <nav>
+            <div class="element"> <a href="html.html">HTML</a> </div>
+            <div class="element"> <a href="css.html">CSS</a> </div>
+            <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
+            <div class="element"> <a href="php.html">PHP</a> </div>
+        </nav>
+    </div>
+
+</header>
 
 <aside>
     <nav id="table_matieres">
-        <a href="#web">Le Web</a>
         <a href="#structure">Structure d'une page HTML</a>
         <a href="#hello">Hello world</a>
         <a href="#balise">Les balises</a>
@@ -60,15 +68,14 @@ function affichageConditionnel(bouton, id) {
 
 <aside>
     <nav id="chapitres">
-        <a href="">Accueil</a>
-        <a href="web.html">Web</a>
-        <a href="../appli/appli.html">Appli</a>
+        <a title="accueil du site" href="../index.html"><img class="logo" src="../../images/general/logoAccueil.png" alt="Accueil" /></a>
+        <a title="accueil de la partie Web" href="web.html"><img class="logo" src="../../images/general/logoWeb.png" alt="Web" /></a>
+        <a title="accueil de la partie Appli" href="../appli/appli.html"><img class="logo" src="../../images/general/logoAppli.png" alt="Appli" /></a>
     </nav>
 </aside>
 
 <section id="principal">
 
-    <img src="../images/symbole.png" alt="symbole S. Robin" width=30%>
 
 
     <!-- ====================
@@ -106,7 +113,7 @@ function affichageConditionnel(bouton, id) {
   <p>La balise <strong>&ltbody&gt</strong> encadre le corps d'une page Web, qui est généralement structuré en sections, articles indépendants, informations latérales ainsi qu'un menu. Chacune de ces parties est elle-même composée de blocs séparés ou imbriqués qui auront des attributs différents.</p>
   <p>Les commentaires en HTML sont entourés des symboles <strong>&lt!--</strong> et <strong>--&gt</strong>. Cela signifie que ce qui se trouve à l'intérieur de ces symboles ne sera pas interprété. Ces commentaires peuvent être écrits sur une ou plusieurs lignes.</p>
 
-  <fieldset><legend><img src="../images/bonSavoir.png" width="80" height="80"> </legend>
+  <fieldset><legend><img src="../../images/general/bonSavoir.png" width="80" height="80"> </legend>
     <p> Les commentaires sont visibles par tout utilisateur qui fait apparaître le code source HTML de la page qu'il consulte. Il ne faut donc en aucun cas faire apparaître de mot de passe dans les commentaires. </p>
   </fieldset>
 
@@ -719,7 +726,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
     <p>Le nom de la page apparaît souligné dans le texte et, lorsqu'on clique dessus, on accède à la page dont l'adresse a été enregistrée dans l'attribut <strong>href</strong>.</p>
 
-    <fieldset><legend><img src="../images/bonSavoir.png" width="80" height="80"> </legend>
+    <fieldset><legend><img src="../../images/general/bonSavoir.png" width="80" height="80"> </legend>
       <p>Lorsque vous copiez l'adresse d'une page contenant le caractère <strong>&amp</strong>, il faut remplacer ce dernier par <strong>&ampamp</strong> pour assurer une bonne construction de la page.</p>
     </fieldset>
 
@@ -879,7 +886,7 @@ INSERER UNE VIDEO
     <tr><td> height </td> <td> hauteur de la vidéo en pixels </td></tr>
   </table>
 
-  <fieldset><legend><img src="../images/bonSavoir.png" width="80" height="80"> </legend>
+  <fieldset><legend><img src="../../images/general/bonSavoir.png" width="80" height="80"> </legend>
     <p>On ne peut pas forcer le préchargement des vidéos, c'est le navigateur qui décide pour économiser la bande passante.</p>
   </fieldset>
 

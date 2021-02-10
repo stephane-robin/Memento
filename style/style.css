@@ -20,11 +20,43 @@
 */
 
 
+/* header */
+header{
+  background-color: #999966;
+}
+
+#header_haut{
+  display: flex;
+    align-items: left;
+    justify-content: left;
+}
+
+#imageGauche_header{
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-bottom: -2%;
+}
+
+#imageDroite_header{
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-bottom: 1%;
+}
+
+/* titre de page */
+h1{
+  font-family: Cambria, Verdana, Arial;
+  text-align: center;
+  color: rgb(41, 61, 61); /*rgb(153,102,102);*/
+  margin: 2%;
+  margin-left:30%;
+}
+
 /* ===== BARRE DE MENU ===== */
 
 /* conteneur bandeau de menu */
 #bandeau{
-  background-image:linear-gradient(40deg,rgb(153,204,255,0.9),rgba(255,204,204,0.9));/* couleur
+  background-image:linear-gradient(40deg, rgba(0, 153, 204, 0.9),rgba(255,204,204,0.9));/* couleur
   de font dégradée avec opacité */
   /*top: 0%; /* positionne le menu par rapport au haut de page */
   width: 100%; /* force le background a occuper toute la largeur et pas uniquement
@@ -34,13 +66,6 @@
   justify-content: center;
 }
 
-/* titre de page dans le menu */
-h1{
-  font-family: Cambria, Verdana, Arial;
-  text-align: center;
-  color: rgb(153,102,102);
-  margin: 15px;
-}
 
 /* conteneur de menu */
 nav{
@@ -53,7 +78,7 @@ nav a{
   font-family: Cambria, Verdana, Arial;
   font-size:1.3em;
   text-decoration: none; /* enleve le soulignement des liens du menu */
-  color: rgb(51,153,255);
+  color: rgb(41, 61, 61);/*rgb(51,153,255);*/
 }
 
 /* comportement des liens du menu au survol */
@@ -69,6 +94,15 @@ nav a:hover{
 }
 
 /* ====== ASIDE ======= */
+
+/* logo de menu */
+
+.logo{
+      width: 40px;
+      height: 40px;
+      margin: 4%;
+}
+
 
 /* conteneur de menu */
 aside nav{
