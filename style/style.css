@@ -135,7 +135,8 @@ aside nav a{
 /* ===== TITRES ===== */
 
 img{
-    margin-left: 200px;}
+    /*margin-left: 200px;*/
+}
 
 h2{ /* titre de section */
   font-size: 1.7em;
