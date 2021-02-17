@@ -185,9 +185,9 @@ body{
 
 /* pied de page */
 footer{
-  height: 20%;
-  margin: 20px;
-  margin-left: 30%;
+  height: 40%;
+  
+  background-color: #999966;
 }
 
 /* texte de pied de page */
@@ -238,6 +238,18 @@ fieldset{
   border-radius: 10px;
   box-shadow: 1px 8px 12px #555;
   margin-bottom:30px;
+}
+
+fieldset2{
+
+  width: 50px;
+
+
+  padding: 10px;
+  border: 2px rgb(153,102,102) solid;
+  border-radius: 10px;
+  box-shadow: 1px 8px 12px #555;
+
 }
 
 /* listes */
