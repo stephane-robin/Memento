@@ -2,16 +2,20 @@
 <html>
 
 <head>
-  <title> Memento </title>
+  <title> ToKen </title>
   <link rel="stylesheet" href="../../style/style.css">
   <link rel="stylesheet" href="../../style/prism.css">
+    <link rel="icon"
+          type="image/png"
+          href="../../images/general/symbole.png">
   <meta charset="utf-8">
 </head>
 
 <!-- JavaScript de gestion des couleurs de code -->
 <script defer src="../../style/prism.js"></script>
 
-<!-- script de gestion de l'apparition du contenu d'une section -->
+<!-- script de gestion de l'apparition du contenu d'une section
+     utile comme exemple dans le paragraphe traitant ce sujet -->
 <script type="text/javascript">
 function affichageConditionnel(bouton, id) {
     var div = document.getElementById(id);
@@ -25,26 +29,26 @@ function affichageConditionnel(bouton, id) {
 }</script>
 
 <body>
+
 <header>
-
     <div id="header_haut">
+        <h1 id="titreSite"> ToKen </h1>
         <img id="imageGauche_header" src="../../images/general/symbole.png" alt="symbole S. Robin" width=10%/>
-        <h1> HTML </h1>
+        <h1 id="motto">improve your language, improve your skills</h1>
     </div>
 
-    <div id="bandeau">
-        <nav>
-            <div class="element"> <a href="html.html">HTML</a> </div>
-            <div class="element"> <a href="css.html">CSS</a> </div>
-            <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
-            <div class="element"> <a href="php.html">PHP</a> </div>
-        </nav>
-    </div>
-
+    <nav id="bandeau">
+        <a class="element" href="html.html">HTML</a>
+        <a class="element" href="css.html">CSS</a>
+        <a class="element" href="javascript.html">JAVASCRIPT</a>
+        <a class="element" href="php.html">PHP</a>
+    </nav>
 </header>
 
-<aside>
-    <nav id="table_matieres">
+<section id="principal">
+
+<aside id="table_matieres">
+    <nav>
         <a href="#structure">Structure d'une page HTML</a>
         <a href="#balise">Les balises</a>
         <a href="#flexbox">Flexbox</a>
@@ -63,19 +67,9 @@ function affichageConditionnel(bouton, id) {
     </nav>
 </aside>
 
-<aside>
+<section id="contenu">
 
-    <nav id="chapitres">
-        <fieldset2>
-        <a title="accueil du site" href="../index.html"><img class="logo" src="../../images/general/logoAccueil.png" alt="Accueil" /></a>
-        <a title="accueil de la partie Web" href="web.html"><img class="logo" src="../../images/general/logoWeb.png" alt="Web" /></a>
-        <a title="accueil de la partie Appli" href="../appli/appli.html"><img class="logo" src="../../images/general/logoAppli.png" alt="Appli" /></a>
-    </fieldset2>
-    </nav>
-
-</aside>
-
-<section id="principal">
+    <h1 id="titrePage">HTML</h1>
 
     <div class="bloc">
         <div class="gauche">
@@ -906,7 +900,50 @@ INSERER UNE IMAGE TEXTE CENTRE
 
   </div>
 
+<!-- INSERER UN FAVICON -->
 
+    <h3>Insérer un favicon</h3>
+
+    <p>Pour insérer un petit symbole dans l'onglet de la page Web à côté du titre </p>
+
+    <pre><code class="language-html">&ltlink rel="icon" type="image/png" href="adresse_image"></code></pre>
+
+
+    <!-- INSERER UN SYMBOLE -->
+
+    <h3>Insérer un symbole</h3>
+
+    <p>Pour rajouter un symbole, il faut fournir son code HTML qui est universel. Voici une liste de quelques symboles utiles :</p>
+
+    <table>
+        <tr> <th>symbole</th> <th>code HTML</th> </tr>
+        <tr> <td>&#128526;</td> <td>&amp#128526;</td></tr>
+        <tr> <td>&#8594;</td> <td>&amp#8594;</td></tr>
+        <tr> <td>&#8593;</td> <td>&amp#8593;</td></tr>
+        <tr> <td>&#127966;</td> <td>&amp#127966;</td></tr>
+        <tr> <td>&#128204;</td> <td>&amp#128204;</td></tr>
+        <tr> <td>&#127922;</td> <td>&amp#127922;</td></tr>
+        <tr> <td>&#128193;</td> <td>&amp#128193;</td></tr>
+        <tr> <td>&#128194;</td> <td>&amp#128194;</td></tr>
+        <tr> <td>&#128213;</td> <td>&amp#128213;</td></tr>
+        <tr> <td>&#128215;</td> <td>&amp#128215;</td></tr>
+        <tr> <td>&#128216;</td> <td>&amp#128216;</td></tr>
+        <tr> <td>&#128217;</td> <td>&amp#128217;</td></tr>
+        <tr> <td>&#128231;</td> <td>&amp#128231;</td></tr>
+        <tr> <td>&#128233;</td> <td>&amp#128233;</td></tr>
+        <tr> <td>&#128241;</td> <td>&amp#128241;</td></tr>
+        <tr> <td>&#128263;</td> <td>&amp#128263;</td></tr>
+        <tr> <td>&#128266;</td> <td>&amp#128266;</td></tr>
+        <tr> <td>&#128274;</td> <td>&amp#128274;</td></tr>
+        <tr> <td>&#128275;</td> <td>&amp#128275;</td></tr>
+        <tr> <td>&#128269;</td> <td>&amp#128269;</td></tr>
+        <tr> <td>&#128281;</td> <td>&amp#128281;</td></tr>
+        <tr> <td>&#128285;</td> <td>&amp#128285;</td></tr>
+        <tr> <td>&#128308;</td> <td>&amp#128308;</td></tr>
+        <tr> <td>&#128309;</td> <td>&amp#128309;</td></tr>
+        <tr> <td>&#128314;</td> <td>&amp#128314;</td></tr>
+        <tr> <td>&#128315;</td> <td>&amp#128315;</td></tr>
+    </table>
 
 <!-- ============
 INSERER UNE VIDEO
@@ -1285,7 +1322,7 @@ INSERER UNE VIDEO
 
   <p>On obtient alors le résultat suivant :</p>
 
-    <fieldset><legend><img src="../../images/general/bonSavoir.png" width="80" height="80"> </legend>
+    <fieldset><legend><img src="../../images/general/symbole.png" width="80" height="80"> </legend>
         <p>Contenu du paragraphe à encadrer.</p>
     </fieldset>
 
@@ -1300,28 +1337,72 @@ INSERER UNE VIDEO
     <h2 id="verification"> Vérifier la validité HTML5 d'un site </h2>
 
     <p> W3C propose sur son <a href="https://validator.w3.org/">site</a> un outil appelé <em>Validator</em> permettant de valider en ligne des codes sources afin de s'assurer qu'ils sont conformes au standard HTML5. Les erreurs de structure ainsi que les bugs les plus classiques sont systématiquement signalés. Notons que contrairement à beaucoup de langages, HTML ne va pas arrêter son exécution si il rencontre une erreur, mais va tout simplement l'ignorer. Si cela est pratique pour pouvoir continuer d'avancer dans la rédaction du programme, cette approche cache les bugs et les rend plus difficiles à détecter.</p>
-    <p> Les erreurs les plus classiques sont les suivantes :
+    <p> Les erreurs les plus classiques sont les suivantes :</p>
     <ul>
         <li>tous les textes doivent se trouver entre des balises <strong> p</strong></li>
         <li>toutes les images doivent comporter une description avec l'attribut <strong>alt</strong></li>
         <li>toutes les balises ouvertes doivent être fermées et les balises ne doivent pas s'entrecroiser</li>
         <li>tous les liens contenant des <strong>&amp</strong> doient être remplacés par des <strong>&ampamp</strong></li>
     </ul>
-    </p>
+
+    <a href="#titreSite" style="margin-left:30%;">&#128314; Haut de page &#128314;</a>
+
+</section> <!-- fin contenu -->
+
+<aside id="chapitres">
+  <nav>
+    <fieldset2>
+        <a title="accueil du site" href="../index.html"><img class="logo" src="../../images/general/logoAccueil.png" alt="Accueil" /></a>
+        <a title="accueil de la partie Web" href="web.html"><img class="logo" src="../../images/general/logoWeb.png" alt="Web" /></a>
+        <a title="accueil de la partie Appli" href="../appli/appli.html"><img class="logo" src="../../images/general/logoAppli.png" alt="Appli" /></a>
+    </fieldset2>
+  </nav>
+</aside>
+
+</section> <!-- fin principal -->
+
+<!-- footer -->
 
 
 
+<footer class="piedPage">
+    <div class="footerColumn">
+        <p class="piedPageTitre">Liens utiles</p>
+        <nav>
+            <a class="footerNav" href="https://www.w3schools.com/" target="_blank">W3school</a>
+            <a class="footerNav" href="https://www.w3schools.com/colors/colors_picker.asp" target="_blank">Color picker</a>
+        </nav>
+    </div>
 
+    <div class="footerColumn">
+        <p class="piedPageTitre">Liens utiles</p>
+        <nav>
+            <a class="footerNav" href="https://realpython.com/" target="_blank">Real python</a>
+            <a class="footerNav" href="https://docs.python.org/3/" target="_blank">Doc python</a>
+        </nav>
+    </div>
 
-</section>
+    <div class="LargeFooterColumn">
+        <p class="piedPageTitre">Mentions légales</p>
 
-<footer>
-    <p>Liens utiles</p>
-    <a href="https://www.w3schools.com/">w3school</a>
-    <a href="https://realpython.com/">real python</a>
-    <a href="https://docs.python.org/3/">doc python</a>
-    <p>Stephane Robin</p>
+        <nav>
+            <a class="footerNav" href="" target="_blank">Politique de confidentialité</a>
+            <a class="footerNav" href="" target="_blank">Conditions d'utilisation</a>
+            <p class="piedPageParagraphe">&copy 2021 ToKen</p>
+
+        </nav>
+    </div>
+
+    <div class="largeFooterColumn">
+        <p class="piedPageTitre">Au sujet de l'auteur</p>
+        <p class="piedPageParagraphe"><strong>S. Robin :</strong><br/>
+            Professeur d'informatique et développeur passionné par les possibiltés incroyables des langages informatiques.</p>
+
+    </div>
+
 </footer>
+
+
 
 </body>
 </html>

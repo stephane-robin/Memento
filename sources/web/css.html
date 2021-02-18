@@ -2,9 +2,12 @@
 <html>
 
 <head>
-  <title> Memento </title>
+  <title> ToKen </title>
   <link rel="stylesheet" href="../../style/style.css">
   <link rel="stylesheet" href="../../style/prism.css">
+  <link rel="icon"
+        type="image/png"
+        href="../../images/general/symbole.png">
   <meta charset="utf-8">
 </head>
 
@@ -14,42 +17,38 @@
 <body>
 
 <header>
-
   <div id="header_haut">
+    <h1 id="titreSite"> ToKen </h1>
     <img id="imageGauche_header" src="../../images/general/symbole.png" alt="symbole S. Robin" width=10%/>
-    <h1> CSS </h1>
+    <h1 id="motto">improve your language, improve your skills</h1>
   </div>
 
-  <div id="bandeau">
-    <nav>
-      <div class="element"> <a href="html.html">HTML</a> </div>
-      <div class="element"> <a href="css.html">CSS</a> </div>
-      <div class="element"> <a href="javascript.html">JAVASCRIPT</a> </div>
-      <div class="element"> <a href="php.html">PHP</a> </div>
-    </nav>
-  </div>
-
+  <nav id="bandeau">
+    <a class="element" href="html.html">HTML</a>
+    <a class="element" href="css.html">CSS</a>
+    <a class="element" href="javascript.html">JAVASCRIPT</a>
+    <a class="element" href="php.html">PHP</a>
+  </nav>
 </header>
 
-<aside>
-  <nav id="table_matieres">
+<section id="principal">
+
+<aside id="table_matieres">
+  <nav>
     <a href="#structure">Structure</a>
     <a href="#forme">Mise en forme</a>
     <a href="#propriete">Propriétés</a>
     <a href="#heritage">Héritage</a>
-
   </nav>
 </aside>
 
-<aside>
-  <nav id="chapitres">
-    <a title="accueil du site" href="../index.html"><img class="logo" src="../../images/general/logoAccueil.png" alt="Accueil" /></a>
-    <a title="accueil de la partie Web" href="web.html"><img class="logo" src="../../images/general/logoWeb.png" alt="Web" /></a>
-    <a title="accueil de la partie Appli" href="../appli/appli.html"><img class="logo" src="../../images/general/logoAppli.png" alt="Appli" /></a>
-  </nav>
-</aside>
+<section id="contenu">
 
-<section id="principal">
+  <h1 id="titrePage">CSS</h1>
+
+
+
+
 
   <div class="bloc">
     <div class="gauche">
@@ -105,9 +104,9 @@
 
   </div>
 
-  <fieldset><legend><img src="../../images/general/bonSavoir.png" width="80" height="80"> </legend>
-    <p> <em>Attention</em>, dans ce cas il est important de ne pas oublier le <strong>.</strong> devant le nom de la classe de la balise.</p>
-  </fieldset>
+
+    <p> &#128204; <em>Attention</em>, dans ce cas il est important de ne pas oublier le <strong>.</strong> devant le nom de la classe de la balise.</p>
+
 
   <p> <em> Remarque </em>, on peut également utiliser l'attribut <strong>id</strong> qui se construit de la même manière que l'attribut <strong>class</strong>. En revanche, dans le fichier CSS, il ne faut plus faire précéder le nom de la classe par un <strong>.</strong> mais l'identité par un <strong>#</strong>. L'attribut <strong>id</strong> a pour particularité de ne s'utiliser qu'une fois dans la page HTML.</p>
   <p> Pour sélectionner une balise se trouvant à l'intérieur d'une autre balise, on ne met pas de <strong>,</strong> entre la balise père et la balise fils :</p>
@@ -177,9 +176,9 @@ text-align: right;
 text-align: center;
 text-align: justify;</code></pre><footer class="legendeCode">CSS</footer>
 
-    <fieldset><legend><img src="../../images/general/bonSavoir.png" width="80" height="80"> </legend>
+
       <p> L'alignement avec l'attribut <strong>text-align</strong> ne fonctionne qu'avec les blocs et non pas les balises <em>inline</em> telles que <strong>&ltspan&gt</strong>, <strong>&lta&gt</strong>, <strong>&ltem&gt</strong>, <strong>&ltstrong&gt</strong>,...</p>
-    </fieldset>
+
 
   <!-- La rotation du texte -->
 
@@ -363,9 +362,9 @@ ol{
   font-weight: bold;
 }</code></pre><footer class="legendeCode">CSS</footer>
 
-    <fieldset><legend><img src="../../images/general/bonSavoir.png" width="80" height="80"> </legend>
-    <p><em>Attention</em>, dans ce cas il ne faut surtout pas mettre d'espace entre <strong>a</strong> et <strong>hover</strong> sous peine de dysfonctionnement car <strong>hover</strong> n'est pas la valeur d'un attribut.</p>
-  </fieldset>
+
+    <p>&#128204; <em>Attention</em>, dans ce cas il ne faut surtout pas mettre d'espace entre <strong>a</strong> et <strong>hover</strong> sous peine de dysfonctionnement car <strong>hover</strong> n'est pas la valeur d'un attribut.</p>
+
 
   <!-- Les tableaux -->
 
@@ -380,9 +379,9 @@ th, td{
     border: 1px solid black;
 }</code></pre><footer class="legendeCode">CSS</footer>
 
-    <fieldset><legend><img src="../../images/general/bonSavoir.png" width="80" height="80"> </legend>
+
       <p> Il n'est pas nécessaire de créer des bordures pour la balise <strong>&lttr&gt</strong> car elles ont déjà été faites avec les bordures <strong>&ltth&gt</strong> et <strong>&lttd&gt</strong>.</p>
-    </fieldset>
+
 
     <p> Pour changer la position du titre du tableau : </p>
     <pre><code class="language-css">table{
@@ -431,11 +430,58 @@ th, td{
 
       <p style="color:rgb(51,51,255)"><em style="color:rgb(255,51,102)">Attention</em>, je tape mon texte ici.</p>
 
+  <a href="#titreSite" style="margin-left:30%;">&#128314; Haut de page &#128314;</a>
 
 
-</section>
+</section> <!-- fin contenu -->
 
-<footer>
+  <aside id="chapitres">
+    <nav>
+      <fieldset2>
+      <a title="accueil du site" href="../index.html"><img class="logo" src="../../images/general/logoAccueil.png" alt="Accueil" /></a>
+      <a title="accueil de la partie Web" href="web.html"><img class="logo" src="../../images/general/logoWeb.png" alt="Web" /></a>
+      <a title="accueil de la partie Appli" href="../appli/appli.html"><img class="logo" src="../../images/general/logoAppli.png" alt="Appli" /></a>
+      </fieldset2>
+    </nav>
+  </aside>
+
+</section> <!-- fin principal -->
+
+<footer class="piedPage">
+  <div class="footerColumn">
+    <p class="piedPageTitre">Liens utiles</p>
+    <nav>
+      <a class="footerNav" href="https://www.w3schools.com/" target="_blank">W3school</a>
+      <a class="footerNav" href="https://www.w3schools.com/colors/colors_picker.asp" target="_blank">Color picker</a>
+    </nav>
+  </div>
+
+  <div class="footerColumn">
+    <p class="piedPageTitre">Liens utiles</p>
+    <nav>
+      <a class="footerNav" href="https://realpython.com/" target="_blank">Real python</a>
+      <a class="footerNav" href="https://docs.python.org/3/" target="_blank">Doc python</a>
+    </nav>
+  </div>
+
+  <div class="LargeFooterColumn">
+    <p class="piedPageTitre">Mentions légales</p>
+
+    <nav>
+      <a class="footerNav" href="" target="_blank">Politique de confidentialité</a>
+      <a class="footerNav" href="" target="_blank">Conditions d'utilisation</a>
+      <p class="piedPageParagraphe">&copy 2021 ToKen</p>
+
+    </nav>
+  </div>
+
+  <div class="largeFooterColumn">
+    <p class="piedPageTitre">Au sujet de l'auteur</p>
+    <p class="piedPageParagraphe"><strong>S. Robin :</strong><br/>
+      Professeur d'informatique et développeur passionné par les possibiltés incroyables des langages informatiques.</p>
+
+  </div>
+
 </footer>
 
 </body>
