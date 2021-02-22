@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title> ToKen </title>
+  <title> Improve your skills </title>
   <link rel="stylesheet" href="../../style/style.css">
   <link rel="stylesheet" href="../../style/prism.css">
     <link rel="icon"
@@ -31,12 +31,7 @@ function affichageConditionnel(bouton, id) {
 <body>
 
 <header>
-    <div id="header_haut">
-        <h1 id="titreSite"> ToKen </h1>
-        <img id="imageGauche_header" src="../../images/general/symbole.png" alt="symbole S. Robin" width=10%/>
-        <h1 id="motto">improve your language, improve your skills</h1>
-    </div>
-
+    <h1> ToKen </h1>
     <nav id="bandeau">
         <a class="element" href="html.html">HTML</a>
         <a class="element" href="css.html">CSS</a>
@@ -67,9 +62,15 @@ function affichageConditionnel(bouton, id) {
     </nav>
 </aside>
 
-<section id="contenu">
+<section id="grandContenu">
 
-    <h1 id="titrePage">HTML</h1>
+  <h2>HTML</h2>
+
+  <div id="bandeau_contenu">
+    <p>S. Robin on Feb. 22, 2021</p>
+  </div>
+
+  <section id="contenu">
 
     <div class="bloc">
         <div class="gauche">
@@ -88,7 +89,7 @@ function affichageConditionnel(bouton, id) {
     STRUCTURE D'UNE PAGE HTML
     ========================= -->
 
-<h2 id="structure"> Structure d'une page HTML </h2>
+<h3 id="structure"> Structure d'une page HTML </h3>
 
     <p> Le langage HTML sert à gérer et organiser le contenu des pages Web. C'est donc en HTML qu'on écrit le texte, les liens hypertexte, les images et vidéos. L'information apparaît de manière brute sans mise en forme autre que structurelle.</p>
 
@@ -128,7 +129,7 @@ function affichageConditionnel(bouton, id) {
     HELLO WORLD
     ======= -->
 
-    <h3 id="hello">Hello World</h3>
+    <h4 id="hello">Hello World</h4>
 
   <p>Commençons par le traditionnel "Hello world". Contrairement à beaucoup de langages, HTML n'utilise pas de <strong>;</strong> à la fin des instructions, car celles-ci sont regroupées à l'intérieur de balises.</p>
   <pre><code class="language-html">&lt!DOCTYPE HTML&gt
@@ -144,7 +145,7 @@ function affichageConditionnel(bouton, id) {
 LES BALISES
 ======= -->
 
-<h2 id="balise"> Les balises </h2>
+<h3 id="balise"> Les balises </h3>
 
   <p> Les balises permettent de donner des instructions à l'ordinateur, pour différencier langage et texte. Elles sont entourées de chevrons <strong><</strong> et <strong>></strong>. On distingue au niveau de la sémantique les balises en paires qui sont constituées d'une balise ouvrante et d'une balise fermante entourant du texte, et les balises isolées. Par exemple, <strong>&lth1&gt mon titre &lt/h1&gt</strong> est une balise en paires et <strong>&ltbr/&gt</strong> est une balise isolée.</p>
     <p> On peut définir l'affichage spécifique de chacune de ses balises dans un script CSS.</p>
@@ -156,7 +157,7 @@ LES BALISES
 
     <!-- Les attributs -->
 
-    <h3> Les attributs </h3>
+    <h4> Les attributs </h4>
 
     <p>Il s'agit des options des balises qui fournissent des informations supplémentaires et peuvent localement décrire comment une partie de la page doit s'afficher. Par exemple, l'attribut <strong>id</strong> sert à donner un nom unique à une balise afin de lui appliquer un traitement particulier.</p>
     <pre><code class="language-html">&lth2 id="titreSpecial"&gt mon titre &lt/h2&gt</code></pre><footer class="legendeCode">HTML</footer>
@@ -165,7 +166,7 @@ LES BALISES
     <pre><code class="language-html">&ltpre&gt &ltcode class="language-python"&gt mon code &lt/code&gt &lt/pre&gt</code></pre>
 
 
-    <h3> Principales balises</h3>
+    <h4> Principales balises</h4>
   <table>
     <tr> <th> Objectif </th> <th> Balises </th> </tr>
     <tr> <td> section </td> <td> <pre>&ltsection&gt section &lt/section&gt</pre></td> </tr>
@@ -203,7 +204,7 @@ LES BALISES
    LES LISTES
    ====== -->
 
-    <h3> Les listes </h3>
+    <h4> Les listes </h4>
 
     <p> Les listes non ordonnées se définissent grâce aux balises :</P>
 
@@ -214,19 +215,19 @@ LES BALISES
 
 
     <p>qui affiche le résultat suivant</p>
-    <p>
+
     <ul class="ulExemple">
         <li>un élément de la liste</li>
         <li>un autre élément de la liste</li>
     </ul>
-    </p>
+
 
     <p>Les listes ordonnées se définissent à l'aide de la balise <strong>&ltol&gt</strong> à la place de la balise <strong>&ltul&gt</strong></p>
 
 
     <!-- ===== INSERER UNE CITATION ===== -->
 
-    <h3> Insérer une citation </h3>
+    <h4> Insérer une citation </h4>
 
     <div class="bloc">
 
@@ -252,11 +253,11 @@ LES BALISES
     GESTION DES BLOCS AVEC FLEXBOX
     ========================== -->
 
-<h2 id="flexbox"> Gestion des blocs avec Flexbox </h2>
+<h3 id="flexbox"> Gestion des blocs avec Flexbox </h3>
 
   <!-- La notion de bloc -->
 
-  <h3>La notion de bloc </h3>
+  <h4>La notion de bloc </h4>
 
   <p> Chaque élément de code HTML est inclus dans une balise, qui est incluse dans un bloc auquel on attribue certaines propriétés que l'on définit.</p>
   <p>Ces blocs sont construits grâce à la balise <strong>&ltdiv&gt</strong> lorsqu'il s'agit de blocs indépendants (qui entraînent un saut à la ligne), ou avec la balise <strong>&ltspan&gt</strong> lorsqu'il s'agit de blocs <em>inline</em>.</p>
@@ -289,7 +290,7 @@ LES BALISES
 
   <!-- La mise en page avec Flexbox -->
 
-  <h3> La mise en page avec Flexbox</h3>
+  <h4> La mise en page avec Flexbox</h4>
 
     <p> Flexbox permet de structurer un document en utilisant principalement la balise <strong>div</strong> à laquelle on attribut certaines propriétés d'alignement. Ceci permet notamment d'aligner horizontalement des blocs indépendants et donc de se passer de la balise <strong>span</strong>. Toutefois, dans certains cas particuliers, le recours à la balise <strong>span</strong> peut s'avérer utile car plus simple.</p>
     <p> Pour mettre en page un document avec Flexbox, il faut définir en HTML un conteneur sous forme de balise et placer des blocs à l'intérieur de ce conteneur, puis définir en CSS l'alignement souhaité. Ainsi l'attribut <strong>flex-direction</strong> permet de définir la direction principale dans laquelle sera effectué le premier alignement. Notons que par défaut sans Flexbox, les blocs indépendants s'affichent les uns en dessous des autres.</p>
@@ -758,7 +759,7 @@ LES BALISES
 
 <!-- ===== LES LIENS ===== -->
 
-<h2 id="lien"> Les liens </h2>
+<h3 id="lien"> Les liens </h3>
 
   <p>Les liens hypertextes ont grandement participé au succès du Web. Il existe plusieurs types de liens, qui possèdent une structure commune. Les principaux types de liens sont les suivants :</p>
 
@@ -778,7 +779,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
   <!-- Lien vers une page -->
 
-  <h3> Lien vers une page </h3>
+  <h4> Lien vers une page </h4>
 
     <p>Le nom de la page apparaît souligné dans le texte et, lorsqu'on clique dessus, on accède à la page dont l'adresse a été enregistrée dans l'attribut <strong>href</strong>.</p>
 
@@ -794,19 +795,19 @@ nom de la page &lt/a&gt</pre></td> </tr>
 
   <!-- Lien vers une ancre -->
 
-  <h3> Lien vers une ancre </h3>
+  <h4> Lien vers une ancre </h4>
 
     <p>Une ancre est un point de repère qu'on peut positionner dans une page HTML afin que l'utilisateur accède plus rapide à cet emplacement. Le lien se développe en deux étapes. On commence par créer une ancre à l'emplacement souhaité, puis on crée ensuite un lien contenant le caractère <strong>#</strong> dans l'attribut <strong>href</strong>.</p>
 
   <!-- Lien d'envoi d'un email -->
 
-  <h3> Lien d'envoi d'un e-mail </h3>
+  <h4> Lien d'envoi d'un e-mail </h4>
 
     <p> Pour ouvrir automatiquement un gestionnaire d'e-mails en cliquant sur un lien, il faut définir l'adresse de destination du mail dans l'attribut <strong>href</strong>.</p>
 
   <!-- Lien pour télécharger un fichier -->
 
-  <h3> Lien pour télécharger un fichier </h3>
+  <h4> Lien pour télécharger un fichier </h4>
 
     <p> Pour télécharger automatiquement un fichier en cliquant sur un lien, il faut indiquer le nom du fichier à télécharger. Cela suppose que ce fichier se trouve dans le répertoire courant.</p>
 
@@ -816,7 +817,7 @@ nom de la page &lt/a&gt</pre></td> </tr>
 LES MENUS
 ===== -->
 
-<h2 id="menu"> Les menus </h2>
+<h3 id="menu"> Les menus </h3>
 
   <p> On crée un menu à l'aide de la balise <strong>&ltnav&gt</strong>.</p>
   <pre><code class="language-html">&ltnav id="menu"&gt
@@ -831,7 +832,7 @@ LES MENUS
 INSERER UNE IMAGE
 ============= -->
 
-<h2 id="image"> Insérer une image </h2>
+<h3 id="image"> Insérer une image </h3>
 
   <p>Le format d'une image (png, jpg, tif, gif, bmp,...) définit à la fois son poids et sa qualité. Il convient de choisir ce format au moment de l'enregistrement avec discernement car il peut fortement influencer le temps de chargement de cette image lors de la consultation du site Web.
     <ul>
@@ -845,9 +846,11 @@ INSERER UNE IMAGE
 
   <p><strong>src</strong> permet de définir le chemin pour accéder à l'image et <strong>alt</strong> permet de définir un descriptif au cas où l'image ne s'afficherait pas.</p>
 
+    <p><em>Remarque,</em> pour faire déborder une image entre deux conteneurs, il est possible d'utiliser par exemple un <string>margin-bottom</string> négatif.</p>
+
     <!-- Insérer une figure -->
 
-    <h3 id="figure"> Insérer une figure </h3>
+    <h4 id="figure"> Insérer une figure </h4>
 
     <p> Les figures jouent un rôle similaire aux images, à ceci près qu'elle disposent d'une légende.</p>
     <pre><code class="language-html">&ltfigure&gt
@@ -861,7 +864,7 @@ INSERER UNE IMAGE
 INSERER UNE IMAGE TEXTE CENTRE
 ========================== -->
 
-<h3> Insérer une image contenant un texte centré </h3>
+<h4> Insérer une image contenant un texte centré </h4>
 
   <p>Pour créer une image défilante avec du texte centré à l'intérieur, on peut utiliser deux blocs heroImage et heroTexte auquel on attribue la forme suivante dans le fichier style.css associé :</p>
 
@@ -902,7 +905,7 @@ INSERER UNE IMAGE TEXTE CENTRE
 
 <!-- INSERER UN FAVICON -->
 
-    <h3>Insérer un favicon</h3>
+    <h4>Insérer un favicon</h4>
 
     <p>Pour insérer un petit symbole dans l'onglet de la page Web à côté du titre </p>
 
@@ -911,7 +914,7 @@ INSERER UNE IMAGE TEXTE CENTRE
 
     <!-- INSERER UN SYMBOLE -->
 
-    <h3>Insérer un symbole</h3>
+    <h4>Insérer un symbole</h4>
 
     <p>Pour rajouter un symbole, il faut fournir son code HTML qui est universel. Voici une liste de quelques symboles utiles :</p>
 
@@ -949,7 +952,7 @@ INSERER UNE IMAGE TEXTE CENTRE
 INSERER UNE VIDEO
 ============= -->
 
-<h2 id="video"> Insérer une video </h2>
+<h3 id="video"> Insérer une video </h3>
 
   <p> Le format d'une vidéo (h.264, webm, ogg,...) définit à la fois son poids et sa qualité.
     <ul>
@@ -991,7 +994,7 @@ INSERER UNE VIDEO
 
     <!-- ===== CREATION D'UN FORMULAIRE ===== -->
 
-    <h2 id="formulaire"> Créer un formulaire </h2>
+    <h3 id="formulaire"> Créer un formulaire </h3>
 
     <p> Un formulaire est une zone interactive dans laquelle les utilisateurs peuvent saisir des informations. Il s'agit donc d'un élément fondamental constituant une page HTML. </p>
     <p>Dans le cas d'un champ acceptant une réponse sur une seule ligne :</p>
@@ -1060,7 +1063,7 @@ INSERER UNE VIDEO
 
     <!-- Les zones d'option -->
 
-    <h3> Les zones d'option </h3>
+    <h4> Les zones d'option </h4>
 
     <p> En particulier, dans le cas d'une zone d'option, l'attribut <strong>name</strong> doit être identique pour toute la zone d'option, seul l'attribut <strong>id</strong> varie pour chaque champ :</p>
 
@@ -1092,7 +1095,7 @@ INSERER UNE VIDEO
 
     <!-- Les listes déroulantes -->
 
-    <h3> Les listes déroulantes </h3>
+    <h4> Les listes déroulantes </h4>
 
     <p> Les listes déroulantes sont construites différemment :</p>
 
@@ -1146,7 +1149,7 @@ INSERER UNE VIDEO
 
     <!-- Regrouper les champs d'un formulaire -->
 
-    <h3> Regrouper les champs d'un formulaire </h3>
+    <h4> Regrouper les champs d'un formulaire </h4>
 
     <p> Il est possible de grouper les questions affichées en utilisant les balises <strong>&ltfieldset&gt</strong> pour délimiter l'encadrement et <strong>&ltlegend&gt</strong> pour donner un titre au cadre.</p>
 
@@ -1179,7 +1182,7 @@ INSERER UNE VIDEO
 
     <!-- bouton validation -->
 
-    <h3> Le bouton de validation </h3>
+    <h4> Le bouton de validation </h4>
 
     <p> A la fin d'un formulaire, on doit utiliser un bouton de validation pour récupérer les réponses saisies par l'utilisateur afin de les exploiter et se rendre sur la page indiquée dans l'attribut <strong> action </strong>. On atteint ici les limites du langage HTML car ce traitement de l'information est réalisé par un autre langage, par exemple PHP, JavaScript, Java, Python, ...</p>
 
@@ -1208,7 +1211,7 @@ INSERER UNE VIDEO
 
     <!-- ===== CREATION D'UN TABLEAU ===== -->
 
-<h2 id="tableau"> Insérer un tableau </h2>
+<h3 id="tableau"> Insérer un tableau </h3>
 
       <pre><code class="language-html">&lttable&gt
   &lttr&gt &ltth&gt TitreColonne1 &lt/th&gt
@@ -1245,7 +1248,7 @@ INSERER UNE VIDEO
 
     <!-- ===== LES SECTIONS CACHEES ====== -->
 
-    <h2 id="cachee">Les sections cachées</h2>
+    <h3 id="cachee">Les sections cachées</h3>
 
     <p>Dans le code HTML, entre les sections <em>head</em> et <em>body</em>, il faut rajouter le script suivant</p>
 
@@ -1277,7 +1280,7 @@ INSERER UNE VIDEO
 
     <p>L'affichage produit est le suivant :</p>
 
-    <h3 id="nomIdentite">Titre de ma section<button type="submit" onclick="affichageConditionnel(this,'nomIdentite_cache');"> + </button></h3>
+    <h4 id="nomIdentite">Titre de ma section<button type="submit" onclick="affichageConditionnel(this,'nomIdentite_cache');"> + </button></h4>
 
     <div id="nomIdentite_cache" style="display:none;">
         <p>Voici le contenu de la section cachée.</p>
@@ -1289,12 +1292,12 @@ INSERER UNE VIDEO
 
     <!-- ===== RESPONSIVE DESIGN ===== -->
 
-    <h2 id="responsive"> Responsive design </h2>
+    <h3 id="responsive"> Responsive design </h3>
 
 
     <!-- ===== LES MEDIA QUERIES ===== -->
 
-<h2 id="queries"> Les media queries </h2>
+<h3 id="queries"> Les media queries </h3>
 
 
 
@@ -1302,7 +1305,7 @@ INSERER UNE VIDEO
 
     <!-- RAJOUT DE BOITE -->
 
-    <h2 id="miseValeur">Mise en valeur d'un paragraphe par une boite</h2>
+    <h3 id="miseValeur">Mise en valeur d'un paragraphe par une boite</h3>
 
     <p>Pour mettre en valeur un texte en utilisant une boîte arrondie avec un effet d'ombre et une image dans le pourtour :</p>
 
@@ -1329,12 +1332,12 @@ INSERER UNE VIDEO
 
     <!-- ECRIRE DU CODE -->
 
-    <h2 id="ecrireCode">Ecrire du code</h2>
+    <h3 id="ecrireCode">Ecrire du code</h3>
 
 
     <!-- ======= VERIFIER LA VALIDITE HTML DU SITE ======= -->
 
-    <h2 id="verification"> Vérifier la validité HTML5 d'un site </h2>
+    <h3 id="verification"> Vérifier la validité HTML5 d'un site </h3>
 
     <p> W3C propose sur son <a href="https://validator.w3.org/">site</a> un outil appelé <em>Validator</em> permettant de valider en ligne des codes sources afin de s'assurer qu'ils sont conformes au standard HTML5. Les erreurs de structure ainsi que les bugs les plus classiques sont systématiquement signalés. Notons que contrairement à beaucoup de langages, HTML ne va pas arrêter son exécution si il rencontre une erreur, mais va tout simplement l'ignorer. Si cela est pratique pour pouvoir continuer d'avancer dans la rédaction du programme, cette approche cache les bugs et les rend plus difficiles à détecter.</p>
     <p> Les erreurs les plus classiques sont les suivantes :</p>
@@ -1348,6 +1351,7 @@ INSERER UNE VIDEO
     <a href="#titreSite" style="margin-left:30%;">&#128314; Haut de page &#128314;</a>
 
 </section> <!-- fin contenu -->
+          </section>  <!-- fin grandContenu -->
 
 <aside id="chapitres">
   <nav>
