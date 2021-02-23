@@ -14,22 +14,53 @@ header{
   width: 100%;
   display: flex;
   flex-direction: row;
-  box-shadow: 6px 6px 5px #555;
+  border-bottom: 3px solid rgba(85, 85, 85, 0.3);
 }
 
 /* conteneur du menu, identifiant hérite de nav */
 header nav{
-  padding-top: 2%;
-  padding-left: 4%;
+  margin-left: 4%;
+  display: flex;
+  flex-direction: row;
 }
 
 header nav a{
+
   font-family: Arial, Cambria, Verdana;
-  font-size: 1em;
+  font-size: 0.9em;
   color: white;
   text-decoration: none; /* enleve le soulignement des liens du menu */
+
 }
 
+header nav .contour_a{
+  padding: 10%;
+}
+
+header nav .contour_a:hover{
+  background-color: #999999;
+  transition: background-color .5s;
+}
+
+header nav .contour_a a:hover{
+  color: white;
+
+}
+
+nav a{
+  font-family: Cambria, Verdana, Arial;
+  font-size:1.3em;
+  text-decoration: none; /* enleve le soulignement des liens du menu */
+  /*color: rgb(41, 61, 61);*/
+}
+
+/* comportement des liens au survol */
+nav a:hover{
+  font-weight: bold;
+  color: rgb(153,102,102);
+}
+
+/* classe hérite de <a> */
 
 
 /* liens dans le texte */
@@ -59,7 +90,7 @@ a:hover{
       margin: 4%;
 }
 
-/* === ASIDE === /*
+/* === ASIDE === */
 
 aside{
   margin: 1%;
@@ -144,26 +175,9 @@ h5{
   color: rgb(51,153,255);
 }
 
-/* === LIENS === */
 
-nav a{
-  font-family: Cambria, Verdana, Arial;
-  font-size:1.3em;
-  text-decoration: none; /* enleve le soulignement des liens du menu */
-  /*color: rgb(41, 61, 61);*/
-}
 
-/* comportement des liens au survol */
-nav a:hover{
-  font-weight: bold;
-  color: rgb(153,102,102);
-}
 
-/* classe hérite de <a> */
-.element{
-  margin: 15px;
-  margin-left: 40px;
-}
 
 
 /* === PRINCIPAL === */
@@ -189,12 +203,23 @@ nav a:hover{
   opacity: 0.4;
   width: 100%;
   margin: 1%;
-  margin-bottom: -1%;
+
   padding-left: 2%;
 
 }
 
 #bandeau_contenu p{
+  color: white;
+
+}
+
+#bandeau_sousTitre{
+  width: 100%;
+  margin: 1%;
+  padding-left: 2%;
+}
+
+#bandeau_sousTitre p{
   color: white;
 }
 
@@ -205,8 +230,9 @@ nav a:hover{
   background-color: white;
   width: 100%;
   margin: 1%;
-  margin-top: 0%;
+  margin-top: -2%;
   padding: 1%;
+
 }
 
 /* texte de pied de balise */
